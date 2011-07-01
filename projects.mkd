@@ -1,0 +1,33 @@
+---
+title: Eric Rochester — Projects
+layout: page
+---
+
+> *Holy cow, but this page is out of date. Let me get right on that.*
+
+This page lists the various projects that are occupying my attention when I'm
+not working or hanging out with my family.
+
+## Corpus Comparison
+
+I'm currently working on a tool to compare corpora and visualize that
+comparison. One of the interesting aspects of this project is figuring out
+exactly how to compare corpora. I'm also using this as a small project to work
+with F#. More information and code will follow.
+
+## Hash-Tag
+
+A site to collect tweets containing a Twitter hash tag and analyze, group, and
+visualize them. This is still in the planning stages.
+
+## Unnamed PIM
+
+A tool to keep notes, todos, and assist you in your workflow. There will be
+both a desktop and a more limited web component. This is in the very early
+planning stages.
+
+## Writing
+
+Generally, I always have a number of writing works in varying stages of
+progress. But I only talk about them once they're pretty near done.
+
