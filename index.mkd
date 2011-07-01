@@ -1,6 +1,6 @@
 ---
-layout: page
 title: Eric Rochester
+layout: page
 ---
 
 Welcome to my spot on the web. This is has information about myself, about some
