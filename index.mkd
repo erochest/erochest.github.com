@@ -3,4 +3,16 @@ layout: page
 title: Eric Rochester
 ---
 
-This is some content here.
+Welcome to my spot on the web. This is has information about myself, about some
+of the projects I've done in the past, about and those I'm working on now.
+
+I am interested in a lot of things that many people find odd: technology,
+computers, programming, writing, language, lexicography, literature, the Middle
+Ages. I have a PhD in English, but I'm currently working as a computer
+programmer. 
+
+My interests tend to float around the intersection of those topics. I enjoy
+creating toys to slice, dice, and analyze language and texts, and I enjoy
+thinking and writing about them.
+
+Feel free to explore and check out some of the pages in the site.

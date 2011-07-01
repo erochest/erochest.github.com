@@ -86,19 +86,54 @@ a:hover { color: #036; }
     \\ ========================================== //
 */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+body { font-family: 'Cabin', sans-serif; }
+#main {
+    height: 300px;
+}
+header {
+    margin-top: 3ex;
+    margin-bottom: 3ex;
+}
+h1 {
+    font-family: 'Artifika', serif;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 1ex;
+}
+p {
+    margin-bottom: 1ex;
+}
+footer {
+    padding-top: 1ex;
+    margin-top: 3ex;
+    margin-bottom: 3ex;
+}
+.topbar {
+    border-top: 1px solid gray;
+}
+footer div {
+    font-size: smaller;
+    font-family: 'Artifika', serif;
+}
+.right {
+    text-align: right;
+}
+#menu ul, #menu ul li {
+    list-style-type: none;
+}
+#menu a:link, #menu a:visited {
+    text-decoration: none;
+}
+#menu a:active, #menu a:hover {
+    text-decoration: none;
+    background-color: silver;
+}
+blockquote {
+    margin: 1em 1em;
+}
+em {
+    font-style: italic;
+}
 
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
 .hidden { display: none; visibility: hidden; }
