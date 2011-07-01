@@ -87,9 +87,6 @@ a:hover { color: #036; }
 */
 
 body { font-family: 'Cabin', sans-serif; }
-#main {
-    height: 300px;
-}
 header {
     margin-top: 3ex;
     margin-bottom: 3ex;
@@ -100,12 +97,18 @@ h1 {
     font-weight: bold;
     margin-bottom: 1ex;
 }
+h2 {
+    font-family: 'Artifika', serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0.75ex;
+}
 p {
     margin-bottom: 1ex;
 }
 footer {
     padding-top: 1ex;
-    margin-top: 3ex;
+    margin-top: 6ex;
     margin-bottom: 3ex;
 }
 .topbar {
@@ -133,6 +136,9 @@ blockquote {
 }
 em {
     font-style: italic;
+}
+strong {
+    font-weight: bolder;
 }
 
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }

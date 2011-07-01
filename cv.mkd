@@ -1,0 +1,146 @@
+---
+title: Eric Rochester — Curriculum Vitæ
+layout: page
+---
+
+
+## Computational/Corpus Linguistics 
+
+**Information Extraction** Identified people, places, and times in document
+collections to develop timelines for legal investigations, court preparations,
+and electronic document discovery. 
+
+**Statistical Analysis** Identified shifts in topics in a corpus of documents.
+Developed a natural-language database interface using rule-based grammars.
+Analyzed authors' stylistics. Collaborated with other linguists, legal staff,
+and subject-matter experts to develop customized electronic document discovery
+solutions. 
+
+**Computational Lexicography** Designed and implemented a computer program to
+facilitate best practices in writing and maintaining dictionary pronunciations. 
+
+**Programming** Wrote programs analyzing text and language in Python, C#, Scala,
+PROLOG, and other computer languages. Used hidden Markov models, support vector
+machines, neural networks, and a variety of statistical tests.
+
+## Computer/Web Programming 
+
+**Complete Life Cycle** Designed, implemented, and deployed an updated site for
+the Linguistic Atlas Projects. This included transitioning to a RDBMS (MySQL)
+and new web framework.
+
+**Distributed Text Processing** Designed and wrote a simple Map/Reduce clone in
+Erlang to distribute text processing over a small cluster of computers.
+Implemented a web application in Python and Django to track the work and view
+the results.
+
+**Team Work** Collaborated with teams using a variety of tools, including SVN,
+Mercurial, TRAC, and wikis.   
+
+**Experience and Technologies** Have 10 years experience writing Python
+programs for desktop applications with Tkinter and wxWidgets and for web
+applications with CGI, Django, and other frameworks. Have 6 years experience
+writing C# programs for desktop applications with WinForms and for libraries to
+be used in a variety of contexts. Developed web sites with Python and Django,
+HTML, CSS, and AJAX. 
+
+**New Languages** Advancing skills in a variety of new languages, including F#,
+OCaml, Scala, and Common Lisp.
+
+## Technical Writing  
+
+**New Techniques** Wrote and recorded a screencast to help users navigate a
+complex process on their computers. 
+
+**Communicating Complex Information in Computers and Lingustics** Trained
+lawyers, staff, and clients on the basics of computational and corpus
+linguistics. Wrote a section of a whitepaper describing computer search
+techniques. Maintained API documentation for a number of software projects in
+Python and C#. 
+
+**Tools** Including wikis, DocBook, XSLT, XSLT-FO, LaTeX. Generated final
+products in HTML, camera-ready PDF, Compiled Help files, and other formats. 
+
+## Professional Experience  
+
+_**Lunex Telecom, Lilburn, GA **_<br>
+May 2009 – Present <br>
+*Computer Programmer*<br>
+Developed web sites for a growing telecommunications company. 
+
+_**Text Tech and Wordnik **_<br>
+November 2009 <br>
+*Consultant, Computational Lexicography*<br>
+Transfered and modified Text Tech's dictionary pronunciations for use by Wordnik.com. 
+
+_**ASE Edge, Inc, Pittsburgh, PA**_<br>
+January 2008 –  May 2009 <br>
+*Consultant, Computational Linguistics*<br>
+Maintained a .NET library for doing corpus analysis, statistics, and electronic document discovery. 
+
+_**Ava White Tutorials**_<br>
+April 2008 – September 2009 <br>
+*Consultant, IT and Web Developer*<br>
+Helped transition to a new ISP and coded several web sites to her design and specification. 
+
+_**ASE Edge, Inc, Pittsburgh, PA**_<br>
+May 2004 – January 2008 <br>
+*Computational Linguist*<br>
+Maintained a .NET library for doing corpus analysis, statistics, and electronic document discovery.
+
+_**Oxford University Press, Oxford, England **_<br>
+1999, 2003, 2005 <br>
+*Consultant, Lexicography*<br>
+Provided American pronunciations for the Oxford English Dictionary and wrote
+programs to facilitate entering those pronunciations. 
+
+_**Schwa **_<br>
+Fall 2003 – May 2004 <br>
+*Programmer, Researcher*<br>
+Designed and implements a system for working with dictionary pronunciations. 
+
+_**Linguistic Atlas Projects, University of Georgia, Athens, GA **_<br>
+Spring 1998 – May 2004 <br>
+*Systems Administrator, Database Administrator, Web Designer*<br>
+Developed and maintained the computer servers for the Linguistic Atlas Projects. 
+
+## Education 
+
+### Dissertation 
+
+**Schwa: A Dictionary Pronunciation Database System**<br>
+Director: William A. Kretzschmar, Jr. <br>
+
+Schwa implements a computer system for editing and managing dictionary
+pronunciations. This system emphasizes interoperability by using standard
+technologies such as XML and Unicode, and it includes an in-depth examination
+of the issues involved in producing lexicographical pronunciations, both from
+an historical, a technical, and a theoretical perspective. It also included
+complete documentation for the software described.
+
+**University of Georgia, Athens, GA **<br>
+1995–2004, Ph.D., English
+
+**Southern Adventist University, Collegedale, TN **<br>
+1988–1993, B.A., English; minor, sociology
+
+## Professional Organizations 
+
+ * Association for Computers in the Humanities 
+ * Association for Computational Linguistics 
+ * MLA 
+ * Publications and Papers 
+
+## Selected Presentations 
+
+“New Tools for Analyzing Texts.” Language and Literature 10.2 (2001): 187–91. 
+
+## Selected Conference Papers 
+
+“Designing Linguistic Data Web Sites.” New Ways of Analyzing Variation (in
+English and other languages) (NWAVE), Athens, Georgia, October 1998. 
+
+“Intuitive Interfaces for the Retrieval of Linguistic Data” (with William A.
+Kretzschmar, Jr.). The Association for Literary and Linguistic Computing and
+the Association for Computers and the Humanities (ALLC/ACH), Debrecen, Hungary,
+July 1998. 
