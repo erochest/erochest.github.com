@@ -1,0 +1,8 @@
+---
+title: Portfolios
+layout: page
+---
+
+ * [Web Site Portfolio](https://picasaweb.google.com/erochest/WebPortfolio?feat=directlink)
+ * [Writing Portfolio](/writing-portfolio.html)
+
