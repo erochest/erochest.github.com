@@ -1,0 +1,18 @@
+---
+title: Eric Rochester — About Me
+layout: page
+---
+
+I am a husband and a father. This site doesn't have much to do with my personal
+life.
+
+But beyond that, things get foggy.
+
+At various points in my life, I have been a writer, computer programmer,
+computational/corpus linguist, and literary critic. Like a crazy person, I
+still try to do all of them to some extent. As [John Maeda
+says](http://weblogs.media.mit.edu/SIMPLICITY/archives/000228.html), when faced
+with a choice, *do both*.
+
+It makes for a very harried life.
+
