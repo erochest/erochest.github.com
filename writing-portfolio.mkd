@@ -1,5 +1,5 @@
 ---
-title: Eric Rochester — Writing Portfolio
+title: Writing Portfolio
 layout: page
 ---
 

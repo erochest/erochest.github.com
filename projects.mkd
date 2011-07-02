@@ -1,5 +1,5 @@
 ---
-title: Eric Rochester — Projects
+title: Projects
 layout: page
 ---
 

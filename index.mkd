@@ -1,5 +1,5 @@
 ---
-title: Eric Rochester
+title: Home
 layout: page
 ---
 
