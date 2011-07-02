@@ -1,0 +1,123 @@
+---
+title: Eric Rochester — Writing Portfolio
+layout: page
+---
+
+# Web Pages/Articles
+
+These are articles I did for <a href="http://www.sanma.org/">SANMA</a> (a
+non-profit specializing in helping alleviate child labor, poverty, and
+illiteracy in south Asia).
+
+> ## Illiteracy and Child Labor
+> 
+> When Baidu was twelve, his father died. From that point on, his childhood was
+> over, and he had to provide for his mother. So he went to work in a local
+> cotton factory. The work was tiring, and some jobs were dangerous. He spent
+> all day breathing in cotton lint, which made him ill. But he had to care for
+> his mother, so he went anyway.
+> 
+> Baidu isn't alone. UNICEF reports that 13 million children in South Asia and
+> 10 million in East Asia and the Pacific (excluding China) work. Most have to
+> work, because their parents' cannot put food on the table, so their income is
+> crucial to their families' survival.
+
+<p class="right"><a href="http://docs.google.com/Doc?id=dgfsqh33_2g6hffwdk">
+More »
+</a></p>
+
+> ## Farm India
+> 
+> Naik owns a two-acre farm. He received it from his father, who received it
+> from his father.
+> 
+> But now the fields lie fallow. Naik knows how to cultivate it, but he can’t.
+> He cannot afford the oxen he needs to plow it. And because he cannot farm, he
+> cannot make a living.
+
+<p class="right"><a href="http://docs.google.com/Doc?id=dgfsqh33_2g6hffwdk">
+More »
+</a></p>
+
+This is a short definition of lexicography I wrote for Text Tech.
+
+> ## A Definition of Lexicography
+> 
+> Lexicography refers to the processes involved in the determination of word
+> meaning and the construction of dictionaries, including but not limited to
+> the following: designing domain specific guidelines for dictionary
+> construction; research and gathering of old and new words and the associated
+> quotations, etymologies and pronunciations; researching and writing of
+> definitions; researching word usage; text encoding and formatting for storage
+> and publication. Although dictionaries are familiar references, the work
+> involved in producing a reliable dictionary is quite specialized. It requires
+> a keen understanding of linguistics, dialectal variation, semantics, and word
+> usage patterns. At TLTG we have expertise in these fields. As well, we have
+> access to the latest research in pronunciations and maintain a database of
+> over 100,000 current word pronunciations in both American and British English
+> variations. We also have access to an extensive collection of texts for the
+> analysis of word meaning, and have developed programs for assisting the
+> lexicographer with research, data storage, and data conversion. With these
+> resources, and the fact that we focus on a few words at a time, we can
+> quickly go beyond the information provided by most dictionaries. That is,
+> while they list what a word could mean at the time the dictionaries were
+> compiled, we are able to rapidly determine what a word means right now, based
+> on the current usage.
+
+# Whitepapers
+
+Here is part of a whitepaper I helped a company that does legal electronic
+discovery write.
+
+> ## Addendum D - Fundamental Differences Between Search Engines and Linguistic Evaluations
+> 
+> The proprietary linguistic evaluation engine has several fundamental
+> differences when compared to traditionally search engines, whether on the
+> Internet or otherwise. In many ways, this compares apples to oranges:
+> although there are apparent similarities, they perform radically different
+> functions.  Following is a brief comparison to highlight the power of the
+> linguistic evaluation engine, as opposed to the traditional search engine.
+
+<p class="right"><a
+href="http://docs.google.com/Doc?id=dgfsqh33_0fbw44wds">Click here for a longer
+excerpt »</a></p>
+
+# Brochure
+
+This is an excerpt from a brochure I wrote for <a
+href="http://www.sanma.org/">SANMA</a> describing some of their special
+projects.
+
+> ## Agricultural Literacy
+> 
+> Although child laborers’ incomes are necessary to their families, they often
+> make very little, and a simple, small investment in their financial future
+> can free the children to pursue an education and become literate.
+
+<p class="right"><a href="http://docs.google.com/Doc?id=dgfsqh33_4ckpdrshn">
+More »
+</a></p>
+
+# Catalog
+
+These samples are from an online catalog copy I wrote for <a
+href="http://www.sanma.org/">SANMA</a>. Each contained a short description and
+a slightly longer detail view.
+
+> ## Infant Care
+> 
+> Cover: Diarrhea kills 1,600 children every day. Your gift trains a mother in
+> life-saving infant care.  Detail: Diarrhea kills 1,600 children every day. A
+> simple mixture of salt, sugar, and water could save the lives of many of
+> these children, if their mothers only knew it. When living in poverty, a
+> little knowledge can make the difference between life and death. Your small
+> gift would help educate a mother on how best to care for her child.
+> 
+> ## Farming Animals
+> 
+> Cover: Your gift purchases a pair of oxen, nearly doubling a farmer’s
+> production and income.  Details: In the United States, it is difficult to
+> imagine a farmer without a tractor, yet many in south Asia do not even have
+> livestock to help them till their fields. A pair of bulls is a tremendous
+> asset that nearly doubles a farmer’s production and income.
+
