@@ -124,10 +124,16 @@ footer div {
 #menu ul, #menu ul li {
     list-style-type: none;
 }
-#menu a:link, #menu a:visited {
+#menu a:link,
+#menu a:visited,
+#bio a:link,
+#bio a:visited {
     text-decoration: none;
 }
-#menu a:active, #menu a:hover {
+#menu a:active,
+#menu a:hover,
+#bio a:active,
+#bio a:hover {
     text-decoration: none;
     background-color: silver;
 }
