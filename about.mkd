@@ -3,8 +3,10 @@ title: About Me
 layout: page
 ---
 
-I am a husband and a father. This site doesn't have much to do with my personal
-life.
+<p><span style='float: right;'><img alt='Gravatar'
+src='http://www.gravatar.com/avatar/0e72db523b0c799c871b7755eda209f5.png'
+/></span> I am a husband and a father. This site doesn't have much to do with
+my personal life.</p>
 
 But beyond that, things get foggy.
 
