@@ -121,7 +121,8 @@ footer div {
 .right {
     text-align: right;
 }
-#menu ul, #menu ul li {
+#menu ul,
+#menu ul li {
     list-style-type: none;
 }
 #menu a:link,
@@ -145,6 +146,15 @@ em {
 }
 strong {
     font-weight: bolder;
+}
+
+/* For blog indexes and posts. */
+.post-footer {
+    font-size: smaller;
+}
+.related ul,
+.related ul li {
+    list-style-type: none;
 }
 
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }

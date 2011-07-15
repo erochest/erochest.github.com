@@ -3,3 +3,5 @@ lsi: false
 pygments: true
 
 permalink: /blog/:year/:month/:day/:title
+paginate: 10
+exclude: Rakefile
