@@ -4,6 +4,7 @@ layout: index
 ---
 
 <div class='content'>
+  &nbsp;
   <div class='related'>
     <ul>{% for post in site.posts limit:paginator.per_page %}
       <li>
