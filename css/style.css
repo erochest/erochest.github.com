@@ -147,6 +147,9 @@ em {
 strong {
     font-weight: bolder;
 }
+ul, ol {
+    margin-bottom: 1em;
+}
 
 /* For blog indexes and posts. */
 .post-footer {
