@@ -1,28 +1,71 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:foaf="http://xmlns.com/foaf/0.1/" > 
-  <rdf:Description rdf:about="http://www.ericrochester.com/ericrochester.ttl#eric">
-    <foaf:homepage rdf:resource="http://www.ericrochester.com/"/>
-    <foaf:weblog rdf:resource="http://www.ericrochester.com/blog/"/>
-    <foaf:mbox_sha1sum>30626eb9784d4b090a9557329643ec162dbcb7ad</foaf:mbox_sha1sum>
-    <foaf:mbox rdf:resource="mailto:err8n@virginia.edu"/>
-    <foaf:schoolHomepage rdf:resource="http://www.uga.edu/"/>
+  <rdf:Description rdf:nodeID="A0">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/OnlineAccount"/>
+    <foaf:accountServiceHomepage rdf:resource="http://www.twitter.com/"/>
+    <foaf:accountName>erochest</foaf:accountName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ericrochester.com/ericrochester.rdf#eric">
+    <foaf:mbox rdf:resource="mailto:eric@ericrochester.com"/>
+    <foaf:title>Dr</foaf:title>
     <foaf:myersBriggs>INTP</foaf:myersBriggs>
     <foaf:nick>Eric</foaf:nick>
-    <foaf:workInfoHomepage rdf:resource="http://www2.lib.virginia.edu/scholarslab/about/people.html?name=eric#people-detail"/>
-    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
-    <foaf:firstName>Eric</foaf:firstName>
-    <foaf:mbox rdf:resource="mailto:erochest@virginia.edu"/>
-    <foaf:mbox rdf:resource="mailto:eric@ericrochester.com"/>
-    <foaf:mbox rdf:resource="mailto:erochest@gmail.com"/>
-    <foaf:title>Dr</foaf:title>
-    <foaf:mbox_sha1sum>d7c5d16d2522d77bdb3e31b8d0bf29277fb2cefe</foaf:mbox_sha1sum>
-    <foaf:schoolHomepage rdf:resource="http://www.southern.edu/"/>
-    <foaf:depiction rdf:resource="http://www.gravatar.com/avatar/0e72db523b0c799c871b7755eda209f5.png"/>
-    <foaf:name>Eric Rochester</foaf:name>
-    <foaf:mbox_sha1sum>22088b910a0f5c79a1954911726e0f759b8fc0d7</foaf:mbox_sha1sum>
+    <foaf:account rdf:nodeID="A1"/>
     <foaf:workplaceHomepage rdf:resource="http://www.scholarslab.org/"/>
+    <foaf:account rdf:nodeID="A2"/>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:familyName>Rochester</foaf:familyName>
+    <foaf:mbox_sha1sum>22088b910a0f5c79a1954911726e0f759b8fc0d7</foaf:mbox_sha1sum>
+    <foaf:schoolHomepage rdf:resource="http://www.uga.edu/"/>
+    <foaf:weblog rdf:resource="http://www.ericrochester.com/blog/"/>
+    <foaf:mbox_sha1sum>d7c5d16d2522d77bdb3e31b8d0bf29277fb2cefe</foaf:mbox_sha1sum>
     <foaf:mbox_sha1sum>84574b93e1e57a098d630dfdf8aa2fd3ca4fb4f4</foaf:mbox_sha1sum>
-    <foaf:surname>Rochester</foaf:surname>
+    <foaf:schoolHomepage rdf:resource="http://www.southern.edu/"/>
+    <foaf:account rdf:nodeID="A3"/>
+    <foaf:mbox rdf:resource="mailto:err8n@virginia.edu"/>
+    <foaf:mbox_sha1sum>30626eb9784d4b090a9557329643ec162dbcb7ad</foaf:mbox_sha1sum>
+    <foaf:name>Eric Rochester</foaf:name>
+    <foaf:openid rdf:resource="http://www.ericrochester.com/"/>
+    <foaf:account rdf:nodeID="A4"/>
+    <foaf:img rdf:resource="http://www.gravatar.com/avatar/0e72db523b0c799c871b7755eda209f5.png"/>
+    <foaf:account rdf:nodeID="A5"/>
+    <foaf:mbox rdf:resource="mailto:erochest@gmail.com"/>
+    <foaf:givenName>Eric</foaf:givenName>
+    <foaf:account rdf:nodeID="A6"/>
+    <foaf:mbox rdf:resource="mailto:erochest@virginia.edu"/>
+    <foaf:workInfoHomepage rdf:resource="http://www2.lib.virginia.edu/scholarslab/about/people.html?name=eric#people-detail"/>
+    <foaf:account rdf:nodeID="A0"/>
+    <foaf:homepage rdf:resource="http://www.ericrochester.com/"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A4">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/OnlineAccount"/>
+    <foaf:accountServiceHomepage rdf:resource="http://www.facebook.com/"/>
+    <foaf:accountName>erochest</foaf:accountName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A2">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/OnlineAccount"/>
+    <foaf:accountServiceHomepage rdf:resource="http://www.linkedin.com/"/>
+    <foaf:accountName>erochester</foaf:accountName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A5">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/OnlineAccount"/>
+    <foaf:accountServiceHomepage rdf:resource="http://profiles.google.com/"/>
+    <foaf:accountName>erochest</foaf:accountName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A6">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/OnlineAccount"/>
+    <foaf:accountServiceHomepage rdf:resource="http://www.skype.com/"/>
+    <foaf:accountName>erochester</foaf:accountName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A1">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/OnlineAccount"/>
+    <foaf:accountServiceHomepage rdf:resource="https://www.bitbucket.com/"/>
+    <foaf:accountName>erochest</foaf:accountName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A3">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/OnlineAccount"/>
+    <foaf:accountServiceHomepage rdf:resource="https://www.github.com/"/>
+    <foaf:accountName>erochest</foaf:accountName>
   </rdf:Description>
 </rdf:RDF>
