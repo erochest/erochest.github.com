@@ -1,0 +1,10 @@
+---
+title: Labs
+layout: page
+---
+
+This is where I'll aggregate pages about projects I'm working on.
+
+Currently, I don't have any thing up here, but nature abhors a vacuum, so we'll
+see what gets sucked in.
+
