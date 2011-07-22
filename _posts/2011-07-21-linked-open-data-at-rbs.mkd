@@ -24,7 +24,7 @@ also.
 
 ## The Linked Open Data Universe
 
-<p style='float: right; font-size: smaller;'>
+<p style='font-size: smaller; width: 300px; margin-left: auto; margin-right: auto; text-align: center;'>
 <a href="http://lod-cloud.net/">
 <img src="http://richard.cyganiak.de/2007/10/lod/lod-datasets_2010-09-22.png" alt="Linked Open Data cloud" height="195" width="300" />
 </a>
@@ -33,7 +33,7 @@ also.
 </p>
 
 The first thing to know about LOD is that it’s everywhere. Look at the [Linked
-Open Data cloud diagram](http://lod-cloud.net/) on the right. All of these
+Open Data cloud diagram](http://lod-cloud.net/) above. All of these
 institutions are publishing data that anyone can use, and their data references
 others' data also.
 
@@ -100,7 +100,7 @@ For describing people, there’s a vocabulary standard called [Friend of a Frien
 (FOAF)](http://www.foaf-project.org/). I’ve used that on my web site to provide
 information about me. (The file on my website is in
 [RDF/XML](http://en.wikipedia.org/wiki/RDF/XML), which can be frightening. I’ve
-converted it to [Turtle](http://en.wikipedia.org/wiki/Turtle_(syntax)), which
+converted it to [Turtle](http://en.wikipedia.org/wiki/Turtle_(syntax%29), which
 we can walk through more easily.)
 
 I’ll show you parts of it line-by-line.
