@@ -1,6 +1,6 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
-[] a <http://xmlns.com/foaf/0.1/Person>;
+<http://www.ericrochester.com/ericrochester.ttl#eric> a <http://xmlns.com/foaf/0.1/Person>;
     foaf:depiction <http://www.gravatar.com/avatar/0e72db523b0c799c871b7755eda209f5.png>;
     foaf:firstName "Eric";
     foaf:homepage <http://www.ericrochester.com/>;
