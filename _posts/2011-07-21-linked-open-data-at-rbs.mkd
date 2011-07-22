@@ -8,10 +8,10 @@ tags: lod lodlam tutorial python code rdf loc
   *This is cross posted at [The Scholars' Lab
   Blog](http://www.scholarslab.org/digital-libraries/introduction-to-linked-open-data-at-rare-books-school/).*
 
-Yesterday (July 20), I was fortunate enough to be invited by [Andrew
+Yesterday, I was fortunate to be invited by [Andrew
 Stauffer](http://www.engl.virginia.edu/faculty/stauffer_andrew.shtml) and
-[Bethany Nowviskie](http://twitter.com/!/nowviskie) to present at their [Rare
-Book School](http://www.rarebookschool.org/) course, [Digitizing the Historical
+[Bethany Nowviskie](http://nowviskie.org/) to present at their [Rare Book
+School](http://www.rarebookschool.org/) course, [Digitizing the Historical
 Record](http://rarebookschool.org/courses/libraries/l65/). I talked about
 [Linked Open Data](http://en.wikipedia.org/wiki/Linked_Data) (LOD), and
 afterward, [Dana Wheeles](http://twitter.com/!/bluesaepe) talked about the
