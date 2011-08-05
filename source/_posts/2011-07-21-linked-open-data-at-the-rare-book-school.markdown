@@ -46,6 +46,7 @@ The first thing to know about LOD is that it’s everywhere. Look at the
 institutions are publishing data that anyone can use, and their data references
 others' data also.
 
+<!--more-->
 
 ## Linked Data vs Open Data vs RDF Data
 
