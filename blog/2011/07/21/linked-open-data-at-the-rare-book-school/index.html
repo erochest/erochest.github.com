@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Eric Rochester: Linked Open Data at the Rare Book School</title>
+  <meta name="author" content="Eric Rochester">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  
+  <link href="/atom.xml" rel="alternate" title="Eric Rochester" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1756003-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link rel='meta' type='application/rdf+xml' title='FOAF' href='/ericrochester.rdf'>
+<link rel='meta' type='text/turtle' title='FOAF' href='/ericrochester.ttl'>
+<link rel="openid.server" href="http://www.myopenid.com/server" />
+<link rel="openid.delegate" href="http://erochest.myopenid.com/" />
+<link rel="openid2.local_id" href="http://erochest.myopenid.com" />
+<link rel="openid2.provider" href="http://www.myopenid.com/server" />
+<meta http-equiv="X-XRDS-Location" content="http://www.myopenid.com/xrds?username=erochest.myopenid.com" />
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Eric Rochester</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:www.ericrochester.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/contact/">Contact</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Linked Open Data at the Rare Book School</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-07-21 15:39:00 -0400" pubdate  updated >Jul 21<span>st</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>  <em>This is cross posted at
+  <a href="http://www.scholarslab.org/digital-libraries/introduction-to-linked-open-data-at-rare-books-school/">The Scholars&#8217; Lab Blog</a>.</em></p>
+
+<p>Yesterday, I was fortunate to be invited by
+<a href="http://www.engl.virginia.edu/faculty/stauffer_andrew.shtml">Andrew Stauffer</a> and
+<a href="http://nowviskie.org/">Bethany Nowviskie</a> to present at their
+<a href="http://www.rarebookschool.org/">Rare Book School</a> course,
+<a href="http://rarebookschool.org/courses/libraries/l65/">Digitizing the Historical Record</a>.
+I talked about
+<a href="http://en.wikipedia.org/wiki/Linked_Data">Linked Open Data</a> (LOD), and
+afterward, <a href="http://twitter.com/!/bluesaepe">Dana Wheeles</a> talked about the
+<a href="http://www.nines.org/">NINES</a> project and how they use RDF and LOD.</p>
+
+<p>I tried to present a gentle, mostly non-technical introduction to LOD, with an
+example of it in action. Hopefully, this posting will be a 50,000 foot overview
+also.</p>
+
+<h2>The Linked Open Data Universe</h2>
+
+<p style='font-size: smaller; width: 300px; margin-left: auto; margin-right: auto; text-align: center;'>
+<a href="http://lod-cloud.net/">
+<img src="http://richard.cyganiak.de/2007/10/lod/lod-datasets_2010-09-22.png" alt="Linked Open Data cloud" height="195" width="300" />
+</a>
+<em>Linking Open Data cloud diagram, by Richard Cyganiak and Anja Jentzsch.
+<a href="http://lod-cloud.net/">http://lod-cloud.net/</a></em>
+</p>
+
+
+<p>The first thing to know about LOD is that it’s everywhere. Look at the
+<a href="http://lod-cloud.net/">Linked Open Data cloud diagram</a> above. All of these
+institutions are publishing data that anyone can use, and their data references
+others&#8217; data also.</p>
+
+<!--more-->
+
+
+<h2>Linked Data vs Open Data vs RDF Data</h2>
+
+<p>First we need to unpack the term <em>Linked Open Data</em>:</p>
+
+<p><strong>Linked</strong> is an approach to data. You need to provide context for your data;
+you need to point to other’s data.</p>
+
+<p><strong>Open</strong> is a policy. Your data is out there for others to look at and use; you
+explicitly give others this permission.</p>
+
+<p><strong>Data</strong> is a technology and a set of standards. Your data is available using
+an RDF data model (usually) so computers can easily process it.</p>
+
+<p><em>(See
+<a href="http://blogs.ecs.soton.ac.uk/webteam/2011/07/17/linked-data-vs-open-data-vs-rdf-data/">Christopher Gutteridge’s post</a>
+for more about this distinction.)</em></p>
+
+<h2>Five Stars</h2>
+
+<p>Creating LOD can seem overwhelming. Where do you start? What do you have to do?
+It’s not an all or nothing proposition. You can take what you have, figure out
+how close you are to LOD, and work gradually toward making your information a
+full member of the LOD cloud. The LOD community talks about having four-star
+data or five-star data. Here are what the different stars denote:</p>
+
+<ol>
+<li>You’ve released the data using any format under an <strong>open</strong> license that
+allows others to view and use your data;</li>
+<li>You’ve released the data in a <strong>structured</strong> format so that some program
+can deal with it (e.g., Excel);</li>
+<li>You’ve released the data in a <strong>non-proprietary</strong> format, like CVS;</li>
+<li>You’ve used <strong>HTTP URIs</strong> (things you can type into your web browser’s
+location bar) to identify things in your data and made those URIs available
+on the web so others can point to your stuff;</li>
+<li>You explicitly <strong>link</strong> your data to others’ data to provide context.</li>
+</ol>
+
+
+<p><em>(This is all over the web.
+<a href="http://lab.linkeddata.deri.ie/2010/star-scheme-by-example/">Michael Hausenblas’ explanation with examples</a>
+is a good starting point.)</em></p>
+
+<h2>Representing Knowledge</h2>
+
+<p>A large part of this is about representing knowledge so computers can easily
+process it. Often LOD is encoded using
+<a href="http://en.wikipedia.org/wiki/Resource_Description_Framework">Resource Description Framework (RDF)</a>.
+This
+provides a way to model information using a series of statements. Each
+statement has three parts: a subject, a predicate, and an object. Subjects and
+predicates <em>must</em> be URIs. Objects can be URIs (linked data) or data literals.</p>
+
+<p>The predicates that you can use are grouped into <em>vocabularies</em>. Each
+vocabulary is used for a specific domain.</p>
+
+<p>We’re getting abstract, so let’s ground this discussion by looking at a
+specific vocabulary and set of statements.</p>
+
+<h3>Friend of a Friend</h3>
+
+<p>For describing people, there’s a vocabulary standard called
+<a href="http://www.foaf-project.org/">Friend of a Friend (FOAF)</a>.
+I’ve used that on my web site to provide
+information about me. (The file on my website is in
+<a href="http://en.wikipedia.org/wiki/RDF/XML">RDF/XML</a>, which can be frightening. I’ve
+converted it to <a href="http://en.wikipedia.org/wiki/Turtle_(syntax%29">Turtle</a>, which
+we can walk through more easily.)</p>
+
+<p>I’ll show you parts of it line-by-line.</p>
+
+<p>(Ahem. Before we start, a disclaimer: I need to update my FOAF file. It doesn’t
+reflect best practices. The referencing URL isn’t quite the way it should be,
+and it uses deprecated FOAF predicates. That said, if you can ignore my dirty
+laundry, it still illustrates the points I want to make about the basic
+structure of RDF.)</p>
+
+<p>First,</p>
+
+<pre><code>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+</code></pre>
+
+<p>This just says that anywhere <code>foaf:</code> appears later, replace it with the URL
+<code>http://xmlns.com/foaf/0.1/</code>.</p>
+
+<pre><code>[] a &lt;http://xmlns.com/foaf/0.1/Person&gt;;
+</code></pre>
+
+<p>This is a statement. <code>[]</code> just means that it’s talking about the document
+itself, which in this case is a stand-in for me. The predicate here is <code>a</code>,
+which is a shortcut that’s used to tell what type of an object something is. In
+this case, it says that I’m a person, as FOAF defines it.</p>
+
+<p>And because the line ends in a semicolon, the rest of the statements are also
+about me. Or more specifically, about <code>[]</code>.</p>
+
+<pre><code>foaf:firstName "Eric";
+foaf:surname "Rochester";
+foaf:name "Eric Rochester";
+foaf:nick "Eric";
+</code></pre>
+
+<p>This set of statements still have the implied subject of me, and they use a
+series of predicates from FOAF. The object of each is a literal string, giving
+a value. Roughly this translates into four statements:</p>
+
+<ul>
+<li>Eric’s first name is “Eric.”</li>
+<li>Eric’s given name is “Rochester.”</li>
+<li>Eric’s full name is “Eric Rochester.”</li>
+<li>Eric’s nickname is “Eric.”</li>
+</ul>
+
+
+<p>The next statement is a little different:</p>
+
+<pre><code>foaf:workplaceHomepage &lt;http://www.scholarslab.org/&gt; .
+</code></pre>
+
+<p>This final statement has a URI as the object. It represents this statement:</p>
+
+<ul>
+<li>Eric’s workplace’s home page is
+“<a href="http://www.scholarslab.org/">http://www.scholarslab.org/</a>”.</li>
+</ul>
+
+
+<p>If this was a little overwhelming, thank you for sticking around this far.
+Now here’s what you need to know about modeling information using RDF:</p>
+
+<ol>
+<li>Everything is expressed as subject-predicate-object statements; and</li>
+<li>Predicates are grouped into vocabularies.</li>
+</ol>
+
+
+<p>The rest is just details.</p>
+
+<h2>Linked Open Data and the Semantic Web</h2>
+
+<p>During my presentation, someone pointed out that this all sounds a lot like the
+<a href="http://en.wikipedia.org/wiki/Semantic_web">Semantic Web</a>.</p>
+
+<p>Yes, it does. LOD is the semantic web without the focus on understanding and
+focusing more on what we can do. Understanding may come later—or not—but in the
+meantime we can still do some pretty cool things.</p>
+
+<h2>So What?</h2>
+
+<p>The benefit of all this is that it provides another layer for the internet. You
+can use this information to augment your own services (e.g., Google augments
+their search results with RDF data about product reviews) or build services on
+top of this information.</p>
+
+<p>If you’re curious for more or still aren’t convinced, visit the
+<a href="http://obd.jisc.ac.uk/">Open Bibliographic Data Guide</a>.  They make a
+business case and articulate some use cases for LOD for libraries and other
+institutions.</p>
+
+<h2>For Example</h2>
+
+<p>Discussing LOD can get pretty abstract and pretty meta.  To keep things
+grounded, I spent a few hours and threw together a quick demonstration of what
+you can do with LOD.</p>
+
+<p>The Library of Congress’
+<a href="http://chroniclingamerica.loc.gov/">Chronicling America</a> project exposes
+data about the newspapers in its archives using RDF. It’s five-star data, too.
+For example, to tell the geographic location that the papers covered, it links
+to both <a href="http://www.geonames.org/">GeoNames</a> and
+<a href="http://dbpedia.org/About">DBpedia</a>.  The LoC doesn’t provide the coordinates
+of these cities, but because they express the places with a link, I can follow
+those and read the latitude and longitude from there.</p>
+
+<p>I wrote a <a href="http://www.python.org/">Python</a> script that uses
+<a href="http://www.rdflib.net/">RDFlib</a> to read the data from the LoC and GeoNames and
+writes it out using <a href="http://en.wikipedia.org/wiki/Kml">KML</a>. You can view this
+file using Google Maps or Google Earth.</p>
+
+<p>Here’s the results of one run of the script. (I randomly pick 100 newspapers
+from the LoC, so the results of each run is different.)</p>
+
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626&amp;output=embed"></iframe>
+
+
+<br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626" style="color:0000FF;text-align:left">View Larger Map</a></small>
+
+
+<p>You can find the source for this example on both Github and BitBucket:</p>
+
+<ul>
+<li><a href="https://github.com/erochest/loc-chronicling-map">https://github.com/erochest/loc-chronicling-map</a></li>
+<li><a href="https://bitbucket.org/erochest/loc-chronicling-map/overview">https://bitbucket.org/erochest/loc-chronicling-map/overview</a></li>
+</ul>
+
+
+<h2>Resources</h2>
+
+<p>Throughout this post, I’ve tried to link to some resources. Here are a few more
+(not all of these will be appropriate to a novice):</p>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linked_Data">The Wikipedia page on linked data</a>.</li>
+<li><a href="http://obd.jisc.ac.uk/">The Open Bibliographic Data Guide</a>, which provides rationales for LOD.</li>
+<li><a href="http://linkddata.org/">A portal to LOD resources and tools</a>.</li>
+<li><a href="http://www.w3.org/wiki/LinkedData">A portal maintained by the W3C</a>.</li>
+<li><a href="http://lod-cloud.net/">The LOD cloud</a>.</li>
+<li><a href="http://www.w3.org/DesignIssues/LinkedData.html">The four rules of LOD</a>.</li>
+<li><a href="http://lab.linkeddata.deri.ie/2010/star-scheme-by-example/">The five rules</a>.</li>
+<li><a href="http://blogs.ecs.soton.ac.uk/webteam/2011/07/17/linked-data-vs-open-data-vs-rdf-data/">Linked vs Open vs Data</a>.</li>
+<li><a href="http://linkeddatabook.com/book">A book on publishing LOD on the internet</a>.</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Eric Rochester</span></span>
+
+      
+
+
+
+
+<time datetime="2011-07-21 15:39:00 -0400" pubdate  updated >Jul 21<span>st</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/LOD/'>LOD</a>, <a class='category' href='/blog/categories/LODLAM/'>LODLAM</a>, <a class='category' href='/blog/categories/LoC/'>LoC</a>, <a class='category' href='/blog/categories/Python/'>Python</a>, <a class='category' href='/blog/categories/RDF/'>RDF</a>, <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/" data-via="erochest" data-counturl="http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>About Me</h1>
+  <p>
+    <span style='float:left;'>
+      <img alt='avatar' src='http://www.gravatar.com/avatar/0e72db523b0c799c871b7755eda209f5.png' />
+    </span>
+
+    I&#8217;m
+    <a href='http://profiles.google.com/erochest' rel='author'>Eric Rochester</a>.
+    At various points in my life, I have been a writer, computer programmer,
+    computational/corpus linguist, and literary critic.  Like a crazy person, I
+    still try to do all of that. Currently, I am Senior Developer at the <a
+      href='http://www.scholarslab.org/'>Scholars&#8217; Lab</a>.
+  </p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/07/21/linked-open-data-at-the-rare-book-school/">Linked Open Data at the Rare Book School</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("erochest", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/erochest" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @erochest</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/erochest?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/erochest">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Eric Rochester -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

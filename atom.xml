@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Eric Rochester</title>
+  <link href="http://www.ericrochester.com/atom.xml" rel="self"/>
+  <link href="http://www.ericrochester.com/"/>
+  <updated>2011-08-05T16:31:59-04:00</updated>
+  <id>http://www.ericrochester.com/</id>
+  <author>
+    <name>Eric Rochester</name>
+    
+  </author>
+
+  
+  <entry>
+    <title>Linked Open Data at the Rare Book School</title>
+    <link href="http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/"/>
+    <updated>2011-07-21T15:39:00-04:00</updated>
+    <id>http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school</id>
+    <content type="html">&lt;p&gt;  &lt;em&gt;This is cross posted at
+  &lt;a href=&quot;http://www.scholarslab.org/digital-libraries/introduction-to-linked-open-data-at-rare-books-school/&quot;&gt;The Scholars' Lab Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Yesterday, I was fortunate to be invited by
+&lt;a href=&quot;http://www.engl.virginia.edu/faculty/stauffer_andrew.shtml&quot;&gt;Andrew Stauffer&lt;/a&gt; and
+&lt;a href=&quot;http://nowviskie.org/&quot;&gt;Bethany Nowviskie&lt;/a&gt; to present at their
+&lt;a href=&quot;http://www.rarebookschool.org/&quot;&gt;Rare Book School&lt;/a&gt; course,
+&lt;a href=&quot;http://rarebookschool.org/courses/libraries/l65/&quot;&gt;Digitizing the Historical Record&lt;/a&gt;.
+I talked about
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Linked_Data&quot;&gt;Linked Open Data&lt;/a&gt; (LOD), and
+afterward, &lt;a href=&quot;http://twitter.com/!/bluesaepe&quot;&gt;Dana Wheeles&lt;/a&gt; talked about the
+&lt;a href=&quot;http://www.nines.org/&quot;&gt;NINES&lt;/a&gt; project and how they use RDF and LOD.&lt;/p&gt;
+
+&lt;p&gt;I tried to present a gentle, mostly non-technical introduction to LOD, with an
+example of it in action. Hopefully, this posting will be a 50,000 foot overview
+also.&lt;/p&gt;
+
+&lt;h2&gt;The Linked Open Data Universe&lt;/h2&gt;
+
+&lt;p style='font-size: smaller; width: 300px; margin-left: auto; margin-right: auto; text-align: center;'&gt;
+&lt;a href=&quot;http://lod-cloud.net/&quot;&gt;
+&lt;img src=&quot;http://richard.cyganiak.de/2007/10/lod/lod-datasets_2010-09-22.png&quot; alt=&quot;Linked Open Data cloud&quot; height=&quot;195&quot; width=&quot;300&quot; /&gt;
+&lt;/a&gt;
+&lt;em&gt;Linking Open Data cloud diagram, by Richard Cyganiak and Anja Jentzsch.
+&lt;a href=&quot;http://lod-cloud.net/&quot;&gt;http://lod-cloud.net/&lt;/a&gt;&lt;/em&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;The first thing to know about LOD is that it’s everywhere. Look at the
+&lt;a href=&quot;http://lod-cloud.net/&quot;&gt;Linked Open Data cloud diagram&lt;/a&gt; above. All of these
+institutions are publishing data that anyone can use, and their data references
+others' data also.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+
+&lt;h2&gt;Linked Data vs Open Data vs RDF Data&lt;/h2&gt;
+
+&lt;p&gt;First we need to unpack the term &lt;em&gt;Linked Open Data&lt;/em&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Linked&lt;/strong&gt; is an approach to data. You need to provide context for your data;
+you need to point to other’s data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Open&lt;/strong&gt; is a policy. Your data is out there for others to look at and use; you
+explicitly give others this permission.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Data&lt;/strong&gt; is a technology and a set of standards. Your data is available using
+an RDF data model (usually) so computers can easily process it.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;(See
+&lt;a href=&quot;http://blogs.ecs.soton.ac.uk/webteam/2011/07/17/linked-data-vs-open-data-vs-rdf-data/&quot;&gt;Christopher Gutteridge’s post&lt;/a&gt;
+for more about this distinction.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Five Stars&lt;/h2&gt;
+
+&lt;p&gt;Creating LOD can seem overwhelming. Where do you start? What do you have to do?
+It’s not an all or nothing proposition. You can take what you have, figure out
+how close you are to LOD, and work gradually toward making your information a
+full member of the LOD cloud. The LOD community talks about having four-star
+data or five-star data. Here are what the different stars denote:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;You’ve released the data using any format under an &lt;strong&gt;open&lt;/strong&gt; license that
+allows others to view and use your data;&lt;/li&gt;
+&lt;li&gt;You’ve released the data in a &lt;strong&gt;structured&lt;/strong&gt; format so that some program
+can deal with it (e.g., Excel);&lt;/li&gt;
+&lt;li&gt;You’ve released the data in a &lt;strong&gt;non-proprietary&lt;/strong&gt; format, like CVS;&lt;/li&gt;
+&lt;li&gt;You’ve used &lt;strong&gt;HTTP URIs&lt;/strong&gt; (things you can type into your web browser’s
+location bar) to identify things in your data and made those URIs available
+on the web so others can point to your stuff;&lt;/li&gt;
+&lt;li&gt;You explicitly &lt;strong&gt;link&lt;/strong&gt; your data to others’ data to provide context.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;&lt;em&gt;(This is all over the web.
+&lt;a href=&quot;http://lab.linkeddata.deri.ie/2010/star-scheme-by-example/&quot;&gt;Michael Hausenblas’ explanation with examples&lt;/a&gt;
+is a good starting point.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Representing Knowledge&lt;/h2&gt;
+
+&lt;p&gt;A large part of this is about representing knowledge so computers can easily
+process it. Often LOD is encoded using
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Resource_Description_Framework&quot;&gt;Resource Description Framework (RDF)&lt;/a&gt;.
+This
+provides a way to model information using a series of statements. Each
+statement has three parts: a subject, a predicate, and an object. Subjects and
+predicates &lt;em&gt;must&lt;/em&gt; be URIs. Objects can be URIs (linked data) or data literals.&lt;/p&gt;
+
+&lt;p&gt;The predicates that you can use are grouped into &lt;em&gt;vocabularies&lt;/em&gt;. Each
+vocabulary is used for a specific domain.&lt;/p&gt;
+
+&lt;p&gt;We’re getting abstract, so let’s ground this discussion by looking at a
+specific vocabulary and set of statements.&lt;/p&gt;
+
+&lt;h3&gt;Friend of a Friend&lt;/h3&gt;
+
+&lt;p&gt;For describing people, there’s a vocabulary standard called
+&lt;a href=&quot;http://www.foaf-project.org/&quot;&gt;Friend of a Friend (FOAF)&lt;/a&gt;.
+I’ve used that on my web site to provide
+information about me. (The file on my website is in
+&lt;a href=&quot;http://en.wikipedia.org/wiki/RDF/XML&quot;&gt;RDF/XML&lt;/a&gt;, which can be frightening. I’ve
+converted it to &lt;a href=&quot;http://en.wikipedia.org/wiki/Turtle_(syntax%29&quot;&gt;Turtle&lt;/a&gt;, which
+we can walk through more easily.)&lt;/p&gt;
+
+&lt;p&gt;I’ll show you parts of it line-by-line.&lt;/p&gt;
+
+&lt;p&gt;(Ahem. Before we start, a disclaimer: I need to update my FOAF file. It doesn’t
+reflect best practices. The referencing URL isn’t quite the way it should be,
+and it uses deprecated FOAF predicates. That said, if you can ignore my dirty
+laundry, it still illustrates the points I want to make about the basic
+structure of RDF.)&lt;/p&gt;
+
+&lt;p&gt;First,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@prefix foaf: &amp;lt;http://xmlns.com/foaf/0.1/&amp;gt; .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This just says that anywhere &lt;code&gt;foaf:&lt;/code&gt; appears later, replace it with the URL
+&lt;code&gt;http://xmlns.com/foaf/0.1/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[] a &amp;lt;http://xmlns.com/foaf/0.1/Person&amp;gt;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a statement. &lt;code&gt;[]&lt;/code&gt; just means that it’s talking about the document
+itself, which in this case is a stand-in for me. The predicate here is &lt;code&gt;a&lt;/code&gt;,
+which is a shortcut that’s used to tell what type of an object something is. In
+this case, it says that I’m a person, as FOAF defines it.&lt;/p&gt;
+
+&lt;p&gt;And because the line ends in a semicolon, the rest of the statements are also
+about me. Or more specifically, about &lt;code&gt;[]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;foaf:firstName &quot;Eric&quot;;
+foaf:surname &quot;Rochester&quot;;
+foaf:name &quot;Eric Rochester&quot;;
+foaf:nick &quot;Eric&quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This set of statements still have the implied subject of me, and they use a
+series of predicates from FOAF. The object of each is a literal string, giving
+a value. Roughly this translates into four statements:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Eric’s first name is “Eric.”&lt;/li&gt;
+&lt;li&gt;Eric’s given name is “Rochester.”&lt;/li&gt;
+&lt;li&gt;Eric’s full name is “Eric Rochester.”&lt;/li&gt;
+&lt;li&gt;Eric’s nickname is “Eric.”&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;The next statement is a little different:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;foaf:workplaceHomepage &amp;lt;http://www.scholarslab.org/&amp;gt; .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This final statement has a URI as the object. It represents this statement:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Eric’s workplace’s home page is
+“&lt;a href=&quot;http://www.scholarslab.org/&quot;&gt;http://www.scholarslab.org/&lt;/a&gt;”.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;If this was a little overwhelming, thank you for sticking around this far.
+Now here’s what you need to know about modeling information using RDF:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Everything is expressed as subject-predicate-object statements; and&lt;/li&gt;
+&lt;li&gt;Predicates are grouped into vocabularies.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;The rest is just details.&lt;/p&gt;
+
+&lt;h2&gt;Linked Open Data and the Semantic Web&lt;/h2&gt;
+
+&lt;p&gt;During my presentation, someone pointed out that this all sounds a lot like the
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Semantic_web&quot;&gt;Semantic Web&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Yes, it does. LOD is the semantic web without the focus on understanding and
+focusing more on what we can do. Understanding may come later—or not—but in the
+meantime we can still do some pretty cool things.&lt;/p&gt;
+
+&lt;h2&gt;So What?&lt;/h2&gt;
+
+&lt;p&gt;The benefit of all this is that it provides another layer for the internet. You
+can use this information to augment your own services (e.g., Google augments
+their search results with RDF data about product reviews) or build services on
+top of this information.&lt;/p&gt;
+
+&lt;p&gt;If you’re curious for more or still aren’t convinced, visit the
+&lt;a href=&quot;http://obd.jisc.ac.uk/&quot;&gt;Open Bibliographic Data Guide&lt;/a&gt;.  They make a
+business case and articulate some use cases for LOD for libraries and other
+institutions.&lt;/p&gt;
+
+&lt;h2&gt;For Example&lt;/h2&gt;
+
+&lt;p&gt;Discussing LOD can get pretty abstract and pretty meta.  To keep things
+grounded, I spent a few hours and threw together a quick demonstration of what
+you can do with LOD.&lt;/p&gt;
+
+&lt;p&gt;The Library of Congress’
+&lt;a href=&quot;http://chroniclingamerica.loc.gov/&quot;&gt;Chronicling America&lt;/a&gt; project exposes
+data about the newspapers in its archives using RDF. It’s five-star data, too.
+For example, to tell the geographic location that the papers covered, it links
+to both &lt;a href=&quot;http://www.geonames.org/&quot;&gt;GeoNames&lt;/a&gt; and
+&lt;a href=&quot;http://dbpedia.org/About&quot;&gt;DBpedia&lt;/a&gt;.  The LoC doesn’t provide the coordinates
+of these cities, but because they express the places with a link, I can follow
+those and read the latitude and longitude from there.&lt;/p&gt;
+
+&lt;p&gt;I wrote a &lt;a href=&quot;http://www.python.org/&quot;&gt;Python&lt;/a&gt; script that uses
+&lt;a href=&quot;http://www.rdflib.net/&quot;&gt;RDFlib&lt;/a&gt; to read the data from the LoC and GeoNames and
+writes it out using &lt;a href=&quot;http://en.wikipedia.org/wiki/Kml&quot;&gt;KML&lt;/a&gt;. You can view this
+file using Google Maps or Google Earth.&lt;/p&gt;
+
+&lt;p&gt;Here’s the results of one run of the script. (I randomly pick 100 newspapers
+from the LoC, so the results of each run is different.)&lt;/p&gt;
+
+&lt;iframe width=&quot;425&quot; height=&quot;350&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; src=&quot;http://maps.google.com/maps?f=q&amp;amp;source=s_q&amp;amp;hl=en&amp;amp;geocode=&amp;amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;amp;aq=&amp;amp;sll=38.063606,-78.505873&amp;amp;sspn=0.011741,0.016093&amp;amp;ie=UTF8&amp;amp;t=h&amp;amp;ll=34.64296,-115.5352&amp;amp;spn=26.67204,84.64626&amp;amp;output=embed&quot;&gt;&lt;/iframe&gt;
+
+
+&lt;br /&gt;&lt;small&gt;&lt;a href=&quot;http://maps.google.com/maps?f=q&amp;amp;source=embed&amp;amp;hl=en&amp;amp;geocode=&amp;amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;amp;aq=&amp;amp;sll=38.063606,-78.505873&amp;amp;sspn=0.011741,0.016093&amp;amp;ie=UTF8&amp;amp;t=h&amp;amp;ll=34.64296,-115.5352&amp;amp;spn=26.67204,84.64626&quot; style=&quot;color:0000FF;text-align:left&quot;&gt;View Larger Map&lt;/a&gt;&lt;/small&gt;
+
+
+&lt;p&gt;You can find the source for this example on both Github and BitBucket:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/erochest/loc-chronicling-map&quot;&gt;https://github.com/erochest/loc-chronicling-map&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://bitbucket.org/erochest/loc-chronicling-map/overview&quot;&gt;https://bitbucket.org/erochest/loc-chronicling-map/overview&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Resources&lt;/h2&gt;
+
+&lt;p&gt;Throughout this post, I’ve tried to link to some resources. Here are a few more
+(not all of these will be appropriate to a novice):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Linked_Data&quot;&gt;The Wikipedia page on linked data&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://obd.jisc.ac.uk/&quot;&gt;The Open Bibliographic Data Guide&lt;/a&gt;, which provides rationales for LOD.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://linkddata.org/&quot;&gt;A portal to LOD resources and tools&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.w3.org/wiki/LinkedData&quot;&gt;A portal maintained by the W3C&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://lod-cloud.net/&quot;&gt;The LOD cloud&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.w3.org/DesignIssues/LinkedData.html&quot;&gt;The four rules of LOD&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://lab.linkeddata.deri.ie/2010/star-scheme-by-example/&quot;&gt;The five rules&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blogs.ecs.soton.ac.uk/webteam/2011/07/17/linked-data-vs-open-data-vs-rdf-data/&quot;&gt;Linked vs Open vs Data&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://linkeddatabook.com/book&quot;&gt;A book on publishing LOD on the internet&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
+  
+</feed>
