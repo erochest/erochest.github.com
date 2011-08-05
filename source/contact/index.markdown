@@ -1,0 +1,20 @@
+---
+layout: page
+title: "Contact"
+comments: true
+sharing: true
+footer: true
+---
+
+Want to contact me or connect? Try one of these:
+
+ * Email: [eric@ericrochester.com](mailto:eric@ericrochester.com)
+ * Email: [erochest@virginia.edu](mailto:erochest@virginia.edu)
+ * Email/GTalk: [erochest@gmail.com](mailto:erochest@gmail.com)
+ * GitHub: [https://github.com/erochest](https://github.com/erochest)
+ * BitBucket: [https://bitbucket.org/erochest](https://bitbucket.org/erochest)
+ * Google Profile: [http://profiles.google.com/erochest](http://profiles.google.com/erochest)
+ * Skype: [erochester](skype:erochester?call)
+ * LinkedIn: [http://www.linkedin.com/in/erochester](http://www.linkedin.com/in/erochester)
+ * Twitter: [http://twitter.com/erochest](http://twitter.com/erochest)
+
