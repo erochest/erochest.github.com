@@ -1,3 +1,8 @@
+@import "compass";
+@import "compass/typography/links/link-colors";
+
+@import "colors";
+
 /*
 * Skeleton V1.2
 * Copyright 2011, Dave Gamache
@@ -23,20 +28,49 @@
 /* #Media Queries
 ================================================== */
 
-	/* Smaller than standard 960 (devices and browsers) */
-	@media only screen and (max-width: 959px) {}
+body {
+    background-color: $cream;
+    color: $offblack;
+}
 
-	/* Tablet Portrait size to standard 960 (devices and browsers) */
-	@media only screen and (min-width: 768px) and (max-width: 959px) {}
+header {
+    background-color: $primary2;
 
-	/* All Mobile Sizes (devices and browser) */
-	@media only screen and (max-width: 767px) {}
+    h1 {
+        color: $cream;
+    }
 
-	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
-	@media only screen and (min-width: 480px) and (max-width: 767px) {}
+    nav ul li {
+        background-color: $primary3;
+        a {
+            @include link-colors($primary5, $cream, $cream, $primary4, $cream);
+        }
+    }
+}
 
-	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-	@media only screen and (max-width: 479px) {}
+footer {
+    background-color: $secondary1;
+    h3 {
+        color: $cream;
+    }
+}
+
+@media only screen {
+    /* Smaller than standard 960 (devices and browsers) */
+    @media (max-width: 959px) { }
+
+    /* Tablet Portrait size to standard 960 (devices and browsers) */
+    @media (min-width: 768px) and (max-width: 959px) { }
+
+    /* All Mobile Sizes (devices and browser) */
+    @media (max-width: 767px) { }
+
+    /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+    @media (min-width: 480px) and (max-width: 767px) { }
+
+    /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+    @media (max-width: 479px) { }
+}
 
 
 /* #Font-Face
