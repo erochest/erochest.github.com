@@ -15,8 +15,11 @@ main = hakyll $ do
                 >>> relativizeUrlsCompiler
 
     match "css/*" $ do
-        route idRoute
-        compile compressCssCompiler
+        route   $ setExtension "css"
+        compile $ byExtension (error "Not a (S)CSS file.")
+                              [ (".css",  compressCssCompiler)
+                              , (".scss", compassCompiler)
+                              ]
 
     match "templates/*" $ compile templateCompiler
 
@@ -35,5 +38,12 @@ main = hakyll $ do
     match "js/*" $ do
         route   idRoute
         compile copyFileCompiler
+
+compassCompiler :: Compiler Resource String
+compassCompiler =   getResourceString
+                >>> unixFilter "sass" [ "-s", "--scss", "--compass"
+                                      , "--load-path", "./sass"
+                                      ]
+                >>> arr compressCss
 
 
