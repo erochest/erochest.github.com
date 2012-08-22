@@ -44,6 +44,7 @@ header {
         background-color: $primary3;
         a {
             @include link-colors($primary5, $cream, $cream, $primary4, $cream);
+            text-decoration: none;
         }
     }
 }
@@ -69,7 +70,19 @@ footer {
     @media (min-width: 480px) and (max-width: 767px) { }
 
     /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-    @media (max-width: 479px) { }
+    @media (max-width: 479px) {
+        header {
+            padding: 4px 2px 0px;
+            h1 {
+                padding-left: 4px;
+                padding-right: 2px;
+            }
+            nav ul li {
+                margin: 0px;
+                padding: 0px 8px;
+            }
+        }
+    }
 }
 
 
