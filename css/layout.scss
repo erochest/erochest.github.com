@@ -1,5 +1,6 @@
 @import "compass";
 @import "compass/typography/links/link-colors";
+@import "compass/typography/links/hover-link";
 
 @import "colors";
 
@@ -44,7 +45,7 @@ header {
         background-color: $primary3;
         a {
             @include link-colors($primary5, $cream, $cream, $primary4, $cream);
-            text-decoration: none;
+            @include hover-link;
         }
     }
 }
