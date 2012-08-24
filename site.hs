@@ -18,23 +18,26 @@ dateFormat = "%B %e, %Y %l:%M %p"
 -- drafts, sorts them, and slices them. It then feeds each on to an item
 -- template, concatenates the output, and feeds that to a wrapper template. The
 -- output of the wrapper template is assigned to a field in the page.
-getPublishedList :: Pattern (Page String)
-                 -- ^ The pattern of input resources.
+getPublishedList :: String
+                 -- ^ The field on the page to assign the output to.
+                 --
+                 -- By convention, this also determines several other values.
+                 -- For the field FIELD:
+                 --
+                 -- * FIELD/* is the pattern for the resources;
+                 -- * template/FIELD-item.html is the template for the items;
+                 -- * template/FIELD-div.html is the template for the wrapper.
                  -> ([Page String] -> [Page String])
                  -- ^ A transformation function that slices out and returns the
                  -- resources to display.
-                 -> String
-                 -- ^ The field on the page to assign the output to.
-                 -> Identifier Template
-                 -- ^ The template for individual resources.
-                 -> Identifier Template
-                 -- ^ The template for the concatenated output of each
-                 -- resource.
                  -> Compiler (Page String) (Page String)
-getPublishedList inputs slice field itemTemplate wrapperTemplate =
+getPublishedList field slice =
     requireAllA inputs
-        (arr id *** sliceA >>> addPostList field itemTemplate wrapperTemplate)
+        (arr id *** sliceA >>> addPostList field itemt divt)
     where
+        inputs = parseGlob       $ field ++ "/*"
+        itemt  = parseIdentifier $ "templates/" ++ field ++ "-item.html"
+        divt   = parseIdentifier $ "templates/" ++ field ++ "-div.html"
         sliceA = onlyPublished >>>
                  arr (slice . L.reverse . L.sortBy comparePagesByDate)
 
@@ -44,11 +47,7 @@ main = hakyll $ do
     match  "index.html" $ route idRoute
     create "index.html" $ constA mempty
         >>> arr (setField "title" "Home")
-        >>> getPublishedList "articles/*"
-                             (L.take 3)
-                             "articles"
-                             "templates/articleitem.html"
-                             "templates/articlediv.html"
+        >>> getPublishedList "articles" (L.take 3)
 
         -- requireAllA "notes/*.md"
         >>> applyTemplateCompiler "templates/index.html"
