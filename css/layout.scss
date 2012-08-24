@@ -34,11 +34,16 @@ body {
     color: $offblack;
 }
 
+
 header {
     background-color: $primary2;
 
-    h1 {
+    h1#title {
         color: $cream;
+        a {
+            @include link-colors($cream, $cream, $cream, $cream, $cream);
+            @include hover-link;
+        }
     }
 
     nav ul li {

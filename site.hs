@@ -16,7 +16,7 @@ main = hakyll $ do
 
     match  "index.html" $ route idRoute
     create "index.html" $ constA mempty
-        >>> arr (setField "title" "Eric Rochester &loz; Home")
+        >>> arr (setField "title" "Home")
         >>> requireAllA "articles/*" (   arr id *** arr ( L.take 3
                                                         . L.reverse
                                                         . L.sortBy comparePagesByDate
