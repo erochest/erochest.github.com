@@ -80,32 +80,14 @@ main = hakyll $ do
                 >>> relativizeUrlsCompiler
     
     match  "articles/index.html" $ route idRoute
-    create "articles/index.html" $ constA mempty
-        >>> arr (setField "title" "Articles")
-
-        >>> getPublishedList' "items"
-                              ("articles/*" <> complement "articles/index.html")
-                              "templates/articles-item.html"
-                              "templates/articles-div.html"
-                              (take 10)
-
-        >>> applyTemplateCompiler "templates/list.html"
-        >>> applyTemplateCompiler "templates/default.html"
-        >>> relativizeUrlsCompiler
+    create "articles/index.html" $
+        indexPage "Articles" 10 ("articles/*" <> complement "articles/index.html")
+                  "templates/articles-item.html" "templates/articles-div.html"
 
     match  "notes/index.html" $ route idRoute
-    create "notes/index.html" $ constA mempty
-        >>> arr (setField "title" "Notes")
-
-        >>> getPublishedList' "items"
-                              ("notes/*" <> complement "notes/index.html")
-                              "templates/notes-item.html"
-                              "templates/notes-div.html"
-                              (take 10)
-
-        >>> applyTemplateCompiler "templates/list.html"
-        >>> applyTemplateCompiler "templates/default.html"
-        >>> relativizeUrlsCompiler
+    create "notes/index.html" $
+        indexPage "Notes" 10 ("notes/*" <> complement "notes/index.html")
+                  "templates/notes-item.html" "templates/notes-div.html"
 
     match "notes/*" $ do
         route   $ setExtension "html"
@@ -163,6 +145,26 @@ compassCompiler =   getResourceString
                                       , "--load-path", "./sass"
                                       ]
                 >>> arr compressCss
+
+-- | This compiler takes a list of items and creates an index page for the
+-- first N.
+indexPage :: String
+          -- ^ Title
+          -> Int
+          -- ^ The number of items to index.
+          -> Pattern (Page String)
+          -- ^ The resources to index.
+          -> Identifier Template
+          -- ^ The item template.
+          -> Identifier Template
+          -- ^ The wrapper template.
+          -> Compiler () (Page String)
+indexPage title n resources itemt divt = constA mempty
+    >>> arr (setField "title" title)
+    >>> getPublishedList' "items" resources itemt divt (take n)
+    >>> applyTemplateCompiler "templates/list.html"
+    >>> applyTemplateCompiler "templates/default.html"
+    >>> relativizeUrlsCompiler
 
 -- | This compiler filters out the pages that are missing a published date for
 -- whose published date is in the future.
