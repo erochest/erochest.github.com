@@ -3,6 +3,7 @@
 
 import           Control.Arrow
 import           Control.Monad
+import           Data.Monoid
 import           Data.Time
 import qualified Data.List as L
 import           Data.Monoid
@@ -31,15 +32,30 @@ getPublishedList :: String
                  -- ^ A transformation function that slices out and returns the
                  -- resources to display.
                  -> Compiler (Page String) (Page String)
-getPublishedList field slice =
-    requireAllA inputs
-        (arr id *** sliceA >>> addPostList field itemt divt)
+getPublishedList field = getPublishedList' field inputs itemt divt
     where
         inputs = parseGlob       $ field ++ "/*"
         itemt  = parseIdentifier $ "templates/" ++ field ++ "-item.html"
         divt   = parseIdentifier $ "templates/" ++ field ++ "-div.html"
-        sliceA = onlyPublished >>>
-                 arr (slice . L.reverse . L.sortBy comparePagesByDate)
+
+-- | This is a version of getPublishedList that eschews convention and insists
+-- that you specify the parameters.
+getPublishedList' :: String
+                  -> Pattern (Page String)
+                  -> Identifier Template
+                  -> Identifier Template
+                  -> ([Page String] -> [Page String])
+                  -> Compiler (Page String) (Page String)
+getPublishedList' field inputs itemt divt transform =
+    requireAllA inputs
+        (arr id *** sliceA transform >>> addPostList field itemt divt)
+
+-- | This takes a list transformation function and wraps it in an arrow that
+-- filters out the unpublished pages, reverse sorts it, and transforms the list
+-- with the function.
+sliceA :: ([Page a] -> [Page a]) -> Compiler [Page a] [Page a]
+sliceA transform =   onlyPublished
+                 >>> arr (transform . L.reverse . L.sortBy comparePagesByDate)
 
 main :: IO ()
 main = hakyll $ do
@@ -62,6 +78,20 @@ main = hakyll $ do
                 >>> applyTemplateCompiler "templates/article.html"
                 >>> applyTemplateCompiler "templates/default.html"
                 >>> relativizeUrlsCompiler
+    
+    match  "articles/index.html" $ route idRoute
+    create "articles/index.html" $ constA mempty
+        >>> arr (setField "title" "Articles")
+
+        >>> getPublishedList' "items"
+                              ("articles/*" <> complement "articles/index.html")
+                              "templates/articles-item.html"
+                              "templates/articles-div.html"
+                              (take 10)
+
+        >>> applyTemplateCompiler "templates/list.html"
+        >>> applyTemplateCompiler "templates/default.html"
+        >>> relativizeUrlsCompiler
 
     match "notes/*" $ do
         route   $ setExtension "html"
