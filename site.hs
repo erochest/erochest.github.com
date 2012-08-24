@@ -47,9 +47,10 @@ main = hakyll $ do
     match  "index.html" $ route idRoute
     create "index.html" $ constA mempty
         >>> arr (setField "title" "Home")
-        >>> getPublishedList "articles" (L.take 3)
 
-        -- requireAllA "notes/*.md"
+        >>> getPublishedList "articles" (L.take 3)
+        >>> getPublishedList "notes"    (L.take 5)
+
         >>> applyTemplateCompiler "templates/index.html"
         >>> applyTemplateCompiler "templates/default.html"
         >>> relativizeUrlsCompiler
@@ -59,6 +60,14 @@ main = hakyll $ do
         compile $   pageCompiler
                 >>> arr (renderDateField "published" dateFormat "unknown")
                 >>> applyTemplateCompiler "templates/article.html"
+                >>> applyTemplateCompiler "templates/default.html"
+                >>> relativizeUrlsCompiler
+
+    match "notes/*" $ do
+        route   $ setExtension "html"
+        compile $   pageCompiler
+                >>> arr (renderDateField "published" dateFormat "unknown")
+                >>> applyTemplateCompiler "templates/note.html"
                 >>> applyTemplateCompiler "templates/default.html"
                 >>> relativizeUrlsCompiler
 
