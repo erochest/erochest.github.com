@@ -14,6 +14,29 @@ import           System.Locale
 dateFormat :: String
 dateFormat = "%B %e, %Y %l:%M %p"
 
+-- | This takes a list of published or draft resources and filters out the
+-- drafts, sorts them, and slices them. It then feeds each on to an item
+-- template, concatenates the output, and feeds that to a wrapper template. The
+-- output of the wrapper template is assigned to a field in the page.
+getPublishedList :: Pattern (Page String)
+                 -- ^ The pattern of input resources.
+                 -> ([Page String] -> [Page String])
+                 -- ^ A transformation function that slices out and returns the
+                 -- resources to display.
+                 -> String
+                 -- ^ The field on the page to assign the output to.
+                 -> Identifier Template
+                 -- ^ The template for individual resources.
+                 -> Identifier Template
+                 -- ^ The template for the concatenated output of each
+                 -- resource.
+                 -> Compiler (Page String) (Page String)
+getPublishedList inputs slice field itemTemplate wrapperTemplate =
+    requireAllA inputs
+        (arr id *** sliceA >>> addPostList field itemTemplate wrapperTemplate)
+    where
+        sliceA = onlyPublished >>>
+                 arr (slice . L.reverse . L.sortBy comparePagesByDate)
 
 main :: IO ()
 main = hakyll $ do
@@ -21,15 +44,11 @@ main = hakyll $ do
     match  "index.html" $ route idRoute
     create "index.html" $ constA mempty
         >>> arr (setField "title" "Home")
-        >>> requireAllA "articles/*"
-                (  arr id *** (onlyPublished >>> arr ( L.take 3
-                                                     . L.reverse
-                                                     . L.sortBy comparePagesByDate
-                                                     ))
-                >>> addPostList "articles"
-                                "templates/articleitem.html"
-                                "templates/articlediv.html"
-                )
+        >>> getPublishedList "articles/*"
+                             (L.take 3)
+                             "articles"
+                             "templates/articleitem.html"
+                             "templates/articlediv.html"
 
         -- requireAllA "notes/*.md"
         >>> applyTemplateCompiler "templates/index.html"
