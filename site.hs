@@ -93,6 +93,20 @@ main = hakyll $ do
         >>> applyTemplateCompiler "templates/default.html"
         >>> relativizeUrlsCompiler
 
+    match  "notes/index.html" $ route idRoute
+    create "notes/index.html" $ constA mempty
+        >>> arr (setField "title" "Notes")
+
+        >>> getPublishedList' "items"
+                              ("notes/*" <> complement "notes/index.html")
+                              "templates/notes-item.html"
+                              "templates/notes-div.html"
+                              (take 10)
+
+        >>> applyTemplateCompiler "templates/list.html"
+        >>> applyTemplateCompiler "templates/default.html"
+        >>> relativizeUrlsCompiler
+
     match "notes/*" $ do
         route   $ setExtension "html"
         compile $   pageCompiler
