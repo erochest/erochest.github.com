@@ -1,10 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 
-import Control.Arrow
-import Data.Monoid
-import Hakyll
+import           Control.Arrow
+import           Control.Monad
+import           Data.Time
 import qualified Data.List as L
+import           Data.Monoid
+import           Hakyll
+import           System.FilePath (takeFileName)
+import           System.Locale
 
 
 dateFormat :: String
@@ -17,14 +21,15 @@ main = hakyll $ do
     match  "index.html" $ route idRoute
     create "index.html" $ constA mempty
         >>> arr (setField "title" "Home")
-        >>> requireAllA "articles/*" (   arr id *** arr ( L.take 3
-                                                        . L.reverse
-                                                        . L.sortBy comparePagesByDate
-                                                        )
-                                     >>> addPostList "articles"
-                                                     "templates/articleitem.html"
-                                                     "templates/articlediv.html"
-                                     )
+        >>> requireAllA "articles/*"
+                (  arr id *** (onlyPublished >>> arr ( L.take 3
+                                                     . L.reverse
+                                                     . L.sortBy comparePagesByDate
+                                                     ))
+                >>> addPostList "articles"
+                                "templates/articleitem.html"
+                                "templates/articlediv.html"
+                )
 
         -- requireAllA "notes/*.md"
         >>> applyTemplateCompiler "templates/index.html"
@@ -88,3 +93,29 @@ compassCompiler =   getResourceString
                                       ]
                 >>> arr compressCss
 
+-- | This compiler filters out the pages that are missing a published date for
+-- whose published date is in the future.
+onlyPublished :: Compiler [Page a] [Page a]
+onlyPublished = unsafeCompiler $ \ps ->
+    (\now -> filterM (op now) ps) =<< getCurrentTime
+    where
+        op :: UTCTime -> Page a -> IO Bool
+        op now page =
+            return . maybe False (<= now) $ getUTCMaybe defaultTimeLocale page
+
+-- | Copied and pasted here, since it's not exported from
+-- Hakyll.Web.Page.Metadata. Grr.
+getUTCMaybe :: TimeLocale     -- ^ Output time locale
+            -> Page a         -- ^ Input page
+            -> Maybe UTCTime  -- ^ Parsed UTCTime
+getUTCMaybe locale page = msum
+    [ fromPublished "%a, %d %b %Y %H:%M:%S UT"
+    , fromPublished "%Y-%m-%dT%H:%M:%SZ"
+    , fromPublished "%B %e, %Y %l:%M %p"
+    , fromPublished "%B %e, %Y"
+    , getFieldMaybe "path" page >>= parseTime' "%Y-%m-%d" .
+        L.intercalate "-" . take 3 . splitAll "-" . takeFileName
+    ]
+  where
+    fromPublished f  = getFieldMaybe "published" page >>= parseTime' f
+    parseTime' f str = parseTime locale f str
