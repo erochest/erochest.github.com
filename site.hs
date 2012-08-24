@@ -71,6 +71,11 @@ main = hakyll $ do
         >>> applyTemplateCompiler "templates/default.html"
         >>> relativizeUrlsCompiler
 
+    match  "articles/index.html" $ route idRoute
+    create "articles/index.html" $
+        indexPage "Articles" 10 ("articles/*" <> complement "articles/index.html")
+                  "templates/articles-item.html" "templates/articles-div.html"
+
     match "articles/*" $ do
         route   $ setExtension "html"
         compile $   pageCompiler
@@ -78,11 +83,6 @@ main = hakyll $ do
                 >>> applyTemplateCompiler "templates/article.html"
                 >>> applyTemplateCompiler "templates/default.html"
                 >>> relativizeUrlsCompiler
-    
-    match  "articles/index.html" $ route idRoute
-    create "articles/index.html" $
-        indexPage "Articles" 10 ("articles/*" <> complement "articles/index.html")
-                  "templates/articles-item.html" "templates/articles-div.html"
 
     match  "notes/index.html" $ route idRoute
     create "notes/index.html" $
