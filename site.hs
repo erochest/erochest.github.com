@@ -1,21 +1,55 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- TODO: 404 resources
+-- TODO: favicon
+-- TODO: index.html
+-- TODO: http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/
+-- TODO: move over to clj-data-analysis subsite
+
 
 import           Control.Applicative
 import           Data.Monoid
+import qualified Data.Text.Lazy as TL
 import           Hakyll
+import           Shelly
+
+
+sassCompiler :: Compiler (Item String)
+sassCompiler =
+        getResourceString >>=
+        withItemBody (unixFilter "sass" [ "--scss"
+                                        , "--stdin"
+                                        , "--load-path", "sass/errstyle/"
+                                        ])
+
+        {-
+         - input <- getUnderlying
+         - unsafeCompiler $ shelly $ verbosely $ do
+         -     let args = [ "--scss"
+         -                , "--load-path", "sass/errstyle/"
+         -                , TL.pack $ toFilePath input
+         -                ]
+         -     Item input . TL.unpack <$> run "sass" args
+         -}
 
 
 main :: IO ()
 main = hakyll $ do
 
     match "templates/*" $ compile templateCompiler
+    match "templates/errstyle/*" $ compile templateCompiler
 
     match "index.md" $ do
+        let context = dateField "date" "%e %B %Y" <> defaultContext
         route   $   setExtension "html"
         compile $   pandocCompiler
-                >>= loadAndApplyTemplate "templates/default.html" defaultContext
+                >>= loadAndApplyTemplate "templates/errstyle/post.html" context
+                >>= loadAndApplyTemplate "templates/errstyle/default.html" context
                 >>= relativizeUrls
+
+    match "sass/*.scss" $ do
+        route   $ constRoute "css/main.css"
+        compile   sassCompiler
 
     match "*.png" $ do
         route   idRoute

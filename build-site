@@ -1,5 +1,4 @@
 #!/bin/sh
 
-ghc --make -package-conf ./cabal-dev/packages-7.4.2.conf site.hs
-./site build
+ghc --make -package-conf ./cabal-dev/packages-7.4.2.conf site.hs && ./site clean && ./site build
 
