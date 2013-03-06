@@ -1,10 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- TODO: 404 resources
 -- TODO: favicon
 -- TODO: index.html
 -- TODO: http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/
 -- TODO: move over to clj-data-analysis subsite
+-- TODO: compress all CSS.
 
 
 import           Control.Applicative
@@ -63,7 +63,10 @@ main = hakyll $ do
     match "img/*" $ do
         route   idRoute
         compile copyFileCompiler
-    match "js/*" $ do
+    match "js/**" $ do
+        route   idRoute
+        compile copyFileCompiler
+    match "css/*.css" $ do
         route   idRoute
         compile copyFileCompiler
 
