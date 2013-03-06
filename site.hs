@@ -3,6 +3,7 @@
 -- TODO: index.html
 -- TODO: http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/
 -- TODO: move over to clj-data-analysis subsite
+-- TODO: RSS
 -- TODO: compress all CSS.
 
 
@@ -19,6 +20,11 @@ sassCompiler =
                                         , "--load-path", "sass/errstyle/"
                                         ])
 
+postTemplate :: Context String -> Item String -> Compiler (Item String)
+postTemplate context item =
+            loadAndApplyTemplate "templates/errstyle/post.html" context item
+        >>= loadAndApplyTemplate "templates/errstyle/default.html" context
+
 
 main :: IO ()
 main = hakyll $ do
@@ -27,11 +33,9 @@ main = hakyll $ do
     match "templates/errstyle/*" $ compile templateCompiler
 
     match "index.md" $ do
-        let context = dateField "date" "%e %B %Y" <> defaultContext
         route   $   setExtension "html"
         compile $   pandocCompiler
-                >>= loadAndApplyTemplate "templates/errstyle/post.html" context
-                >>= loadAndApplyTemplate "templates/errstyle/default.html" context
+                >>= postTemplate (dateField "date" "%e %B %Y" <> defaultContext)
                 >>= relativizeUrls
 
     match "sass/*.scss" $ do
