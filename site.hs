@@ -7,11 +7,9 @@
 -- TODO: compress all CSS.
 
 
-import           Control.Applicative
+-- import           Control.Applicative
 import           Data.Monoid
-import qualified Data.Text.Lazy as TL
 import           Hakyll
-import           Shelly
 
 
 sassCompiler :: Compiler (Item String)
@@ -21,16 +19,6 @@ sassCompiler =
                                         , "--stdin"
                                         , "--load-path", "sass/errstyle/"
                                         ])
-
-        {-
-         - input <- getUnderlying
-         - unsafeCompiler $ shelly $ verbosely $ do
-         -     let args = [ "--scss"
-         -                , "--load-path", "sass/errstyle/"
-         -                , TL.pack $ toFilePath input
-         -                ]
-         -     Item input . TL.unpack <$> run "sass" args
-         -}
 
 
 main :: IO ()
