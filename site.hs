@@ -1,6 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 -- TODO: index.html
+-- TODO: img css
+-- TODO: aria
 -- TODO: http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/
 -- TODO: move over to clj-data-analysis subsite
 -- TODO: RSS
@@ -25,21 +27,31 @@ postTemplate context item =
             loadAndApplyTemplate "templates/errstyle/post.html" context item
         >>= loadAndApplyTemplate "templates/errstyle/default.html" context
 
+style :: String -> String
+style url =  "<link rel=\"stylesheet\" href=\"" <> url <> "\">"
+
 
 main :: IO ()
 main = hakyll $ do
 
-    match "templates/*" $ compile templateCompiler
-    match "templates/errstyle/*" $ compile templateCompiler
+    match "templates/**" $ compile templateCompiler
 
-    match "index.md" $ do
-        route   $   setExtension "html"
-        compile $   pandocCompiler
-                >>= postTemplate (dateField "date" "%e %B %Y" <> defaultContext)
+    match "index.html" $ do
+        route       idRoute
+        compile $   getResourceBody
+                >>= loadAndApplyTemplate
+                        "templates/errstyle/default.html"
+                        (  dateField "date" "%e %B %Y"
+                        <> constField "extra-header" (style "css/index.css")
+                        <> defaultContext
+                        )
                 >>= relativizeUrls
 
-    match "sass/*.scss" $ do
+    match "sass/main.scss" $ do
         route   $ constRoute "css/main.css"
+        compile   sassCompiler
+    match "sass/index.scss" $ do
+        route   $ constRoute "css/index.css"
         compile   sassCompiler
 
     match "*.png" $ do
