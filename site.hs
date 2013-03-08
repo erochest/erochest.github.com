@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 -- TODO: index.html
--- TODO: img css
 -- TODO: aria
 -- TODO: http://www.ericrochester.com/blog/2011/07/21/linked-open-data-at-the-rare-book-school/
 -- TODO: move over to clj-data-analysis subsite
