@@ -1,11 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- TODO: index.html
+-- TODO: color scheme
 -- TODO: aria
 -- TODO: move over to clj-data-analysis subsite
 -- TODO: RSS
 -- TODO: compress all CSS.
--- TODO: color scheme
 -- TODO: notes
 
 
