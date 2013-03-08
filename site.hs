@@ -9,6 +9,8 @@
 
 
 -- import           Control.Applicative
+import           Control.Monad
+-- import qualified Data.List as L
 import           Data.Monoid
 import           Hakyll
 
@@ -29,6 +31,31 @@ postTemplate context item =
 style :: String -> String
 style url =  "<link rel=\"stylesheet\" href=\"" <> url <> "\">"
 
+pullIntro :: Functor m => Int -> Item String -> m (Item String)
+pullIntro = undefined
+
+-- Borrowed heavily from applyJoinTemplateList
+renderPanes :: Template -> Context c -> [Item c] -> Compiler (Item String)
+renderPanes template baseContext items =
+    zipWithM (applyTemplate template) (map context ([0..] :: [Int])) items >>=
+    makeItem . concatMap itemBody
+    where paneClasses 0 = " main"
+          paneClasses 1 = " third"
+          paneClasses 2 = " second"
+          paneClasses 4 = " second third"
+          paneClasses 6 = " second"
+          paneClasses 7 = " second third"
+          paneClasses _ = ""
+          context pos = constField "pos-class" (paneClasses pos) <> baseContext
+
+compileIndex :: Context String -> Template -> Compiler (Item String)
+compileIndex context template =
+      loadAll "posts/*.md" >>=
+      recentFirst >>=
+      mapM (pullIntro 150) . take 8 >>=
+      renderPanes template context >>=
+      loadAndApplyTemplate "templates/errstyle/default.html" context >>=
+      relativizeUrls
 
 main :: IO ()
 main = hakyll $ do
@@ -37,13 +64,19 @@ main = hakyll $ do
 
     match "index.html" $ do
         route       idRoute
-        compile $   getResourceBody
-                >>= loadAndApplyTemplate
-                        "templates/errstyle/default.html"
-                        (  dateField "date" "%e %B %Y"
-                        <> constField "extra-header" (style "css/index.css")
-                        <> defaultContext
-                        )
+        compile $   loadBody "templates/index-pane.html"
+                >>= compileIndex (  dateField "date" "%e %B %Y"
+                                 <> constField "extra-header" (style "css/index.css")
+                                 <> defaultContext)
+
+    match "pages/*.md" $ do
+        let context =  dateField "date" "%e %B %Y"
+                    <> constField "extra-header" ""
+                    <> defaultContext
+        route   $   setExtension "html"
+        compile $   pandocCompiler
+                >>= loadAndApplyTemplate "templates/errstyle/post.html" context
+                >>= loadAndApplyTemplate "templates/errstyle/default.html" context
                 >>= relativizeUrls
 
     match "sass/main.scss" $ do
