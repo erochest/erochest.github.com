@@ -57,6 +57,15 @@ compileIndex context template =
       loadAndApplyTemplate "templates/errstyle/default.html" context >>=
       relativizeUrls
 
+compilePage :: Compiler (Item String)
+compilePage =   pandocCompiler
+            >>= loadAndApplyTemplate "templates/errstyle/post.html" context
+            >>= loadAndApplyTemplate "templates/errstyle/default.html" context
+            >>= relativizeUrls
+    where context =  dateField "date" "%e %B %Y"
+                  <> constField "extra-header" ""
+                  <> defaultContext
+
 main :: IO ()
 main = hakyll $ do
 
@@ -70,14 +79,8 @@ main = hakyll $ do
                                  <> defaultContext)
 
     match "pages/*.md" $ do
-        let context =  dateField "date" "%e %B %Y"
-                    <> constField "extra-header" ""
-                    <> defaultContext
-        route   $   setExtension "html"
-        compile $   pandocCompiler
-                >>= loadAndApplyTemplate "templates/errstyle/post.html" context
-                >>= loadAndApplyTemplate "templates/errstyle/default.html" context
-                >>= relativizeUrls
+        route   $ setExtension "html"
+        compile   compilePage -- $ copyFileCompiler *> compilePage
 
     match "sass/main.scss" $ do
         route   $ constRoute "css/main.css"
