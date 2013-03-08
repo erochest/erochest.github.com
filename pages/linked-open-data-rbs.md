@@ -1,6 +1,6 @@
 ---
-title: "Linked Open Data at the Rare Book School"
-date: 2011-07-21 15:39
+title: Linked Open Data at the Rare Book School
+date: 2011-07-21 15:39:00
 categories: LOD LODLAM tutorial Python code RDF LoC
 ---
 

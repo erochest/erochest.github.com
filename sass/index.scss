@@ -7,18 +7,34 @@
 #container {
     .panel {
         height: 200px;
-        border-right: 1px solid $full;
-        border-left: 1px solid $full;
-        border-bottom: 1px solid $full;
+        border: 1px solid $full;
         padding: 0.25em;
         background-color: hsl($hue, $sat, 99%);
+        font-size: smaller;
+
+        > div.panel-content {
+            overflow-y: hidden;
+            height: 190px;
+        }
+        > div.more {
+            width: 100%;
+            text-align: right;
+            position: relative;
+            top: -1em;
+            @include linear-gradient(top, hsla($hue, $sat, 99%, 0), hsl($hue, $sat, 99%));
+        }
     }
 
     .panel.main {
         background-color: hsl($hue+$accent-offset, 26%, 89%);
         color: hsl($hue+$accent-offset, 26%, 10%);
         box-shadow: 0 0 1px 1px hsla($hue+$accent-offset, 26%, 10%, 0.3);
+        > div.more {
+            @include linear-gradient(top, hsla($hue+$accent-offset, 26%, 89%, 0),
+                                     hsl($hue+$accent-offset, 26%, 89%));
+        }
     }
+
 }
 
 @media screen and (min-width: $medium-width) {
