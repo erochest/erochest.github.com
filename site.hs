@@ -58,7 +58,8 @@ renderPanes template baseContext items =
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
         liftM (take 8)
-            (loadAllSnapshots "pages/*.md" "content" >>= recentFirst) >>=
+            (loadAllSnapshots ("pages/*.md" .&&. hasNoVersion) "content" >>=
+             recentFirst) >>=
         renderPanes template context >>=
         loadAndApplyTemplate "templates/errstyle/default.html" context >>=
         relativizeUrls
@@ -88,6 +89,10 @@ main = hakyll $ do
     match "pages/*.md" $ do
         route   $ setExtension "html"
         compile   compilePage
+
+    match "pages/*.md" $ version "raw" $ do
+        route   idRoute
+        compile getResourceBody
 
     match "sass/main.scss" $ do
         route   $ constRoute "css/main.css"
