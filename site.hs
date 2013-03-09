@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- TODO: color scheme
+-- TODO: nav
 -- TODO: aria
 -- TODO: move over to clj-data-analysis subsite
 -- TODO: RSS

@@ -9,7 +9,8 @@
         height: 200px;
         border: 1px solid $full;
         padding: 0.25em;
-        background-color: hsl($hue, $sat, $l3);
+        background-color: hsl($hue+$accent-offset, $s1, $l2);
+        color: hsl($hue+$accent-offset, $s1, $l0);
         font-size: smaller;
 
         > div.panel-content {
@@ -21,17 +22,16 @@
             text-align: right;
             position: relative;
             top: -1em;
-            @include linear-gradient(top, hsla($hue, $sat, $l3, 0), hsl($hue, $sat, $l3));
+            @include linear-gradient(top, hsla($hue+$accent-offset, $s1, $l2, 0),
+                                     hsl($hue+$accent-offset, $s1, $l2));
         }
     }
 
     .panel.main {
-        background-color: hsl($hue+$accent-offset, $s1, $l2);
-        color: hsl($hue+$accent-offset, $s1, $l0);
+        background-color: hsl($hue, $sat, $l4);
         box-shadow: 0 0 1px 1px hsla($hue+$accent-offset, $s1, $l0, 0.3);
         > div.more {
-            @include linear-gradient(top, hsla($hue+$accent-offset, $s1, $l2, 0),
-                                     hsl($hue+$accent-offset, $s1, $l2));
+            @include linear-gradient(top, hsla($hue, $sat, $l4, 0), hsl($hue, $sat, $l4));
         }
     }
 
