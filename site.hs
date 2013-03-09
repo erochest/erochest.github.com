@@ -10,7 +10,7 @@
 
 -- import           Control.Applicative
 import           Control.Monad
-import           Control.Monad.IO.Class
+-- import           Control.Monad.IO.Class
 -- import qualified Data.List as L
 import           Data.Monoid
 import           Hakyll
@@ -57,9 +57,8 @@ renderPanes template baseContext items =
 
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
-        loadAllSnapshots "pages/*.md" "content" >>=
-        recentFirst >>=
-        return . take 8 >>=
+        liftM (take 8)
+            (loadAllSnapshots "pages/*.md" "content" >>= recentFirst) >>=
         renderPanes template context >>=
         loadAndApplyTemplate "templates/errstyle/default.html" context >>=
         relativizeUrls
