@@ -55,11 +55,15 @@ renderPanes template baseContext items =
  - traceMapWatch msg f x = trace (msg <> show (f `fmap` x)) x
  -}
 
+recentPages :: Int -> Compiler [Item String]
+recentPages n =
+        liftM (take n)
+            (loadAllSnapshots ("pages/*.md" .&&. hasNoVersion) "content" >>=
+             recentFirst)
+
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
-        liftM (take 8)
-            (loadAllSnapshots ("pages/*.md" .&&. hasNoVersion) "content" >>=
-             recentFirst) >>=
+        recentPages 8 >>=
         renderPanes template context >>=
         loadAndApplyTemplate "templates/errstyle/default.html" context >>=
         relativizeUrls
@@ -85,6 +89,19 @@ main = hakyll $ do
                 >>= compileIndex (  dateField "date" "%e %B %Y"
                                  <> constField "extra-header" (style "css/index.css")
                                  <> defaultContext)
+
+    create ["atom.xml"] $ do
+        route idRoute
+        compile $ do
+            let context =  dateField "date" "%e %B %Y"
+                        <> bodyField "description"
+                        <> defaultContext
+                config  = FeedConfiguration "Eric Rochester"
+                                            "Feed for my site."
+                                            "Eric Rochester"
+                                            "erochest@gmail.com"
+                                            "http://www.ericrochester.com/"
+            recentPages 10 >>= renderAtom config context
 
     match "pages/*.md" $ do
         route   $ setExtension "html"
