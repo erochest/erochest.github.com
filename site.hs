@@ -1,21 +1,49 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 -- TODO: nav
+-- TODO: - chronological index
+-- TODO: - chronological tree
+-- TODO: - tag/category index
+-- TODO: - search
+-- TODO: heavy footer (w/partial)
+-- TODO: accent color border around panes
+-- TODO: projects
+-- TODO: about page
+-- TODO: google analytics
 -- TODO: aria
 -- TODO: move over to clj-data-analysis subsite
 -- TODO: RSS
 -- TODO: compress all CSS.
+-- TODO: tags
 -- TODO: notes
+-- TODO: deploy script
+-- TODO: - site build
+-- TODO: - git submodule _deploy master
+-- TODO: - clean out _deploy
+-- TODO: - cp -r _site/* _deploy/
+-- TODO: - commit, push, update submodule point
+-- TODO: literate pages
 
 
 -- import           Control.Applicative
 import           Control.Monad
 -- import           Control.Monad.IO.Class
--- import qualified Data.List as L
+import           Data.Char
+import qualified Data.List as L
 import           Data.Monoid
+import qualified Data.Text.Lazy as TL
 import           Hakyll
--- import Debug.Trace
+import           Shelly
+import           Text.Blaze.Html.Renderer.String (renderHtml)
+import           Text.Blaze.Html5 hiding (div, map, span, style)
+import           Text.Blaze.Html5.Attributes hiding (style)
+import qualified Text.Blaze.Html5 as H5
+import qualified Text.Blaze.Html5.Attributes as H5A
+import qualified Debug.Trace as Debug
 
+
+pageLength :: Int
+pageLength = 25
 
 sassCompiler :: Compiler (Item String)
 sassCompiler =
@@ -49,17 +77,19 @@ renderPanes template baseContext items =
 
 {-
  - traceWatch :: Show a => String -> a -> a
- - traceWatch msg x = trace (msg <> show x) x
+ - traceWatch msg x = Debug.trace (msg <> show x) x
  - 
  - traceMapWatch :: (Functor f, Show (f b)) => String -> (a -> b) -> f a -> f a
- - traceMapWatch msg f x = trace (msg <> show (f `fmap` x)) x
+ - traceMapWatch msg f x = Debug.trace (msg <> show (f `fmap` x)) x
  -}
 
+loadPageContent :: Compiler [Item String]
+loadPageContent =
+        loadAllSnapshots ("pages/*.md" .&&. hasNoVersion) "content" >>=
+        recentFirst
+
 recentPages :: Int -> Compiler [Item String]
-recentPages n =
-        liftM (take n)
-            (loadAllSnapshots ("pages/*.md" .&&. hasNoVersion) "content" >>=
-             recentFirst)
+recentPages n = liftM (take n) loadPageContent
 
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
@@ -78,9 +108,66 @@ compilePage =   pandocCompiler
                   <> constField "extra-header" ""
                   <> defaultContext
 
-main :: IO ()
-main = hakyll $ do
+getPageNumber :: Prelude.FilePath -> Int
+getPageNumber fp
+    | "index.html" `L.isSuffixOf` fp = 0
+    | otherwise =
+        read . takeWhile isDigit $ dropWhile (not . isDigit) fp
 
+pager :: Int -> Int -> (Int -> String) -> Html
+pager 1 _ _ = H5.span $ toHtml ("" :: String)
+pager pageCount page getPageUrl =
+        H5.div ! class_ "page-nav" $ do
+            when (page > 0)         $ pageLink 0    "«"
+            when (prev > 0)         $ pageLink prev "‹"
+            when (page - 2 >= 0)    $ pl (page - 2)
+            when (page - 1 >= 0)    $ pl (page - 1)
+            toHtml (succ page)
+            toHtml (" " :: String)
+            when (page + 1 <= last) $ pl (page + 1)
+            when (page + 2 <= last) $ pl (page + 2)
+            when (next < last)      $ pageLink next "›"
+            when (last > page)      $ pageLink last "»"
+    where prev = pred page
+          next = succ page
+          last = pred pageCount
+
+          pl n = pageLink n . show $ succ n
+
+          pageLink :: Int -> String -> Html
+          pageLink n text = do
+              H5.span $ a ! href (toValue (getPageUrl n)) $ toHtml text
+              toHtml (" " :: String)
+
+getPage :: String -> Int -> String
+getPage p 0 = p <> ".html"
+getPage p n = p <> "-" <> show n <> ".html"
+
+-- include the pagination links: << < (n-2) (n-1) n (n+1) (n+2) > >>
+compilePageIndex :: Int -> Compiler (Item String)
+compilePageIndex pageCount = do
+        pageN        <- getPageNumber . toFilePath <$> getUnderlying
+        itemTemplate <- loadBody "templates/pages-index-item.html"
+        let context =  dateField "date" "%e %B %Y"
+                    <> constField "extra-header" ""
+                    <> (constField "pager" . renderHtml . pager pageCount pageN $ getPage "/pages/index")
+                    <> defaultContext
+        take pageLength . drop (pageN * pageLength) <$> loadPageContent
+            >>= applyTemplateList itemTemplate context
+            >>= makeItem
+            >>= loadAndApplyTemplate "templates/pages-index.html" context
+            >>= loadAndApplyTemplate "templates/errstyle/default.html" context
+
+main :: IO ()
+main = do
+    pages <- shelly $ map TL.unpack . filter (TL.isSuffixOf ".md") <$> lsT "pages/"
+    let (d, m)    = length pages `divMod` pageLength
+        pageCount = d + if m == 0 then 0 else 1
+        pageNames =  "pages/index.html" : [ "pages/index-" <> show n <> ".html" 
+                                          | n <- take (pageCount - 1) [1..]
+                                          ]
+
+    hakyll $ do
     match "templates/**" $ compile templateCompiler
 
     create ["index.html"] $ do
@@ -102,6 +189,10 @@ main = hakyll $ do
                                             "erochest@gmail.com"
                                             "http://www.ericrochester.com/"
             recentPages 10 >>= renderAtom config context
+
+    create (map fromFilePath pageNames) $ do
+        route     idRoute
+        compile $ compilePageIndex pageCount
 
     match "pages/*.md" $ do
         route   $ setExtension "html"
