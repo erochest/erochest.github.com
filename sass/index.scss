@@ -7,7 +7,7 @@
 #container {
     .panel {
         height: 200px;
-        border: 1px solid $full;
+        border: 1px solid hsl($hue+$accent-offset, $s1, $l0);
         padding: 0.25em;
         background-color: hsl($hue+$accent-offset, $s1, $l2);
         color: hsl($hue+$accent-offset, $s1, $l0);
