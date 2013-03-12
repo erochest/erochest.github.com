@@ -228,7 +228,7 @@ Throughout this post, I’ve tried to link to some resources. Here are a few mor
  * [A portal maintained by the W3C](http://www.w3.org/wiki/LinkedData).
  * [The LOD cloud](http://lod-cloud.net/).
  * [The four rules of LOD](http://www.w3.org/DesignIssues/LinkedData.html).
- * [The five rules](http://lab.linkeddata.deri.ie/2010/star-scheme-by-example/).
+ * [The five stars](http://lab.linkeddata.deri.ie/2010/star-scheme-by-example/).
  * [Linked vs Open vs Data](http://blogs.ecs.soton.ac.uk/webteam/2011/07/17/linked-data-vs-open-data-vs-rdf-data/).
  * [A book on publishing LOD on the internet](http://linkeddatabook.com/book).
 
