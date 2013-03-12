@@ -1,29 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- TODO: nav
--- TODO: - chronological index
--- TODO: - chronological tree
--- TODO: - tag/category index
--- TODO: - search
--- TODO: heavy footer (w/partial)
--- TODO: accent color border around panes
--- TODO: projects
--- TODO: about page
--- TODO: google analytics
--- TODO: aria
--- TODO: move over to clj-data-analysis subsite
--- TODO: RSS
--- TODO: compress all CSS.
--- TODO: tags
--- TODO: notes
--- TODO: deploy script
--- TODO: - site build
--- TODO: - git submodule _deploy master
--- TODO: - clean out _deploy
--- TODO: - cp -r _site/* _deploy/
--- TODO: - commit, push, update submodule point
--- TODO: literate pages
-
 
 -- import           Control.Applicative
 import           Control.Monad
