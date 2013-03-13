@@ -45,7 +45,7 @@ main :: IO ()
 main = shelly $ verbosely $ do
     now <- TL.pack . formatTime defaultTimeLocale rfc822DateFormat <$> liftIO getCurrentTime
     ghc_ ["site.hs"]
-    run_ "site" []
+    run_ "./site" ["rebuild"]
     clearDeploy
     copySite
     chdir "_deploy" $ do
