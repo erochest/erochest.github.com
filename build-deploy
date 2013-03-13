@@ -1,0 +1,4 @@
+#!/bin/sh
+
+ghc --make -package-conf ./cabal-dev/packages-7.4.2.conf deploy.hs
+
