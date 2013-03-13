@@ -8,13 +8,13 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2011-07-21T15:39:00Z</updated>
+    <updated>2011-07-21T20:39:00Z</updated>
     <entry>
     <title>Linked Open Data at the Rare Book School</title>
     <link href="http://www.ericrochester.com//pages/linked-open-data-rbs.html" />
     <id>http://www.ericrochester.com//pages/linked-open-data-rbs.html</id>
-    <published>2011-07-21T15:39:00Z</published>
-    <updated>2011-07-21T15:39:00Z</updated>
+    <published>2011-07-21T20:39:00Z</published>
+    <updated>2011-07-21T20:39:00Z</updated>
     <summary type="html"><![CDATA[<p><em>This is cross posted at <a href="http://www.scholarslab.org/digital-libraries/introduction-to-linked-open-data-at-rare-books-school/">The Scholars’ Lab Blog</a>.</em></p>
 <p>Yesterday, I was fortunate to be invited by <a href="http://www.engl.virginia.edu/faculty/stauffer_andrew.shtml">Andrew Stauffer</a> and <a href="http://nowviskie.org/">Bethany Nowviskie</a> to present at their <a href="http://www.rarebookschool.org/">Rare Book School</a> course, <a href="http://rarebookschool.org/courses/libraries/l65/">Digitizing the Historical Record</a>. I talked about <a href="http://en.wikipedia.org/wiki/Linked_Data">Linked Open Data</a> (LOD), and afterward, <a href="http://twitter.com/!/bluesaepe">Dana Wheeles</a> talked about the <a href="http://www.nines.org/">NINES</a> project and how they use RDF and LOD.</p>
 <p>I tried to present a gentle, mostly non-technical introduction to LOD, with an example of it in action. Hopefully, this posting will be a 50,000 foot overview also.</p>

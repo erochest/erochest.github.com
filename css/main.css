@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * HTML5 Boilerplate
  *
@@ -126,14 +127,19 @@ h1 a {
   text-decoration: none;
   color: #1c1917; }
 
-section h1 {
+article h1, section h1 {
   font-size: 1.4em;
   font-weight: bold; }
-  section h1:first-child {
+  article h1:first-child, section h1:first-child {
     margin-top: 0;
     margin-bottom: 0.1em; }
-section p:first-child {
+article p:first-child, section p:first-child {
   font-size: larger; }
+article footer ul li, section footer ul li {
+  display: inline;
+  padding-right: 0.5em; }
+  article footer ul li + li:before, section footer ul li + li:before {
+    content: "· "; }
 
 footer {
   font-size: 0.61805em; }
@@ -270,7 +276,7 @@ code {
     margin-left: auto;
     margin-right: auto; }
   #container > footer > div {
-    width: 5in;
+    width: 640px;
     margin-left: auto;
     margin-right: auto; }
     #container > footer > div .column {
@@ -280,6 +286,9 @@ code {
       width: 23.23176%; }
       #container > footer > div .column:last-child {
         margin-right: 0; } }
+@media screen and (min-width: 960px) {
+  #container > footer > div {
+    width: 960px; } }
 /* ==========================================================================
    Print styles.
    Inlined to avoid required HTTP connection: h5bp.com/r
