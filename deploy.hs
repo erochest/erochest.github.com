@@ -48,6 +48,9 @@ main = shelly $ verbosely $ do
     run_ "./site" ["rebuild"]
     clearDeploy
     copySite
+
+    -- TODO: Really need to have a command-line argument for bailing here. That
+    -- would make testing easier.
     chdir "_deploy" $ do
         git_ "add" ["--all"]
         gitCommit $ "Deployed on " ++ now ++ "."
