@@ -81,6 +81,7 @@ compilePage =   pandocCompiler
             >>= loadAndApplyTemplate "templates/errstyle/default.html" context
             >>= relativizeUrls
     where context =  dateField "date" "%e %B %Y"
+                  <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
                   <> constField "extra-header" ""
                   <> defaultContext
 
@@ -125,6 +126,7 @@ compilePageIndex pageCount = do
         pageN        <- getPageNumber . toFilePath <$> getUnderlying
         itemTemplate <- loadBody "templates/pages-index-item.html"
         let context =  dateField "date" "%e %B %Y"
+                    <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
                     <> constField "extra-header" ""
                     <> (constField "pager" . renderHtml . pager pageCount pageN $ getPage "/pages/index")
                     <> defaultContext
@@ -150,6 +152,7 @@ main = do
         route       idRoute
         compile $   loadBody "templates/index-pane.html"
                 >>= compileIndex (  dateField "date" "%e %B %Y"
+                                 <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
                                  <> constField "extra-header" (style "css/index.css")
                                  <> defaultContext)
 
@@ -157,6 +160,7 @@ main = do
         route idRoute
         compile $ do
             let context =  dateField "date" "%e %B %Y"
+                        <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
                         <> bodyField "description"
                         <> defaultContext
                 config  = FeedConfiguration "Eric Rochester"
