@@ -21,17 +21,17 @@
             width: 100%;
             text-align: right;
             position: relative;
-            top: -1em;
+            top: -14.5px;
             @include linear-gradient(top, hsla($hue+$accent-offset, $s1, $l2, 0),
                                      hsl($hue+$accent-offset, $s1, $l2));
         }
     }
 
     .panel.main {
-        background-color: hsl($hue, $sat, $l4);
+        background-color: hsl($hue, $sat, $l3);
         box-shadow: 0 0 1px 1px hsla($hue+$accent-offset, $s1, $l0, 0.3);
         > div.more {
-            @include linear-gradient(top, hsla($hue, $sat, $l4, 0), hsl($hue, $sat, $l4));
+            @include linear-gradient(top, hsla($hue, $sat, $l3, 0), hsl($hue, $sat, $l3));
         }
     }
 
@@ -74,8 +74,10 @@
             }
         }
 
-        > footer {
+        > footer > div {
             width: $medium-width;
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 }
@@ -103,7 +105,7 @@
             }
         }
 
-        > footer {
+        > footer > div {
             width: $wide-width;
         }
     }
