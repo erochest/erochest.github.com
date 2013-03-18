@@ -6,6 +6,7 @@ import           Control.Monad
 -- import           Control.Monad.IO.Class
 import           Data.Char
 import qualified Data.List as L
+import           Data.Maybe (fromMaybe)
 import           Data.Monoid
 import qualified Data.Text.Lazy as TL
 import           Hakyll
@@ -80,10 +81,7 @@ compilePage =   pandocCompiler
             >>= loadAndApplyTemplate "templates/errstyle/post.html" context
             >>= loadAndApplyTemplate "templates/errstyle/default.html" context
             >>= relativizeUrls
-    where context =  dateField "date" "%e %B %Y"
-                  <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
-                  <> constField "extra-header" ""
-                  <> defaultContext
+    where context = siteContext Nothing
 
 getPageNumber :: Prelude.FilePath -> Int
 getPageNumber fp
@@ -125,16 +123,20 @@ compilePageIndex :: Int -> Compiler (Item String)
 compilePageIndex pageCount = do
         pageN        <- getPageNumber . toFilePath <$> getUnderlying
         itemTemplate <- loadBody "templates/pages-index-item.html"
-        let context =  dateField "date" "%e %B %Y"
-                    <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
-                    <> constField "extra-header" ""
-                    <> (constField "pager" . renderHtml . pager pageCount pageN $ getPage "/pages/index")
-                    <> defaultContext
+        let context =  (constField "pager" . renderHtml . pager pageCount pageN $ getPage "/pages/index")
+                    <> siteContext Nothing
         take pageLength . drop (pageN * pageLength) <$> loadPageContent
             >>= applyTemplateList itemTemplate context
             >>= makeItem
             >>= loadAndApplyTemplate "templates/pages-index.html" context
             >>= loadAndApplyTemplate "templates/errstyle/default.html" context
+
+siteContext :: Maybe String -> Context String
+siteContext extraHeader =
+           dateField "date" "%e %B %Y"
+        <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
+        <> constField "extra-header" (fromMaybe "" extraHeader)
+        <> defaultContext
 
 main :: IO ()
 main = do
@@ -151,18 +153,12 @@ main = do
     create ["index.html"] $ do
         route       idRoute
         compile $   loadBody "templates/index-pane.html"
-                >>= compileIndex (  dateField "date" "%e %B %Y"
-                                 <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
-                                 <> constField "extra-header" (style "css/index.css")
-                                 <> defaultContext)
+                >>= (compileIndex . siteContext . Just $ style "css/index.css")
 
     create ["atom.xml"] $ do
         route idRoute
         compile $ do
-            let context =  dateField "date" "%e %B %Y"
-                        <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
-                        <> bodyField "description"
-                        <> defaultContext
+            let context = bodyField "description" <> siteContext Nothing
                 config  = FeedConfiguration "Eric Rochester"
                                             "Feed for my site."
                                             "Eric Rochester"
