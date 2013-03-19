@@ -184,6 +184,9 @@ main = do
     match "sass/index.scss" $ do
         route   $ constRoute "css/index.css"
         compile   sassCompiler
+    match "sass/errstyle/font-awesome.min.css" $ do
+        route   $ constRoute "css/font-awesome.min.css"
+        compile   copyFileCompiler
 
     match "*.png" $ do
         route   idRoute
@@ -201,6 +204,9 @@ main = do
         route   idRoute
         compile copyFileCompiler
     match "css/*.css" $ do
+        route   idRoute
+        compile copyFileCompiler
+    match "font/*" $ do
         route   idRoute
         compile copyFileCompiler
 
