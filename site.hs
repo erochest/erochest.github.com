@@ -135,8 +135,9 @@ siteContext :: Maybe String -> Context String
 siteContext extraHeader =
            dateField "date" "%e %B %Y"
         <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
-        <> constField "extra-header" (fromMaybe "" extraHeader)
+        <> constField "extra-header" links
         <> defaultContext
+        where links = "<link rel=\"stylesheet\" href=\"/css/site.css\">" ++ fromMaybe "" extraHeader
 
 main :: IO ()
 main = do
@@ -183,6 +184,9 @@ main = do
         compile   sassCompiler
     match "sass/index.scss" $ do
         route   $ constRoute "css/index.css"
+        compile   sassCompiler
+    match "sass/site.scss" $ do
+        route   $ constRoute "css/site.css"
         compile   sassCompiler
 
     match "*.png" $ do
