@@ -79,7 +79,7 @@ article, section {
         }
     }
 
-    p:first-child {
+    div > p:first-child {
         font-size: larger;
     }
 
