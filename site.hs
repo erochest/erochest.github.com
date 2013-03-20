@@ -27,13 +27,13 @@ sassCompiler =
         getResourceString >>=
         withItemBody (unixFilter "sass" [ "--scss"
                                         , "--stdin"
-                                        , "--load-path", "sass/errstyle/"
+                                        , "--load-path", "sass/"
                                         ])
 
 postTemplate :: Context String -> Item String -> Compiler (Item String)
 postTemplate context item =
-            loadAndApplyTemplate "templates/errstyle/post.html" context item
-        >>= loadAndApplyTemplate "templates/errstyle/default.html" context
+            loadAndApplyTemplate "templates/post.html" context item
+        >>= loadAndApplyTemplate "templates/default.html" context
 
 style :: String -> String
 style url =  "<link rel=\"stylesheet\" href=\"" <> url <> "\">"
@@ -72,14 +72,13 @@ compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
         recentPages 8 >>=
         renderPanes template context >>=
-        loadAndApplyTemplate "templates/errstyle/default.html" context >>=
+        loadAndApplyTemplate "templates/default.html" context >>=
         relativizeUrls
 
 compilePage :: Compiler (Item String)
 compilePage =   pandocCompiler
             >>= saveSnapshot "content"
-            >>= loadAndApplyTemplate "templates/errstyle/post.html" context
-            >>= loadAndApplyTemplate "templates/errstyle/default.html" context
+            >>= postTemplate context
             >>= relativizeUrls
     where context = siteContext Nothing
 
@@ -129,7 +128,7 @@ compilePageIndex pageCount = do
             >>= applyTemplateList itemTemplate context
             >>= makeItem
             >>= loadAndApplyTemplate "templates/pages-index.html" context
-            >>= loadAndApplyTemplate "templates/errstyle/default.html" context
+            >>= loadAndApplyTemplate "templates/default.html" context
 
 siteContext :: Maybe String -> Context String
 siteContext extraHeader =
@@ -142,10 +141,10 @@ main :: IO ()
 main = do
     pages <- shelly $ map TL.unpack . filter (TL.isSuffixOf ".md") <$> lsT "pages/"
     let (d, m)    = length pages `divMod` pageLength
-        pageCount = d + if m == 0 then 0 else 1
-        pageNames =  "pages/index.html" : [ "pages/index-" <> show n <> ".html" 
-                                          | n <- take (pageCount - 1) [1..]
-                                          ]
+        indexPageCount = d + if m == 0 then 0 else 1
+        indexPages     = "pages/index.html" : [ "pages/index-" <> show n <> ".html"
+                                              | n <- take (indexPageCount - 1) [1..]
+                                              ]
 
     hakyll $ do
     match "templates/**" $ compile templateCompiler
@@ -166,9 +165,9 @@ main = do
                                             "http://www.ericrochester.com/"
             recentPages 10 >>= renderAtom config context
 
-    create (map fromFilePath pageNames) $ do
+    create (map fromFilePath indexPages) $ do
         route     idRoute
-        compile $ compilePageIndex pageCount
+        compile $ compilePageIndex indexPageCount
 
     match "pages/*.md" $ do
         route   $ setExtension "html"
@@ -184,9 +183,6 @@ main = do
     match "sass/index.scss" $ do
         route   $ constRoute "css/index.css"
         compile   sassCompiler
-    match "sass/errstyle/font-awesome.min.css" $ do
-        route   $ constRoute "css/font-awesome.min.css"
-        compile   copyFileCompiler
 
     match "*.png" $ do
         route   idRoute
