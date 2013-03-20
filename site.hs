@@ -17,26 +17,11 @@ import           Text.Blaze.Html5.Attributes hiding (style)
 import qualified Text.Blaze.Html5 as H5
 import qualified Text.Blaze.Html5.Attributes as H5A
 import qualified Debug.Trace as Debug
+import           Sites.Base
 
 
 pageLength :: Int
 pageLength = 25
-
-sassCompiler :: Compiler (Item String)
-sassCompiler =
-        getResourceString >>=
-        withItemBody (unixFilter "sass" [ "--scss"
-                                        , "--stdin"
-                                        , "--load-path", "sass/"
-                                        ])
-
-postTemplate :: Context String -> Item String -> Compiler (Item String)
-postTemplate context item =
-            loadAndApplyTemplate "templates/post.html" context item
-        >>= loadAndApplyTemplate "templates/default.html" context
-
-style :: String -> String
-style url =  "<link rel=\"stylesheet\" href=\"" <> url <> "\">"
 
 -- Borrowed heavily from applyJoinTemplateList
 renderPanes :: Template -> Context c -> [Item c] -> Compiler (Item String)
@@ -73,13 +58,6 @@ compileIndex context template =
         renderPanes template context >>=
         loadAndApplyTemplate "templates/default.html" context >>=
         relativizeUrls
-
-compilePage :: Compiler (Item String)
-compilePage =   pandocCompiler
-            >>= saveSnapshot "content"
-            >>= postTemplate context
-            >>= relativizeUrls
-    where context = siteContext Nothing
 
 getPageNumber :: Prelude.FilePath -> Int
 getPageNumber fp
@@ -128,13 +106,6 @@ compilePageIndex pageCount = do
             >>= makeItem
             >>= loadAndApplyTemplate "templates/pages-index.html" context
             >>= loadAndApplyTemplate "templates/default.html" context
-
-siteContext :: Maybe String -> Context String
-siteContext extraHeader =
-           dateField "date" "%e %B %Y"
-        <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
-        <> constField "extra-header" (fromMaybe "" extraHeader)
-        <> defaultContext
 
 main :: IO ()
 main = do
