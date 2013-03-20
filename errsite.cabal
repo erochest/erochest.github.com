@@ -21,6 +21,9 @@ executable site
                      , network    == 2.3.*
                      , bytestring == 0.9.*
                      , hakyll     == 4.1.*
+                     , blaze-html == 0.5.*
+                     , shelly     == 0.15.*
+                     , text       == 0.11.*
 
 executable deploy
   main-is:             deploy.hs
@@ -30,3 +33,5 @@ executable deploy
                      , system-filepath == 0.4.*
                      , time            == 1.4
                      , classy-prelude  == 0.4.*
+                     , old-locale      == 1.0.*
+                     , containers      == 0.4.*
