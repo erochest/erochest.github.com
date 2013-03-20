@@ -14,10 +14,17 @@ category:            Web
 build-type:          Simple
 cabal-version:       >=1.8
 
+library
+  exposed-modules:     Sites.Types
+  -- other-modules:       
+  build-depends:       base == 4.5.*
+                     , text == 0.11.*
+
 executable site
   main-is:             site.hs
   -- other-modules:       
   build-depends:       base       == 4.5.*
+                     , errsite
                      , network    == 2.3.*
                      , bytestring == 0.9.*
                      , hakyll     == 4.1.*
@@ -28,6 +35,7 @@ executable site
 executable deploy
   main-is:             deploy.hs
   build-depends:       base            == 4.5.*
+                     , errsite
                      , shelly          == 0.15.*
                      , text            == 0.11.*
                      , system-filepath == 0.4.*
