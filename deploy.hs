@@ -13,6 +13,8 @@ import           System.Locale
 
 default (TL.Text)
 
+-- TODO: At this stage, break out the subprojects.
+
 toSave :: S.Set FilePath
 toSave = S.fromList [ "_deploy/.git"
                     , "_deploy/CNAME"
