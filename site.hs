@@ -50,6 +50,9 @@ main = do
         route   idRoute
         compile copyFileCompiler
 
+    match "CNAME" $ do
+        route   idRoute
+        compile copyFileCompiler
     match "*.png" $ do
         route   idRoute
         compile copyFileCompiler
