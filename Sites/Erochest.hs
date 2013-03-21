@@ -8,7 +8,6 @@ module Sites.Erochest
 import           Control.Applicative
 import           Control.Monad
 import           Data.Monoid
-import qualified Data.Set as S
 import qualified Data.Text.Lazy as TL
 import           Hakyll
 import           Prelude hiding (FilePath)
@@ -21,8 +20,7 @@ import           Text.Blaze.Html.Renderer.String (renderHtml)
 
 erochestSite :: IO SiteInfo
 erochestSite =
-        Site "erochest" "erochest.github.com" "." sticky `fmap` rules
-        where sticky = S.fromList [".git", "CNAME"]
+        Site "erochest" "erochest.github.com" "." `fmap` rules
 
 pageLength :: Int
 pageLength = 25
