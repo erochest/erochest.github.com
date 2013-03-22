@@ -45,7 +45,7 @@ copySite dest = mapM_ (`cp_r` dest) =<< ls "_site"
 deploySite :: TL.Text -> TL.Text -> FilePath -> Sh ()
 deploySite branch msg dir =
         chdir dir $ do
-            git_ "checkout" ["--branch", branch]
+            git_ "checkout" [branch]
             git_ "add" ["--all"]
             gitCommit msg
             git_ "push" ["origin", "master"]
