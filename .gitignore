@@ -3,5 +3,3 @@ _site/*
 .sass-cache/*
 *.hi
 *.o
-site
-deploy
