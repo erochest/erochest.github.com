@@ -14,7 +14,7 @@ import           Sites.Types
 
 cljDataAnalysisSite :: IO SiteInfo
 cljDataAnalysisSite =
-        return $ Site "clj-data-analysis" "clj-data-analysis" "." rules
+        return $ Site "clj-data-analysis" "clj-data-analysis" "clj-data-analysis" rules
 
 rules :: Rules ()
 rules = do
