@@ -59,6 +59,7 @@ main = shelly $ verbosely $ do
     Root{..} <- liftIO site
     let rootDeploy = ("_deploy" </>) $ siteTarget rootSite
 
+    -- TODO: This might be excessive. I probably really only need to build.
     cabalDev_ "clean"     []
     cabalDev_ "configure" []
     cabalDev_ "build"     []
