@@ -25,6 +25,13 @@ erochestSite =
 pageLength :: Int
 pageLength = 25
 
+openIdHeaders :: String
+openIdHeaders = "<link rel=\"openid.server\" href=\"http://www.myopenid.com/server\" /> \
+    \ <link rel=\"openid.delegate\" href=\"http://erochest.myopenid.com/\" /> \
+    \ <link rel=\"openid2.local_id\" href=\"http://erochest.myopenid.com\" /> \
+    \ <link rel=\"openid2.provider\" href=\"http://www.myopenid.com/server\" /> \
+    \ <meta http-equiv=\"X-XRDS-Location\" content=\"http://www.myopenid.com/xrds?username=erochest.myopenid.com\" />"
+
 -- Borrowed heavily from applyJoinTemplateList
 renderPanes :: Template -> Context c -> [Item c] -> Compiler (Item String)
 renderPanes template baseContext items =
@@ -79,9 +86,10 @@ rules = do
     (indexPageCount, indexPages) <- indexPageInfo
     return $ do
     create ["index.html"] $ do
+        let headers = Just $ style "css/index.css" ++ openIdHeaders
         route       idRoute
         compile $   loadBody "templates/index-pane.html"
-                >>= (compileIndex . siteContext . Just $ style "css/index.css")
+                >>= (compileIndex $ siteContext headers)
 
     create (map fromFilePath indexPages) $ do
         route     idRoute
