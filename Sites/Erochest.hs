@@ -48,7 +48,7 @@ renderPanes template baseContext items =
 
 loadPageContent :: Compiler [Item String]
 loadPageContent =
-        recentFirst <$> loadAllSnapshots ("pages/*.md" .&&. hasNoVersion) "content"
+        loadAllSnapshots ("pages/*.md" .&&. hasNoVersion) "content"
 
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
