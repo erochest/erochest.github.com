@@ -32,7 +32,7 @@ openIdHeaders = "<link rel=\"openid.server\" href=\"http://www.myopenid.com/serv
     \ <link rel=\"openid2.provider\" href=\"http://www.myopenid.com/server\" /> \
     \ <meta http-equiv=\"X-XRDS-Location\" content=\"http://www.myopenid.com/xrds?username=erochest.myopenid.com\" />"
 
--- Borrowed heavily from applyJoinTemplateList
+-- | Borrowed heavily from applyJoinTemplateList
 renderPanes :: Template -> Context c -> [Item c] -> Compiler (Item String)
 renderPanes template baseContext items =
     zipWithM (applyTemplate template) (map context ([0..] :: [Int])) items >>=
@@ -48,7 +48,7 @@ renderPanes template baseContext items =
 
 loadPageContent :: Compiler [Item String]
 loadPageContent =
-        loadAllSnapshots ("pages/*.md" .&&. hasNoVersion) "content"
+        loadAllSnapshots ("pages/**/*.md" .&&. hasNoVersion) "content"
 
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
@@ -57,9 +57,15 @@ compileIndex context template =
         loadAndApplyTemplate "templates/default.html" context >>=
         relativizeUrls
 
+listCategoryPagesT :: FilePath -> Sh [TL.Text]
+listCategoryPagesT rootDir = do
+        children <- ls rootDir
+        map toTextIgnore <$> ((++) <$> filterM test_f children
+                                   <*> (fmap concat <$> mapM ls =<< filterM test_d children))
+
 indexPageInfo :: IO (Int, [String])
 indexPageInfo = do
-    pages <- shelly $ map TL.unpack . filter (TL.isSuffixOf ".md") <$> lsT "pages/"
+    pages <- shelly $ map TL.unpack . filter (TL.isSuffixOf ".md") <$> listCategoryPagesT "pages/"
     let (d, m)    = length pages `divMod` pageLength
         indexPageCount = d + if m == 0 then 0 else 1
         indexPages     = "pages/index.html" : [ "pages/index-" <> show n <> ".html"
@@ -106,11 +112,11 @@ rules = do
                                             "http://www.ericrochester.com/"
             in  take 10 <$> loadPageContent >>= renderAtom config context
 
-    match "pages/*.md" $ do
+    match "pages/**/*.md" $ do
         route   $ setExtension "html"
         compile   compilePage
 
-    match "pages/*.md" $ version "raw" $ do
+    match "pages/**/*.md" $ version "raw" $ do
         route   idRoute
         compile getResourceBody
 
