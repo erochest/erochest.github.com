@@ -1,6 +1,6 @@
 ---
 title: Clojure Data Analysis Cookbook
-date: 2013-03-25T00:00:00Z
+date: 2013-03-26T06:00:00Z
 tags: writing, clojure, data
 ---
 
@@ -10,11 +10,16 @@ I'm pleased to announce the release of the [*Clojure Data Analysis
 Cookbook*][packtclj], written by me, and published by [Packt
 Publishing][packt].
 
-This book has practical recipes for every stage of the data analysis process,
-from acquiring data, to cleaning it, to analyzing it, to displaying and
-graphing it, and to publishing it on the web. There's a chapter on statistics
-and one on machine learning, as well as the obligatory (for Clojure, anyway)
-chapters on parallelism and concurrency.
+This book has practical recipes for every stage of the data analysis process:
+
+* acquiring data,
+* cleaning it,
+* analyzing it,
+* displaying and graphing it, and
+* publishing it on the web.
+
+There's also a chapter on statistics and one on machine learning, as well as
+the obligatory (for Clojure, anyway) chapters on parallelism and concurrency.
 
 From the book's blurb:
 
@@ -34,12 +39,12 @@ From the book's blurb:
 > statistical techniques like Bayesian modelling, and even data mining algorithms
 > such as K-means clustering, neural networks, and association rules.
 
-I've enjoyed writing this, although right now I'm mainly looking forward to
-doing something else for a while. I'm making a list.
+I've enjoyed writing this. It's been a fun journey, and the people I've been
+working with on this have been awesome.
 
 Over the next few weeks, I'll post a few of the recipes that I started on, but
 which I had to cut for space or other reasons. They'll give you a taste of
-what's available for you in this book.
+what's available for you in this book, so look for them in the upcoming weeks!
 
 [packt]: http://www.packtpub.com/
 [packtclj]: http://www.packtpub.com/clojure-data-analysis-cookbook/book
