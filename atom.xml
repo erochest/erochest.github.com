@@ -8,13 +8,13 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2013-03-26T06:00:00Z</updated>
+    <updated>2013-03-27T05:00:00Z</updated>
     <entry>
     <title>Clojure Data Analysis Cookbook</title>
     <link href="http://www.ericrochester.com//pages/announcements/clj-data-analysis/index.html" />
     <id>http://www.ericrochester.com//pages/announcements/clj-data-analysis/index.html</id>
-    <published>2013-03-26T06:00:00Z</published>
-    <updated>2013-03-26T06:00:00Z</updated>
+    <published>2013-03-27T05:00:00Z</published>
+    <updated>2013-03-27T05:00:00Z</updated>
     <summary type="html"><![CDATA[<p><img class='bookframe' src='http://dgdsbygo8mp3h.cloudfront.net/sites/default/files/imagecache/productview_larger/2643OS_0.jpg'/></p>
 <p>I’m pleased to announce the release of the <a href="http://www.packtpub.com/clojure-data-analysis-cookbook/book"><em>Clojure Data Analysis Cookbook</em></a>, written by me, and published by <a href="http://www.packtpub.com/">Packt Publishing</a>.</p>
 <p>This book has practical recipes for every stage of the data analysis process:</p>
@@ -32,8 +32,9 @@
 <p>“The Clojure Data Analysis Cookbook” presents recipes for every stage of the data analysis process. Whether scraping data off a web page, performing data mining, or creating graphs for the web, this book has something for the task at hand.</p>
 <p>You’ll learn how to acquire data, clean it up, and transform it into useful graphs which can then be analyzed and published to the Internet. Coverage includes advanced topics like processing data concurrently, applying powerful statistical techniques like Bayesian modelling, and even data mining algorithms such as K-means clustering, neural networks, and association rules.</p>
 </blockquote>
-<p>I’ve enjoyed writing this. It’s been a fun journey, and the people I’ve been working with on this have been awesome.</p>
-<p>Over the next few weeks, I’ll post a few of the recipes that I started on, but which I had to cut for space or other reasons. They’ll give you a taste of what’s available for you in this book, so look for them in the upcoming weeks!</p>]]></summary>
+<p>I’ve enjoyed writing this. It’s been a fun journey, and the people I’ve been working with on this have been awesome. It will be nice to do something else for a change, though.</p>
+<p>Over the next few weeks, I’ll post a few of the recipes that I started on, but which I had to cut for space or other reasons. They’ll give you a taste of what’s available for you in this book, so look for them in the upcoming weeks!</p>
+<p>In the meantime, I’ve set up <a href="http://www.ericrochester.com/clj-data-analysis/">a page</a> with links to the datasets I use in the book.</p>]]></summary>
 </entry>
 <entry>
     <title>Linked Open Data at the Rare Book School</title>

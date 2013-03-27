@@ -34,12 +34,17 @@ From the book's blurb:
 > such as K-means clustering, neural networks, and association rules.
 
 I've enjoyed writing this. It's been a fun journey, and the people I've been
-working with on this have been awesome.
+working with on this have been awesome. It will be nice to do something else
+for a change, though.
 
 Over the next few weeks, I'll post a few of the recipes that I started on, but
 which I had to cut for space or other reasons. They'll give you a taste of
 what's available for you in this book, so look for them in the upcoming weeks!
 
+In the meantime, I've set up [a page][data] with links to the datasets I use in
+the book.
+
 [packt]: http://www.packtpub.com/
 [packtclj]: http://www.packtpub.com/clojure-data-analysis-cookbook/book
+[data]: http://www.ericrochester.com/clj-data-analysis/
 
