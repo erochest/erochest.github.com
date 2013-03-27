@@ -4,7 +4,7 @@ date: 2013-03-26T06:00:00Z
 tags: writing, clojure, data
 ---
 
-<img class='bookframe' src='http://dgdsbygo8mp3h.cloudfront.net/sites/default/files/imagecache/productview_larger/2643OS_mockupcover_cb.jpg'/>
+<img class='bookframe' src='http://dgdsbygo8mp3h.cloudfront.net/sites/default/files/imagecache/productview_larger/2643OS_0.jpg'/>
 
 I'm pleased to announce the release of the [*Clojure Data Analysis
 Cookbook*][packtclj], written by me, and published by [Packt
