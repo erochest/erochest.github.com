@@ -132,7 +132,7 @@ article h1, section h1 {
   article h1:first-child, section h1:first-child {
     margin-top: 0;
     margin-bottom: 0.1em; }
-article p:first-child, section p:first-child {
+article div > p:first-child, section div > p:first-child {
   font-size: larger; }
 article footer ul li, section footer ul li {
   display: inline;
