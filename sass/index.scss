@@ -18,12 +18,17 @@
             height: 190px;
         }
         > div.more {
+            @include linear-gradient(top, hsla($hue+$accent-offset, $s1, $l2, 0),
+                                     hsl($hue+$accent-offset, $s1, $l2));
             width: 100%;
             text-align: right;
             position: relative;
             top: -14.5px;
-            @include linear-gradient(top, hsla($hue+$accent-offset, $s1, $l2, 0),
-                                     hsl($hue+$accent-offset, $s1, $l2));
+            a {
+                color: hsl($hue+$accent-offset, $s1, $l0);
+                font-weight: bolder;
+                text-decoration: none;
+            }
         }
     }
 
