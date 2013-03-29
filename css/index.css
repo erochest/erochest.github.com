@@ -15,17 +15,21 @@
     overflow-y: hidden;
     height: 190px; }
   #container .panel > div.more {
-    width: 100%;
-    text-align: right;
-    position: relative;
-    top: -14.5px;
     background-color: rgba(159, 185, 198, 0);
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(159, 185, 198, 0)), color-stop(100%, #9fb9c6));
     background-image: -webkit-linear-gradient(top, rgba(159, 185, 198, 0), #9fb9c6);
     background-image: -moz-linear-gradient(top, rgba(159, 185, 198, 0), #9fb9c6);
     background-image: -ms-linear-gradient(top, rgba(159, 185, 198, 0), #9fb9c6);
     background-image: -o-linear-gradient(top, rgba(159, 185, 198, 0), #9fb9c6);
-    background-image: linear-gradient(top, rgba(159, 185, 198, 0), #9fb9c6); }
+    background-image: linear-gradient(top, rgba(159, 185, 198, 0), #9fb9c6);
+    width: 100%;
+    text-align: right;
+    position: relative;
+    top: -14.5px; }
+    #container .panel > div.more a {
+      color: #131c20;
+      font-weight: bolder;
+      text-decoration: none; }
 #container .panel.main {
   background-color: #d1cac7;
   box-shadow: 0 0 1px 1px rgba(19, 28, 32, 0.3); }
