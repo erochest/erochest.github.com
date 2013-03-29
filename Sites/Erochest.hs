@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
 
 module Sites.Erochest
     ( erochestSite
@@ -153,7 +152,7 @@ rules = do
         let headers = Just $ style "css/index.css" ++ openIdHeaders
         route       idRoute
         compile $   loadBody "templates/index-pane.html"
-                >>= (compileIndex $ siteContext headers)
+                >>= compileIndex (siteContext headers)
 
     create (map fromFilePath indexPages) $ do
         route     idRoute
@@ -197,7 +196,7 @@ rules = do
                >>= relativizeUrls
 
     forM_ (tagsMap categories) $ \(catName, catIds) ->
-        create [(tagsMakeId categories) catName] $ do
+        create [tagsMakeId categories catName] $ do
             route idRoute
             compile $
                 let context =  constField "title" ("Category: " ++ catName)
