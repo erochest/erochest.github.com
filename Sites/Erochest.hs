@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 module Sites.Erochest
     ( erochestSite
@@ -7,14 +8,21 @@ module Sites.Erochest
 
 import           Control.Applicative
 import           Control.Monad
+import           Data.Char (toLower)
+import qualified Data.List as L
+import           Data.Maybe (fromMaybe, mapMaybe)
 import           Data.Monoid
 import qualified Data.Text.Lazy as TL
+import           Data.Time.Clock (UTCTime)
+import           Data.Time.Format (formatTime, parseTime)
 import           Hakyll
 import           Prelude hiding (FilePath)
 import           Shelly
 import           Sites.Base
 import           Sites.Pager
 import           Sites.Types
+import           System.FilePath (replaceExtension, takeBaseName, takeDirectory)
+import           System.Locale
 import           Text.Blaze.Html.Renderer.String (renderHtml)
 
 
@@ -86,6 +94,56 @@ compilePageIndex pageCount = do
             >>= loadAndApplyTemplate "templates/pages-index.html" context
             >>= loadAndApplyTemplate "templates/default.html" context
 
+getCategoryPage :: String -> Identifier
+getCategoryPage cat = fromFilePath $ "categories/" ++ cat' ++ ".html"
+    where cat' = map toLower cat
+
+getCategory' :: MonadMetadata m => Identifier -> m [String]
+getCategory' =
+    return . return . takeBaseName . takeDirectory . takeDirectory . toFilePath
+
+renderCategory :: String -> String -> Int -> Int -> Int -> String
+renderCategory tag url count minCount maxCount = lia url tag $ show count
+
+joinCategories :: [String] -> String
+joinCategories = L.concat
+
+lia :: String -> String -> String -> String
+lia url title parens =
+        "<li><a href='" <> url <> "'>" <> title <> "</a> (" <> parens <> ")</li>"
+
+reformatDate :: String -> String
+reformatDate dateStamp =
+          maybe dateStamp formatTime'
+        . msum
+        $ map (`parseTime'` dateStamp) formats
+    where
+        -- Have to use type declarations so that parseTime and formatTime know
+        -- what to convert to/from.
+
+        parseTime' :: String -> String -> Maybe UTCTime
+        parseTime'  = parseTime defaultTimeLocale
+
+        formatTime' :: UTCTime -> String
+        formatTime' = formatTime defaultTimeLocale "%e %b %Y"
+
+        formats     = [ "%a, %d %b %Y %H:%M:%S UT"
+                      , "%Y-%m-%dT%H:%M:%SZ"
+                      , "%Y-%m-%d %H:%M:%S"
+                      , "%Y-%m-%d"
+                      , "%B %e, %Y %l:%M %p"
+                      , "%B %e, %Y"
+                      ]
+
+renderIds :: (MonadMetadata m, Applicative m) => String -> [Identifier] -> m String
+renderIds name ids = L.concat <$> mapM renderId ids
+
+renderId :: (MonadMetadata m, Applicative m) => Identifier -> m String
+renderId id =
+        lia url <$> getMetadataField' id "title"
+                <*> fmap reformatDate (getMetadataField' id "date")
+    where url = '/' : replaceExtension (show id) ".html"
+
 
 rules :: IO (Rules ())
 rules = do
@@ -123,4 +181,30 @@ rules = do
     match "sass/index.scss" $ do
         route   $ constRoute "css/index.css"
         compile   sassCompiler
+
+    -- This section creates the categories.
+    categories <- buildTagsWith getCategory' "pages/**/*.md" getCategoryPage
+
+    create ["categories/index.html"] $ do
+        route idRoute
+        compile $
+            let context =  constField "title" "Categories"
+                        <> siteContext Nothing
+            in     renderTags renderCategory joinCategories categories
+               >>= makeItem
+               >>= loadAndApplyTemplate "templates/category-index.html" context
+               >>= loadAndApplyTemplate "templates/default.html" context
+               >>= relativizeUrls
+
+    forM_ (tagsMap categories) $ \(catName, catIds) ->
+        create [(tagsMakeId categories) catName] $ do
+            route idRoute
+            compile $
+                let context =  constField "title" ("Category: " ++ catName)
+                            <> siteContext Nothing
+                in     renderIds catName catIds
+                   >>= makeItem
+                   >>= loadAndApplyTemplate "templates/category-index.html" context
+                   >>= loadAndApplyTemplate "templates/default.html" context
+                   >>= relativizeUrls
 
