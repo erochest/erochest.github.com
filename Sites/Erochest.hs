@@ -57,9 +57,16 @@ loadPageContent :: Compiler [Item String]
 loadPageContent =
         loadAllSnapshots ("pages/**/*.md" .&&. hasNoVersion) "content"
 
+loadSnippets :: Int -> Compiler [Item String]
+loadSnippets lineCount =
+            loadAll ("pages/**/*.md" .&&. hasVersion "raw")
+        >>= mapM (withItemBody shorten)
+        >>= mapM (return . renderPandoc)
+    where shorten = return . unlines . take lineCount . lines
+
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
-        take 8 <$> loadPageContent >>=
+        take 8 <$> loadSnippets 19 >>=
         renderPanes template context >>=
         loadAndApplyTemplate "templates/default.html" context >>=
         relativizeUrls
