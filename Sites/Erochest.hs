@@ -42,7 +42,7 @@ openIdHeaders = "<link rel=\"openid.server\" href=\"http://www.myopenid.com/serv
 -- | Borrowed heavily from applyJoinTemplateList
 renderPanes :: Template -> Context c -> [Item c] -> Compiler (Item String)
 renderPanes template baseContext items =
-    zipWithM (applyTemplate template) (map context ([0..] :: [Int])) items >>=
+    zipWithM (applyTemplate template) (zipWith context ([0..] :: [Int]) items) items >>=
     makeItem . concatMap itemBody
     where paneClasses 0 = " main"
           paneClasses 1 = " third"
@@ -51,7 +51,10 @@ renderPanes template baseContext items =
           paneClasses 6 = " second"
           paneClasses 7 = " second third"
           paneClasses _ = ""
-          context pos = constField "pos-class" (paneClasses pos) <> baseContext
+          context pos item =  constField "pos-class" (paneClasses pos)
+                           <> constField "url" (url item)
+                           <> baseContext
+          url = toUrl . (`replaceExtension` ".html") . show . itemIdentifier
 
 loadPageContent :: Compiler [Item String]
 loadPageContent =
