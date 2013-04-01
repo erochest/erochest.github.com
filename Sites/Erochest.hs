@@ -23,6 +23,9 @@ import           Sites.Types
 import           System.FilePath (replaceExtension, takeBaseName, takeDirectory)
 import           System.Locale
 import           Text.Blaze.Html.Renderer.String (renderHtml)
+import           Text.Regex.TDFA hiding (match)
+import qualified Text.Regex.TDFA as RE
+import qualified Text.Regex.TDFA.String as RES
 
 
 erochestSite :: IO SiteInfo
@@ -65,7 +68,12 @@ loadSnippets lineCount =
             loadAll ("pages/**/*.md" .&&. hasVersion "raw")
         >>= mapM (withItemBody shorten)
         >>= mapM (return . renderPandoc)
-    where shorten = return . unlines . take lineCount . lines
+    where shorten               = return . unlines . firstAndLinks lineCount . lines
+          Right linkRegex       = RES.compile defaultCompOpt (ExecOption False) "^\\[[[:word:]-]+\\]: "
+          firstAndLinks n lines =
+              let body  = take n lines
+                  links = filter (RE.match linkRegex) lines
+              in  body ++ ["\n"] ++ links ++ ["\n"]
 
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
