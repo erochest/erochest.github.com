@@ -47,8 +47,10 @@ deploySite branch msg dir =
         chdir dir $ do
             git_ "checkout" [branch]
             git_ "add" ["--all"]
-            gitCommit msg
-            git_ "push" ["origin", "master"]
+            errExit False $ do
+                gitCommit msg
+                whenM ((== 0) <$> lastExitCode) $
+                    git_ "push" ["origin", "master"]
 
 
 main :: IO ()
@@ -79,5 +81,6 @@ main = shelly $ verbosely $ do
         deploySite "master" msg rootDeploy
         forM_ subsites (deploySite "gh-pages" msg . ("_deploy" </>) . siteTarget)
         git_ "add" ["_deploy"]
-        gitCommit msg
+        errExit False $
+            gitCommit msg
 
