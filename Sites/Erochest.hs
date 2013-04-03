@@ -12,16 +12,14 @@ import qualified Data.List as L
 import           Data.Maybe (fromMaybe, mapMaybe)
 import           Data.Monoid
 import qualified Data.Text.Lazy as TL
-import           Data.Time.Clock (UTCTime)
-import           Data.Time.Format (formatTime, parseTime)
 import           Hakyll
 import           Prelude hiding (FilePath)
 import           Shelly
 import           Sites.Base
+import           Sites.Literate
 import           Sites.Pager
 import           Sites.Types
 import           System.FilePath (replaceExtension, takeBaseName, takeDirectory)
-import           System.Locale
 import           Text.Blaze.Html.Renderer.String (renderHtml)
 import           Text.Regex.TDFA hiding (match)
 import qualified Text.Regex.TDFA as RE
@@ -129,29 +127,6 @@ lia :: String -> String -> String -> String
 lia url title parens =
         "<li><a href='" <> url <> "'>" <> title <> "</a> (" <> parens <> ")</li>"
 
-reformatDate :: String -> String
-reformatDate dateStamp =
-          maybe dateStamp formatTime'
-        . msum
-        $ map (`parseTime'` dateStamp) formats
-    where
-        -- Have to use type declarations so that parseTime and formatTime know
-        -- what to convert to/from.
-
-        parseTime' :: String -> String -> Maybe UTCTime
-        parseTime'  = parseTime defaultTimeLocale
-
-        formatTime' :: UTCTime -> String
-        formatTime' = formatTime defaultTimeLocale "%e %b %Y"
-
-        formats     = [ "%a, %d %b %Y %H:%M:%S UT"
-                      , "%Y-%m-%dT%H:%M:%SZ"
-                      , "%Y-%m-%d %H:%M:%S"
-                      , "%Y-%m-%d"
-                      , "%B %e, %Y %l:%M %p"
-                      , "%B %e, %Y"
-                      ]
-
 renderIds :: (MonadMetadata m, Applicative m) => String -> [Identifier] -> m String
 renderIds name ids = L.concat <$> mapM renderId ids
 
@@ -192,6 +167,22 @@ rules = do
         compile   compilePage
 
     match "pages/**/*.md" $ version "raw" $ do
+        route   idRoute
+        compile getResourceBody
+
+    match "pages/**/*.clj" $ do
+        route   $   setExtension "html"
+        compile $   do
+            rsc <- getResourceBody
+            let (mdList, body) = clojure $ itemBody rsc
+                context        =  metadataListContext mdList
+                               <> extraHeaderContext Nothing
+                               <> defaultContext
+            saveSnapshot "content" (itemSetBody body rsc)
+                >>= postTemplate context
+                >>= relativizeUrls
+
+    match "pages/**/*.clj" $ version "raw" $ do
         route   idRoute
         compile getResourceBody
 
