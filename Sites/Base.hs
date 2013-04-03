@@ -6,13 +6,20 @@ module Sites.Base
     , style
     , compilePage
     , siteContext
+    , reformatDate
+    , dateContext
+    , extraHeaderContext
     ) where
 
 import           Control.Applicative
+import           Control.Monad
 import           Data.Maybe (fromMaybe)
 import           Data.Monoid
+import           Data.Time.Clock (UTCTime)
+import           Data.Time.Format (formatTime, parseTime)
 import           Hakyll
 import           Sites.Types
+import           System.Locale
 
 sassCompiler :: Compiler (Item String)
 sassCompiler =
@@ -41,6 +48,38 @@ siteContext :: Maybe String -> Context String
 siteContext extraHeader =
            dateField "date" "%e %B %Y"
         <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
-        <> constField "extra-header" (fromMaybe "" extraHeader)
+        <> extraHeaderContext extraHeader
         <> defaultContext
+
+dateContext :: String -> Context String
+dateContext dateString =
+           constField "date" (reformatDate dateString)
+        <> constField "datetime" dateString
+
+extraHeaderContext :: Maybe String -> Context String
+extraHeaderContext = constField "extra-header" . fromMaybe ""
+
+reformatDate :: String -> String
+reformatDate dateStamp =
+          maybe dateStamp formatTime'
+        . msum
+        $ map (`parseTime'` dateStamp) formats
+    where
+        -- Have to use type declarations so that parseTime and formatTime know
+        -- what to convert to/from.
+
+        parseTime' :: String -> String -> Maybe UTCTime
+        parseTime'  = parseTime defaultTimeLocale
+
+        formatTime' :: UTCTime -> String
+        formatTime' = formatTime defaultTimeLocale "%e %b %Y"
+
+        formats     = [ "%a, %d %b %Y %H:%M:%S UT"
+                      , "%Y-%m-%dT%H:%M:%SZ"
+                      , "%Y-%m-%d %H:%M:%S"
+                      , "%Y-%m-%d"
+                      , "%B %e, %Y %l:%M %p"
+                      , "%B %e, %Y"
+                      ]
+
 
