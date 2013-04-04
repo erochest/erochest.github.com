@@ -206,7 +206,7 @@ rules = do
         compile   sassCompiler
 
     -- This section creates the categories.
-    categories <- buildTagsWith getCategory' "pages/**/*.md" getCategoryPage
+    categories <- buildTagsWith getCategory' postPattern getCategoryPage
 
     create ["categories/index.html"] $ do
         route idRoute
