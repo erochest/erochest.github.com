@@ -5,5 +5,5 @@ import Sites.Literate
 
 
 main :: IO ()
-main = interact (snd . illiterate "clojure" clojureComments)
+main = interact (illiterate "clojure" clojureComments)
 

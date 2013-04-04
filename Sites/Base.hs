@@ -7,7 +7,6 @@ module Sites.Base
     , compilePage
     , siteContext
     , reformatDate
-    , dateContext
     , extraHeaderContext
     ) where
 
@@ -50,11 +49,6 @@ siteContext extraHeader =
         <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
         <> extraHeaderContext extraHeader
         <> defaultContext
-
-dateContext :: String -> Context String
-dateContext dateString =
-           constField "date" (reformatDate dateString)
-        <> constField "datetime" dateString
 
 extraHeaderContext :: Maybe String -> Context String
 extraHeaderContext = constField "extra-header" . fromMaybe ""
