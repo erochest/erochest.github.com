@@ -30,8 +30,23 @@ import qualified Text.Regex.TDFA.String as RES
 erochestSite :: IO SiteInfo
 erochestSite = Site "erochest" "erochest.github.com" "." `fmap` rules
 
+-- Post utilities: To add a filetype for posts, everything you need to change
+-- should be in the next few definitions.
+
 postPattern :: Pattern
 postPattern = "pages/**/*.md" .||. "pages/**/*.clj"
+
+isPost :: TL.Text -> Bool
+isPost fn | ".md" `TL.isSuffixOf` fn  = True
+          | ".clj" `TL.isSuffixOf` fn = True
+          | otherwise                 = False
+
+renderItem :: Item String -> Compiler (Item String)
+renderItem item =
+    return $ case itemExt of
+               ".clj" -> clojure `fmap` item
+               _      -> renderPandoc item
+    where itemExt = takeExtension . toFilePath $ itemIdentifier item
 
 pageLength :: Int
 pageLength = 25
@@ -69,18 +84,13 @@ loadSnippets lineCount =
             loadAll (postPattern .&&. hasVersion "raw")
         >>= recentFirst
         >>= mapM (withItemBody shorten)
-        >>= mapM renderSnippet
+        >>= mapM renderItem
     where shorten               = return . unlines . firstAndLinks lineCount . lines
           Right linkRegex       = RES.compile defaultCompOpt (ExecOption False) "^\\[[[:word:]-]+\\]: "
           firstAndLinks n lines =
               let body  = take n lines
                   links = filter (RE.match linkRegex) lines
               in  body ++ ["\n"] ++ links ++ ["\n"]
-          renderSnippet item =
-              return $ case itemExt of
-                           ".clj" -> clojure `fmap` item
-                           _      -> renderPandoc item
-              where itemExt = takeExtension . toFilePath $ itemIdentifier item
 
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
@@ -104,9 +114,6 @@ indexPageInfo = do
                                               | n <- take (indexPageCount - 1) [1..]
                                               ]
     return (indexPageCount, indexPages)
-    where isPost fn | ".md" `TL.isSuffixOf` fn  = True
-                    | ".clj" `TL.isSuffixOf` fn = True
-                    | otherwise                 = False
 
 -- include the pagination links: << < (n-2) (n-1) n (n+1) (n+2) > >>
 compilePageIndex :: Int -> Compiler (Item String)
