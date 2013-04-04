@@ -156,7 +156,7 @@ illiterateLine (CommentBlock start end strip:css) ActiveText line
     | otherwise                 = illiterateLine css ActiveText line
 
 splitPair :: String -> (String, String)
-splitPair = first trim . second trim . break (== ':')
+splitPair = first trim . second (trim . tail) . break (== ':')
 
 illiterateHtml :: String -> CommentSpecList -> String -> (MetadataList, String)
 illiterateHtml codeClass specList = second markdown . illiterate codeClass specList
@@ -170,8 +170,7 @@ clojureComments = [ CommentLine "; "
                   ]
 
 markdown :: String -> String
-markdown = debug
-         . writeHtmlString defaultHakyllWriterOptions
+markdown = writeHtmlString defaultHakyllWriterOptions
          . readMarkdown defaultHakyllReaderOptions
 
 addMetadataList :: MetadataList -> Context String -> Context String
