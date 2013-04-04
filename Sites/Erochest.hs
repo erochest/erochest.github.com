@@ -19,7 +19,8 @@ import           Sites.Base
 import           Sites.Literate
 import           Sites.Pager
 import           Sites.Types
-import           System.FilePath (replaceExtension, takeBaseName, takeDirectory)
+import           System.FilePath (
+                   replaceExtension, takeBaseName, takeDirectory, takeExtension)
 import           Text.Blaze.Html.Renderer.String (renderHtml)
 import           Text.Regex.TDFA hiding (match)
 import qualified Text.Regex.TDFA as RE
@@ -27,8 +28,10 @@ import qualified Text.Regex.TDFA.String as RES
 
 
 erochestSite :: IO SiteInfo
-erochestSite =
-        Site "erochest" "erochest.github.com" "." `fmap` rules
+erochestSite = Site "erochest" "erochest.github.com" "." `fmap` rules
+
+postPattern :: Pattern
+postPattern = "pages/**/*.md" .||. "pages/**/*.clj"
 
 pageLength :: Int
 pageLength = 25
@@ -59,19 +62,25 @@ renderPanes template baseContext items =
 
 loadPageContent :: Compiler [Item String]
 loadPageContent =
-        loadAllSnapshots ("pages/**/*.md" .&&. hasNoVersion) "content"
+        recentFirst =<< loadAllSnapshots (postPattern .&&. hasNoVersion) "content"
 
 loadSnippets :: Int -> Compiler [Item String]
 loadSnippets lineCount =
-            loadAll ("pages/**/*.md" .&&. hasVersion "raw")
+            loadAll (postPattern .&&. hasVersion "raw")
+        >>= recentFirst
         >>= mapM (withItemBody shorten)
-        >>= mapM (return . renderPandoc)
+        >>= mapM renderSnippet
     where shorten               = return . unlines . firstAndLinks lineCount . lines
           Right linkRegex       = RES.compile defaultCompOpt (ExecOption False) "^\\[[[:word:]-]+\\]: "
           firstAndLinks n lines =
               let body  = take n lines
                   links = filter (RE.match linkRegex) lines
               in  body ++ ["\n"] ++ links ++ ["\n"]
+          renderSnippet item =
+              return $ case itemExt of
+                           ".clj" -> clojure `fmap` item
+                           _      -> renderPandoc item
+              where itemExt = takeExtension . toFilePath $ itemIdentifier item
 
 compileIndex :: Context String -> Template -> Compiler (Item String)
 compileIndex context template =
@@ -88,13 +97,16 @@ listCategoryPagesT rootDir = do
 
 indexPageInfo :: IO (Int, [String])
 indexPageInfo = do
-    pages <- shelly $ map TL.unpack . filter (TL.isSuffixOf ".md") <$> listCategoryPagesT "pages/"
+    pages <- shelly $ map TL.unpack . filter isPost <$> listCategoryPagesT "pages/"
     let (d, m)    = length pages `divMod` pageLength
         indexPageCount = d + if m == 0 then 0 else 1
         indexPages     = "pages/index.html" : [ "pages/index-" <> show n <> ".html"
                                               | n <- take (indexPageCount - 1) [1..]
                                               ]
     return (indexPageCount, indexPages)
+    where isPost fn | ".md" `TL.isSuffixOf` fn  = True
+                    | ".clj" `TL.isSuffixOf` fn = True
+                    | otherwise                 = False
 
 -- include the pagination links: << < (n-2) (n-1) n (n+1) (n+2) > >>
 compilePageIndex :: Int -> Compiler (Item String)
@@ -174,12 +186,8 @@ rules = do
         route   $   setExtension "html"
         compile $   do
             rsc <- getResourceBody
-            let (mdList, body) = clojure $ itemBody rsc
-                context        =  metadataListContext mdList
-                               <> extraHeaderContext Nothing
-                               <> defaultContext
-            saveSnapshot "content" (itemSetBody body rsc)
-                >>= postTemplate context
+            saveSnapshot "content" (itemSetBody (clojure $ itemBody rsc) rsc)
+                >>= postTemplate (siteContext Nothing)
                 >>= relativizeUrls
 
     match "pages/**/*.clj" $ version "raw" $ do
