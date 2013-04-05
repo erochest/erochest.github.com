@@ -4,6 +4,12 @@ date: 2013-04-04T13:04:02Z
 tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ---
 
+; > *This is a recipe that I wrote for the [*Clojure Data
+; > Analysis
+; > Cookbook*](/pages/announcements/clj-data-analysis/index.html).
+; > However, it didn't make it into the final book, so I'm
+; > sharing it with you today.*
+;
 ; One of the benefits of linked data is that it is linked.
 ; Data in one place points to data in another place, and
 ; the two integrate easily. Unfortunately, we have to
@@ -77,8 +83,8 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
      ["dbpedia-prop" "http://dbpedia.org/property/"]
      ["err" "http://ericrochester.com/"]]))
 
-; And these functions provide some utilities that we'll
-; use later on.
+; And the following functions provide some utilities that
+; we'll use later on.
 
 (defn rekey
   "This just flips the arguments for 
@@ -198,7 +204,7 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
   (apply str (:content r)))
 
 ; Now we need a function to convert each result node into
-; a vector triple. This will be used by another function
+; a vector triple. This will be used by a later function
 ; that loads the data from DBPedia into the triple store.
 
 (defn result-to-triple
@@ -304,7 +310,7 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; database. We used the links in the data itself to drive
 ; this, and we used our query to pull it all together. 
 ;
-; In more detail, notice the multimethod from-xml that
+; In more detail, notice the multimethod `from-xml` that
 ; dispatches on the result node’s tag name and its
 ; datatype attribute. Currently, this handles strings,
 ; integers, and URIs. They are sufficient for this
@@ -312,18 +318,18 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; easily.
 ;
 ; Also, in the query, all the phrases that are pulled in
-; from DBPedia are marked optional. We don’t want the
+; from DBPedia are marked `:optional`. We don’t want the
 ; overall query to fail because any of them are missing,
 ; and we can’t mark them all optional as a group because
 ; we don’t want the optional phrases as a whole to fail if
 ; any one is missing.
 ;
-; ----
+; -----
 ;
-; This is a recipe that I wrote for the [*Clojure Data
-; Analysis
-; Cookbook*](/pages/announcements/clj-data-analysis/index.html).
-; It didn't make it into the final book, however, so I'm
-; sharing it with you today.
+; > *This post is a literate programming file. Click on
+; the [raw](index.clj) link below---and the
+; [project.clj](project.clj) file linked to above---to
+; download a version of this post that you can load
+; directly into a Clojure REPL.*
 
-#_" vim: set textwidth=58: "
+; <!-- vim: set textwidth=58: -->
