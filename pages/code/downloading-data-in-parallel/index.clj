@@ -25,15 +25,19 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ;
 ; ### Getting ready…
 ;
-; First, we need to make sure that our Leiningen
-; project.clj file lists the dependencies we’ll need:
+; First, we need to make sure that our
+; [Leiningen](http://leiningen.org/)
+; [`project.clj`](project.clj) file lists the dependencies
+; we’ll need:
 
-  :dependencies [[org.clojure/clojure "1.4.0"]
-                 [http.async.client "0.4.5"]]
+; ```clojure
+; :dependencies [[org.clojure/clojure "1.4.0"]
+;                [http.async.client "0.4.5"]]
+; ```
 
 ; And we need to use those in our script or REPL.
 ;
-(require 'http.async.client :as 'http)
+(require '[http.async.client :as http])
 (import [java.net URL])
 
 ; For this example, we’ll download all of the ZIP files
@@ -46,15 +50,15 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
   (let [who-ftp 
         (str "http://www.who.int/whosis/database/"
              "mort/download/ftp/")]
-    '((str who-ftp "documentation.zip")
-        (str who-ftp "availability.zip")
-        (str who-ftp "country_codes.zip")
-        (str who-ftp "notes.zip")
-        (str who-ftp "Pop.zip")
-        (str who-ftp "morticd07.zip")
-        (str who-ftp "morticd08.zip")
-        (str who-ftp "morticd09.zip")
-        (str who-ftp "morticd10.zip"))))
+    [(str who-ftp "documentation.zip")
+     (str who-ftp "availability.zip")
+     (str who-ftp "country_codes.zip")
+     (str who-ftp "notes.zip")
+     (str who-ftp "Pop.zip")
+     (str who-ftp "morticd07.zip")
+     (str who-ftp "morticd08.zip")
+     (str who-ftp "morticd09.zip")
+     (str who-ftp "morticd10.zip")]))
 
 ; ### How to do it…
 ;
