@@ -5,16 +5,17 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ---
 
 ; > *This is a recipe that I wrote for the [*Clojure Data
-; > Analysis
-; > Cookbook*](/pages/announcements/clj-data-analysis/index.html).
+; > Analysis >
+; Cookbook*](/pages/announcements/clj-data-analysis/index.html).
 ; > However, it didn't make it into the final book, so I'm
 ; > sharing it with you today.*
 ;
-; One of the benefits of linked data is that it is linked.
+; One of the benefits of [linked
+; data](http://linkeddata.org/) is that it *is* linked.
 ; Data in one place points to data in another place, and
-; the two integrate easily. Unfortunately, we have to
-; bring them together manually. Let's see how to do that
-; with Clojure.
+; the two integrate easily. However, although the links
+; are explicit, we still have to bring the data together
+; manually. Let's see how to do that with Clojure.
 ;
 ; ### Getting ready
 ;
@@ -48,14 +49,21 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
         [java.net URL URLEncoder])
 
 ; We’ll also use the
-; [data/currencies.ttl](/clj-data-analysis/data/currencies.ttl)
+; [currencies.ttl](/clj-data-analysis/data/currencies.ttl)
 ; file.
 ;
 ; ### How to do it…
 ;
-; First, we need some functions to set up the plumbing for
-; working with RDF. These will create and initialize the
-; triple store that we’ll need to use.
+; For this, we'll load data from the `currencies.ttl` file
+; and from [DBPedia](http://dbpedia.org/About) into the
+; triple store. Because the triples in one references the
+; triples in the other, the two datasets are automatically
+; merged. Then we can query the triple store and get data
+; from both of the original sources back out.
+;
+; To make this happen, first we need some functions to set
+; up the plumbing for working with RDF. These will create
+; and initialize the triple store that we’ll need to use.
 
 (defn kb-memstore
   "This creates a Sesame triple store in memory."
@@ -83,8 +91,7 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
      ["dbpedia-prop" "http://dbpedia.org/property/"]
      ["err" "http://ericrochester.com/"]]))
 
-; And the following functions provide some utilities that
-; we'll use later on.
+; And we'll use the following utilities later on.
 
 (defn rekey
   "This just flips the arguments for 
@@ -106,6 +113,13 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
   ([first-result]
    (cons (zip/node first-result)
          (zip/rights first-result))))
+
+; These build the
+; [SPARQL](http://www.w3.org/TR/sparql11-overview/) query
+; and create a URL out of them for querying
+; [DBPedia](http://dbpedia.org/About). The last,
+; `query-sparql-results` gets the results, parses them,
+; and navigates the XML tree to get to the results.
 
 (defn make-query
   "This creates a query that returns all the 
@@ -151,13 +165,15 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 
 ; We’ll download the data we need from
 ; [DBPedia](http://dbpedia.org/About) and insert it into
-; the triple store alongside the RDF file’s data. As part
-; of this, we will split all URI strings into prefixes and
-; resources. If each prefix has a namespace abbreviation
-; defined for it, the abbreviation needs to be used, and
-; that and the resource are converted into a symbol
-; together. Otherwise, the URI as a whole is converted
-; into a symbol. What does this look like?
+; the triple store alongside the RDF file’s data.
+;
+; As part of this, we will split all URI strings into
+; prefixes and resources. If each prefix has a namespace
+; abbreviation defined for it in `init-kb` above, the
+; abbreviation needs to be used, and that and the resource
+; are converted into a symbol together. Otherwise, the URI
+; as a whole is converted into a symbol. What does this
+; look like?
 
 (defn split-symbol
   "This splits a string on an index and returns a symbol
@@ -227,8 +243,8 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
        (map #(result-to-triple iri %))
        (add-statements kb)))))
 
-; Finally, we’ll define a function to pull the objects of
-; all same-as statements out of an RDF query and load all
+; We’ll define a function to pull the objects of all
+; same-as statements out of an RDF query and load all
 ; statements for that URI from DBPedia.
 
 (defn load-same-as
@@ -238,6 +254,11 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
   ([kb [_ _ same-as]]
    (load-dbpedia kb "http://dbpedia.org/sparql" same-as)
    kb))
+
+; Finally, `aggregate-dataset` drives the whole thing. It
+; takes the triple store, the datafile, a query to execute
+; on the final results, and a mapping between SPARQL query
+; parameters and keywords for the final result.
 
 (defn aggregate-dataset
   [t-store data-file q col-map]
@@ -254,7 +275,7 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 
 ; Now let’s use all this to create the dataset. We’ll bind
 ; the parameters to names so we can refer to them more
-; easily and then use them to call aggregate-dataset.
+; easily and then use them to call `aggregate-dataset`.
 
 (def data-file
   "../../../clj-data-analysis/data/currencies.ttl")
@@ -289,7 +310,7 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
          [:optional
           [[?/d dbpedia-prop/usedCoins ?/usedCoins]]]])
 
-; Now let’s put it all together.
+; Let’s put it all together.
 ;
 ; ```clojure
 ; user=> (aggregate-dataset (init-kb (kb-memstore))
@@ -308,9 +329,11 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; Linked data is, well, linked. Basically, we took all the
 ; data we’re interested in and dumped it into one big
 ; database. We used the links in the data itself to drive
-; this, and we used our query to pull it all together. 
+; this by following *same-as* relationships already
+; encoded in the data. We just used our query to pull it
+; all together. 
 ;
-; In more detail, notice the multimethod `from-xml` that
+; As an aside, notice the multimethod `from-xml` that
 ; dispatches on the result node’s tag name and its
 ; datatype attribute. Currently, this handles strings,
 ; integers, and URIs. They are sufficient for this
