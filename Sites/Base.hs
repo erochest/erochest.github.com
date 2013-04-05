@@ -7,6 +7,8 @@ module Sites.Base
     , compilePage
     , siteContext
     , reformatDate
+    , parseDateLax
+    , formatTime'
     , extraHeaderContext
     ) where
 
@@ -54,26 +56,19 @@ extraHeaderContext :: Maybe String -> Context String
 extraHeaderContext = constField "extra-header" . fromMaybe ""
 
 reformatDate :: String -> String
-reformatDate dateStamp =
-          maybe dateStamp formatTime'
-        . msum
-        $ map (`parseTime'` dateStamp) formats
-    where
-        -- Have to use type declarations so that parseTime and formatTime know
-        -- what to convert to/from.
+reformatDate dateStamp = maybe dateStamp formatTime' $ parseDateLax dateStamp
 
-        parseTime' :: String -> String -> Maybe UTCTime
-        parseTime'  = parseTime defaultTimeLocale
+parseDateLax :: String -> Maybe UTCTime
+parseDateLax dateStamp = msum $ map (`parse` dateStamp) formats
+    where parse   = parseTime defaultTimeLocale
+          formats = [ "%a, %d %b %Y %H:%M:%S UT"
+                    , "%Y-%m-%dT%H:%M:%SZ"
+                    , "%Y-%m-%d %H:%M:%S"
+                    , "%Y-%m-%d"
+                    , "%B %e, %Y %l:%M %p"
+                    , "%B %e, %Y"
+                    ]
 
-        formatTime' :: UTCTime -> String
-        formatTime' = formatTime defaultTimeLocale "%e %b %Y"
-
-        formats     = [ "%a, %d %b %Y %H:%M:%S UT"
-                      , "%Y-%m-%dT%H:%M:%SZ"
-                      , "%Y-%m-%d %H:%M:%S"
-                      , "%Y-%m-%d"
-                      , "%B %e, %Y %l:%M %p"
-                      , "%B %e, %Y"
-                      ]
-
+formatTime' :: UTCTime -> String
+formatTime' = formatTime defaultTimeLocale "%e %b %Y"
 
