@@ -5,10 +5,10 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ---
 
 ; > *This is a recipe that I wrote for the [*Clojure Data
-; > Analysis >
+; Analysis
 ; Cookbook*](/pages/announcements/clj-data-analysis/index.html).
-; > However, it didn't make it into the final book, so I'm
-; > sharing it with you today.*
+; However, it didn't make it into the final book, so I'm
+; sharing it with you today.*
 ;
 ; One of the benefits of [linked
 ; data](http://linkeddata.org/) is that it *is* linked.
