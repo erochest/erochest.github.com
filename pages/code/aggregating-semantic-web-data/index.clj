@@ -1,6 +1,6 @@
 ---
 title: Aggregating Semantic Web Data
-date: 2013-04-04T13:04:02Z
+date: 2013-04-08T13:04:02Z
 tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ---
 
