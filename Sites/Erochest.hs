@@ -34,7 +34,7 @@ erochestSite = Site "erochest" "erochest.github.com" "." `fmap` rules
 -- should be in the next few definitions.
 
 postPattern :: Pattern
-postPattern = "pages/**/*.md" .||. "pages/**/*.clj"
+postPattern = "pages/**/*.md" .||. "pages/**/index.clj"
 
 isPost :: TL.Text -> Bool
 isPost fn | ".md" `TL.isSuffixOf` fn  = True
@@ -189,7 +189,7 @@ rules = do
         route   idRoute
         compile getResourceBody
 
-    match "pages/**/*.clj" $ do
+    match "pages/**/index.clj" $ do
         route   $   setExtension "html"
         compile $   do
             rsc <- getResourceBody
@@ -206,7 +206,7 @@ rules = do
         compile   sassCompiler
 
     -- This section creates the categories.
-    categories <- buildTagsWith getCategory' "pages/**/*.md" getCategoryPage
+    categories <- buildTagsWith getCategory' postPattern getCategoryPage
 
     create ["categories/index.html"] $ do
         route idRoute
