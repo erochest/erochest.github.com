@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TupleSections     #-}
 
 module Sites.Erochest
     ( erochestSite
@@ -11,6 +12,7 @@ import           Data.Char (toLower)
 import qualified Data.List as L
 import           Data.Maybe (fromMaybe, mapMaybe)
 import           Data.Monoid
+import           Data.Ord (comparing)
 import qualified Data.Text.Lazy as TL
 import           Hakyll
 import           Prelude hiding (FilePath)
@@ -146,8 +148,13 @@ lia :: String -> String -> String -> String
 lia url title parens =
         "<li><a href='" <> url <> "'>" <> title <> "</a> (" <> parens <> ")</li>"
 
-renderIds :: (MonadMetadata m, Applicative m) => String -> [Identifier] -> m String
-renderIds name ids = L.concat <$> mapM renderId ids
+sortIdsByDate :: [Identifier] -> Compiler [Identifier]
+sortIdsByDate ids =
+        reverse . map fst . L.sortBy (comparing snd) <$> mapM getDate ids
+    where getDate ident = (ident,) <$> getMetadataField' ident "date"
+
+renderIds :: [Identifier] -> Compiler String
+renderIds = fmap L.concat . mapM renderId
 
 renderId :: (MonadMetadata m, Applicative m) => Identifier -> m String
 renderId id =
@@ -225,7 +232,8 @@ rules = do
             compile $
                 let context =  constField "title" ("Category: " ++ catName)
                             <> siteContext Nothing
-                in     renderIds catName catIds
+                in     sortIdsByDate catIds
+                   >>= renderIds
                    >>= makeItem
                    >>= loadAndApplyTemplate "templates/category-index.html" context
                    >>= loadAndApplyTemplate "templates/default.html" context
