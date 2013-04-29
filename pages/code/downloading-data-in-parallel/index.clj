@@ -8,7 +8,8 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; Analysis
 ; Cookbook*](/pages/announcements/clj-data-analysis/index.html).
 ; However, it didn't make it into the final book, so I'm
-; sharing it with you today.*
+; sharing it with you today. If you like this, check out
+; [the book](http://www.packtpub.com/clojure-data-analysis-cookbook/book).*
 ;
 ; Sometimes when getting resources, we have to download
 ; them from many URLs. Doing that sequentially for one or
@@ -43,8 +44,8 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 
 ; For this example, we’ll download all of the ZIP files
 ; related to the [World Health Organization’s mortality
-; data](http://www.who.int/whosis/mort/download/en/index.html).
-; Let’s bind those to the name `urls`.
+; data](http://www.who.int/whosis/mort/). Let’s bind those
+; to the name `urls`.
 
 (def urls 
   (let [who-ftp 
