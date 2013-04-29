@@ -2,7 +2,8 @@
 ; Analysis
 ; Cookbook*](/pages/announcements/clj-data-analysis/index.html).
 ; However, it didn't make it into the final book, so I'm
-; sharing it with you today.*
+; sharing it with you today. If you like this, check out
+; [the book](http://www.packtpub.com/clojure-data-analysis-cookbook/book).*
 ;
 ; One of the benefits of [linked
 ; data](http://linkeddata.org/) is that it *is* linked.

@@ -34,9 +34,20 @@
           <div>
             <section class="panel main">
   <div class="panel-content">
+    <h1><a href="./pages/code/downloading-data-in-parallel/index.html">Downloading Data in Parallel</a></h1>
+    <blockquote>
+<p><em>This is a recipe that I wrote for the <a href="./pages/announcements/clj-data-analysis/index.html"><em>Clojure Data Analysis Cookbook</em></a>. However, it didn’t make it into the final book, so I’m sharing it with you today. If you like this, check out <a href="http://www.packtpub.com/clojure-data-analysis-cookbook/book">the book</a>.</em></p>
+</blockquote>
+<p>Sometimes when getting resources, we have to download them from many URLs. Doing that sequentially for one or two sources is fine, but if there are too many, we will really want to make better use of our Internet connection by downloading several at once.</p>
+<p>This recipe does that. It chunks a sequence of URLs and downloads a block in parallel. It uses the <a href="http://neotyk.github.com/http.async.client/"><code>http.async.client</code></a> library to perform the download asynchronously, and we’ll simply manage how we trigger those jobs.</p>
+  </div>
+  <div class="more"><a href="./pages/code/downloading-data-in-parallel/index.html"><i class="icon-circle-arrow-right"></i></a></div>
+</section>
+<section class="panel third">
+  <div class="panel-content">
     <h1><a href="./pages/code/aggregating-semantic-web-data/index.html">Aggregating Semantic Web Data</a></h1>
     <blockquote>
-<p><em>This is a recipe that I wrote for the <a href="./pages/announcements/clj-data-analysis/index.html"><em>Clojure Data Analysis Cookbook</em></a>. However, it didn’t make it into the final book, so I’m sharing it with you today.</em></p>
+<p><em>This is a recipe that I wrote for the <a href="./pages/announcements/clj-data-analysis/index.html"><em>Clojure Data Analysis Cookbook</em></a>. However, it didn’t make it into the final book, so I’m sharing it with you today. If you like this, check out <a href="http://www.packtpub.com/clojure-data-analysis-cookbook/book">the book</a>.</em></p>
 </blockquote>
 <p>One of the benefits of <a href="http://linkeddata.org/">linked data</a> is that it <em>is</em> linked. Data in one place points to data in another place, and the two integrate easily. However, although the links are explicit, we still have to bring the data together manually. Let’s see how to do that with Clojure.</p>
 <h3 id="getting-ready">Getting ready</h3>
@@ -44,7 +55,7 @@
   </div>
   <div class="more"><a href="./pages/code/aggregating-semantic-web-data/index.html"><i class="icon-circle-arrow-right"></i></a></div>
 </section>
-<section class="panel third">
+<section class="panel second">
   <div class="panel-content">
     <h1><a href="./pages/announcements/clj-data-analysis/index.html">Clojure Data Analysis Cookbook</a></h1>
     <p><img class="bookframe" src="http://dgdsbygo8mp3h.cloudfront.net/sites/default/files/imagecache/productview_larger/2643OS_0.jpg" /></p>
@@ -62,7 +73,7 @@
   </div>
   <div class="more"><a href="./pages/announcements/clj-data-analysis/index.html"><i class="icon-circle-arrow-right"></i></a></div>
 </section>
-<section class="panel second">
+<section class="panel">
   <div class="panel-content">
     <h1><a href="./pages/semantic-web/linked-open-data-rbs/index.html">Linked Open Data at the Rare Book School</a></h1>
     <p><em>This is cross posted at <a href="http://www.scholarslab.org/digital-libraries/introduction-to-linked-open-data-at-rare-books-school/">The Scholars’ Lab Blog</a>.</em></p>
