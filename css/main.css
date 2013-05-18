@@ -103,8 +103,7 @@ body {
   margin-left: 1px;
   margin-right: 1px; }
 #container > footer {
-  background: #e8e5e3;
-  border: 1px solid #a3968f; }
+  background: #e8e5e3; }
   #container > footer a {
     color: #1c1917; }
   #container > footer > div {
@@ -302,8 +301,8 @@ code {
     #container > footer > div .column {
       display: block;
       float: left;
-      margin-right: 2.35765%;
-      width: 23.23176%; }
+      margin-right: 2.33771%;
+      width: 23.03527%; }
       #container > footer > div .column:last-child {
         margin-right: 0; } }
 @media screen and (min-width: 960px) {
