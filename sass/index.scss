@@ -39,7 +39,6 @@
             @include linear-gradient(top, hsla($hue, $sat, $l3, 0), hsl($hue, $sat, $l3));
         }
     }
-
 }
 
 @media screen and (min-width: $medium-width) {

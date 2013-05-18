@@ -42,7 +42,7 @@ body {
         // For some reason, this isn't sticking.
         // background: hsl($hue, $sat, $l4);
         background: $bg;
-        border: 1px solid hsl($hue, $sat, $l1);
+        // border: 1px solid hsl($hue, $sat, $l1);
 
         a {
             color: $color;
