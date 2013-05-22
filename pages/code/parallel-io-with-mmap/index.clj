@@ -1,6 +1,6 @@
 ---
 title: Parallel IO with mmap
-date: 2013-04-29T13:04:02Z
+date: 2013-05-22T13:33:00Z
 tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ---
 
@@ -106,7 +106,7 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; Next, we’ll add some general data parsing functions. The
 ; first is simply a lazy version of
 ; `clojure.string/split-lines`. The rest are more
-; specifically targeted at the task at hand. They identify
+; specifically targeted to the task at hand. They identify
 ; lines from the input that contain data, parse those into
 ; map, and eventually parse them into a UserPost.
 
@@ -276,7 +276,16 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; for example, then we’re better off memory mapping the
 ; part of the file that we’re going to access.
 ;
-; As usual, the devil is in the details and exactly how
-; our processing is going to happen.
+; The numbers above support these guidelines. As usual,
+; the devil is in the details and exactly how our
+; processing is going to happen.
+;
+; -----
+;
+; > *This post is a literate programming file. Click on
+; the [raw](index.clj) link below---and the
+; [project.clj](project.clj) file linked to above---to
+; download a version of this post that you can load
+; directly into a Clojure REPL.*
 
 ; <!-- vim: set textwidth=58: -->
