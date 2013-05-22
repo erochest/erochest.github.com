@@ -3,7 +3,10 @@
 {-# LANGUAGE RecordWildCards   #-}
 
 
--- | Passing in the option `--bail` will cause it to skip commiting and pushing
+-- | Passing in the option `--scratch` will cause the `site` executable to be
+-- rebuilt from scratch.
+--
+-- Passing in the option `--bail` will cause it to skip commiting and pushing
 -- the changes.
 
 
@@ -61,10 +64,10 @@ main = shelly $ verbosely $ do
     Root{..} <- liftIO site
     let rootDeploy = ("_deploy" </>) $ siteTarget rootSite
 
-    -- TODO: This might be excessive. I probably really only need to build.
-    cabalDev_ "clean"     []
-    cabalDev_ "configure" []
-    cabalDev_ "build"     []
+    when ("--scratch" `elem` args) $ do
+        cabalDev_ "clean"     []
+        cabalDev_ "configure" []
+        cabalDev_ "build"     []
 
     run_ (binDir </> "site") ["rebuild"]
     clearDeploy
