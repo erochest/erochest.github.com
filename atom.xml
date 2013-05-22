@@ -8,8 +8,190 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2013-04-29T13:04:02Z</updated>
+    <updated>2013-05-22T13:33:00Z</updated>
     <entry>
+    <title>Parallel IO with mmap</title>
+    <link href="http://www.ericrochester.com//pages/code/parallel-io-with-mmap/index.html" />
+    <id>http://www.ericrochester.com//pages/code/parallel-io-with-mmap/index.html</id>
+    <published>2013-05-22T13:33:00Z</published>
+    <updated>2013-05-22T13:33:00Z</updated>
+    <summary type="html"><![CDATA[<blockquote>
+<p><em>This is a recipe that I wrote for the <a href="/pages/announcements/clj-data-analysis/index.html"><em>Clojure Data Analysis Cookbook</em></a>. However, it didn’t make it into the final book, so I’m sharing it with you today.</em></p>
+</blockquote>
+<p>Parallelizing the pure parts of processes, the parts that don’t involve side effects like reading input files, is relatively easy. But once disk IO enters the picture, things become more complicated. There’s a reason for that: when reading from a disk, all threads are inherently contending for one resource, the disk.</p>
+<p>There are ways to mitigate this, but ultimately it comes down to working with the disk and the processing requirements to get the best performance we can from a single, sequential process. So to be completely honest, the title of this post is a little misleading. We can’t parallelize IO on a single, shared resource. But there are several things to keep in mind to make reading from a disk faster.</p>
+<p>As a test case, we’ll look at parsing a sample of the comments from the <a href="http://blog.stackexchange.com/category/cc-wiki-dump/">Stack Exchange data dumps</a>. For each user, we’ll find the date range when that user posted comments to Stack Overflow. The data’s in XML, and if we were sane, we’d just use a lazy XML parser. But for the sake of demonstration, we’ll use regular expressions to pull out the attributes and their values for each comment.</p>
+<p>For this problem, we’ll look at two ways of handling the file IO. First, we’ll consider using straightforward lazy, sequential access, and then we’ll look at memory mapping the file. We’ll look at the performance of each and consider what situations each might be useful in.</p>
+<h3 id="getting-ready">Getting ready…</h3>
+<p>For this, we’ll need a number of dependencies, so we’ll list these in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]
+               [nio <span class="st">&quot;0.0.5&quot;</span>]
+               [org.apache.commons/commons-lang3 <span class="st">&quot;3.1&quot;</span>]
+               [clj-time <span class="st">&quot;0.5.0&quot;</span>]]</code></pre>
+<p>Then, we’ll also have a number of imports and includes.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">import</span> &#39;[java.io File RandomAccessFile]
+        &#39;[java.nio.charset Charset]
+        &#39;[org.apache.commons.lang3 StringEscapeUtils])
+(<span class="kw">use</span> &#39;[clj-time.core <span class="kw">:exclude</span> (<span class="kw">extend</span>)]
+     &#39;[clj-time <span class="kw">format</span> coerce])
+(<span class="kw">require</span> &#39;[nio.core <span class="kw">:as</span> nio]
+         &#39;[clojure.java.io <span class="kw">:as</span> io]
+         &#39;[clojure.string <span class="kw">:as</span> string]
+         &#39;[clojure.core.reducers <span class="kw">:as</span> r])</code></pre>
+<p>And for the data file, we can just use a sample of the Stack Exchange comments. You can find a (non-random) sample of 100,000 lines from that file in the source code for this chapter or download it from <a href="/clj-data-analysis/data/comments.xml">here</a>.</p>
+<h3 id="how-to-do-it">How to do it…</h3>
+<p>First, let’s tackle the problem domain. We’ll define a record that holds a user’s identifier and the range of comments seen so far. And we’ll write a function that will combine two <code>UserPost</code> records into one with the maximum range from both (assuming they represent the same user). Also, we’ll write a combiner function for a map of UserPost records.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defrecord</span><span class="fu"> UserPost</span>
+  [user-id earliest-date latest-date])
+(<span class="kw">defn</span><span class="fu"> combine-user-posts</span>
+  [up1 up2]
+  (UserPost.
+    (<span class="kw">:user-id</span> up1)
+    (<span class="kw">:earliest-date</span>
+      (from-long (<span class="kw">min</span> (to-long (<span class="kw">:earliest-date</span> up1))
+                      (to-long (<span class="kw">:earliest-date</span> up2)))))
+    (<span class="kw">:latest-date</span>
+      (from-long (<span class="kw">max</span> (to-long (<span class="kw">:latest-date</span> up1))
+                      (to-long (<span class="kw">:latest-date</span> up2)))))))
+(<span class="kw">def</span><span class="fu"> combiner</span>
+  (r/monoid (<span class="kw">partial</span> <span class="kw">merge-with</span> combine-user-posts)
+            <span class="kw">hash-map</span>))</code></pre>
+<p>Next, we’ll add some general data parsing functions. The first is simply a lazy version of <code>clojure.string/split-lines</code>. The rest are more specifically targeted to the task at hand. They identify lines from the input that contain data, parse those into map, and eventually parse them into a UserPost.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> split-lines</span>
+  ([input] (split-lines input <span class="dv">0</span>))
+  ([input start]
+   (<span class="kw">let</span> [end (.indexOf input <span class="dv">10</span> start)]
+     (<span class="kw">when-not</span> (<span class="kw">=</span> end -<span class="dv">1</span>)
+       (<span class="kw">lazy-seq</span>
+         (<span class="kw">cons</span> (String.
+                 (.trim (.substring input start end)))
+               (split-lines input (<span class="kw">inc</span> end))))))))
+(<span class="kw">defn</span><span class="fu"> data-line</span>?
+  [line]
+  (.startsWith (string/trim line) <span class="st">&quot;&lt;row &quot;</span>))
+(<span class="kw">defn</span><span class="fu"> parse-pair</span>
+  [[k v]]
+  [(<span class="kw">keyword</span> k) (StringEscapeUtils/unescapeXml v)])
+(<span class="kw">defn</span><span class="fu"> parse-line</span>
+  [line]
+  (<span class="kw">-&gt;&gt;</span> line
+    (<span class="kw">re-seq</span> <span class="st">#&quot;(\w+)=</span>\&quot;<span class="st">([^</span>\&quot;<span class="st">]*)</span>\&quot;<span class="st">&quot;</span>)
+    (<span class="kw">map</span> <span class="kw">next</span>)
+    (<span class="kw">map</span> parse-pair)
+    flatten
+    (<span class="kw">apply</span> <span class="kw">hash-map</span>)))
+(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *date-formatter*
+  (formatters <span class="kw">:date-hour-minute-second-ms</span>))
+(<span class="kw">defn</span><span class="fu"> line-&gt;user-post</span>
+  [line]
+  (<span class="kw">let</span> [user-id (<span class="kw">if-let</span> [uid (<span class="kw">:UserId</span> line)]
+                  (<span class="kw">read-string</span> uid)
+                  nil)
+        cdate (parse *date-formatter*
+                     (<span class="kw">:CreationDate</span> line))]
+    (UserPost. user-id cdate cdate)))</code></pre>
+<p>The next two functions process a sequence of lines into a map, which associates the users’ identifiers with the <code>UserPost</code> objects for each user.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> process-user-map</span>
+  ([] {})
+  ([user-post-map line]
+   (<span class="kw">let</span> [user-post (line-&gt;user-post line)
+         user-id (<span class="kw">:user-id</span> user-post)]
+     (<span class="kw">assoc</span> user-post-map
+            user-id
+            (<span class="kw">if-let</span> [current (<span class="kw">get</span> user-post-map user-id)]
+              (combine-user-posts current user-post)
+              user-post)))))
+(<span class="kw">defn</span><span class="fu"> process-lines</span>
+  [lines]
+  (<span class="kw">-&gt;&gt;</span>
+    lines
+    (r/map parse-line)
+    (r/filter data-line?)
+    (r/fold combiner process-user-map)))</code></pre>
+<h4 id="reading-a-file-serially">Reading a File Serially</h4>
+<p>With that basis, the function to read the file serially is quite simple.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> serial-process</span>
+  [file-name]
+  (<span class="kw">with-open</span> [reader (io/reader file-name)]
+    (process-lines (<span class="kw">line-seq</span> reader))))</code></pre>
+<h4 id="reading-from-a-memory-mapped-file">Reading from a Memory-Mapped File</h4>
+<p>The other option is to read from a memory-mapped file. This allows us to treat a file’s contents as a byte array. For certain kinds of access, this can be very fast, but it takes a lot more set-up to get going.</p>
+<p>First, we’ll have a couple of parameters: the character set for the input and a hint for the size of chunk to break the file into.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *charset* (Charset/forName <span class="st">&quot;UTF-8&quot;</span>))
+(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *chunk-size* (<span class="kw">*</span> <span class="dv">10</span> <span class="dv">1024</span> <span class="dv">1024</span>))</code></pre>
+<p>With those, we’ll break the file into chunks by skipping through it and reading ahead until we get to the end of a line. Later, when we actually read the file, this will make sure that lines aren’t broken across chunks.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-chunk-offsets</span>
+  [f pos offsets chunk-size]
+  (<span class="kw">let</span> [skip-to (<span class="kw">+</span> pos chunk-size)]
+    (<span class="kw">if</span> (<span class="kw">&gt;=</span> skip-to (.length f))
+      (<span class="kw">conj</span> offsets (.length f))
+      (<span class="kw">do</span>
+        (.seek f skip-to)
+        (<span class="kw">while</span> (<span class="kw">not=</span> (.<span class="kw">read</span> f) (<span class="kw">int</span> <span class="ch">\n</span>ewline)))
+        (<span class="kw">let</span> [new-pos (.getFilePointer f)]
+          (<span class="kw">recur</span> f new-pos (<span class="kw">conj</span> offsets new-pos)
+                 chunk-size))))))
+(<span class="kw">defn</span><span class="fu"> get-chunks</span>
+  ([file-name] (get-chunks file-name *chunk-size*))
+  ([file-name chunk-size]
+   (<span class="kw">with-open</span> [f (RandomAccessFile. file-name <span class="st">&quot;r&quot;</span>)]
+     (<span class="kw">doall</span>
+       (<span class="kw">partition</span> <span class="dv">2</span> <span class="dv">1</span> (get-chunk-offsets
+                        f <span class="dv">0</span> [<span class="dv">0</span>] chunk-size))))))</code></pre>
+<p>And with those, we can memory map each chunk and read the lines out of it as a sequence.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> read-chunk</span>
+  [channel [from to]]
+  (<span class="kw">let</span> [chunk-mmap
+        (.<span class="kw">map</span>
+          channel
+          java.nio.channels.FileChannel$MapMode/READ_ONLY
+          from
+          (<span class="kw">-</span> to from))
+        decoder (.newDecoder *charset*)]
+    (<span class="kw">doall</span> 
+      (split-lines
+        (<span class="kw">str</span> (.decode decoder chunk-mmap))))))</code></pre>
+<p>These let us bring everything together similar to how we did with serial-process.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> mmap-process</span>
+  [file-name]
+  (<span class="kw">let</span> [chan (nio/channel file-name)]
+    (<span class="kw">-&gt;&gt;</span>
+      file-name
+      get-chunks
+      (r/mapcat (<span class="kw">partial</span> read-chunk chan))
+      (r/map parse-line)
+      (r/filter data-line?)
+      (r/fold combiner process-user-map))))</code></pre>
+<h4 id="performance">Performance</h4>
+<p>Now we compare two methods’ performance. (Measured with the <a href="https://github.com/hugoduncan/criterium">criterium</a> library.)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><strong>Function</strong></th>
+<th align="left"><strong>Mean Time</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>serial-process</code></td>
+<td align="left">14.15 sec</td>
+</tr>
+<tr class="even">
+<td align="left"><code>mmap-process</code></td>
+<td align="left">15.35 sec</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-it-works">How it works…</h3>
+<p>So for this, the serial process is better. It’s become a cliché to say that disk is the new tape, but there’s a lot of truth in that. If we can arrange processing so that we access the disk sequentially, as we do whenever we read one line at a time, we’ll get about the best performance we can.</p>
+<p>If we must have random access, for a disk-based index for example, then we’re better off memory mapping the part of the file that we’re going to access.</p>
+<p>The numbers above support these guidelines. As usual, the devil is in the details and exactly how our processing is going to happen.</p>
+<hr />
+<blockquote>
+<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
+</blockquote>]]></summary>
+</entry>
+<entry>
     <title>Downloading Data in Parallel</title>
     <link href="http://www.ericrochester.com//pages/code/downloading-data-in-parallel/index.html" />
     <id>http://www.ericrochester.com//pages/code/downloading-data-in-parallel/index.html</id>

@@ -34,6 +34,17 @@
           <div>
             <section class="panel main">
   <div class="panel-content">
+    <h1><a href="./pages/code/parallel-io-with-mmap/index.html">Parallel IO with mmap</a></h1>
+    <blockquote>
+<p><em>This is a recipe that I wrote for the <a href="./pages/announcements/clj-data-analysis/index.html"><em>Clojure Data Analysis Cookbook</em></a>. However, it didn’t make it into the final book, so I’m sharing it with you today.</em></p>
+</blockquote>
+<p>Parallelizing the pure parts of processes, the parts that don’t involve side effects like reading input files, is relatively easy. But once disk IO enters the picture, things become more complicated. There’s a reason for that: when reading from a disk, all threads are inherently contending for one resource, the disk.</p>
+<p>There are ways to mitigate this, but ultimately it comes down to working with the disk and the processing requirements to get the best performance we can from a single, sequential process. So to be completely honest, the title of this post is a little misleading. We can’t parallelize IO on a single, shared resource. But there</p>
+  </div>
+  <div class="more"><a href="./pages/code/parallel-io-with-mmap/index.html"><i class="icon-circle-arrow-right"></i></a></div>
+</section>
+<section class="panel third">
+  <div class="panel-content">
     <h1><a href="./pages/code/downloading-data-in-parallel/index.html">Downloading Data in Parallel</a></h1>
     <blockquote>
 <p><em>This is a recipe that I wrote for the <a href="./pages/announcements/clj-data-analysis/index.html"><em>Clojure Data Analysis Cookbook</em></a>. However, it didn’t make it into the final book, so I’m sharing it with you today. If you like this, check out <a href="http://www.packtpub.com/clojure-data-analysis-cookbook/book">the book</a>.</em></p>
@@ -43,7 +54,7 @@
   </div>
   <div class="more"><a href="./pages/code/downloading-data-in-parallel/index.html"><i class="icon-circle-arrow-right"></i></a></div>
 </section>
-<section class="panel third">
+<section class="panel second">
   <div class="panel-content">
     <h1><a href="./pages/code/aggregating-semantic-web-data/index.html">Aggregating Semantic Web Data</a></h1>
     <blockquote>
@@ -55,7 +66,7 @@
   </div>
   <div class="more"><a href="./pages/code/aggregating-semantic-web-data/index.html"><i class="icon-circle-arrow-right"></i></a></div>
 </section>
-<section class="panel second">
+<section class="panel">
   <div class="panel-content">
     <h1><a href="./pages/announcements/clj-data-analysis/index.html">Clojure Data Analysis Cookbook</a></h1>
     <p><img class="bookframe" src="http://dgdsbygo8mp3h.cloudfront.net/sites/default/files/imagecache/productview_larger/2643OS_0.jpg" /></p>
@@ -73,7 +84,7 @@
   </div>
   <div class="more"><a href="./pages/announcements/clj-data-analysis/index.html"><i class="icon-circle-arrow-right"></i></a></div>
 </section>
-<section class="panel">
+<section class="panel second third">
   <div class="panel-content">
     <h1><a href="./pages/semantic-web/linked-open-data-rbs/index.html">Linked Open Data at the Rare Book School</a></h1>
     <p><em>This is cross posted at <a href="http://www.scholarslab.org/digital-libraries/introduction-to-linked-open-data-at-rare-books-school/">The Scholars’ Lab Blog</a>.</em></p>
