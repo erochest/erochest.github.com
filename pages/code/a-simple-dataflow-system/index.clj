@@ -1,6 +1,6 @@
 ---
 title: A Simple Dataflow System
-date: 2013-04-22T13:04:02Z
+date: 2013-06-05T14:16:02Z
 tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ---
 
@@ -74,7 +74,8 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
     :doctors [11]}])
 
 ; (If you want to use the entire dataset, you can download
-; it from the book's [data page](/clj-data-analysis/).)
+; it from the book's [data page](/clj-data-analysis/) or
+; directly from [this link](/clj-data-analysis/data/companions.clj).)
 ;
 ; ### How to do it…
 ;
@@ -88,18 +89,24 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; data. Here are those functions.
 
 (defn accum-mean
+  "Accumulate the sum and length of a sequence for
+  calculating the mean."
   ([] {:sum 0, :n 0})
   ([{:keys [sum n]} x]
    {:sum (+ sum x)
     :n (inc n)}))
 
 (defn join-accum
+  "Take the output of two calls to accum-mean and join
+  them."
   ([] {:sum 0, :n 0})
   ([accum1 accum2]
    {:sum (+ (:sum accum1) (:sum accum2))
     :n (+ (:n accum1) (:n accum2))}))
 
 (defn calc-mean
+  "Take the output of accum-mean or join-accum and
+  calculate the mean."
   [{:keys [sum n]}]
   (double (/ sum n)))
 
@@ -129,9 +136,10 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 
 ;
 ; But by changing from reduce to
-; `clojure.core.reducers/fold`, it will automatically
-; partition our data and spread the processing across
-; multiple cores, even given the same input process.
+; [`clojure.core.reducers/fold`](http://clojure.github.io/clojure/clojure.core-api.html#clojure.core.reducers/fold),
+; it will automatically partition our data and spread the
+; processing across multiple cores, even given the same
+; input process.
 ;
 
 ; ```clojure
