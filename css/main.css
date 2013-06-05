@@ -40,7 +40,7 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid #ccc;
   margin: 1em 0;
   padding: 0; }
 
@@ -80,7 +80,7 @@ textarea {
   box-sizing: border-box; }
 
 body {
-  font-family: "Inder", sans-serif;
+  font-family: 'Inder', sans-serif;
   background-color: #e8e5e3;
   color: #1c1917; }
 
@@ -159,7 +159,7 @@ footer {
       text-decoration: none; }
 
 code {
-  font-family: "Ubuntu Mono", monospace; }
+  font-family: 'Ubuntu Mono', monospace; }
 
 .index ul {
   list-style: none;
@@ -315,7 +315,7 @@ code {
 @media print {
   * {
     background: transparent !important;
-    color: black !important;
+    color: #000 !important;
     /* Black prints faster: h5bp.com/s */
     box-shadow: none !important;
     text-shadow: none !important; }
@@ -340,7 +340,7 @@ code {
 
   pre,
   blockquote {
-    border: 1px solid #999999;
+    border: 1px solid #999;
     page-break-inside: avoid; }
 
   thead {
