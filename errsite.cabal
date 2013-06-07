@@ -22,72 +22,73 @@ library
                      , Sites.Literate
                      , Sites.Pager
                      , Sites.Types
-  build-depends:       base            == 4.5.*
-                     , text            == 0.11.*
-                     , hakyll          == 4.2.*
-                     , system-filepath == 0.4.*
-                     , containers      == 0.4.*
-                     , blaze-html      == 0.5.*
-                     , shelly          == 0.15.*
-                     , filepath        == 1.3.*
-                     , time            == 1.4
-                     , old-locale      == 1.0.*
-                     , regex-tdfa      == 1.1.*
-                     , pandoc          == 1.10.*
+  build-depends:       base            == 4.6.*
+                     , text
+                     , hakyll
+                     , system-filepath
+                     , containers
+                     , blaze-html
+                     , shelly
+                     , filepath
+                     , time
+                     , old-locale
+                     , regex-tdfa
+                     , pandoc
 
 executable site
   main-is:             site.hs
   -- other-modules:       
-  build-depends:       base            == 4.5.*
+  build-depends:       base            == 4.6.*
                      , errsite
-                     , network         == 2.3.*
-                     , bytestring      == 0.9.*
-                     , hakyll          == 4.2.*
-                     , blaze-html      == 0.5.*
-                     , text            == 0.11.*
-                     , system-filepath == 0.4.*
-                     , containers      == 0.4.*
-                     , shelly          == 0.15.*
-                     , filepath        == 1.3.*
-                     , time            == 1.4
-                     , old-locale      == 1.0.*
-                     , regex-tdfa      == 1.1.*
-                     , pandoc          == 1.10.*
+                     , network
+                     , bytestring
+                     , hakyll
+                     , blaze-html
+                     , text
+                     , system-filepath
+                     , containers
+                     , shelly
+                     , filepath
+                     , time
+                     , old-locale
+                     , regex-tdfa
+                     , pandoc
 
 executable deploy
   main-is:             deploy.hs
-  build-depends:       base            == 4.5.*
+  build-depends:       base            == 4.6.*
                      , errsite
-                     , shelly          == 0.15.*
-                     , text            == 0.11.*
-                     , system-filepath == 0.4.*
-                     , time            == 1.4
-                     , classy-prelude  == 0.4.*
-                     , old-locale      == 1.0.*
-                     , containers      == 0.4.*
-                     , hakyll          == 4.2.*
-                     , blaze-html      == 0.5.*
-                     , filepath        == 1.3.*
-                     , time            == 1.4
-                     , old-locale      == 1.0.*
-                     , regex-tdfa      == 1.1.*
-                     , pandoc          == 1.10.*
+                     , shelly
+                     , text
+                     , system-filepath
+                     , time
+                     , classy-prelude
+                     , old-locale
+                     , containers
+                     , hakyll
+                     , blaze-html
+                     , filepath
+                     , time
+                     , old-locale
+                     , regex-tdfa
+                     , pandoc
+                     , cmdargs
 
 executable illiterate
   main-is:             Illiterate.hs
-  build-depends:       base            == 4.5.*
+  build-depends:       base            == 4.6.*
                      , errsite
-                     , shelly          == 0.15.*
-                     , text            == 0.11.*
-                     , system-filepath == 0.4.*
-                     , time            == 1.4
-                     , classy-prelude  == 0.4.*
-                     , old-locale      == 1.0.*
-                     , containers      == 0.4.*
-                     , hakyll          == 4.2.*
-                     , blaze-html      == 0.5.*
-                     , filepath        == 1.3.*
-                     , time            == 1.4
-                     , old-locale      == 1.0.*
-                     , regex-tdfa      == 1.1.*
-                     , pandoc          == 1.10.*
+                     , shelly
+                     , text
+                     , system-filepath
+                     , time
+                     , classy-prelude
+                     , old-locale
+                     , containers
+                     , hakyll
+                     , blaze-html
+                     , filepath
+                     , time
+                     , old-locale
+                     , regex-tdfa
+                     , pandoc
