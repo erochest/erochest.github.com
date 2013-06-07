@@ -1,6 +1,7 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE NoImplicitPrelude  #-}
+{-# LANGUAGE RecordWildCards    #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 
 
 -- | Passing in the option `--scratch` will cause the `site` executable to be
@@ -14,6 +15,7 @@ module Main where
 
 
 import           ClassyPrelude
+import           Data.Data
 import           Data.Time
 import qualified Data.List as L
 import qualified Data.Set as S
@@ -21,11 +23,10 @@ import qualified Data.Text.Lazy as TL
 import           Shelly hiding ((</>))
 import           Sites (site, SiteInfo(..), RootSite(..))
 import           System.Locale
+import           System.Console.CmdArgs
 
 default (TL.Text)
 
-binDir :: FilePath
-binDir = "./dist/build/site"
 
 cabalDev_ :: TL.Text -> [TL.Text] -> Sh ()
 cabalDev_ = command1_ "cabal-dev" []
@@ -58,18 +59,18 @@ deploySite branch msg dir =
 
 main :: IO ()
 main = shelly $ verbosely $ do
-    args <-  getArgs
+    Deploy{..} <- liftIO $ cmdArgs deployArgs
     now  <-  TL.pack . formatTime defaultTimeLocale rfc822DateFormat
          <$> liftIO getCurrentTime
     Root{..} <- liftIO site
     let rootDeploy = ("_deploy" </>) $ siteTarget rootSite
 
-    when ("--scratch" `elem` args) $ do
+    when scratch $ do
         cabalDev_ "clean"     []
         cabalDev_ "configure" []
         cabalDev_ "build"     []
 
-    run_ (binDir </> "site") ["rebuild"]
+    run_ "site" ["rebuild"]
     clearDeploy
     copySite rootDeploy
     forM_ subsites $ \site ->
@@ -79,11 +80,28 @@ main = shelly $ verbosely $ do
             mapM_ (`mv` dest) >>
             rm_rf src
 
-    unless ("--bail" `elem` args) $ do
+    unless bail $ do
         let msg = "Deployed on " ++ now ++ "."
         deploySite "master" msg rootDeploy
         forM_ subsites (deploySite "gh-pages" msg . ("_deploy" </>) . siteTarget)
         git_ "add" ["_deploy"]
         errExit False $
             gitCommit msg
+
+-- command-line parsing
+
+data DeployArgs = Deploy
+                { scratch :: Bool
+                , bail    :: Bool
+                } deriving (Show, Data, Typeable)
+
+deployArgs :: DeployArgs
+deployArgs
+    = Deploy
+    { scratch = False &= help "If given, this cleans the project and \
+                              \rebuilds everything from scratch. (Default \
+                              \is false.)"
+    , bail    = False &= help "If given, this will bail before actually \
+                              \deploying the site."
+    }
 
