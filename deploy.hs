@@ -70,7 +70,7 @@ main = shelly $ verbosely $ do
         cabalDev_ "configure" []
         cabalDev_ "build"     []
 
-    run_ "site" ["rebuild"]
+    run_ "./dist/build/site/site" ["rebuild"]
     clearDeploy
     copySite rootDeploy
     forM_ subsites $ \site ->
