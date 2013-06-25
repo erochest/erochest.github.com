@@ -668,7 +668,7 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <p>The predicates that you can use are grouped into <em>vocabularies</em>. Each vocabulary is used for a specific domain.</p>
 <p>We’re getting abstract, so let’s ground this discussion by looking at a specific vocabulary and set of statements.</p>
 <h3 id="friend-of-a-friend">Friend of a Friend</h3>
-<p>For describing people, there’s a vocabulary standard called <a href="http://www.foaf-project.org/">Friend of a Friend (FOAF)</a>. I’ve used that on my web site to provide information about me. (The file on my website is in <a href="http://en.wikipedia.org/wiki/RDF/XML">RDF/XML</a>, which can be frightening. I’ve converted it to <a href="http://en.wikipedia.org/wiki/Turtle_syntax%29,%20which%20we%20can%20walk%20through%20more%20easily.">Turtle</a></p>
+<p>For describing people, there’s a vocabulary standard called <a href="http://www.foaf-project.org/">Friend of a Friend (FOAF)</a>. I’ve used that on my web site to provide information about me. (The file on my website is in <a href="http://en.wikipedia.org/wiki/RDF/XML">RDF/XML</a>, which can be frightening. I’ve converted it to <a href="http://en.wikipedia.org/wiki/Turtle_(syntax%29),%20which%20we%20can%20walk%20through%20more%20easily.">Turtle</a></p>
 <p>I’ll show you parts of it line-by-line.</p>
 <p>(Ahem. Before we start, a disclaimer: I need to update my FOAF file. It doesn’t reflect best practices. The referencing URL isn’t quite the way it should be, and it uses deprecated FOAF predicates. That said, if you can ignore my dirty laundry, it still illustrates the points I want to make about the basic structure of RDF.)</p>
 <p>First,</p>
