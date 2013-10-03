@@ -19,6 +19,7 @@ import           Data.Data
 import           Data.Time
 import qualified Data.List as L
 import qualified Data.Set as S
+import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 import           Shelly hiding ((</>))
 import           Sites (site, SiteInfo(..), RootSite(..))
@@ -28,13 +29,13 @@ import           System.Console.CmdArgs
 default (TL.Text)
 
 
-cabalDev_ :: TL.Text -> [TL.Text] -> Sh ()
+cabalDev_ :: Text -> [Text] -> Sh ()
 cabalDev_ = command1_ "cabal-dev" []
 
-git_ :: TL.Text -> [TL.Text] -> Sh ()
+git_ :: Text -> [Text] -> Sh ()
 git_ = command1_ "git" []
 
-gitCommit :: TL.Text -> Sh ()
+gitCommit :: Text -> Sh ()
 gitCommit msg = git_ "commit" ["-m", msg]
 
 clearDeploy :: Sh ()
@@ -46,7 +47,7 @@ clearDeploy =
 copySite :: FilePath -> Sh ()
 copySite dest = mapM_ (`cp_r` dest) =<< ls "_site"
 
-deploySite :: TL.Text -> TL.Text -> FilePath -> Sh ()
+deploySite :: Text -> Text -> FilePath -> Sh ()
 deploySite branch msg dir =
         chdir dir $ do
             git_ "checkout" [branch]
@@ -60,7 +61,7 @@ deploySite branch msg dir =
 main :: IO ()
 main = shelly $ verbosely $ do
     Deploy{..} <- liftIO $ cmdArgs deployArgs
-    now  <-  TL.pack . formatTime defaultTimeLocale rfc822DateFormat
+    now  <-  T.pack . formatTime defaultTimeLocale rfc822DateFormat
          <$> liftIO getCurrentTime
     Root{..} <- liftIO site
     let rootDeploy = ("_deploy" </>) $ siteTarget rootSite

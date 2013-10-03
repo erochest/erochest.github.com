@@ -13,6 +13,7 @@ import qualified Data.List as L
 import           Data.Maybe (fromMaybe, mapMaybe)
 import           Data.Monoid
 import           Data.Ord (comparing)
+import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 import           Hakyll
 import           Prelude hiding (FilePath)
@@ -38,10 +39,10 @@ erochestSite = Site "erochest" "erochest.github.com" "." `fmap` rules
 postPattern :: Pattern
 postPattern = "pages/**/*.md" .||. "pages/**/index.clj"
 
-isPost :: TL.Text -> Bool
-isPost fn | ".md" `TL.isSuffixOf` fn  = True
-          | ".clj" `TL.isSuffixOf` fn = True
-          | otherwise                 = False
+isPost :: T.Text -> Bool
+isPost fn | ".md" `T.isSuffixOf` fn  = True
+          | ".clj" `T.isSuffixOf` fn = True
+          | otherwise                = False
 
 renderItem :: Item String -> Compiler (Item String)
 renderItem item =
@@ -101,7 +102,7 @@ compileIndex context template =
         loadAndApplyTemplate "templates/default.html" context >>=
         relativizeUrls
 
-listCategoryPagesT :: FilePath -> Sh [TL.Text]
+listCategoryPagesT :: FilePath -> Sh [T.Text]
 listCategoryPagesT rootDir = do
         children <- ls rootDir
         map toTextIgnore <$> ((++) <$> filterM test_f children
@@ -109,7 +110,7 @@ listCategoryPagesT rootDir = do
 
 indexPageInfo :: IO (Int, [String])
 indexPageInfo = do
-    pages <- shelly $ map TL.unpack . filter isPost <$> listCategoryPagesT "pages/"
+    pages <- shelly $ map T.unpack . filter isPost <$> listCategoryPagesT "pages/"
     let (d, m)    = length pages `divMod` pageLength
         indexPageCount = d + if m == 0 then 0 else 1
         indexPages     = "pages/index.html" : [ "pages/index-" <> show n <> ".html"
