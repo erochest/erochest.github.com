@@ -81,7 +81,7 @@ textarea {
 
 body {
   font-family: 'Inder', sans-serif;
-  background-color: #e8e5e3;
+  background-color: #f8f7f7;
   color: #1c1917; }
 
 #container a {
@@ -103,7 +103,7 @@ body {
   margin-left: 1px;
   margin-right: 1px; }
 #container > footer {
-  background: #e8e5e3; }
+  background: #f8f7f7; }
   #container > footer a {
     color: #1c1917; }
   #container > footer > div {
