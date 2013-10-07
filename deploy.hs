@@ -29,8 +29,8 @@ import           System.Console.CmdArgs
 default (TL.Text)
 
 
-cabalDev_ :: Text -> [Text] -> Sh ()
-cabalDev_ = command1_ "cabal-dev" []
+cabal_ :: Text -> [Text] -> Sh ()
+cabal_ = command1_ "cabal" []
 
 git_ :: Text -> [Text] -> Sh ()
 git_ = command1_ "git" []
@@ -67,9 +67,9 @@ main = shelly $ verbosely $ do
     let rootDeploy = ("_deploy" </>) $ siteTarget rootSite
 
     when scratch $ do
-        cabalDev_ "clean"     []
-        cabalDev_ "configure" []
-        cabalDev_ "build"     []
+        cabal_ "clean"     []
+        cabal_ "configure" []
+        cabal_ "build"     []
 
     run_ "./dist/build/site/site" ["rebuild"]
     clearDeploy
