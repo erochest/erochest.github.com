@@ -37,11 +37,12 @@ erochestSite = Site "erochest" "erochest.github.com" "." `fmap` rules
 -- should be in the next few definitions.
 
 postPattern :: Pattern
-postPattern = "pages/**/*.md" .||. "pages/**/index.clj"
+postPattern = "pages/**/*.md" .||. "pages/**/index.clj" .||. "pages/**/index.lhs"
 
 isPost :: T.Text -> Bool
-isPost fn | ".md" `T.isSuffixOf` fn  = True
+isPost fn | ".md"  `T.isSuffixOf` fn = True
           | ".clj" `T.isSuffixOf` fn = True
+          | ".lhs" `T.isSuffixOf` fn = True
           | otherwise                = False
 
 renderItem :: Item String -> Compiler (Item String)
@@ -194,6 +195,18 @@ rules = do
         compile   compilePage
 
     match "pages/**/*.md" $ version "raw" $ do
+        route   idRoute
+        compile getResourceBody
+
+    match "pages/**/index.lhs" $ do
+        route   $   setExtension "html"
+        compile $   do
+            rsc <- getResourceBody
+            saveSnapshot "content" (itemSetBody (haskell $ itemBody rsc) rsc)
+                >>= postTemplate (siteContext Nothing)
+                >>= relativizeUrls
+
+    match "pages/**/*.lhs" $ version "raw" $ do
         route   idRoute
         compile getResourceBody
 

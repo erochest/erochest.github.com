@@ -8,12 +8,15 @@ module Sites.Literate
     , markdown
     , clojure
     , clojureComments
+    , haskell
+    , haskellComments
     ) where
 
 
 import qualified Data.List as L
 import           Data.Maybe
 import           Data.Monoid
+import qualified Data.Set as S
 import           Hakyll
 import           Sites.Base
 import           Text.Pandoc
@@ -136,6 +139,18 @@ clojure = illiterateHtml "clojure" clojureComments
 clojureComments :: CommentSpecList
 clojureComments = [ CommentLine "; "
                   , CommentLine ";"
+                  ]
+
+haskell :: String -> String
+haskell = writeHtmlString defaultHakyllWriterOptions
+         . readMarkdown readerOpts
+    where readerOpts = defaultHakyllReaderOptions
+                     { readerExtensions = Ext_literate_haskell `S.insert` readerExtensions defaultHakyllReaderOptions
+                     }
+
+haskellComments :: CommentSpecList
+haskellComments = [ CommentLine "-- "
+                  , CommentLine "--"
                   ]
 
 markdown :: String -> String
