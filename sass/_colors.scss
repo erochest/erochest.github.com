@@ -23,3 +23,6 @@ $full          : hsl($hue, $sat, $light);
 $accent        : hsl($hue+$accent-offset, $s3, $light);
 $accent-text   : hsl($hue+$accent-offset, $s3, $l2);
 
+$blue       : hsl($hue+$accent-offset, $s1, $l2);
+$blue-clear : hsla($hue+$accent-offset, $s1, $l2, 0);
+

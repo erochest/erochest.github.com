@@ -9,7 +9,7 @@
         height: 200px;
         border: 1px solid hsl($hue+$accent-offset, $s1, $l0);
         padding: 0.25em;
-        background-color: hsl($hue+$accent-offset, $s1, $l2);
+        background-color: hsl($hue, $sat, $l3);
         color: hsl($hue+$accent-offset, $s1, $l0);
         font-size: smaller;
 
@@ -18,8 +18,7 @@
             height: 190px;
         }
         > div.more {
-            @include linear-gradient(top, hsla($hue+$accent-offset, $s1, $l2, 0),
-                                     hsl($hue+$accent-offset, $s1, $l2));
+            @include linear-gradient(top, hsla($hue, $sat, $l3, 0), hsl($hue, $sat, $l3));
             width: 100%;
             text-align: right;
             position: relative;
@@ -33,10 +32,10 @@
     }
 
     .panel.main {
-        background-color: hsl($hue, $sat, $l3);
+        background-color: $blue;
         box-shadow: 0 0 1px 1px hsla($hue+$accent-offset, $s1, $l0, 0.3);
         > div.more {
-            @include linear-gradient(top, hsla($hue, $sat, $l3, 0), hsl($hue, $sat, $l3));
+            @include linear-gradient(top, $blue-clear, $blue);
         }
     }
 }
