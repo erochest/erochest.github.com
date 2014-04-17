@@ -22,9 +22,9 @@ library
                      , Sites.Literate
                      , Sites.Pager
                      , Sites.Types
-  build-depends:       base            == 4.6.*
+  build-depends:       base            == 4.7.*
                      , text
-                     , hakyll
+                     , hakyll == 4.5.1.0
                      , system-filepath
                      , containers
                      , blaze-html
@@ -38,11 +38,11 @@ library
 executable site
   main-is:             site.hs
   -- other-modules:       
-  build-depends:       base            == 4.6.*
+  build-depends:       base            == 4.7.*
                      , errsite
                      , network
                      , bytestring
-                     , hakyll
+                     , hakyll == 4.5.1.0
                      , blaze-html
                      , text
                      , system-filepath
@@ -56,7 +56,7 @@ executable site
 
 executable deploy
   main-is:             deploy.hs
-  build-depends:       base            == 4.6.*
+  build-depends:       base            == 4.7.*
                      , errsite
                      , shelly
                      , text
@@ -65,7 +65,7 @@ executable deploy
                      , classy-prelude
                      , old-locale
                      , containers
-                     , hakyll
+                     , hakyll == 4.5.1.0
                      , blaze-html
                      , filepath
                      , time
@@ -76,7 +76,7 @@ executable deploy
 
 executable illiterate
   main-is:             Illiterate.hs
-  build-depends:       base            == 4.6.*
+  build-depends:       base            == 4.7.*
                      , errsite
                      , shelly
                      , text
@@ -85,7 +85,7 @@ executable illiterate
                      , classy-prelude
                      , old-locale
                      , containers
-                     , hakyll
+                     , hakyll == 4.5.1.0
                      , blaze-html
                      , filepath
                      , time
