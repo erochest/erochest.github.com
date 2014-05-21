@@ -18,6 +18,7 @@ library
   exposed-modules:     Sites
   other-modules:       Sites.Base
                      , Sites.CljDataAnalysis
+                     , Sites.CljDataMaster
                      , Sites.Erochest
                      , Sites.Literate
                      , Sites.Pager

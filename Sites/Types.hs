@@ -2,7 +2,6 @@
 module Sites.Types where
 
 
-import qualified Data.Set                  as S
 import qualified Data.Text                 as T
 import qualified Filesystem.Path.CurrentOS as FP
 import           Hakyll
