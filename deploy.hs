@@ -16,9 +16,6 @@ module Main where
 
 import           ClassyPrelude
 import           Data.Data
-import           Data.Time
-import qualified Data.List as L
-import qualified Data.Set as S
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 import           Shelly hiding ((</>))
@@ -71,12 +68,12 @@ main = shelly $ verbosely $ do
         cabal_ "configure" []
         cabal_ "build"     []
 
-    run_ "./dist/build/site/site" ["rebuild"]
+    cabal_ "run" ["site", "rebuild"]
     clearDeploy
     copySite rootDeploy
-    forM_ subsites $ \site ->
-        let src  = "_deploy" </> siteTarget rootSite </> siteRoot site
-            dest = "_deploy" </> siteTarget site
+    forM_ subsites $ \s ->
+        let src  = "_deploy" </> siteTarget rootSite </> siteRoot s
+            dest = "_deploy" </> siteTarget s
         in  ls src >>=
             mapM_ (`mv` dest) >>
             rm_rf src
