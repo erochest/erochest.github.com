@@ -9,3 +9,10 @@
 	path = _deploy/clj-data-analysis
 	url = git@github.com:erochest/clj-data-analysis.git
 	branch = gh-pages
+[submodule "clj-data-master"]
+	path = clj-data-master
+	url = git@github.com:erochest/clj-data-master.git
+[submodule "_deploy/clj-data-master"]
+	path = _deploy/clj-data-master
+	url = git@github.com:erochest/clj-data-master.git
+	branch = gh-pages
