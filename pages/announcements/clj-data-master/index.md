@@ -1,6 +1,6 @@
 ---
 title: Mastering Clojure Data Analysis
-date: 2014-06-03T02:02:55Z
+date: 2014-06-04T07:36:58Z
 tags: writing, clojure, data
 ---
 
@@ -10,8 +10,8 @@ After a few delays, I'm pleased to announce the release of [*Mastering Clojure
 Data Analysis*][packt].
 
 This book is a case study of ten different data analysis topics using Clojure.
-It discusses an assortment of techniques in data analysis and machine learning,
-and it uses a number of Clojure and Java libraries.
+It applies a number of Clojure and Java libraries to an assortment data
+analysis and machine learning techniques.
 
 To give you a taste of what it covers, here is the table of contents:
 
@@ -40,21 +40,22 @@ And from the book's blurb:
 > With this guide, you'll learn how to leverage the power and flexibility of
 > Clojure to dig into your data and access the insights it hides.
 
-If you're interested, feel free to check this book out on [Packt's
-website][packt] or on [Amazon][amazon].
+If this sounds interesting, check it out on [Packt's website][packt] or on
+[Amazon][amazon].
 
-Although I also do this in the book, I'd like to take a minute to thank the
-editorial team at Packt that worked with me. The reviewers were also
-invaluable. They put a lot of effort into helping me see where the very rough
-first draft needed more attention. Any shortcomings still in the book are
-entirely my own.
+Also in the book, I mentioned a couple of datasets that are available on this
+site. You can find them on [the page for this book][data].
 
-And most of all, I'd like to thank my family. They put up with my being only
-partially available during some rough times, and I appreciate their patience,
-understanding, support, and love.
+---
 
-Sometime during the next week, I'll set up a page with some of the datasets for
-the book. Watch this space.
+I do this in the book, but I'd like to take a minute here to publicly thank the
+editorial team at Packt who worked with me. The reviewers were also invaluable.
+They put a lot of effort into helping me see where the very rough first draft
+needed more attention. Any shortcomings still in the book are entirely my own.
+
+And most of all, I'd like to thank my family. They put up with my inattention,
+and I appreciate their patience, understanding, support, and love.
+
 
 <!--
 <a href="http://www.amazon.com/gp/product/B00KLAJ66S/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00KLAJ66S&linkCode=as2&tag=httpwwwericro-20&linkId=JK7FNAPWBI467EIC">Mastering Clojure Data Analysis</a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=httpwwwericro-20&l=as2&o=1&a=B00KLAJ66S" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
@@ -62,4 +63,5 @@ the book. Watch this space.
 
 [packt]: http://j.mp/McDla
 [amazon]: http://www.amazon.com/gp/product/B00KLAJ66S/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00KLAJ66S&linkCode=as2&tag=httpwwwericro-20&linkId=JK7FNAPWBI467EIC
+[data]: /clj-data-master/
 
