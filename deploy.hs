@@ -1,7 +1,7 @@
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE NoImplicitPrelude  #-}
-{-# LANGUAGE RecordWildCards    #-}
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE NoImplicitPrelude  #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE RecordWildCards    #-}
 
 
 -- | Passing in the option `--scratch` will cause the `site` executable to be
@@ -14,14 +14,14 @@
 module Main where
 
 
-import           ClassyPrelude
+import           ClassyPrelude          hiding (whenM)
 import           Data.Data
-import qualified Data.Text as T
-import qualified Data.Text.Lazy as TL
-import           Shelly hiding ((</>))
-import           Sites (site, SiteInfo(..), RootSite(..))
-import           System.Locale
+import qualified Data.Text              as T
+import qualified Data.Text.Lazy         as TL
+import           Shelly                 hiding ((</>))
+import           Sites                  (RootSite (..), SiteInfo (..), site)
 import           System.Console.CmdArgs
+import           System.Locale
 
 default (TL.Text)
 
