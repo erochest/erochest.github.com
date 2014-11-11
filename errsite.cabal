@@ -25,7 +25,7 @@ library
                      , Sites.Types
   build-depends:       base            == 4.7.*
                      , text
-                     , hakyll == 4.5.1.0
+                     , hakyll == 4.6.0.0
                      , system-filepath
                      , containers
                      , blaze-html
@@ -43,7 +43,7 @@ executable site
                      , errsite
                      , network
                      , bytestring
-                     , hakyll == 4.5.1.0
+                     , hakyll == 4.6.0.0
                      , blaze-html
                      , text
                      , system-filepath
@@ -66,7 +66,7 @@ executable deploy
                      , classy-prelude
                      , old-locale
                      , containers
-                     , hakyll == 4.5.1.0
+                     , hakyll == 4.6.0.0
                      , blaze-html
                      , filepath
                      , time
@@ -86,7 +86,7 @@ executable illiterate
                      , classy-prelude
                      , old-locale
                      , containers
-                     , hakyll == 4.5.1.0
+                     , hakyll == 4.6.0.0
                      , blaze-html
                      , filepath
                      , time
