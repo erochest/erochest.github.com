@@ -23,9 +23,11 @@ run:
 # install:
 # generate executable and put it into `/usr/local`
 
+dev:
+	cabal run site watch -- --port=9090
 
 deploy:
-	cabal run -- deploy --help
+	cabal run -- deploy
 
 hlint:
 	hlint *.hs src specs
