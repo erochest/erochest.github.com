@@ -73,7 +73,7 @@ executable deploy
                      , old-locale
                      , regex-tdfa
                      , pandoc
-                     , cmdargs
+                     , optparse-applicative
 
 executable illiterate
   main-is:             Illiterate.hs
