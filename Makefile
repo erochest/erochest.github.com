@@ -50,4 +50,6 @@ build:
 
 rebuild: clean configure build
 
+restart: distclean deps build
+
 .PHONY: all init test run clean distclean configure deps build rebuild hlint
