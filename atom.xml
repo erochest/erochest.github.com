@@ -109,8 +109,7 @@ $ <span class="kw">./neatline-dev</span></code></pre>
 <p>And most of all, I’d like to thank my family. They put up with my inattention, and I appreciate their patience, understanding, support, and love.</p>
 <!--
 <a href="http://www.amazon.com/gp/product/B00KLAJ66S/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00KLAJ66S&linkCode=as2&tag=httpwwwericro-20&linkId=JK7FNAPWBI467EIC">Mastering Clojure Data Analysis</a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=httpwwwericro-20&l=as2&o=1&a=B00KLAJ66S" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
--->
-]]></summary>
+-->]]></summary>
 </entry>
 <entry>
     <title>Software Development for the MA Humanities Student</title>
@@ -124,168 +123,130 @@ $ <span class="kw">./neatline-dev</span></code></pre>
 <p>
 This is <em>not</em> a transcript of a brief panel talk I gave for the UVa <a href="http://graduate.engl.virginia.edu/gesa/">Graduate English Student Association</a> Career Panel. It’s based on what I hope to say, but I’m actually writing this before the event so it (and its links) can be available beforehand.
 </p>
-
 <h1 id="about-me">
 About me
 </h1>
-
 <p>
 I’ve been interested in two things for about as long as I can remember: computers and literature. These intersected a little in science fiction and fantasy, but largely, the two obsessions remained strangely separate. I’d spent a lot of time reading, both “literature” and “trash”; but I’d also enjoyed playing computer games and trying to program my own.
 </p>
-
 <p>
 It wasn’t until half-way through my PhD program at <a
 href="http://www.uga.edu/">The University of Georgia</a> that my interests started to come together. Initially, I just had a reputation for being able to help people format columns in Word. Then I got involved in digital humanities, then called humanities computing. I also created a website for a professor, and later I started doing web development and systems administration for the <a
 href="http://www.lap.uga.edu/">Linguistic Atlas Projects</a>.
 </p>
-
 <p>
 Although these jobs weren’t my primary focus in graduate school, I did take them seriously. I learned best practices, including version control and testing. This was good for the project, but it was also good for me: doing things right up front saved me pain and sweat later.
 </p>
-
 <p>
 And this was how my two interests finally found common ground.
 </p>
-
 <p>
 When I graduated I took a job doing a combination of corpus linguistics and software development. This was good, but when I needed to look for another job, I found that there were fewer options for corpus linguistics than for web development.
 </p>
-
 <p>
 So I made web sites for a few years. I had a lot of fun, and I learned a lot, both about the work itself and about interacting with clients and stakeholders.
 </p>
-
 <p>
 For the last almost three years, I’ve been senior developer here at the <a
 href="http://www.scholarslab.org/">Scholars’ Lab</a>. What does that entail?
 </p>
-
 <ul>
-
 <li>
 <strong>Software development</strong>: True to my title, a lot of what I do involves developing and maintaining computer systems and web sites.
 </li>
-
 <li>
 <strong>Mentoring and education</strong>: Our biggest focus is education and mentoring. Sometimes that means helping someone who walks in with a digital project. More often it involves helping one of the Scholars’ Lab’s fellows or one of the students in the <a href="http://praxis.scholarslab.org/">Praxis Program</a>.
 </li>
-
 <li>
 <strong>Documentation</strong>: An important—but often overlooked—aspect of software projects is their documentation. We don’t spend enough time on this.
 </li>
-
 </ul>
-
 <p>
 That’s not all, but those three is probably how I spend most of my time.
 </p>
-
 <h1 id="what-kind-of-work-are-we-talking-about">
 What Kind of Work are we Talking about?
 </h1>
-
 <p>
 I’m a software developer, so I’ve necessarily focused on that in talking about my personal journey. However, software projects are large, sprawling, complex behemoths, and there are a lot of different tasks that need to be done and a lot of different specialties that are required to contribute. So even if writing code doesn’t appeal to you, other things might.
 </p>
-
 <ul>
-
 <li>
 <strong>Project management</strong>: Keep everyone on track.
 </li>
-
 <li>
 <strong>Community outreach</strong>: Publicize the project and be an active member of the project’s community.
 </li>
-
 <li>
 <strong>Design</strong>: Make the product usable.
 </li>
-
 <li>
 <strong>Documentation</strong>: A different way to make the product usable.
 </li>
-
 <li>
 <strong>Testing</strong>: Check that the product works and works correctly.
 </li>
-
 </ul>
-
-<blockquote> <p>
+<blockquote>
+<p>
 Gina Trapani has an excellent post talking about how crucial—but also how under-valued—many tasks are in a software project, especially in the open source world. You can read about it at <a
 href="http://smarterware.org/7550/designers-women-and-hostility-in-open-source">Designers, Women, and Hostility in Open Source</a>.
-</p> </blockquote>
-
+</p>
+</blockquote>
 <h1 id="what-advantages-do-you-have">
 What Advantages do you Have?
 </h1>
-
 <p>
 Typically, people expect those in any technical job to have a STEM background. This is false, and in fact, a humanities background can be a great asset in almost any job in software development.
 </p>
-
 <p>
 Let me count the ways.
 </p>
-
 <ul>
-
 <li>
 <strong>Communication</strong> This point is trite, but it’s true. At a fundamental level programming involves communicating. Your code must communicate to the computer, to other developers, and even to your future self. You’ll also need to communicate effectively to clients, to your boss, and to co-workers.
 </li>
-
 <li>
 <strong>Education and Negotiation</strong> An important part of software development involves educating and negotiating with others. For example, adding a feature may involve dropping another one. This doesn’t make clients happy, and you’ll need to explain why and argue your case.
 </li>
-
 <li>
 <strong>Research</strong> Learning new technologies as well as using ones you’re already familiar with both involve a lot of research. Knowing how to learn and how to research is an important asset here.
 </li>
-
 <li>
 <strong>Reading and interpretation</strong> Most programmers work from specification documents. Being able to interpret them appropriately is crucial.
 </li>
-
 <li>
 <strong>Multi-level focus</strong> I’m not sure what to call this point, but it may be the most important one. When you analyze literature you must command details from a variety of texts and sources and synthesize them to make a larger point. This involves paying attention to both the forest and the trees. Writing software involves the same split focus: on the one hand, you spend a lot of time in the weeds thinking about semicolons; on the other hand, you must keep the big picture in mind to stay on track and on schedule.
 </li>
-
 </ul>
-
-<blockquote> <p>
+<blockquote>
+<p>
 For some of the same points, plus some others, see Shelby Switzer’s post on <a
 href="http://shelbyswitzer.com/humanities_degrees_help_programmers/">How my “impractical” humanities degree prepared me for a career in programming</a>.
-</p> </blockquote>
-
+</p>
+</blockquote>
 <h1 id="what-can-you-be-doing">
 What Can you be Doing Now?
 </h1>
-
 <p>
 Obviously, finish your degree. This is the most important thing you can do.
 </p>
-
 <p>
 But in your spare time (ha!), there are some other things you can do, both now and in the future. (Again, apologies: this list is for software programmers, especially web developers.)
 </p>
-
 <ul>
-
 <li>
 <strong>Learn the basics</strong> For web development, design, etc., this means learning HTML, CSS, and JavaScript. <a
 href="http://www.codecademy.com/">CodeAcademy</a>, <a
 href="https://www.codeschool.com/">Code School</a>, and <a
 href="http://code.tutsplus.com/">tuts+</a> are all good. The main thing is to type along yourself.
 </li>
-
 <li>
 <strong>Learn a Web Language</strong> Essentially, you want something you can use to interact with a database and dynamically generate web pages. This could be <a href="http://nodejs.org/">JavaScript using NodeJS</a>, <a
 href="https://www.ruby-lang.org/">Ruby</a>, or <a
 href="http://www.python.org/">Python</a>. Any of these are good. If there’s one available for your language of choice, the <a
 href="http://learncodethehardway.org/">Learn Code the Hard Way</a> series is excellent.
 </li>
-
 <li>
 <strong>Learn a Web Framework</strong> Find one based on the language you picked in the previous point. For JavaScript, that means <a
 href="http://expressjs.com/">Express</a> or <a
@@ -295,44 +256,32 @@ href="http://www.sinatrarb.com/">Sinatra</a>. For Python, <a
 href="https://www.djangoproject.com/">Django</a> or <a
 href="http://flask.pocoo.org/">Flask</a>.
 </li>
-
 </ul>
-
 <p>
 If you’re just getting started, don’t worry about getting a broad knowledge of different technologies. All of them are similar. You’ll be better served by going deep into one choice. What you learn will apply to the other systems, and you can learn them later when required.
 </p>
-
 <p>
 Also, learn the tools you’ll use to work in these languages. Learn them thoroughly and learn them well. You’re going to live in them.
 </p>
-
 <ul>
-
 <li>
 <strong>A text editor</strong> This is probably the single-most important tool for a software developer. Know it inside and out. Know all of its tricks. <a href="http://www.sublimetext.com/">Sublime Text</a> is a popular choice right now.
 </li>
-
 <li>
 <strong>Version control</strong> Programmers use version control systems to track the changes they make to their code. <a
 href="http://git-scm.com/">Git</a> is a very popular choice, and <a
 href="https://github.com/">Github</a> allows you to share your code and collaborate with others.
 </li>
-
 <li>
 <strong>Online documentation</strong> Find the documentation for your programming language, its libraries, and the web framework you’re using. Also <a href="http://stackoverflow.com/">StackOverflow</a> is a popular site for asking questions related to software development.
 </li>
-
 </ul>
-
 <p>
 Finally, <strong>get your work out there</strong>. There’s never been a better time for this than right now. You can put your code online for others to see on <a href="https://github.com/">Github</a>. You can also run web apps quickly and easily using <a href="http://www.heroku.com/">Heroku</a>. Having code up on these makes it easy for potential employers to see your skills. It also lets them know that you’re active and learning and capable. They won’t replace a good portfolio that directs potential employers’ attention and highlights your best work, but they are a good start, and they’ll set up above most other applicants.
 </p>
-
 <p>
 In general, this is a great time to go into software development and other technical jobs. Hopefully this post tells you what you need to think about and plan for.
-</p>
-
-]]></summary>
+</p>]]></summary>
 </entry>
 <entry>
     <title>A Simple Dataflow System</title>
@@ -592,7 +541,7 @@ In general, this is a great time to go into software development and other techn
 <p>The numbers above support these guidelines. As usual, the devil is in the details and exactly how our processing is going to happen.</p>
 <hr />
 <blockquote>
-<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
+<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj" class="uri">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
 </blockquote>]]></summary>
 </entry>
 <entry>
@@ -681,7 +630,7 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <p>Playing around with the block size shows some impressive speed-ups. Using a block size of five takes almost half the time as the serial version. Experiment with a small subset of your downloads to see what the optimal block size is for your network and the resources you’re interested in.</p>
 <hr />
 <blockquote>
-<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
+<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj" class="uri">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
 </blockquote>]]></summary>
 </entry>
 <entry>
@@ -925,7 +874,7 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <p>Also, in the query, all the phrases that are pulled in from DBPedia are marked <code>:optional</code>. We don’t want the overall query to fail because any of them are missing, and we can’t mark them all optional as a group because we don’t want the optional phrases as a whole to fail if any one is missing.</p>
 <hr />
 <blockquote>
-<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
+<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj" class="uri">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
 </blockquote>]]></summary>
 </entry>
 <entry>
@@ -965,13 +914,11 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <p>Yesterday, I was fortunate to be invited by <a href="http://www.engl.virginia.edu/faculty/stauffer_andrew.shtml">Andrew Stauffer</a> and <a href="http://nowviskie.org/">Bethany Nowviskie</a> to present at their <a href="http://www.rarebookschool.org/">Rare Book School</a> course, <a href="http://rarebookschool.org/courses/libraries/l65/">Digitizing the Historical Record</a>. I talked about <a href="http://en.wikipedia.org/wiki/Linked_Data">Linked Open Data</a> (LOD), and afterward, <a href="http://twitter.com/!/bluesaepe">Dana Wheeles</a> talked about the <a href="http://www.nines.org/">NINES</a> project and how they use RDF and LOD.</p>
 <p>I tried to present a gentle, mostly non-technical introduction to LOD, with an example of it in action. Hopefully, this posting will be a 50,000 foot overview also.</p>
 <h2 id="the-linked-open-data-universe">The Linked Open Data Universe</h2>
-<p style='font-size: smaller; width: 300px; margin-left: auto; margin-right: auto; text-align: center;'>
+<p style="font-size: smaller; width: 300px; margin-left: auto; margin-right: auto; text-align: center;">
 <a href="http://lod-cloud.net/"> <img src="http://richard.cyganiak.de/2007/10/lod/lod-datasets_2010-09-22.png" alt="Linked Open Data cloud" height="195" width="300" /> </a> <em>Linking Open Data cloud diagram, by Richard Cyganiak and Anja Jentzsch. <a href="http://lod-cloud.net/">http://lod-cloud.net/</a></em>
 </p>
-
 <p>The first thing to know about LOD is that it’s everywhere. Look at the <a href="http://lod-cloud.net/">Linked Open Data cloud diagram</a> above. All of these institutions are publishing data that anyone can use, and their data references others’ data also.</p>
 <!--more-->
-
 <h2 id="linked-data-vs-open-data-vs-rdf-data">Linked Data vs Open Data vs RDF Data</h2>
 <p>First we need to unpack the term <em>Linked Open Data</em>:</p>
 <p><strong>Linked</strong> is an approach to data. You need to provide context for your data; you need to point to other’s data.</p>
@@ -1017,7 +964,7 @@ foaf:nick &quot;Eric&quot;;</code></pre>
 <pre><code>foaf:workplaceHomepage &lt;http://www.scholarslab.org/&gt; .</code></pre>
 <p>This final statement has a URI as the object. It represents this statement:</p>
 <ul>
-<li>Eric’s workplace’s home page is “<a href="http://www.scholarslab.org/">http://www.scholarslab.org/</a>”.</li>
+<li>Eric’s workplace’s home page is “<a href="http://www.scholarslab.org/" class="uri">http://www.scholarslab.org/</a>”.</li>
 </ul>
 <p>If this was a little overwhelming, thank you for sticking around this far. Now here’s what you need to know about modeling information using RDF:</p>
 <ol style="list-style-type: decimal">
@@ -1036,12 +983,13 @@ foaf:nick &quot;Eric&quot;;</code></pre>
 <p>The Library of Congress’ <a href="http://chroniclingamerica.loc.gov/">Chronicling America</a> project exposes data about the newspapers in its archives using RDF. It’s five-star data, too. For example, to tell the geographic location that the papers covered, it links to both <a href="http://www.geonames.org/">GeoNames</a> and <a href="http://dbpedia.org/About">DBpedia</a>. The LoC doesn’t provide the coordinates of these cities, but because they express the places with a link, I can follow those and read the latitude and longitude from there.</p>
 <p>I wrote a <a href="http://www.python.org/">Python</a> script that uses <a href="http://www.rdflib.net/">RDFlib</a> to read the data from the LoC and GeoNames and writes it out using <a href="http://en.wikipedia.org/wiki/Kml">KML</a>. You can view this file using Google Maps or Google Earth.</p>
 <p>Here’s the results of one run of the script. (I randomly pick 100 newspapers from the LoC, so the results of each run is different.)</p>
-<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626&amp;output=embed"></iframe>
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626&amp;output=embed">
+</iframe>
 <p><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626" style="color:0000FF;text-align:left">View Larger Map</a></small></p>
 <p>You can find the source for this example on both Github and BitBucket:</p>
 <ul>
-<li><a href="https://github.com/erochest/loc-chronicling-map">https://github.com/erochest/loc-chronicling-map</a></li>
-<li><a href="https://bitbucket.org/erochest/loc-chronicling-map/overview">https://bitbucket.org/erochest/loc-chronicling-map/overview</a></li>
+<li><a href="https://github.com/erochest/loc-chronicling-map" class="uri">https://github.com/erochest/loc-chronicling-map</a></li>
+<li><a href="https://bitbucket.org/erochest/loc-chronicling-map/overview" class="uri">https://bitbucket.org/erochest/loc-chronicling-map/overview</a></li>
 </ul>
 <h2 id="resources">Resources</h2>
 <p>Throughout this post, I’ve tried to link to some resources. Here are a few more (not all of these will be appropriate to a novice):</p>

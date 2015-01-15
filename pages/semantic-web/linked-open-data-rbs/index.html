@@ -45,10 +45,8 @@
 <p style="font-size: smaller; width: 300px; margin-left: auto; margin-right: auto; text-align: center;">
 <a href="http://lod-cloud.net/"> <img src="http://richard.cyganiak.de/2007/10/lod/lod-datasets_2010-09-22.png" alt="Linked Open Data cloud" height="195" width="300" /> </a> <em>Linking Open Data cloud diagram, by Richard Cyganiak and Anja Jentzsch. <a href="http://lod-cloud.net/">http://lod-cloud.net/</a></em>
 </p>
-
 <p>The first thing to know about LOD is that it’s everywhere. Look at the <a href="http://lod-cloud.net/">Linked Open Data cloud diagram</a> above. All of these institutions are publishing data that anyone can use, and their data references others’ data also.</p>
 <!--more-->
-
 <h2 id="linked-data-vs-open-data-vs-rdf-data">Linked Data vs Open Data vs RDF Data</h2>
 <p>First we need to unpack the term <em>Linked Open Data</em>:</p>
 <p><strong>Linked</strong> is an approach to data. You need to provide context for your data; you need to point to other’s data.</p>
@@ -94,7 +92,7 @@ foaf:nick &quot;Eric&quot;;</code></pre>
 <pre><code>foaf:workplaceHomepage &lt;http://www.scholarslab.org/&gt; .</code></pre>
 <p>This final statement has a URI as the object. It represents this statement:</p>
 <ul>
-<li>Eric’s workplace’s home page is “<a href="http://www.scholarslab.org/">http://www.scholarslab.org/</a>”.</li>
+<li>Eric’s workplace’s home page is “<a href="http://www.scholarslab.org/" class="uri">http://www.scholarslab.org/</a>”.</li>
 </ul>
 <p>If this was a little overwhelming, thank you for sticking around this far. Now here’s what you need to know about modeling information using RDF:</p>
 <ol style="list-style-type: decimal">
@@ -113,12 +111,13 @@ foaf:nick &quot;Eric&quot;;</code></pre>
 <p>The Library of Congress’ <a href="http://chroniclingamerica.loc.gov/">Chronicling America</a> project exposes data about the newspapers in its archives using RDF. It’s five-star data, too. For example, to tell the geographic location that the papers covered, it links to both <a href="http://www.geonames.org/">GeoNames</a> and <a href="http://dbpedia.org/About">DBpedia</a>. The LoC doesn’t provide the coordinates of these cities, but because they express the places with a link, I can follow those and read the latitude and longitude from there.</p>
 <p>I wrote a <a href="http://www.python.org/">Python</a> script that uses <a href="http://www.rdflib.net/">RDFlib</a> to read the data from the LoC and GeoNames and writes it out using <a href="http://en.wikipedia.org/wiki/Kml">KML</a>. You can view this file using Google Maps or Google Earth.</p>
 <p>Here’s the results of one run of the script. (I randomly pick 100 newspapers from the LoC, so the results of each run is different.)</p>
-<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626&amp;output=embed"></iframe>
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626&amp;output=embed">
+</iframe>
 <p><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626" style="color:0000FF;text-align:left">View Larger Map</a></small></p>
 <p>You can find the source for this example on both Github and BitBucket:</p>
 <ul>
-<li><a href="https://github.com/erochest/loc-chronicling-map">https://github.com/erochest/loc-chronicling-map</a></li>
-<li><a href="https://bitbucket.org/erochest/loc-chronicling-map/overview">https://bitbucket.org/erochest/loc-chronicling-map/overview</a></li>
+<li><a href="https://github.com/erochest/loc-chronicling-map" class="uri">https://github.com/erochest/loc-chronicling-map</a></li>
+<li><a href="https://bitbucket.org/erochest/loc-chronicling-map/overview" class="uri">https://bitbucket.org/erochest/loc-chronicling-map/overview</a></li>
 </ul>
 <h2 id="resources">Resources</h2>
 <p>Throughout this post, I’ve tried to link to some resources. Here are a few more (not all of these will be appropriate to a novice):</p>
@@ -199,7 +198,7 @@ foaf:nick &quot;Eric&quot;;</code></pre>
                         href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
                         Commons Attribution-ShareAlike 3.0 Unported License</a>.
                       --> </div></li>
-                  <li>Copyright © 2013, Eric Rochester</li>
+                  <li>Copyright &copy; 2013, Eric Rochester</li>
 
                 </ul>
               </div>
