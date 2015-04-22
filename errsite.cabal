@@ -23,73 +23,65 @@ library
                      , Sites.Literate
                      , Sites.Pager
                      , Sites.Types
-  build-depends:       base            == 4.7.*
+  build-depends:       base            == 4.8.*
                      , text
-                     , hakyll == 4.6.0.0
+                     , hakyll
                      , system-filepath
                      , containers
                      , blaze-html
                      , shelly
                      , filepath
-                     , time
-                     , old-locale
+                     , time >=1.5
                      , regex-tdfa
                      , pandoc
 
 executable site
   main-is:             site.hs
   -- other-modules:       
-  build-depends:       base            == 4.7.*
+  build-depends:       base            == 4.8.*
                      , errsite
                      , network
                      , bytestring
-                     , hakyll == 4.6.0.0
+                     , hakyll
                      , blaze-html
                      , text
                      , system-filepath
                      , containers
                      , shelly
                      , filepath
-                     , time
-                     , old-locale
+                     , time >=1.5
                      , regex-tdfa
                      , pandoc
 
 executable deploy
   main-is:             deploy.hs
-  build-depends:       base            == 4.7.*
+  build-depends:       base            == 4.8.*
                      , errsite
                      , shelly
                      , text
                      , system-filepath
-                     , time
+                     , time >=1.5
                      , classy-prelude
-                     , old-locale
                      , containers
-                     , hakyll == 4.6.0.0
+                     , hakyll
                      , blaze-html
                      , filepath
-                     , time
-                     , old-locale
                      , regex-tdfa
                      , pandoc
                      , optparse-applicative
 
 executable illiterate
   main-is:             Illiterate.hs
-  build-depends:       base            == 4.7.*
+  build-depends:       base            == 4.8.*
                      , errsite
                      , shelly
                      , text
                      , system-filepath
-                     , time
+                     , time >=1.5
                      , classy-prelude
-                     , old-locale
                      , containers
-                     , hakyll == 4.6.0.0
+                     , hakyll
                      , blaze-html
                      , filepath
-                     , time
-                     , old-locale
                      , regex-tdfa
                      , pandoc

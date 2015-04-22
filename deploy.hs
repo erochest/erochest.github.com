@@ -18,10 +18,10 @@ import           ClassyPrelude       hiding (whenM, (<>))
 import           Data.Data
 import qualified Data.Text           as T
 import qualified Data.Text.Lazy      as TL
+import           Data.Time
 import           Options.Applicative
 import           Shelly              hiding ((</>))
 import           Sites               (RootSite (..), SiteInfo (..), site)
-import           System.Locale
 
 default (TL.Text)
 

@@ -90,6 +90,7 @@ loadSnippets lineCount =
         >>= mapM renderItem
     where shorten               = return . unlines . firstAndLinks lineCount . lines
           Right linkRegex       = RES.compile defaultCompOpt (ExecOption False) "^\\[[[:word:]-]+\\]: "
+          firstAndLinks :: Int -> [String] -> [String]
           firstAndLinks n lines =
               let body  = take n lines
                   links = filter (RE.match linkRegex) lines

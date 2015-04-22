@@ -17,10 +17,9 @@ import           Control.Monad
 import           Data.Maybe (fromMaybe)
 import           Data.Monoid
 import           Data.Time.Clock (UTCTime)
-import           Data.Time.Format (formatTime, parseTime)
+import           Data.Time.Format (defaultTimeLocale, formatTime, parseTimeM)
 import           Hakyll
 import           Sites.Types
-import           System.Locale
 
 sassCompiler :: Compiler (Item String)
 sassCompiler =
@@ -60,7 +59,7 @@ reformatDate dateStamp = maybe dateStamp formatTime' $ parseDateLax dateStamp
 
 parseDateLax :: String -> Maybe UTCTime
 parseDateLax dateStamp = msum $ map (`parse` dateStamp) formats
-    where parse   = parseTime defaultTimeLocale
+    where parse   = parseTimeM True defaultTimeLocale
           formats = [ "%a, %d %b %Y %H:%M:%S UT"
                     , "%Y-%m-%dT%H:%M:%SZ"
                     , "%Y-%m-%d %H:%M:%S"
