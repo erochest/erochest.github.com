@@ -8,8 +8,186 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2014-08-29T20:30:00Z</updated>
+    <updated>2015-05-22T17:00:00Z</updated>
     <entry>
+    <title>Validating Data with Types</title>
+    <link href="http://www.ericrochester.com//pages/code/validating-data-with-types/index.html" />
+    <id>http://www.ericrochester.com//pages/code/validating-data-with-types/index.html</id>
+    <published>2015-05-22T17:00:00Z</published>
+    <updated>2015-05-22T17:00:00Z</updated>
+    <summary type="html"><![CDATA[<p><em>This is cross posted at the <a href="http://scholarslab.org/uncategorized/validating-data-with-types/">Scholars’ Lab Blog</a>.</em></p>
+<p>Recently, I had to opportunity to help <a href="http://politics.virginia.edu/node/181" title="J. Warren York">J. Warren York</a>, a graduate student in the Department of Politics here at UVa. He’s looking at how tax law affects political contributions and advocacy, so this was an interesting project that may tell us something useful about how the US government works [insert your favorite broken-government joke here].</p>
+<p>To do this, he needed to download data from a number of different sources in different formats (JSON, YAML, and CSV), pull it all apart, and put some of it back together in a couple of new data files. One of those sources is the <a href="http://data.stanford.edu/dime" title="Database on Ideology, Money in Politics, and Elections">Database on Ideology, Money in Politics, and Elections (DIME)</a>. The data from them tells how much people and organizations have contributed to various candidates, PAC, and other groups.</p>
+<p>And while I’ve seen worse, it wasn’t the cleanest data file out there. (To get an idea of what the data looks like, you can see a sample of 100 rows from this data file in <a href="https://docs.google.com/spreadsheets/d/1-m_8pm_s2gfpSAkMF0IYHNjKvWjqDe2d__CrbpjBxFA/edit?usp=sharing" title="Sample Data">this Google Sheet</a>.)</p>
+<p>For most projects that I’m reasonably sure that I’ll be the only developer on, I use <a href="https://www.haskell.org/" title="Haskell Programming Language">Haskell</a>. This is a <a href="http://en.wikipedia.org/wiki/Functional_programming" title="Functional Programming on Wikipedia">functional</a>, <a href="http://stackoverflow.com/questions/1517582/what-is-the-difference-between-statically-typed-and-dynamically-typed-languages" title="Stack Overflow on What is the difference between statically typed and dynamically typed languages?">statically typed</a> programming language with a (partially deserved) reputation for being difficult. However, I find that it gives me a nice balance of safety and flexibility, of power and expressiveness.</p>
+<p>Given Haskell’s reputation, the previous sentence probably seems to border on insanity. Hopefully this post will prove this at least partially correct and will highlight some of the nicer aspects of working in Haskell. It leverages types to provide some assurances that the data is well-formed and consistent. This means I can perform data validation quickly and easily, and that helps everyone.</p>
+<blockquote>
+<p>This post is actually runnable Haskell. If you have the <a href="https://www.haskell.org/ghc/" title="GHC Haskell Compiler">GHC</a> compiler installed you can copy and paste this post into a file, say <code>Validating.lhs</code>, and run it from the command line:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">runhaskell</span> Validating.lhs contribDB_1982.csv</code></pre></div>
+<p>However, to follow this post, you don’t need to know Haskell. I’ll try to explain enough of the concepts and syntax that matter as they come up, so that anyone familiar with computer programming should be able to follow along without getting into the weeds of exactly what’s happening on each line.</p>
+<p>So first some pre-amble and boilerplate. This just makes available the libraries that we’ll use.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="ot">{-# LANGUAGE OverloadedStrings #-}</span>
+<span class="fu">&gt;</span>
+<span class="fu">&gt;</span> <span class="co">-- If you want more details about the code, including brief</span>
+<span class="fu">&gt;</span> <span class="co">-- explanations of the syntax, you&#39;ve come to the right place.</span>
+<span class="fu">&gt;</span> <span class="co">-- Pay attention to the comments. This still isn&#39;t a tutorial</span>
+<span class="fu">&gt;</span> <span class="co">-- on Haskell, but hopefully you&#39;ll have a more detailed</span>
+<span class="fu">&gt;</span> <span class="co">-- understanding of what&#39;s happening.</span>
+<span class="fu">&gt;</span>
+<span class="fu">&gt;</span> <span class="co">-- First, Haskell code is kept in modules. Executable files are</span>
+<span class="fu">&gt;</span> <span class="co">-- in the `Main` module.</span>
+<span class="fu">&gt;</span> <span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+<span class="fu">&gt;</span>
+<span class="fu">&gt;</span> <span class="co">-- Import statements make the code from these modules available</span>
+<span class="fu">&gt;</span> <span class="co">-- in this module. Qualified imports make the code available</span>
+<span class="fu">&gt;</span> <span class="co">-- under an alias (e.g., Data.ByteString.Lazy is aliased to B).</span>
+<span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.ByteString.Lazy</span> <span class="kw">as</span> <span class="dt">B</span>
+<span class="fu">&gt;</span> <span class="kw">import           </span><span class="dt">Data.Csv</span>
+<span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text</span>            <span class="kw">as</span> <span class="dt">T</span>
+<span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Vector</span>          <span class="kw">as</span> <span class="dt">V</span>
+<span class="fu">&gt;</span> <span class="kw">import           </span><span class="dt">System.Environment</span></code></pre></div>
+<p>To validate the data, we just need to follow the same steps that we would to load it. Those steps are:</p>
+<ol style="list-style-type: decimal">
+<li>Define the data that you want to use;</li>
+<li>Define how to read it from a row of CSV data; and</li>
+<li>Read the input.</li>
+</ol>
+<div class="figure">
+<img src="http://scholarslab.org/wp-content/uploads/2015/03/gnomes_plan.gif" alt="Profit!" />
+<p class="caption">Profit!</p>
+</div>
+<p>That’s it. In fact, the last item is so inconsequential that we’ll skip it. But let’s see how the rest of it works.</p>
+<h2 id="defining-the-data">Defining the Data</h2>
+<p>First we need to define the data. We do this using <em>types</em>. If you only know languages like Ruby, JavaScript, or Python, you may be unfamiliar with types. Basically, they specify what your data will look like. For example, they might specify that a <code>Person</code> data instance has a <code>name</code> string field and an <code>age</code> integer field.</p>
+<p>If you come from Java or C#, you know what types are, but Haskell uses them very differently. In Haskell, types are used to express, encode, and enforce the requirements of your program as much as possible. The guideline is that invalid program states should not be expressible in the types you define. To help with that, some of the loopholes in Java’s type system have been closed (looking at you, <code>null</code>): this makes these specifications more meaningful. And because Haskell employs type inference, you also don’t need to actually declare the type of every little thing, so you get more benefit for less work.</p>
+<p>In short, types are how we specify what data we’re interested in.</p>
+<p>At this point in the process, programming in Haskell is a typical data modeling exercise. But it’s also the foundation for the rest of this post, so we’ll linger here.</p>
+<p>Before we define the data types, we’ll first define some aliases. These aren’t really enforced, but they make the data types that use these more clear.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">type</span> <span class="dt">OrgName</span> <span class="fu">=</span> <span class="dt">T.Text</span>
+<span class="fu">&gt;</span> <span class="kw">type</span> <span class="dt">Year</span>    <span class="fu">=</span> <span class="dt">Int</span>
+<span class="fu">&gt;</span> <span class="kw">type</span> <span class="dt">Amount</span>  <span class="fu">=</span> <span class="dt">Double</span></code></pre></div>
+<p>The first data type that we’ll create is <code>Party</code>. This will be similar to enumerations in other languages, but in Haskell they’re just regular data types. A <code>Party</code> can be either a <code>Dem</code> (Democrat), <code>GOP</code> (Republican), <code>Independent</code>, or <code>Unknown</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="co">-- This statement says that you can make a value of type Party </span>
+<span class="fu">&gt;</span> <span class="co">-- using any of the constructors listed (separated by pipes).</span>
+<span class="fu">&gt;</span> <span class="co">-- In this case, none of the constructors take extra data, so</span>
+<span class="fu">&gt;</span> <span class="co">-- the semantics comes soley from which constructor is chosen.</span>
+<span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">Party</span> <span class="fu">=</span> <span class="dt">Dem</span> <span class="fu">|</span> <span class="dt">GOP</span> <span class="fu">|</span> <span class="dt">Independent</span> <span class="fu">|</span> <span class="dt">Unknown</span></code></pre></div>
+<p>We want to know what kind of entity is receiving the contribution. However, we don’t actually care about who the recipient was: we just want to distinguish between candidates, committees, and state-level elections. We’ll use the <code>ContribEntry</code> data type for this information.</p>
+<p>The following declaration states that a <code>ContribEntry</code> can be either a <code>Candidate</code>, which must have year information and party information; a <code>Committee</code>, which must have only a year; or a <code>StateLevel</code>, which must have a year and a state code.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="co">-- This shows how values are given types. `contribYear ::</span>
+<span class="fu">&gt;</span> <span class="co">-- !Year`, says that the `contribYear` field must contain</span>
+<span class="fu">&gt;</span> <span class="co">-- values of type `Year`. The exclamation mark tells the</span>
+<span class="fu">&gt;</span> <span class="co">-- Haskell compiler to execute this value immediately. Unlike</span>
+<span class="fu">&gt;</span> <span class="co">-- most other languages, Haskell will normally wait to</span>
+<span class="fu">&gt;</span> <span class="co">-- evaluate expressions until absolutely necessary.</span>
+<span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">ContribEntry</span>
+<span class="fu">&gt;</span>         <span class="fu">=</span> <span class="dt">Candidate</span>  {<span class="ot"> contribYear ::</span> <span class="fu">!</span><span class="dt">Year</span>,<span class="ot"> contribParty ::</span> <span class="fu">!</span><span class="dt">Party</span> }
+<span class="fu">&gt;</span>         <span class="fu">|</span> <span class="dt">Committee</span>  {<span class="ot"> contribYear ::</span> <span class="fu">!</span><span class="dt">Year</span> }
+<span class="fu">&gt;</span>         <span class="fu">|</span> <span class="dt">StateLevel</span> {<span class="ot"> contribYear ::</span> <span class="fu">!</span><span class="dt">Year</span>,<span class="ot"> stateCode ::</span> <span class="fu">!</span><span class="dt">T.Text</span> }</code></pre></div>
+<p>Each row of the data file will have information about a single contribution made by an individual or organization. Because we’re primarily interested in the data from organizations, this will be collected in an <code>OrgContrib</code> data type. It will hold the organization’s name (<code>orgContribName</code>), its district (<code>orgDistrict10s</code>), the contribution information (<code>orgContribEntry</code>), and the amount of the contribution (<code>orgContribAmount</code>).</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">OrgContrib</span>
+<span class="fu">&gt;</span>          <span class="fu">=</span> <span class="dt">OrgContrib</span>
+<span class="fu">&gt;</span>          {<span class="ot"> orgContribName   ::</span> <span class="fu">!</span><span class="dt">OrgName</span>
+<span class="fu">&gt;</span>          ,<span class="ot"> orgDistrict10s   ::</span> <span class="fu">!</span><span class="dt">T.Text</span>
+<span class="fu">&gt;</span>          ,<span class="ot"> orgContribEntry  ::</span> <span class="fu">!</span><span class="dt">ContribEntry</span>
+<span class="fu">&gt;</span>          ,<span class="ot"> orgContribAmount ::</span> <span class="fu">!</span><span class="dt">Amount</span>
+<span class="fu">&gt;</span>          }</code></pre></div>
+<p>That’s it. We’ve now defined the data we’re interested in. On top of the guarantees that types allow the programming language to enforce, this exercise is also helpful because it clarifies what we want from the data and helps us better understand the domain that we’re working in.</p>
+<h2 id="data-from-csv">Data from CSV</h2>
+<p>However, we haven’t connected this data with the CSV file yet. Let’s do that now.</p>
+<p>To make this happen, we’ll need to take the data types that we just defined and define instances of <code>FromField</code> for ones that are populated from a single field, like <code>Party</code>, and <code>FromNamedRecord</code> for others, which are built from an entire row.</p>
+<p><code>FromField</code> and <code>FromNamedRecord</code> are <a href="http://en.wikipedia.org/wiki/Type_class" title="Type Class on Wikipedia">type classes</a>. In object-oriented terms, these are similar to small interfaces, some only declaring one or two methods. Data types can implement the type classes that make sense, but omit the ones that do not.</p>
+<p>In this case these type classes define what data types can be read from a row of CSV and how that should happen.</p>
+<p><code>Party</code> is the first data type we’ll tackle. It only reads a single field, so we’ll define <code>FromField</code>. In the CSV file, the data is encoded with numeric codes, which we’ll change into <code>Party</code> values.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="co">-- This defines a instance of `FromField` for `Party`.</span>
+<span class="fu">&gt;</span> <span class="co">-- `parseField` is the only method. Multiple listings for this</span>
+<span class="fu">&gt;</span> <span class="co">-- function, combined with the string literals in place of the</span>
+<span class="fu">&gt;</span> <span class="co">-- parameter, means that the method acts as a big case</span>
+<span class="fu">&gt;</span> <span class="co">-- statement on its one parameter. When the function is passed</span>
+<span class="fu">&gt;</span> <span class="co">-- the string &quot;100&quot;, the first definition will be used. The</span>
+<span class="fu">&gt;</span> <span class="co">-- last clause, with the underscore, is a catch-all, in which</span>
+<span class="fu">&gt;</span> <span class="co">-- the parameter&#39;s value will be ignored.</span>
+<span class="fu">&gt;</span> <span class="kw">instance</span> <span class="dt">FromField</span> <span class="dt">Party</span> <span class="kw">where</span>
+<span class="fu">&gt;</span>     parseField <span class="st">&quot;100&quot;</span> <span class="fu">=</span> return <span class="dt">Dem</span>
+<span class="fu">&gt;</span>     parseField <span class="st">&quot;200&quot;</span> <span class="fu">=</span> return <span class="dt">GOP</span>
+<span class="fu">&gt;</span>     parseField <span class="st">&quot;328&quot;</span> <span class="fu">=</span> return <span class="dt">Independent</span>
+<span class="fu">&gt;</span>     <span class="co">-- This catch-all is probably a bad idea....</span>
+<span class="fu">&gt;</span>     parseField _     <span class="fu">=</span> return <span class="dt">Unknown</span></code></pre></div>
+<p>Notice my comment on the next to last line. Having a catch-all field like this introduces some <a href="http://en.wikipedia.org/wiki/Code_smell" title="Code Smell on Wikipedia">code smell</a>, and it weakens the type-safety of the field. A better practice would be to define a <code>Party</code> constructor for every numeric code and throw an error when we find something unexpected. Since we’re only interested here in two parties, that would be overkill, so in this case we’ll be more flexible.</p>
+<p>Now we can define how to read <code>ContribEntry</code> data. This is complicated because we have to look at the value of the <code>recipient_type</code> field in order to figure out which constructor to use.</p>
+<p>We’ll also define a utility function, <code>defaulting</code>, that defaults empty strings to a given value.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="co">-- This defines the function defaulting. The first line is the</span>
+<span class="fu">&gt;</span> <span class="co">-- type value. The definition of `defaulting` is a more</span>
+<span class="fu">&gt;</span> <span class="co">-- complicated case statement that first tests `T.null v`</span>
+<span class="fu">&gt;</span> <span class="co">-- (i.e., that it&#39;s empty), and `otherwise` is the &quot;else&quot; part</span>
+<span class="fu">&gt;</span> <span class="co">-- of the statement.</span>
+<span class="fu">&gt;</span><span class="ot"> defaulting ::</span> <span class="dt">T.Text</span> <span class="ot">-&gt;</span> <span class="dt">T.Text</span> <span class="ot">-&gt;</span> <span class="dt">T.Text</span>
+<span class="fu">&gt;</span> defaulting d v <span class="fu">|</span> T.null v  <span class="fu">=</span> d
+<span class="fu">&gt;</span>                <span class="fu">|</span> otherwise <span class="fu">=</span> v
+<span class="fu">&gt;</span>
+<span class="fu">&gt;</span> <span class="kw">instance</span> <span class="dt">FromNamedRecord</span> <span class="dt">ContribEntry</span> <span class="kw">where</span>
+<span class="fu">&gt;</span>     parseNamedRecord m <span class="fu">=</span> <span class="kw">do</span>
+<span class="fu">&gt;</span>         <span class="co">-- Read the recipient_type field. The `.:` operator</span>
+<span class="fu">&gt;</span>         <span class="co">-- reads a specific field from the CSV row.</span>
+<span class="fu">&gt;</span>         rtype <span class="ot">&lt;-</span> m <span class="fu">.:</span> <span class="st">&quot;recipient_type&quot;</span>
+<span class="fu">&gt;</span>         <span class="co">-- If recipient_type is empty, give it a default value</span>
+<span class="fu">&gt;</span>         <span class="co">-- of &quot;CAND&quot;, and then branch on that.</span>
+<span class="fu">&gt;</span>         <span class="kw">case</span> defaulting <span class="st">&quot;CAND&quot;</span> rtype <span class="kw">of</span>
+<span class="fu">&gt;</span>             <span class="st">&quot;CAND&quot;</span> <span class="ot">-&gt;</span> <span class="kw">do</span>
+<span class="fu">&gt;</span>                 <span class="co">-- Read the cycle (year) and recipient_party fields</span>
+<span class="fu">&gt;</span>                 cycle <span class="ot">&lt;-</span> m <span class="fu">.:</span> <span class="st">&quot;cycle&quot;</span>
+<span class="fu">&gt;</span>                 party <span class="ot">&lt;-</span> m <span class="fu">.:</span> <span class="st">&quot;recipient_party&quot;</span>
+<span class="fu">&gt;</span>                 <span class="co">-- Create a Candidate</span>
+<span class="fu">&gt;</span>                 return (<span class="dt">Candidate</span> cycle party)
+<span class="fu">&gt;</span>             <span class="st">&quot;COMM&quot;</span> <span class="ot">-&gt;</span> <span class="kw">do</span>
+<span class="fu">&gt;</span>                 <span class="co">-- Read the cycle and return a Committe</span>
+<span class="fu">&gt;</span>                 cycle <span class="ot">&lt;-</span> m <span class="fu">.:</span> <span class="st">&quot;cycle&quot;</span>
+<span class="fu">&gt;</span>                 return (<span class="dt">Committee</span> cycle)
+<span class="fu">&gt;</span>             r <span class="ot">-&gt;</span> <span class="kw">do</span>
+<span class="fu">&gt;</span>                 <span class="co">-- Everything else is a state-level contribution.</span>
+<span class="fu">&gt;</span>                 <span class="co">-- Get the cycle and return that.</span>
+<span class="fu">&gt;</span>                 cycle <span class="ot">&lt;-</span> m <span class="fu">.:</span> <span class="st">&quot;cycle&quot;</span>
+<span class="fu">&gt;</span>                 return (<span class="dt">StateLevel</span> cycle r)</code></pre></div>
+<p>(You might be wondering why I haven’t needed to define a <code>FromField</code> for <code>Year</code> for the “cycle” fields. Remember that <code>Year</code> is just an alias for <code>Int</code>, and the CSV library already defines <code>FromField</code> for the <code>Int</code> type.)</p>
+<p>We can finally define the instance for <code>OrgContrib</code>. After the complexity of <code>ContribEntry</code>, this one will be much simpler. We’ll extract the values for a few fields, parse the <code>ContribEntry</code>, and then create and return the <code>OrgContrib</code> value.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">instance</span> <span class="dt">FromNamedRecord</span> <span class="dt">OrgContrib</span> <span class="kw">where</span>
+<span class="fu">&gt;</span>     parseNamedRecord m <span class="fu">=</span> <span class="kw">do</span>
+<span class="fu">&gt;</span>         name     <span class="ot">&lt;-</span> m <span class="fu">.:</span> <span class="st">&quot;contributor_name&quot;</span>
+<span class="fu">&gt;</span>         district <span class="ot">&lt;-</span> m <span class="fu">.:</span> <span class="st">&quot;contributor_district_10s&quot;</span>
+<span class="fu">&gt;</span>         contrib  <span class="ot">&lt;-</span> parseNamedRecord m
+<span class="fu">&gt;</span>         amount   <span class="ot">&lt;-</span> m <span class="fu">.:</span> <span class="st">&quot;amount&quot;</span>
+<span class="fu">&gt;</span>         return (<span class="dt">OrgContrib</span> name district contrib amount)</code></pre></div>
+<p>With these in place, we can read the data and have it verified at the same time. For example, if the file reads correctly, I know that the <code>Year</code> data are integers and that <code>Party</code> fields contain valid data.</p>
+<p>And that’s really all there is to it. Below the end of the article, I’ve included a function to read the CSV data from a file and the <code>main</code> function, which controls the whole process. However, reading and validating the data has already been taken care of.</p>
+<p>Of course, while these types provide reasonable validation, you could get much better, depending on how you define your types and how you parse the incoming data. (For example, you could only allow valid state codes for <code>StateLevel</code> or limit years to a given range.)</p>
+<p>If you’re wondering about tests, the implementations of <code>FromField</code> and <code>FromNamedRecord</code> would be good to have tests for. However, the parts of the program’s requirements that are enforced in the types don’t really need testing; for example, I wouldn’t test that party fields will always be parsed as a <code>Party</code>.</p>
+<p>Types also come in handy in other circumstances: when you’ve left the code for a while and need to get back into it, they provide a minimum amount of guidance; and when you need to refactor, they act as a base-line set of regression tests, to tell you when you’ve broken something.</p>
+<p>Overall, I find that this small program shows how Haskell can provide a lot of power and expressivity for relatively little code.</p>
+<p>But the immediate benefit in this case is that I was able to provide John more assurances about his data, and to provide them more quickly. It’s a nice example of leveraging types to write better programs that provide real-world benefits.</p>
+<p>The full code for this project is in my <a href="https://github.com/erochest/popvox-scrape" title="The Popvox Scrape Repository">popvox-scrape</a> repository. Feel free to check it out.</p>
+<hr />
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span><span class="ot"> readData ::</span> FilePath <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Either</span> <span class="dt">String</span> (<span class="dt">Header</span>, <span class="dt">V.Vector</span> <span class="dt">OrgContrib</span>))
+<span class="fu">&gt;</span> readData filename <span class="fu">=</span> <span class="kw">do</span>
+<span class="fu">&gt;</span>     rawData <span class="ot">&lt;-</span> B.readFile filename
+<span class="fu">&gt;</span>     return (decodeByName rawData)
+<span class="fu">&gt;</span>
+<span class="fu">&gt;</span><span class="ot"> main ::</span> <span class="dt">IO</span> ()
+<span class="fu">&gt;</span> main <span class="fu">=</span> <span class="kw">do</span>
+<span class="fu">&gt;</span>     args <span class="ot">&lt;-</span> getArgs
+<span class="fu">&gt;</span>     <span class="kw">case</span> args <span class="kw">of</span>
+<span class="fu">&gt;</span>         [filename] <span class="ot">-&gt;</span> <span class="kw">do</span>
+<span class="fu">&gt;</span>             dataRows <span class="ot">&lt;-</span> readData filename
+<span class="fu">&gt;</span>
+<span class="fu">&gt;</span>             <span class="kw">case</span> dataRows <span class="kw">of</span>
+<span class="fu">&gt;</span>                 <span class="dt">Left</span> err <span class="ot">-&gt;</span> putStrLn (<span class="st">&quot;ERROR: &quot;</span> <span class="fu">++</span> err)
+<span class="fu">&gt;</span>                 <span class="dt">Right</span> (_, rows) <span class="ot">-&gt;</span> putStrLn (  <span class="st">&quot;SUCCESS: &quot;</span>
+<span class="fu">&gt;</span>                                             <span class="fu">++</span> show (V.length rows)
+<span class="fu">&gt;</span>                                             <span class="fu">++</span> <span class="st">&quot; read.&quot;</span>)
+<span class="fu">&gt;</span>
+<span class="fu">&gt;</span>         _ <span class="ot">-&gt;</span> putStrLn <span class="st">&quot;usage: runhaskell Validate.lhs data-file.csv&quot;</span></code></pre></div>]]></summary>
+</entry>
+<entry>
     <title>Omeka, Neatline, Mac, development, oh my!</title>
     <link href="http://www.ericrochester.com//pages/code/omeka-neatline-ansible/index.html" />
     <id>http://www.ericrochester.com//pages/code/omeka-neatline-ansible/index.html</id>
@@ -20,7 +198,7 @@
 <p>Unfortunately, one of our flagship projects, <a href="http://neatline.org/">Neatline</a>, isn’t easy to contribute to. There are a number of reasons for this, but one is that the development environment is not trivial to get set up. In order to address this and make it easier for others to contribute, we’ve developed an <a href="http://www.ansible.com/">Ansible</a> playbook that takes a not-quite-stock Mac and sets up an instance of Omeka with the Neatline plugin available, as well as all the tools necessary for working on Neatline.</p>
 <p><a href="http://www.ansible.com/">Ansible</a> is a system for setting up and configuring systems. It’s often used to set up multiple servers—for instance, a database server and a static web server, both working with a dynamic web applications deployed on several computers. If you’re familiar with <a href="http://www.getchef.com/">Chef</a> or <a href="http://puppetlabs.com/">Puppet</a>, Ansible solves the same problems. In this case, we’ll use it to configure our local development workstation.</p>
 <p>We’ve published these playbooks on <a href="https://github.com/">Github</a> in the <a href="https://github.com/erochest/neatline.dev/tree/mac-ansible"><code>neatline.dev</code> repository, on the <code>mac-ansible</code> branch</a>. You can get this by cloning it to your local machine. (Since this is for getting started developing Neatline, I assume that you’re already comfortable with <a href="http://git-scm.com/">git</a>. If not, <a href="http://rogerdudler.github.io/git-guide/">there</a> <a href="https://try.github.io/">are</a> <a href="http://www.git-tower.com/learn/">lots</a> <a href="http://gitimmersion.com/">of</a> <a href="http://www.vogella.com/tutorials/Git/article.html">great</a> <a href="http://git-scm.com/book">tutorials</a>.)</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">git</span> clone --branch mac-ansible https://github.com/erochest/neatline.dev.git</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">git</span> clone --branch mac-ansible https://github.com/erochest/neatline.dev.git</code></pre></div>
 <h2 id="requirements">Requirements</h2>
 <p>In creating this, I’ve aimed for starting from a stock Mac. And I missed pretty badly. However, the necessary prerequisites are minimal. You’ll just need to have these things installed.</p>
 <ul>
@@ -28,12 +206,12 @@
 <li><a href="http://brew.sh/">Homebrew</a></li>
 </ul>
 <p>Once those two are on your machine, you can install the other two dependencies. These are available through <a href="http://brew.sh/">Homebrew</a>. So open Terminal and type these lines:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">brew</span> install python
-$ <span class="kw">brew</span> install ansible</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">brew</span> install python
+$ <span class="kw">brew</span> install ansible</code></pre></div>
 <p>That’s all. You should be ready to go.</p>
 <h2 id="settings">Settings</h2>
 <p>This project includes a number settings that you can change to customize your installation. Those are found in the file <a href="https://github.com/erochest/neatline.dev/blob/mac-ansible/playbook.yaml"><code>playbook.yaml</code></a>. The relevant section is labelled <code>vars</code>, and it allows you to set information about the Omeka database (<code>omeka_db_user</code>, <code>omeka_db_password</code>, and <code>omeka_db_name</code>), which version of Omeka you wish to use (<code>omeka_version</code>), where you wish to install it (<code>omeka_dir</code>), and where you want to point your browser to (<code>dev_hostname</code>) as you’re working on the site. The defaults are:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">vars:</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">vars:</span>
   <span class="fu">db_user:</span> root
   <span class="fu">db_password:</span>
   <span class="fu">omeka_db_user:</span> omeka
@@ -44,13 +222,13 @@ $ <span class="kw">brew</span> install ansible</code></pre>
   <span class="fu">omeka_version:</span> stable-2.1
   <span class="fu">debug:</span> true
   <span class="fu">neatline_repo:</span> git@github.com:scholarslab/Neatline.git
-  <span class="fu">php_version:</span> 55</code></pre>
+  <span class="fu">php_version:</span> 55</code></pre></div>
 <p>Change these to reflect what you’d like your personal Omeka/Neatline installation to look like.</p>
 <p>One option that I’ll call out in particular is <code>neatline_repo</code>. This is the git repository that you’ll be working with. If you’re using github to host your project, you can <a href="https://help.github.com/articles/fork-a-repo">fork</a> the primary Neatline repository (from the URL given above). And when you’ve completed your work, if you’d like to contribute back, you can send us a <a href="https://help.github.com/articles/using-pull-requests">pull request</a> through the Github site.</p>
 <h2 id="setting-up">Setting Up</h2>
 <p>Finally, we’re ready to actually create the system. This is quite easy. In the Terminal, from the <code>neatline.dev</code> directory, run the <code>neatline-dev</code> script.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> neatline.dev
-$ <span class="kw">./neatline-dev</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> neatline.dev
+$ <span class="kw">./neatline-dev</span></code></pre></div>
 <p>Now wait.</p>
 <p>After your computer whirs away for a while, you’ll get your prompt back. When that happens, you should be able to point your browser to http://omeka-neatline.dev (in the example above). There you’ll see the Omeka installation form.</p>
 <h2 id="what-just-happened">What Just Happened?</h2>
@@ -298,11 +476,11 @@ In general, this is a great time to go into software development and other techn
 <p>And guess what? Clojure itself allows that kind of expression, especially with the threading macros (<code>-&gt;</code> and <code>-&gt;&gt;</code>). Reducers handle parallelization under the covers. Let’s see how far we can take that.</p>
 <h3 id="getting-ready">Getting ready…</h3>
 <p>To use reducers, we first need to depend on Clojure 1.5. We’ll need this in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]]</code></pre>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]]</code></pre></div>
 <p>We also need to import the library, and since it defines several functions with the same name as core functions, we’ll alias it.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[clojure.core.reducers <span class="kw">:as</span> r])</code></pre>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[clojure.core.reducers <span class="kw">:as</span> r])</code></pre></div>
 <p>For this example, we’ll work with a list of the Doctor’s companions from the entire run of Doctor Who. I won’t reproduce the whole list, but here is a sample of six:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> input-data</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> input-data</span>
   [{<span class="kw">:given-name</span> <span class="st">&quot;Susan&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Forman&quot;</span>,
     <span class="kw">:doctors</span> [<span class="dv">1</span>]}
    {<span class="kw">:given-name</span> <span class="st">&quot;Harry&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Sullivan&quot;</span>,
@@ -314,11 +492,11 @@ In general, this is a great time to go into software development and other techn
    {<span class="kw">:given-name</span> <span class="st">&quot;Jackson&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Lake&quot;</span>,
     <span class="kw">:doctors</span> [<span class="dv">10</span>]}
    {<span class="kw">:given-name</span> <span class="st">&quot;Craig&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Owens&quot;</span>,
-    <span class="kw">:doctors</span> [<span class="dv">11</span>]}])</code></pre>
+    <span class="kw">:doctors</span> [<span class="dv">11</span>]}])</code></pre></div>
 <p>(If you want to use the entire dataset, you can download it from the book’s <a href="/clj-data-analysis/">data page</a> or directly from <a href="/clj-data-analysis/data/companions.clj">this link</a>.)</p>
 <h3 id="how-to-do-it">How to do it…</h3>
 <p>For our slightly contrived example, we’ll compute the average length of the companions’ surnames, for those who have surnames. First, we’ll need a couple of functions to accumulate the item count and sum for computing the mean. We’ll also need a function to add two accumulators’ data together. And we’ll need a function to calculate the mean from an accumulator’s data. Here are those functions.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> accum-mean</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> accum-mean</span>
   <span class="st">&quot;Accumulate the sum and length of a sequence for</span>
 <span class="st">  calculating the mean.&quot;</span>
   ([] {<span class="kw">:sum</span> <span class="dv">0</span>, <span class="kw">:n</span> <span class="dv">0</span>})
@@ -336,23 +514,23 @@ In general, this is a great time to go into software development and other techn
   <span class="st">&quot;Take the output of accum-mean or join-accum and</span>
 <span class="st">  calculate the mean.&quot;</span>
   [{<span class="kw">:keys</span> [sum n]}]
-  (<span class="kw">double</span> (<span class="kw">/</span> sum n)))</code></pre>
+  (<span class="kw">double</span> (<span class="kw">/</span> sum n)))</code></pre></div>
 <p>With these in place, we can define a function that creates a reducer that returns the length of the surnames, filtering out those with no surname. Combined with a threading macro, this makes a very clear dataflow.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> process-seq</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> process-seq</span>
   [coll]
   (<span class="kw">-&gt;&gt;</span>
     coll
     (r/map <span class="kw">:surname</span>)
     (r/filter #(<span class="kw">not</span> (<span class="kw">nil?</span> %)))
-    (r/map <span class="kw">count</span>)))</code></pre>
+    (r/map <span class="kw">count</span>)))</code></pre></div>
 <p>First we can run that with the core reduce function to execute it sequentially.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (calc-mean (<span class="kw">reduce</span> accum-mean (accum-mean) 
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (calc-mean (<span class="kw">reduce</span> accum-mean (accum-mean) 
                           (process-seq input-data)))
-<span class="fl">5.4</span></code></pre>
+<span class="fl">5.4</span></code></pre></div>
 <p>But by changing from reduce to <a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core.reducers/fold"><code>clojure.core.reducers/fold</code></a>, it will automatically partition our data and spread the processing across multiple cores, even given the same input process.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (calc-mean (r/fold join-accum accum-mean 
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (calc-mean (r/fold join-accum accum-mean 
                           (process-seq input-data)))
-<span class="fl">5.4</span></code></pre>
+<span class="fl">5.4</span></code></pre></div>
 <h3 id="how-it-works">How it works…</h3>
 <p>Because it has a more complicated execution model, the <code>r/fold</code> function takes a little more information.</p>
 <ol style="list-style-type: decimal">
@@ -377,12 +555,12 @@ In general, this is a great time to go into software development and other techn
 <p>For this problem, we’ll look at two ways of handling the file IO. First, we’ll consider using straightforward lazy, sequential access, and then we’ll look at memory mapping the file. We’ll look at the performance of each and consider what situations each might be useful in.</p>
 <h3 id="getting-ready">Getting ready…</h3>
 <p>For this, we’ll need a number of dependencies, so we’ll list these in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]
                [nio <span class="st">&quot;0.0.5&quot;</span>]
                [org.apache.commons/commons-lang3 <span class="st">&quot;3.1&quot;</span>]
-               [clj-time <span class="st">&quot;0.5.0&quot;</span>]]</code></pre>
+               [clj-time <span class="st">&quot;0.5.0&quot;</span>]]</code></pre></div>
 <p>Then, we’ll also have a number of imports and includes.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">import</span> &#39;[java.io File RandomAccessFile]
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">import</span> &#39;[java.io File RandomAccessFile]
         &#39;[java.nio.charset Charset]
         &#39;[org.apache.commons.lang3 StringEscapeUtils])
 (<span class="kw">use</span> &#39;[clj-time.core <span class="kw">:exclude</span> (<span class="kw">extend</span>)]
@@ -390,11 +568,11 @@ In general, this is a great time to go into software development and other techn
 (<span class="kw">require</span> &#39;[nio.core <span class="kw">:as</span> nio]
          &#39;[clojure.java.io <span class="kw">:as</span> io]
          &#39;[clojure.string <span class="kw">:as</span> string]
-         &#39;[clojure.core.reducers <span class="kw">:as</span> r])</code></pre>
+         &#39;[clojure.core.reducers <span class="kw">:as</span> r])</code></pre></div>
 <p>And for the data file, we can just use a sample of the Stack Exchange comments. You can find a (non-random) sample of 100,000 lines from that file in the source code for this chapter or download it from <a href="/clj-data-analysis/data/comments.xml">here</a>.</p>
 <h3 id="how-to-do-it">How to do it…</h3>
 <p>First, let’s tackle the problem domain. We’ll define a record that holds a user’s identifier and the range of comments seen so far. And we’ll write a function that will combine two <code>UserPost</code> records into one with the maximum range from both (assuming they represent the same user). Also, we’ll write a combiner function for a map of UserPost records.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defrecord</span><span class="fu"> UserPost</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defrecord</span><span class="fu"> UserPost</span>
   [user-id earliest-date latest-date])
 (<span class="kw">defn</span><span class="fu"> combine-user-posts</span>
   [up1 up2]
@@ -408,9 +586,9 @@ In general, this is a great time to go into software development and other techn
                       (to-long (<span class="kw">:latest-date</span> up2)))))))
 (<span class="kw">def</span><span class="fu"> combiner</span>
   (r/monoid (<span class="kw">partial</span> <span class="kw">merge-with</span> combine-user-posts)
-            <span class="kw">hash-map</span>))</code></pre>
+            <span class="kw">hash-map</span>))</code></pre></div>
 <p>Next, we’ll add some general data parsing functions. The first is simply a lazy version of <code>clojure.string/split-lines</code>. The rest are more specifically targeted to the task at hand. They identify lines from the input that contain data, parse those into map, and eventually parse them into a UserPost.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> split-lines</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> split-lines</span>
   ([input] (split-lines input <span class="dv">0</span>))
   ([input start]
    (<span class="kw">let</span> [end (.indexOf input <span class="dv">10</span> start)]
@@ -442,9 +620,9 @@ In general, this is a great time to go into software development and other techn
                   nil)
         cdate (parse *date-formatter*
                      (<span class="kw">:CreationDate</span> line))]
-    (UserPost. user-id cdate cdate)))</code></pre>
+    (UserPost. user-id cdate cdate)))</code></pre></div>
 <p>The next two functions process a sequence of lines into a map, which associates the users’ identifiers with the <code>UserPost</code> objects for each user.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> process-user-map</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> process-user-map</span>
   ([] {})
   ([user-post-map line]
    (<span class="kw">let</span> [user-post (line-&gt;user-post line)
@@ -460,20 +638,20 @@ In general, this is a great time to go into software development and other techn
     lines
     (r/map parse-line)
     (r/filter data-line?)
-    (r/fold combiner process-user-map)))</code></pre>
+    (r/fold combiner process-user-map)))</code></pre></div>
 <h4 id="reading-a-file-serially">Reading a File Serially</h4>
 <p>With that basis, the function to read the file serially is quite simple.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> serial-process</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> serial-process</span>
   [file-name]
   (<span class="kw">with-open</span> [reader (io/reader file-name)]
-    (process-lines (<span class="kw">line-seq</span> reader))))</code></pre>
+    (process-lines (<span class="kw">line-seq</span> reader))))</code></pre></div>
 <h4 id="reading-from-a-memory-mapped-file">Reading from a Memory-Mapped File</h4>
 <p>The other option is to read from a memory-mapped file. This allows us to treat a file’s contents as a byte array. For certain kinds of access, this can be very fast, but it takes a lot more set-up to get going.</p>
 <p>First, we’ll have a couple of parameters: the character set for the input and a hint for the size of chunk to break the file into.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *charset* (Charset/forName <span class="st">&quot;UTF-8&quot;</span>))
-(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *chunk-size* (<span class="kw">*</span> <span class="dv">10</span> <span class="dv">1024</span> <span class="dv">1024</span>))</code></pre>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *charset* (Charset/forName <span class="st">&quot;UTF-8&quot;</span>))
+(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *chunk-size* (<span class="kw">*</span> <span class="dv">10</span> <span class="dv">1024</span> <span class="dv">1024</span>))</code></pre></div>
 <p>With those, we’ll break the file into chunks by skipping through it and reading ahead until we get to the end of a line. Later, when we actually read the file, this will make sure that lines aren’t broken across chunks.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-chunk-offsets</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-chunk-offsets</span>
   [f pos offsets chunk-size]
   (<span class="kw">let</span> [skip-to (<span class="kw">+</span> pos chunk-size)]
     (<span class="kw">if</span> (<span class="kw">&gt;=</span> skip-to (.length f))
@@ -490,9 +668,9 @@ In general, this is a great time to go into software development and other techn
    (<span class="kw">with-open</span> [f (RandomAccessFile. file-name <span class="st">&quot;r&quot;</span>)]
      (<span class="kw">doall</span>
        (<span class="kw">partition</span> <span class="dv">2</span> <span class="dv">1</span> (get-chunk-offsets
-                        f <span class="dv">0</span> [<span class="dv">0</span>] chunk-size))))))</code></pre>
+                        f <span class="dv">0</span> [<span class="dv">0</span>] chunk-size))))))</code></pre></div>
 <p>And with those, we can memory map each chunk and read the lines out of it as a sequence.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> read-chunk</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> read-chunk</span>
   [channel [from to]]
   (<span class="kw">let</span> [chunk-mmap
         (.<span class="kw">map</span>
@@ -503,9 +681,9 @@ In general, this is a great time to go into software development and other techn
         decoder (.newDecoder *charset*)]
     (<span class="kw">doall</span> 
       (split-lines
-        (<span class="kw">str</span> (.decode decoder chunk-mmap))))))</code></pre>
+        (<span class="kw">str</span> (.decode decoder chunk-mmap))))))</code></pre></div>
 <p>These let us bring everything together similar to how we did with serial-process.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> mmap-process</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> mmap-process</span>
   [file-name]
   (<span class="kw">let</span> [chan (nio/channel file-name)]
     (<span class="kw">-&gt;&gt;</span>
@@ -514,7 +692,7 @@ In general, this is a great time to go into software development and other techn
       (r/mapcat (<span class="kw">partial</span> read-chunk chan))
       (r/map parse-line)
       (r/filter data-line?)
-      (r/fold combiner process-user-map))))</code></pre>
+      (r/fold combiner process-user-map))))</code></pre></div>
 <h4 id="performance">Performance</h4>
 <p>Now we compare two methods’ performance. (Measured with the <a href="https://github.com/hugoduncan/criterium">criterium</a> library.)</p>
 <table>
@@ -557,13 +735,13 @@ In general, this is a great time to go into software development and other techn
 <p>This recipe does that. It chunks a sequence of URLs and downloads a block in parallel. It uses the <a href="http://neotyk.github.com/http.async.client/"><code>http.async.client</code></a> library to perform the download asynchronously, and we’ll simply manage how we trigger those jobs.</p>
 <h3 id="getting-ready">Getting ready…</h3>
 <p>First, we need to make sure that our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file lists the dependencies we’ll need:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
-               [http.async.client <span class="st">&quot;0.4.5&quot;</span>]]</code></pre>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
+               [http.async.client <span class="st">&quot;0.4.5&quot;</span>]]</code></pre></div>
 <p>And we need to use those in our script or REPL.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[http.async.client <span class="kw">:as</span> http])
-(<span class="kw">import</span> [java.net URL])</code></pre>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[http.async.client <span class="kw">:as</span> http])
+(<span class="kw">import</span> [java.net URL])</code></pre></div>
 <p>For this example, we’ll download all of the ZIP files related to the <a href="http://www.who.int/whosis/mort/">World Health Organization’s mortality data</a>. Let’s bind those to the name <code>urls</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> urls </span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> urls </span>
   (<span class="kw">let</span> [who-ftp 
         (<span class="kw">str</span> <span class="st">&quot;http://www.who.int/whosis/database/&quot;</span>
              <span class="st">&quot;mort/download/ftp/&quot;</span>)]
@@ -575,27 +753,27 @@ In general, this is a great time to go into software development and other techn
      (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd07.zip&quot;</span>)
      (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd08.zip&quot;</span>)
      (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd09.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd10.zip&quot;</span>)]))</code></pre>
+     (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd10.zip&quot;</span>)]))</code></pre></div>
 <h3 id="how-to-do-it">How to do it…</h3>
 <p>First, let’s set our default block size. We’ll do this using a dynamic variable so we can easily change it with the <code>binding</code> form.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *block-size* <span class="dv">3</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *block-size* <span class="dv">3</span>)</code></pre></div>
 <p>Now, we want to be able to see what we’re doing, so let’s wrap the <code>http.async.client/GET</code> function in a function that prints the URL when we start and returns the URL and the download.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-verbose</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-verbose</span>
   <span class="st">&quot;This uses http.async.client to download a URL.&quot;</span>
   [client url]
   (<span class="kw">println</span> <span class="st">&quot;GET&quot;</span> url)
-  [url (http/GET client url)])</code></pre>
+  [url (http/GET client url)])</code></pre></div>
 <p>Next, let’s take the output of <code>get-verbose</code> and force the response. Since we don’t care about the response itself, we’ll throw most of it away and just return the status information. Because we’re curious, this will also print out information as it’s working.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-response</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-response</span>
   <span class="st">&quot;This forces the response to download and prints out</span>
 <span class="st">  what&#39;s happening.&quot;</span>
   [[url resp]]
   (<span class="kw">println</span> <span class="st">&quot;awaiting&quot;</span> url)
   (http/await resp)
   (<span class="kw">println</span> <span class="st">&quot;done&quot;</span> url)
-  (http/status resp))</code></pre>
+  (http/status resp))</code></pre></div>
 <p>To see how this will work, let’s write a function to download all of the URLs sequentially. This will also serve as a baseline to see how much of a speed-up we will get.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sequential</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sequential</span>
   <span class="st">&quot;This downloads the resources sequentially.&quot;</span>
   []
   (<span class="kw">with-open</span> [client (http/create-client
@@ -603,9 +781,9 @@ In general, this is a great time to go into software development and other techn
     (<span class="kw">doall</span>
       (<span class="kw">map</span> get-response
            (<span class="kw">map</span> (<span class="kw">partial</span> get-verbose client)
-                urls)))))</code></pre>
+                urls)))))</code></pre></div>
 <p>Now to process the blocks, we’ll partition the URLs using <code>partition-all</code> and use a new function, <code>get-block</code>, to force all the downloads in each block to complete before we move on to the next block.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-block</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-block</span>
   <span class="st">&quot;This forces a block of responses to download.&quot;</span>
   [block]
   (<span class="kw">doall</span> (<span class="kw">map</span> get-response block)))
@@ -620,11 +798,11 @@ In general, this is a great time to go into software development and other techn
                 *block-size*
                 (<span class="kw">map</span>
                   (<span class="kw">partial</span> get-verbose client)
-                  urls))))))</code></pre>
+                  urls))))))</code></pre></div>
 <p>Now we run this by simply calling async.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (async)
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (async)
 GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
-…</code></pre>
+…</code></pre></div>
 <h3 id="how-it-works">How it works…</h3>
 <p>First, we partition the URLs into blocks that will be downloaded in parallel. Because this process is IO-bound, we don’t have to worry about matching the number of CPUs on our machines. The function <code>get-block</code> then takes each block and forces <code>get-response</code> to complete the download and return.</p>
 <p>Playing around with the block size shows some impressive speed-ups. Using a block size of five takes almost half the time as the serial version. Experiment with a small subset of your downloads to see what the optimal block size is for your network and the resources you’re interested in.</p>
@@ -645,13 +823,13 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <p>One of the benefits of <a href="http://linkeddata.org/">linked data</a> is that it <em>is</em> linked. Data in one place points to data in another place, and the two integrate easily. However, although the links are explicit, we still have to bring the data together manually. Let’s see how to do that with Clojure.</p>
 <h3 id="getting-ready">Getting ready</h3>
 <p>We’ll first need to list the dependencies that we’ll need in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
                [incanter/incanter <span class="st">&quot;1.4.1&quot;</span>]
                [edu.ucdenver.ccp/kr-sesame-core <span class="st">&quot;1.4.5&quot;</span>]
                [org.clojure/tools.logging <span class="st">&quot;0.2.4&quot;</span>]
-               [org.slf4j/slf4j-simple <span class="st">&quot;1.7.2&quot;</span>]]</code></pre>
+               [org.slf4j/slf4j-simple <span class="st">&quot;1.7.2&quot;</span>]]</code></pre></div>
 <p>And we’ll need to include them in our script or REPL.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;(clojure.java [io <span class="kw">:as</span> io]))
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;(clojure.java [io <span class="kw">:as</span> io]))
 (<span class="kw">require</span> &#39;(clojure [xml <span class="kw">:as</span> xml] 
                    [pprint <span class="kw">:as</span> pp]
                    [zip <span class="kw">:as</span> zip]))
@@ -662,12 +840,12 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
      &#39;edu.ucdenver.ccp.kr.sesame.kb
      &#39;clojure.<span class="kw">set</span>)
 (<span class="kw">import</span> [java.io File]
-        [java.net URL URLEncoder])</code></pre>
+        [java.net URL URLEncoder])</code></pre></div>
 <p>We’ll also use the <a href="/clj-data-analysis/data/currencies.ttl">currencies.ttl</a> file.</p>
 <h3 id="how-to-do-it">How to do it…</h3>
 <p>For this, we’ll load data from the <code>currencies.ttl</code> file and from <a href="http://dbpedia.org/About">DBPedia</a> into the triple store. Because the triples in one references the triples in the other, the two datasets are automatically merged. Then we can query the triple store and get data from both of the original sources back out.</p>
 <p>To make this happen, first we need some functions to set up the plumbing for working with RDF. These will create and initialize the triple store that we’ll need to use.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> kb-memstore</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> kb-memstore</span>
   <span class="st">&quot;This creates a Sesame triple store in memory.&quot;</span>
   []
   (kb <span class="kw">:sesame-mem</span>))
@@ -691,9 +869,9 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
      [<span class="st">&quot;dbpedia&quot;</span> <span class="st">&quot;http://dbpedia.org/resource/&quot;</span>]
      [<span class="st">&quot;dbpedia-ont&quot;</span> <span class="st">&quot;http://dbpedia.org/ontology/&quot;</span>]
      [<span class="st">&quot;dbpedia-prop&quot;</span> <span class="st">&quot;http://dbpedia.org/property/&quot;</span>]
-     [<span class="st">&quot;err&quot;</span> <span class="st">&quot;http://ericrochester.com/&quot;</span>]]))</code></pre>
+     [<span class="st">&quot;err&quot;</span> <span class="st">&quot;http://ericrochester.com/&quot;</span>]]))</code></pre></div>
 <p>And we’ll use the following utilities later on.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> rekey</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> rekey</span>
   <span class="st">&quot;This just flips the arguments for </span>
 <span class="st">  clojure.set/rename-keys to make it more</span>
 <span class="st">  convenient.&quot;</span>
@@ -710,9 +888,9 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <span class="st">  of this node, plus all the nodes to the right of it.&quot;</span>
   ([first-result]
    (<span class="kw">cons</span> (zip/node first-result)
-         (zip/rights first-result))))</code></pre>
+         (zip/rights first-result))))</code></pre></div>
 <p>These build the <a href="http://www.w3.org/TR/sparql11-overview/">SPARQL</a> query and create a URL out of them for querying <a href="http://dbpedia.org/About">DBPedia</a>. The last, <code>query-sparql-results</code> gets the results, parses them, and navigates the XML tree to get to the results.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> make-query</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> make-query</span>
   <span class="st">&quot;This creates a query that returns all the </span>
 <span class="st">  triples related to a subject URI. It does </span>
 <span class="st">  filter out non-English strings.&quot;</span>
@@ -750,10 +928,10 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
      zip/right
      zip/down
      <span class="co">;; Convert all children into a sequence.</span>
-     result-seq)))</code></pre>
+     result-seq)))</code></pre></div>
 <p>We’ll download the data we need from <a href="http://dbpedia.org/About">DBPedia</a> and insert it into the triple store alongside the RDF file’s data.</p>
 <p>As part of this, we will split all URI strings into prefixes and resources. If each prefix has a namespace abbreviation defined for it in <code>init-kb</code> above, the abbreviation needs to be used, and that and the resource are converted into a symbol together. Otherwise, the URI as a whole is converted into a symbol. What does this look like?</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> split-symbol</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> split-symbol</span>
   <span class="st">&quot;This splits a string on an index and returns a symbol</span>
 <span class="st">  created by using the first part as the namespace and the</span>
 <span class="st">  second as the symbol.&quot;</span>
@@ -775,9 +953,9 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
                 (<span class="kw">filter</span> #(<span class="kw">&gt;</span> % -<span class="dv">1</span>) 
                         (<span class="kw">map</span> (<span class="kw">fn</span> [f] (f)) index-gens)))]
        (split-symbol kb uri-string (<span class="kw">inc</span> <span class="kw">index</span>))
-       (<span class="kw">symbol</span> uri-string)))))</code></pre>
+       (<span class="kw">symbol</span> uri-string)))))</code></pre></div>
 <p>Next, we’ll need to convert a variety of data types as encoded in the result XML into native Clojure types, the way the triple store interface wants to work with them. For that we’ll use a multimethod.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> xmls </span><span class="st">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> xmls </span><span class="st">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>)
 (<span class="kw">defmulti</span><span class="fu"> from-xml</span>
   (<span class="kw">fn</span> [r] [(<span class="kw">:tag</span> r) (<span class="kw">:datatype</span> (<span class="kw">:attrs</span> r))]))
 (<span class="kw">defmethod</span><span class="fu"> from-xml </span>[<span class="kw">:uri</span> nil] [r]
@@ -787,9 +965,9 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 (<span class="kw">defmethod</span><span class="fu"> from-xml </span>[<span class="kw">:literal</span> (<span class="kw">str</span> xmls &#39;int)] [r]
   (<span class="kw">read-string</span> (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">:content</span> r))))
 (<span class="kw">defmethod</span><span class="fu"> from-xml </span><span class="kw">:default</span> [r]
-  (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">:content</span> r)))</code></pre>
+  (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">:content</span> r)))</code></pre></div>
 <p>Now we need a function to convert each result node into a vector triple. This will be used by a later function that loads the data from DBPedia into the triple store.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> result-to-triple</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> result-to-triple</span>
   <span class="st">&quot;This converts a result node into a triple vector.&quot;</span>
   ([iri r]
    (<span class="kw">let</span> [{<span class="kw">:keys</span> [tag <span class="kw">attrs</span> <span class="kw">content</span>]} r
@@ -806,17 +984,17 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
        kb
        (query-sparql-results sparql-uri iri)
        (<span class="kw">map</span> #(result-to-triple iri %))
-       (add-statements kb)))))</code></pre>
+       (add-statements kb)))))</code></pre></div>
 <p>We’ll define a function to pull the objects of all same-as statements out of an RDF query and load all statements for that URI from DBPedia.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> load-same-as</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> load-same-as</span>
   <span class="st">&quot;This takes the results of a query for owl:sameAs and</span>
 <span class="st">  loads the object URIs into the triple store from</span>
 <span class="st">  DBPedia.&quot;</span>
   ([kb [_ _ same-as]]
    (load-dbpedia kb <span class="st">&quot;http://dbpedia.org/sparql&quot;</span> same-as)
-   kb))</code></pre>
+   kb))</code></pre></div>
 <p>Finally, <code>aggregate-dataset</code> drives the whole thing. It takes the triple store, the datafile, a query to execute on the final results, and a mapping between SPARQL query parameters and keywords for the final result.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> aggregate-dataset</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> aggregate-dataset</span>
   [t-store data-file q col-map]
   (<span class="kw">binding</span> [*kb* t-store]
     <span class="co">;;; Load primary data.</span>
@@ -827,9 +1005,9 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
             (query-rdf t-store nil &#39;owl/sameAs nil))
     <span class="co">;;; Query </span>
     (to-dataset (<span class="kw">map</span> (<span class="kw">partial</span> rekey col-map)
-                     (query t-store q)))))</code></pre>
+                     (query t-store q)))))</code></pre></div>
 <p>Now let’s use all this to create the dataset. We’ll bind the parameters to names so we can refer to them more easily and then use them to call <code>aggregate-dataset</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> data-file</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> data-file</span>
   <span class="st">&quot;../../../clj-data-analysis/data/currencies.ttl&quot;</span>)
 (<span class="kw">def</span><span class="fu"> col-map </span>{&#39;?/name <span class="kw">:fullname</span>
               &#39;?/iso <span class="kw">:iso</span>
@@ -858,16 +1036,16 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
           [[?/d dbpedia-prop/usedBanknotes
             ?/usedBanknotes]]]
          [<span class="kw">:optional</span>
-          [[?/d dbpedia-prop/usedCoins ?/usedCoins]]]])</code></pre>
+          [[?/d dbpedia-prop/usedCoins ?/usedCoins]]]])</code></pre></div>
 <p>Let’s put it all together.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (aggregate-dataset (init-kb (kb-memstore))
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (aggregate-dataset (init-kb (kb-memstore))
             data-file q col-map)
 [<span class="kw">:used-coins</span> <span class="kw">:symbol</span> <span class="kw">:pegged-with</span> <span class="kw">:country</span> <span class="kw">:name</span> <span class="kw">:minor-exp</span> <span class="kw">:iso</span> <span class="kw">:minor-name</span> <span class="kw">:used-banknotes</span> <span class="kw">:fullname</span>]
 [<span class="dv">2550</span> <span class="st">&quot;د.إ&quot;</span> <span class="st">&quot;U.S. dollar = 3.6725 dirhams&quot;</span> dbpedia/United_Arab_Emirates <span class="st">&quot;dirham&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;AED&quot;</span> <span class="st">&quot;fils&quot;</span> <span class="dv">9223372036854775807</span> <span class="st">&quot;United Arab Emirates dirham&quot;</span>]
 [<span class="dv">1</span> <span class="st">&quot;Af  or Afs&quot;</span> nil dbpedia/United_States_dollar <span class="st">&quot;afghani&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;AFN&quot;</span> <span class="st">&quot;pul&quot;</span> <span class="dv">1</span> <span class="st">&quot;Afghan afghani&quot;</span>]
 [nil dbpedia/Albanian_lek nil dbpedia/Albania <span class="st">&quot;lek&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;ALL&quot;</span> <span class="st">&quot;qindarkë&quot;</span> nil <span class="st">&quot;Albanian lek&quot;</span>]
 [<span class="dv">102050100200500</span> nil nil dbpedia/Armenia <span class="st">&quot;dram&quot;</span> <span class="st">&quot;0&quot;</span> <span class="st">&quot;AMD&quot;</span> <span class="st">&quot;luma&quot;</span> <span class="dv">9223372036854775807</span> <span class="st">&quot;Armenian dram&quot;</span>]
-…</code></pre>
+…</code></pre></div>
 <h3 id="how-it-works">How it works…</h3>
 <p>Linked data is, well, linked. Basically, we took all the data we’re interested in and dumped it into one big database. We used the links in the data itself to drive this by following <em>same-as</em> relationships already encoded in the data. We just used our query to pull it all together.</p>
 <p>As an aside, notice the multimethod <code>from-xml</code> that dispatches on the result node’s tag name and its datatype attribute. Currently, this handles strings, integers, and URIs. They are sufficient for this dataset. If we need more, though, we can add them easily.</p>

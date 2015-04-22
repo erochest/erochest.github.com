@@ -43,7 +43,7 @@
 <p>Unfortunately, one of our flagship projects, <a href="http://neatline.org/">Neatline</a>, isn’t easy to contribute to. There are a number of reasons for this, but one is that the development environment is not trivial to get set up. In order to address this and make it easier for others to contribute, we’ve developed an <a href="http://www.ansible.com/">Ansible</a> playbook that takes a not-quite-stock Mac and sets up an instance of Omeka with the Neatline plugin available, as well as all the tools necessary for working on Neatline.</p>
 <p><a href="http://www.ansible.com/">Ansible</a> is a system for setting up and configuring systems. It’s often used to set up multiple servers—for instance, a database server and a static web server, both working with a dynamic web applications deployed on several computers. If you’re familiar with <a href="http://www.getchef.com/">Chef</a> or <a href="http://puppetlabs.com/">Puppet</a>, Ansible solves the same problems. In this case, we’ll use it to configure our local development workstation.</p>
 <p>We’ve published these playbooks on <a href="https://github.com/">Github</a> in the <a href="https://github.com/erochest/neatline.dev/tree/mac-ansible"><code>neatline.dev</code> repository, on the <code>mac-ansible</code> branch</a>. You can get this by cloning it to your local machine. (Since this is for getting started developing Neatline, I assume that you’re already comfortable with <a href="http://git-scm.com/">git</a>. If not, <a href="http://rogerdudler.github.io/git-guide/">there</a> <a href="https://try.github.io/">are</a> <a href="http://www.git-tower.com/learn/">lots</a> <a href="http://gitimmersion.com/">of</a> <a href="http://www.vogella.com/tutorials/Git/article.html">great</a> <a href="http://git-scm.com/book">tutorials</a>.)</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">git</span> clone --branch mac-ansible https://github.com/erochest/neatline.dev.git</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">git</span> clone --branch mac-ansible https://github.com/erochest/neatline.dev.git</code></pre></div>
 <h2 id="requirements">Requirements</h2>
 <p>In creating this, I’ve aimed for starting from a stock Mac. And I missed pretty badly. However, the necessary prerequisites are minimal. You’ll just need to have these things installed.</p>
 <ul>
@@ -51,12 +51,12 @@
 <li><a href="http://brew.sh/">Homebrew</a></li>
 </ul>
 <p>Once those two are on your machine, you can install the other two dependencies. These are available through <a href="http://brew.sh/">Homebrew</a>. So open Terminal and type these lines:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">brew</span> install python
-$ <span class="kw">brew</span> install ansible</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">brew</span> install python
+$ <span class="kw">brew</span> install ansible</code></pre></div>
 <p>That’s all. You should be ready to go.</p>
 <h2 id="settings">Settings</h2>
 <p>This project includes a number settings that you can change to customize your installation. Those are found in the file <a href="https://github.com/erochest/neatline.dev/blob/mac-ansible/playbook.yaml"><code>playbook.yaml</code></a>. The relevant section is labelled <code>vars</code>, and it allows you to set information about the Omeka database (<code>omeka_db_user</code>, <code>omeka_db_password</code>, and <code>omeka_db_name</code>), which version of Omeka you wish to use (<code>omeka_version</code>), where you wish to install it (<code>omeka_dir</code>), and where you want to point your browser to (<code>dev_hostname</code>) as you’re working on the site. The defaults are:</p>
-<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">vars:</span>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">vars:</span>
   <span class="fu">db_user:</span> root
   <span class="fu">db_password:</span>
   <span class="fu">omeka_db_user:</span> omeka
@@ -67,13 +67,13 @@ $ <span class="kw">brew</span> install ansible</code></pre>
   <span class="fu">omeka_version:</span> stable-2.1
   <span class="fu">debug:</span> true
   <span class="fu">neatline_repo:</span> git@github.com:scholarslab/Neatline.git
-  <span class="fu">php_version:</span> 55</code></pre>
+  <span class="fu">php_version:</span> 55</code></pre></div>
 <p>Change these to reflect what you’d like your personal Omeka/Neatline installation to look like.</p>
 <p>One option that I’ll call out in particular is <code>neatline_repo</code>. This is the git repository that you’ll be working with. If you’re using github to host your project, you can <a href="https://help.github.com/articles/fork-a-repo">fork</a> the primary Neatline repository (from the URL given above). And when you’ve completed your work, if you’d like to contribute back, you can send us a <a href="https://help.github.com/articles/using-pull-requests">pull request</a> through the Github site.</p>
 <h2 id="setting-up">Setting Up</h2>
 <p>Finally, we’re ready to actually create the system. This is quite easy. In the Terminal, from the <code>neatline.dev</code> directory, run the <code>neatline-dev</code> script.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> neatline.dev
-$ <span class="kw">./neatline-dev</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> neatline.dev
+$ <span class="kw">./neatline-dev</span></code></pre></div>
 <p>Now wait.</p>
 <p>After your computer whirs away for a while, you’ll get your prompt back. When that happens, you should be able to point your browser to http://omeka-neatline.dev (in the example above). There you’ll see the Omeka installation form.</p>
 <h2 id="what-just-happened">What Just Happened?</h2>
