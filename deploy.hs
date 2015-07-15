@@ -52,7 +52,7 @@ deploySite branch msg dir =
         errExit False $ do
             gitCommit msg
             whenM ((== 0) <$> lastExitCode) $
-                git_ "push" ["origin", "master"]
+                git_ "push" []
 
 
 main :: IO ()
