@@ -17,6 +17,7 @@ import           Data.Monoid
 import           Hakyll
 import           Sites.Base
 import           Text.Pandoc
+import           Text.Pandoc.Error (PandocError)
 
 
 data CommentSpec = CommentLine String
@@ -24,6 +25,8 @@ data CommentSpec = CommentLine String
                  deriving (Show)
 
 type CommentSpecList = [CommentSpec]
+
+type PandocE = Either PandocError
 
 -- | Idle thought: I wonder if breaking this into two levels of types would
 -- simplify or complicate the combination rules (`mappend`) below. My intuition
@@ -127,10 +130,10 @@ illiterateLine (CommentBlock start end strip:css) ActiveText line
     | start `L.isPrefixOf` line = (CommentText end strip, LTextBlock [stripStart start line])
     | otherwise                 = illiterateLine css ActiveText line
 
-illiterateHtml :: String -> CommentSpecList -> String -> String
+illiterateHtml :: String -> CommentSpecList -> String -> PandocE String
 illiterateHtml codeClass specList = markdown . illiterate codeClass specList
 
-clojure :: String -> String
+clojure :: String -> PandocE String
 clojure = illiterateHtml "clojure" clojureComments
 
 clojureComments :: CommentSpecList
@@ -138,7 +141,7 @@ clojureComments = [ CommentLine "; "
                   , CommentLine ";"
                   ]
 
-markdown :: String -> String
-markdown = writeHtmlString defaultHakyllWriterOptions
+markdown :: String -> PandocE String
+markdown = fmap (writeHtmlString defaultHakyllWriterOptions)
          . readMarkdown defaultHakyllReaderOptions
 

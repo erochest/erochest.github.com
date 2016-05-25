@@ -14,14 +14,16 @@
 module Main where
 
 
-import           ClassyPrelude       hiding (whenM, (<>))
+import           ClassyPrelude             hiding (FilePath, concat, whenM,
+                                            (</>), (<>))
 import           Data.Data
-import qualified Data.Text           as T
-import qualified Data.Text.Lazy      as TL
+import qualified Data.Text                 as T
+import qualified Data.Text.Lazy            as TL
 import           Data.Time
+import           Filesystem.Path.CurrentOS
 import           Options.Applicative
-import           Shelly              hiding ((</>))
-import           Sites               (RootSite (..), SiteInfo (..), site)
+import           Shelly                    hiding (FilePath, (</>))
+import           Sites                     (RootSite (..), SiteInfo (..), site)
 
 default (TL.Text)
 
@@ -38,8 +40,8 @@ gitCommit msg = git_ "commit" ["-m", msg]
 clearDeploy :: Sh ()
 clearDeploy =
         ls "_deploy/"
-    >>= fmap (filter ((".git" /=) . filename) . concat) . mapM ls
-    >>= mapM_ rm_rf
+    >>= mapM ls
+    >>= mapM_ rm_rf . filter ((".git" /=) . filename) . fold
 
 copySite :: FilePath -> Sh ()
 copySite dest = mapM_ (`cp_r` dest) =<< ls "_site"

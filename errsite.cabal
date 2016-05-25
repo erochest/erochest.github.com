@@ -29,6 +29,7 @@ library
                      , system-filepath
                      , containers
                      , blaze-html
+                     , mtl
                      , shelly
                      , filepath
                      , time >=1.5
@@ -52,6 +53,7 @@ executable site
                      , time >=1.5
                      , regex-tdfa
                      , pandoc
+                     , mtl
 
 executable deploy
   main-is:             deploy.hs
@@ -66,6 +68,7 @@ executable deploy
                      , hakyll
                      , blaze-html
                      , filepath
+                     , mtl
                      , regex-tdfa
                      , pandoc
                      , optparse-applicative
@@ -85,3 +88,4 @@ executable illiterate
                      , filepath
                      , regex-tdfa
                      , pandoc
+                     , mtl

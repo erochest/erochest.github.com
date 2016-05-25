@@ -7,7 +7,9 @@ module Sites.Erochest
 
 
 import           Control.Applicative
+import           Control.Exception
 import           Control.Monad
+import           Control.Monad.Error.Class
 import           Data.Char (toLower)
 import qualified Data.List as L
 import           Data.Maybe (fromMaybe, mapMaybe)
@@ -45,10 +47,10 @@ isPost fn | ".md" `T.isSuffixOf` fn  = True
           | otherwise                = False
 
 renderItem :: Item String -> Compiler (Item String)
-renderItem item =
-    return $ case itemExt of
-               ".clj" -> clojure `fmap` item
-               _      -> renderPandoc item
+renderItem item = if itemExt == ".clj"
+                     then either (throwError . pure . displayException) return 
+                                 . sequenceA $ clojure <$> item
+                     else renderPandoc item
     where itemExt = takeExtension . toFilePath $ itemIdentifier item
 
 pageLength :: Int
@@ -202,9 +204,11 @@ rules = do
         route   $   setExtension "html"
         compile $   do
             rsc <- getResourceBody
-            saveSnapshot "content" (itemSetBody (clojure $ itemBody rsc) rsc)
-                >>= postTemplate (siteContext Nothing)
-                >>= relativizeUrls
+            case clojure $ itemBody rsc of
+                 Right body -> saveSnapshot "content" (itemSetBody body rsc)
+                                >>= postTemplate (siteContext Nothing)
+                                >>= relativizeUrls
+                 Left e     -> throwError . pure $ displayException e
 
     match "pages/**/*.clj" $ version "raw" $ do
         route   idRoute
