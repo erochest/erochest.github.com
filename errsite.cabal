@@ -26,7 +26,6 @@ library
   build-depends:       base            == 4.8.*
                      , text
                      , hakyll
-                     , system-filepath
                      , containers
                      , blaze-html
                      , mtl
@@ -47,7 +46,6 @@ executable site
                      , hakyll
                      , blaze-html
                      , text
-                     , system-filepath
                      , containers
                      , shelly
                      , filepath
@@ -62,7 +60,6 @@ executable deploy
                      , errsite
                      , shelly
                      , text
-                     , system-filepath
                      , time >=1.5
                      , classy-prelude
                      , containers
@@ -80,7 +77,6 @@ executable illiterate
                      , errsite
                      , shelly
                      , text
-                     , system-filepath
                      , time >=1.5
                      , classy-prelude
                      , containers
@@ -90,3 +86,4 @@ executable illiterate
                      , regex-tdfa
                      , pandoc
                      , mtl
+                     , filepath

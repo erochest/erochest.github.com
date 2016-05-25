@@ -14,16 +14,18 @@
 module Main where
 
 
-import           ClassyPrelude             hiding (FilePath, concat, whenM,
-                                            (</>), (<>))
+import           ClassyPrelude       hiding (FilePath, concat, whenM, (</>),
+                                      (<>))
 import           Data.Data
-import qualified Data.Text                 as T
-import qualified Data.Text.Lazy            as TL
+import qualified Data.Text           as T
+import qualified Data.Text.Lazy      as TL
 import           Data.Time
-import           Filesystem.Path.CurrentOS
 import           Options.Applicative
-import           Shelly                    hiding (FilePath, (</>))
-import           Sites                     (RootSite (..), SiteInfo (..), site)
+import           Shelly              hiding (FilePath, (</>))
+import qualified Shelly              as S
+import           Sites               (RootSite (..), SiteInfo (..), site)
+import           System.FilePath
+import qualified System.FilePath     as FP
 
 default (TL.Text)
 
@@ -41,20 +43,27 @@ clearDeploy :: Sh ()
 clearDeploy =
         ls "_deploy/"
     >>= mapM ls
-    >>= mapM_ rm_rf . filter ((".git" /=) . filename) . fold
+    >>= mapM_ rm_rf
+    .   filter ((".git" /=) . FP.takeFileName . T.unpack . toTextIgnore)
+    .   fold
 
 copySite :: FilePath -> Sh ()
-copySite dest = mapM_ (`cp_r` dest) =<< ls "_site"
+copySite dest = mapM_ (`cp_r` dest') =<< ls "_site"
+    where
+        dest' = filePathString dest
 
 deploySite :: Text -> Text -> FilePath -> Sh ()
 deploySite branch msg dir =
-    chdir dir $ do
+    chdir (filePathString dir) $ do
         git_ "checkout" [branch]
         git_ "add" ["--all"]
         errExit False $ do
             gitCommit msg
             whenM ((== 0) <$> lastExitCode) $
                 git_ "push" []
+
+filePathString :: String -> S.FilePath
+filePathString = fromText . T.pack
 
 
 main :: IO ()
@@ -75,8 +84,8 @@ main = do
         clearDeploy
         copySite rootDeploy
         forM_ subsites $ \s ->
-            let src  = "_deploy" </> siteTarget rootSite </> siteRoot s
-                dest = "_deploy" </> siteTarget s
+            let src  = filePathString $ "_deploy" </> siteTarget rootSite </> siteRoot s
+                dest = filePathString $ "_deploy" </> siteTarget s
             in  ls src >>=
                 mapM_ (`mv` dest) >>
                 rm_rf src
