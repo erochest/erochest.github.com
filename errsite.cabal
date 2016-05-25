@@ -39,6 +39,7 @@ library
 executable site
   main-is:             site.hs
   -- other-modules:       
+  hs-source-dirs:      app
   build-depends:       base            == 4.8.*
                      , errsite
                      , network
@@ -56,6 +57,7 @@ executable site
 
 executable deploy
   main-is:             deploy.hs
+  hs-source-dirs:      app
   build-depends:       base            == 4.8.*
                      , errsite
                      , shelly
@@ -73,6 +75,7 @@ executable deploy
 
 executable illiterate
   main-is:             Illiterate.hs
+  hs-source-dirs:      app
   build-depends:       base            == 4.8.*
                      , errsite
                      , shelly
