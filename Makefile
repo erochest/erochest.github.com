@@ -1,15 +1,14 @@
 
-all: init test docs package
+FLAGS=--pedantic
+RUN=stack exec --
 
-init:
-	cabal sandbox init
-	make deps
+all: test docs package
 
 test: build
-	cabal test --test-option=--color
+	stack test $(FLAGS)
 
-run:
-	cabal run
+run: build
+	$(RUN) site help
 
 # docs:
 # generate api documentation
@@ -24,32 +23,24 @@ run:
 # generate executable and put it into `/usr/local`
 
 dev:
-	cabal run site watch -- --port=9090
+	$(RUN) site watch
 
 deploy:
-	cabal run -- deploy
+	$(RUN) deploy
 
 hlint:
 	hlint *.hs src specs
 
 clean:
-	cabal clean
+	stack clean
 
 distclean: clean
-	cabal sandbox delete
-
-configure: clean
-	cabal configure --enable-tests
-
-deps: clean
-	cabal install --only-dependencies --allow-newer --enable-tests
-	cabal configure --enable-tests
 
 build:
-	cabal build
+	stack build $(FLAGS)
 
 rebuild: clean configure build
 
-restart: distclean deps build
+restart: distclean build
 
-.PHONY: all init test run clean distclean configure deps build rebuild hlint
+.PHONY: all test run clean distclean configure build rebuild hlint
