@@ -30,8 +30,8 @@ import qualified System.FilePath     as FP
 default (TL.Text)
 
 
-cabal_ :: Text -> [Text] -> Sh ()
-cabal_ = command1_ "cabal" []
+stack_ :: Text -> [Text] -> Sh ()
+stack_ = command1_ "stack" []
 
 git_ :: Text -> [Text] -> Sh ()
 git_ = command1_ "git" []
@@ -76,11 +76,10 @@ main = do
         let rootDeploy = ("_deploy" </>) $ siteTarget rootSite
 
         when scratch $ do
-            cabal_ "clean"     []
-            cabal_ "configure" []
-            cabal_ "build"     []
+            stack_ "clean" []
+            stack_ "build" []
 
-        cabal_ "run" ["site", "rebuild"]
+        stack_ "exec" ["--", "site", "rebuild"]
         clearDeploy
         copySite rootDeploy
         forM_ subsites $ \s ->

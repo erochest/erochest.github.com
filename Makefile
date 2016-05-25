@@ -22,8 +22,11 @@ run: build
 # install:
 # generate executable and put it into `/usr/local`
 
-dev:
+watch-site:
 	$(RUN) site watch
+
+watch-code:
+	stack build $(FLAGS) --file-watch
 
 deploy:
 	$(RUN) deploy
@@ -43,4 +46,4 @@ rebuild: clean configure build
 
 restart: distclean build
 
-.PHONY: all test run clean distclean configure build rebuild hlint
+.PHONY: all test run clean distclean configure build rebuild hlint watch-site watch-code
