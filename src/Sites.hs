@@ -12,8 +12,6 @@ import           Sites.Erochest        as X
 import           Sites.Pager           as X
 import           Sites.Types           as X
 
-import           Control.Applicative
-
 
 site :: IO X.RootSite
 site = X.Root <$> X.erochestSite

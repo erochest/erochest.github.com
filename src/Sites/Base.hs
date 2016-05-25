@@ -12,14 +12,12 @@ module Sites.Base
     , extraHeaderContext
     ) where
 
-import           Control.Applicative
 import           Control.Monad
-import           Data.Maybe (fromMaybe)
+import           Data.Maybe       (fromMaybe)
 import           Data.Monoid
-import           Data.Time.Clock (UTCTime)
+import           Data.Time.Clock  (UTCTime)
 import           Data.Time.Format (defaultTimeLocale, formatTime, parseTimeM)
 import           Hakyll
-import           Sites.Types
 
 sassCompiler :: Compiler (Item String)
 sassCompiler =

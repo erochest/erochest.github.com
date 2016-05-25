@@ -10,26 +10,25 @@ import           Control.Applicative
 import           Control.Exception
 import           Control.Monad
 import           Control.Monad.Error.Class
-import           Data.Char (toLower)
-import qualified Data.List as L
-import           Data.Maybe (fromMaybe, mapMaybe)
+import           Data.Char                       (toLower)
+import qualified Data.List                       as L
 import           Data.Monoid
-import           Data.Ord (comparing)
-import qualified Data.Text as T
-import qualified Data.Text.Lazy as TL
+import           Data.Ord                        (comparing)
+import qualified Data.Text                       as T
 import           Hakyll
-import           Prelude hiding (FilePath)
+import           Prelude                         hiding (FilePath)
 import           Shelly
 import           Sites.Base
 import           Sites.Literate
 import           Sites.Pager
 import           Sites.Types
-import           System.FilePath (
-                   replaceExtension, takeBaseName, takeDirectory, takeExtension)
+import           System.FilePath                 (replaceExtension,
+                                                  takeBaseName, takeDirectory,
+                                                  takeExtension)
 import           Text.Blaze.Html.Renderer.String (renderHtml)
-import           Text.Regex.TDFA hiding (match)
-import qualified Text.Regex.TDFA as RE
-import qualified Text.Regex.TDFA.String as RES
+import           Text.Regex.TDFA                 hiding (match)
+import qualified Text.Regex.TDFA                 as RE
+import qualified Text.Regex.TDFA.String          as RES
 
 
 erochestSite :: IO SiteInfo
@@ -48,7 +47,7 @@ isPost fn | ".md" `T.isSuffixOf` fn  = True
 
 renderItem :: Item String -> Compiler (Item String)
 renderItem item = if itemExt == ".clj"
-                     then either (throwError . pure . displayException) return 
+                     then either (throwError . pure . displayException) return
                                  . sequenceA $ clojure <$> item
                      else renderPandoc item
     where itemExt = takeExtension . toFilePath $ itemIdentifier item
@@ -93,9 +92,9 @@ loadSnippets lineCount =
     where shorten               = return . unlines . firstAndLinks lineCount . lines
           Right linkRegex       = RES.compile defaultCompOpt (ExecOption False) "^\\[[[:word:]-]+\\]: "
           firstAndLinks :: Int -> [String] -> [String]
-          firstAndLinks n lines =
-              let body  = take n lines
-                  links = filter (RE.match linkRegex) lines
+          firstAndLinks n lns =
+              let body  = take n lns
+                  links = filter (RE.match linkRegex) lns
               in  body ++ ["\n"] ++ links ++ ["\n"]
 
 compileIndex :: Context String -> Template -> Compiler (Item String)
@@ -117,7 +116,7 @@ indexPageInfo = do
     let (d, m)    = length pages `divMod` pageLength
         indexPageCount = d + if m == 0 then 0 else 1
         indexPages     = "pages/index.html" : [ "pages/index-" <> show n <> ".html"
-                                              | n <- take (indexPageCount - 1) [1..]
+                                              | n <- take (indexPageCount - 1) [(1 :: Int)..]
                                               ]
     return (indexPageCount, indexPages)
 
@@ -142,8 +141,13 @@ getCategory' :: MonadMetadata m => Identifier -> m [String]
 getCategory' =
     return . return . takeBaseName . takeDirectory . takeDirectory . toFilePath
 
-renderCategory :: String -> String -> Int -> Int -> Int -> String
-renderCategory tag url count minCount maxCount = lia url tag $ show count
+renderCategory :: String     -- ^ Tag
+               -> String     -- ^ URL
+               -> Int        -- ^ Count
+               -> Int        -- ^ Minimum count
+               -> Int        -- ^ Maximum count
+               -> String
+renderCategory t url count _ _ = lia url t $ show count
 
 joinCategories :: [String] -> String
 joinCategories = L.concat
@@ -161,87 +165,87 @@ renderIds :: [Identifier] -> Compiler String
 renderIds = fmap L.concat . mapM renderId
 
 renderId :: (MonadMetadata m, Applicative m) => Identifier -> m String
-renderId id =
-        lia url <$> getMetadataField' id "title"
-                <*> fmap reformatDate (getMetadataField' id "date")
-    where url = '/' : replaceExtension (show id) ".html"
+renderId idTag =
+        lia url <$> getMetadataField' idTag "title"
+                <*> fmap reformatDate (getMetadataField' idTag "date")
+    where url = '/' : replaceExtension (show idTag) ".html"
 
 
 rules :: IO (Rules ())
 rules = do
     (indexPageCount, indexPages) <- indexPageInfo
     return $ do
-    create ["index.html"] $ do
-        let headers = Just $ style "css/index.css" ++ openIdHeaders
-        route       idRoute
-        compile $   loadBody "templates/index-pane.html"
-                >>= compileIndex (siteContext headers)
+        create ["index.html"] $ do
+            let headers = Just $ style "css/index.css" ++ openIdHeaders
+            route       idRoute
+            compile $   loadBody "templates/index-pane.html"
+                    >>= compileIndex (siteContext headers)
 
-    create (map fromFilePath indexPages) $ do
-        route     idRoute
-        compile $ compilePageIndex indexPageCount
+        create (map fromFilePath indexPages) $ do
+            route     idRoute
+            compile $ compilePageIndex indexPageCount
 
-    create ["atom.xml"] $ do
-        route idRoute
-        compile $
-            let context = bodyField "description" <> siteContext Nothing
-                config  = FeedConfiguration "Eric Rochester"
-                                            "Feed for my site."
-                                            "Eric Rochester"
-                                            "erochest@gmail.com"
-                                            "http://www.ericrochester.com/"
-            in  take 10 <$> loadPageContent >>= renderAtom config context
-
-    match "pages/**/*.md" $ do
-        route   $ setExtension "html"
-        compile   compilePage
-
-    match "pages/**/*.md" $ version "raw" $ do
-        route   idRoute
-        compile getResourceBody
-
-    match "pages/**/index.clj" $ do
-        route   $   setExtension "html"
-        compile $   do
-            rsc <- getResourceBody
-            case clojure $ itemBody rsc of
-                 Right body -> saveSnapshot "content" (itemSetBody body rsc)
-                                >>= postTemplate (siteContext Nothing)
-                                >>= relativizeUrls
-                 Left e     -> throwError . pure $ displayException e
-
-    match "pages/**/*.clj" $ version "raw" $ do
-        route   idRoute
-        compile getResourceBody
-
-    match "sass/index.scss" $ do
-        route   $ constRoute "css/index.css"
-        compile   sassCompiler
-
-    -- This section creates the categories.
-    categories <- buildTagsWith getCategory' postPattern getCategoryPage
-
-    create ["categories/index.html"] $ do
-        route idRoute
-        compile $
-            let context =  constField "title" "Categories"
-                        <> siteContext Nothing
-            in     renderTags renderCategory joinCategories categories
-               >>= makeItem
-               >>= loadAndApplyTemplate "templates/category-index.html" context
-               >>= loadAndApplyTemplate "templates/default.html" context
-               >>= relativizeUrls
-
-    forM_ (tagsMap categories) $ \(catName, catIds) ->
-        create [tagsMakeId categories catName] $ do
+        create ["atom.xml"] $ do
             route idRoute
             compile $
-                let context =  constField "title" ("Category: " ++ catName)
+                let context = bodyField "description" <> siteContext Nothing
+                    config  = FeedConfiguration "Eric Rochester"
+                                                "Feed for my site."
+                                                "Eric Rochester"
+                                                "erochest@gmail.com"
+                                                "http://www.ericrochester.com/"
+                in  take 10 <$> loadPageContent >>= renderAtom config context
+
+        match "pages/**/*.md" $ do
+            route   $ setExtension "html"
+            compile   compilePage
+
+        match "pages/**/*.md" $ version "raw" $ do
+            route   idRoute
+            compile getResourceBody
+
+        match "pages/**/index.clj" $ do
+            route   $   setExtension "html"
+            compile $   do
+                rsc <- getResourceBody
+                case clojure $ itemBody rsc of
+                     Right body -> saveSnapshot "content" (itemSetBody body rsc)
+                                    >>= postTemplate (siteContext Nothing)
+                                    >>= relativizeUrls
+                     Left e     -> throwError . pure $ displayException e
+
+        match "pages/**/*.clj" $ version "raw" $ do
+            route   idRoute
+            compile getResourceBody
+
+        match "sass/index.scss" $ do
+            route   $ constRoute "css/index.css"
+            compile   sassCompiler
+
+        -- This section creates the categories.
+        categories <- buildTagsWith getCategory' postPattern getCategoryPage
+
+        create ["categories/index.html"] $ do
+            route idRoute
+            compile $
+                let context =  constField "title" "Categories"
                             <> siteContext Nothing
-                in     sortIdsByDate catIds
-                   >>= renderIds
+                in     renderTags renderCategory joinCategories categories
                    >>= makeItem
                    >>= loadAndApplyTemplate "templates/category-index.html" context
                    >>= loadAndApplyTemplate "templates/default.html" context
                    >>= relativizeUrls
+
+        forM_ (tagsMap categories) $ \(catName, catIds) ->
+            create [tagsMakeId categories catName] $ do
+                route idRoute
+                compile $
+                    let context =  constField "title" ("Category: " ++ catName)
+                                <> siteContext Nothing
+                    in     sortIdsByDate catIds
+                       >>= renderIds
+                       >>= makeItem
+                       >>= loadAndApplyTemplate "templates/category-index.html" context
+                       >>= loadAndApplyTemplate "templates/default.html" context
+                       >>= relativizeUrls
 

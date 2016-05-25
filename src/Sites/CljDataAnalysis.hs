@@ -6,7 +6,6 @@ module Sites.CljDataAnalysis
     ) where
 
 
-import qualified Data.Set as S
 import           Hakyll
 import           Sites.Base
 import           Sites.Types

@@ -11,11 +11,9 @@ module Sites.Literate
     ) where
 
 
-import qualified Data.List as L
+import qualified Data.List         as L
 import           Data.Maybe
-import           Data.Monoid
 import           Hakyll
-import           Sites.Base
 import           Text.Pandoc
 import           Text.Pandoc.Error (PandocError)
 
@@ -53,11 +51,11 @@ instance Monoid RunBlock where
         mappend (BlockRun br) (LCodeBlock b) =
             case last br of
                 LCodeBlock a -> BlockRun $ init br ++ [LCodeBlock (a ++ b)]
-                b            -> BlockRun $ br ++ [b]
+                b'           -> BlockRun $ br ++ [b']
         mappend (BlockRun br) (LTextBlock b) =
             case last br of
                 LTextBlock a -> BlockRun $ init br ++ [LTextBlock (a ++ b)]
-                b            -> BlockRun $ br ++ [b]
+                b'           -> BlockRun $ br ++ [b']
         mappend (BlockRun a) b@(BlockRun _) = foldr mappend b a
         mappend a b = BlockRun [a, b]
 
@@ -100,7 +98,7 @@ stripEnd :: Eq a => [a] -> [a] -> [a]
 stripEnd [] ys                    = ys
 stripEnd s ys@(y:ys') | s == ys   = []
                       | otherwise = y : stripEnd s ys'
-stripEnd s []                     = []
+stripEnd _ []                     = []
 
 illiterateLine :: CommentSpecList
                -> CommentState
@@ -112,7 +110,7 @@ illiterateLine [] Start               line = (ActiveText,  LCodeBlock [line])
 illiterateLine [] ActiveText          line = (ActiveText,  LCodeBlock [line])
 illiterateLine [] c@(CommentText _ _) line = (c,           LTextBlock [line])
 
-illiterateLine _ c@(CommentText end strip) line
+illiterateLine _ (CommentText end strip) line
     | end `L.isSuffixOf` line = (ActiveText, LTextBlock [stripEnd end line])
     | otherwise               = (ActiveText, LTextBlock [stripStart strip line])
 

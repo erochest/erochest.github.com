@@ -2,26 +2,9 @@
 {-# LANGUAGE RecordWildCards   #-}
 
 
--- import           Control.Applicative
-import           Control.Monad
--- import           Control.Monad.IO.Class
-import           Data.Char
-import qualified Data.List as L
-import           Data.Maybe (fromMaybe)
-import           Data.Monoid
-import qualified Data.Text.Lazy as TL
 import           Hakyll
 import           Sites
-import qualified Debug.Trace as Debug
 
-
-{-
- - traceWatch :: Show a => String -> a -> a
- - traceWatch msg x = Debug.trace (msg <> show x) x
- - 
- - traceMapWatch :: (Functor f, Show (f b)) => String -> (a -> b) -> f a -> f a
- - traceMapWatch msg f x = Debug.trace (msg <> show (f `fmap` x)) x
- -}
 
 main :: IO ()
 main = do

@@ -2,7 +2,7 @@
 
 -- | A collection of functions about pagination.
 
-module Sites.Pager 
+module Sites.Pager
     ( getPageNumber
     , pager
     , getPage
@@ -11,14 +11,11 @@ module Sites.Pager
 
 import           Control.Monad
 import           Data.Char
-import qualified Data.List as L
+import qualified Data.List                   as L
 import           Data.Monoid
-import           Hakyll
-import           Text.Blaze.Html.Renderer.String (renderHtml)
-import           Text.Blaze.Html5 hiding (div, map, span, style)
+import           Text.Blaze.Html5            hiding (div, map, span, style)
+import qualified Text.Blaze.Html5            as H5
 import           Text.Blaze.Html5.Attributes hiding (style)
-import qualified Text.Blaze.Html5 as H5
-import qualified Text.Blaze.Html5.Attributes as H5A
 
 
 getPageNumber :: FilePath -> Int
@@ -37,22 +34,22 @@ pager pageCount page getPageUrl =
             when (page - 1 >= 0)    $ pl (page - 1)
             toHtml (succ page)
             toHtml (" " :: String)
-            when (page + 1 <= last) $ pl (page + 1)
-            when (page + 2 <= last) $ pl (page + 2)
-            when (next < last)      $ pageLink next "›"
-            when (last > page)      $ pageLink last "»"
+            when (page + 1 <= lst)  $ pl (page + 1)
+            when (page + 2 <= lst)  $ pl (page + 2)
+            when (next < lst)       $ pageLink next "›"
+            when (lst > page)       $ pageLink lst "»"
     where prev = pred page
           next = succ page
-          last = pred pageCount
+          lst  = pred pageCount
 
           pl n = pageLink n . show $ succ n
 
           pageLink :: Int -> String -> Html
-          pageLink n text = do
-              H5.span $ a ! href (toValue (getPageUrl n)) $ toHtml text
+          pageLink n txt = do
+              H5.span $ a ! href (toValue (getPageUrl n)) $ toHtml txt
               toHtml (" " :: String)
 
 getPage :: String -> Int -> String
-getPage p 0 = p <> ".html"
-getPage p n = p <> "-" <> show n <> ".html"
+getPage basename 0 = basename <> ".html"
+getPage basename n = basename <> "-" <> show n <> ".html"
 
