@@ -8,7 +8,7 @@ test: build
 	stack test $(FLAGS)
 
 run: build
-	$(RUN) site help
+	$(RUN) errsite --help
 
 # docs:
 # generate api documentation
@@ -23,7 +23,7 @@ run: build
 # generate executable and put it into `/usr/local`
 
 watch-site:
-	$(RUN) site watch
+	$(RUN) errsite build watch
 
 watch-code:
 	stack build $(FLAGS) --file-watch

@@ -16,6 +16,9 @@ cabal-version:       >=1.8
 
 library
   exposed-modules:     Sites
+                     , Sites.Actions.Build
+                     , Sites.Actions.Deploy
+                     , Sites.Actions.Illiterate
                      , Sites.Literate
   other-modules:       Sites.Base
                      , Sites.CljDataAnalysis
@@ -36,24 +39,16 @@ library
                      , pandoc
   hs-source-dirs:      src
 
-executable site
-  main-is:             site.hs
-  -- other-modules:       
+executable errsite
+  main-is:             Main.hs
+  other-modules:       Actions
+                     , Opts
+                     , Types
   hs-source-dirs:      app
   build-depends:       base            == 4.8.*
                      , errsite
-                     , network
-                     , bytestring
-                     , hakyll
-                     , blaze-html
+                     , optparse-applicative
                      , text
-                     , containers
-                     , shelly
-                     , filepath
-                     , time >=1.5
-                     , regex-tdfa
-                     , pandoc
-                     , mtl
 
 executable deploy
   main-is:             deploy.hs
