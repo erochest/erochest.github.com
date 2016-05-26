@@ -16,10 +16,25 @@ buildOpts =   Build
                                      <> help "An option to pass to Hakyll."
                                      ))
 
+deployOpts :: Parser Actions
+deployOpts
+    =   Deploy
+    <$> switch (  short 's'
+               <> long "scratch"
+               <> help "If given, this cleans the project and \
+                       \rebuilds everything from scratch. (Default \
+                       \is false.)")
+    <*> switch (  short 'b'
+               <> long "bail"
+               <>  help "If given, this will bail before actually \
+                        \deploying the site.")
+
 opts' :: Parser Actions
 opts' = subparser
-    (  command "build" (info (helper <*> buildOpts)
-                        (progDesc "Build the site."))
+    (  command "build"  (info (helper <*> buildOpts)
+                         (progDesc "Build the site."))
+    <> command "deploy" (info (helper <*> deployOpts)
+                         (progDesc "Deploy site to github pages."))
     )
 
 opts :: ParserInfo Actions

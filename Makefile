@@ -29,7 +29,7 @@ watch-code:
 	stack build $(FLAGS) --file-watch
 
 deploy:
-	$(RUN) deploy
+	$(RUN) errsite deploy
 
 hlint:
 	hlint *.hs src specs
