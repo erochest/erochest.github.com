@@ -29,12 +29,17 @@ deployOpts
                <>  help "If given, this will bail before actually \
                         \deploying the site.")
 
+illiterateOpts :: Parser Actions
+illiterateOpts = pure Illiterate
+
 opts' :: Parser Actions
 opts' = subparser
     (  command "build"  (info (helper <*> buildOpts)
                          (progDesc "Build the site."))
     <> command "deploy" (info (helper <*> deployOpts)
                          (progDesc "Deploy site to github pages."))
+    <> command "illiterate" (info (helper <*> illiterateOpts)
+                             (progDesc "Generate a literate Clojure file."))
     )
 
 opts :: ParserInfo Actions

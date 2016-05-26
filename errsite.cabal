@@ -50,20 +50,20 @@ executable errsite
                      , optparse-applicative
                      , text
 
-executable illiterate
-  main-is:             Illiterate.hs
-  hs-source-dirs:      app
-  build-depends:       base            == 4.8.*
-                     , errsite
-                     , shelly
-                     , text
-                     , time >=1.5
-                     , classy-prelude
-                     , containers
-                     , hakyll
-                     , blaze-html
-                     , filepath
-                     , regex-tdfa
-                     , pandoc
-                     , mtl
-                     , filepath
+-- executable illiterate
+  -- main-is:             Illiterate.hs
+  -- hs-source-dirs:      app
+  -- build-depends:       base            == 4.8.*
+                     -- , errsite
+                     -- , shelly
+                     -- , text
+                     -- , time >=1.5
+                     -- , classy-prelude
+                     -- , containers
+                     -- , hakyll
+                     -- , blaze-html
+                     -- , filepath
+                     -- , regex-tdfa
+                     -- , pandoc
+                     -- , mtl
+                     -- , filepath

@@ -9,4 +9,5 @@ data Actions
     | Deploy { scratch   :: !Bool
              , bail      :: !Bool
              }
+    | Illiterate
     deriving (Show, Eq)
