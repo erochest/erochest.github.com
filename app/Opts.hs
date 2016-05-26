@@ -10,11 +10,11 @@ import           Types
 textOpt :: ReadM T.Text
 textOpt = T.pack <$> str
 
-buildOpts :: Parser Actions
-buildOpts =   Build
-          <$> many (argument textOpt (  metavar "HAKYLL_OPT"
-                                     <> help "An option to pass to Hakyll."
-                                     ))
+hakyllOpts :: Parser Actions
+hakyllOpts =   Hakyll
+           <$> many (argument textOpt (  metavar "HAKYLL_OPT"
+                                      <> help "An option to pass to Hakyll."
+                                      ))
 
 deployOpts :: Parser Actions
 deployOpts
@@ -34,8 +34,8 @@ illiterateOpts = pure Illiterate
 
 opts' :: Parser Actions
 opts' = subparser
-    (  command "build"  (info (helper <*> buildOpts)
-                         (progDesc "Build the site."))
+    (  command "hakyll"  (info (helper <*> hakyllOpts)
+                          (progDesc "Call Hakyll on the site."))
     <> command "deploy" (info (helper <*> deployOpts)
                          (progDesc "Deploy site to github pages."))
     <> command "illiterate" (info (helper <*> illiterateOpts)

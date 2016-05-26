@@ -23,7 +23,7 @@ run: build
 # generate executable and put it into `/usr/local`
 
 watch-site:
-	$(RUN) errsite build watch
+	$(RUN) errsite hakyll watch
 
 watch-code:
 	stack build $(FLAGS) --file-watch

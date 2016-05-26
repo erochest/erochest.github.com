@@ -6,12 +6,12 @@ module Actions where
 
 import           Types
 
-import           Sites.Actions.Build
+import           Sites.Actions.Hakyll
 import           Sites.Actions.Deploy
 import           Sites.Actions.Illiterate
 
 
 action :: Actions -> IO ()
-action (Build args) = buildSite args
-action Deploy{..}   = deploySite scratch bail
-action Illiterate   = illiterateClojure
+action (Hakyll args) = callHakyll args
+action Deploy{..}    = deploySite scratch bail
+action Illiterate    = illiterateClojure

@@ -16,8 +16,8 @@ cabal-version:       >=1.8
 
 library
   exposed-modules:     Sites
-                     , Sites.Actions.Build
                      , Sites.Actions.Deploy
+                     , Sites.Actions.Hakyll
                      , Sites.Actions.Illiterate
                      , Sites.Literate
   other-modules:       Sites.Base

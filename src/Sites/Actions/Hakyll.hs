@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 
 
-module Sites.Actions.Build where
+module Sites.Actions.Hakyll where
 
 
 import qualified Data.Text          as T
@@ -12,8 +12,8 @@ import           Hakyll
 import           Sites
 
 
-buildSite :: [T.Text] -> IO ()
-buildSite args = do
+callHakyll :: [T.Text] -> IO ()
+callHakyll args = do
     Root{..} <- site
     withArgs (map T.unpack args) $ hakyll $ do
         match "templates/**" $ compile templateCompiler
