@@ -2,7 +2,6 @@
 
 module Sites.Base
     ( sassCompiler
-    -- , postTemplate
     , style
     , compilePage
     , siteContext
@@ -27,22 +26,13 @@ sassCompiler =
                                         , "--load-path", "sass/"
                                         ])
 
-{-
- - postTemplate :: Context String -> Item String -> Compiler (Item String)
- - postTemplate context item =
- -             loadAndApplyTemplate "templates/post.html" context item
- -         >>= loadAndApplyTemplate "templates/default.html" context
- -}
-
 style :: String -> String
 style url =  "<link rel=\"stylesheet\" href=\"" <> url <> "\">"
 
 compilePage :: Compiler (Item String)
 compilePage =   pandocCompiler
             >>= saveSnapshot "content"
-            -- >>= postTemplate context
             >>= relativizeUrls
-    -- where context = siteContext Nothing
 
 siteContext :: Maybe String -> Context String
 siteContext extraHeader =
