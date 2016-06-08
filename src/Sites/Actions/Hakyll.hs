@@ -49,3 +49,6 @@ callHakyll args = do
         match "font/*" $ do
             route   idRoute
             compile copyFileCompiler
+        match "*.xml" $ do
+            route   idRoute
+            compile copyFileCompiler
