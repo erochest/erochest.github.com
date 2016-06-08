@@ -35,6 +35,13 @@ loadPageContent =
 rules :: IO (Rules ())
 rules =
     return $ do
+        create ["index.html"] $ do
+            let context = siteContext Nothing
+            route idRoute
+            compile $   getResourceBody
+                    >>= loadAndApplyTemplate "templates/default.html" context
+                    >>= relativizeUrls
+
         create ["atom.xml"] $ do
             route idRoute
             compile $
