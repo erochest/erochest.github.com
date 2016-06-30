@@ -1,1 +1,89 @@
 
+.panes {
+    margin-top: 40px;
+}
+
+.pane {
+    height: 360px;
+    border: 3px solid white;
+    padding-top: 5px;
+
+    position: relative;
+    transition: background-color 1s;
+    &:before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: inherit;
+        content: ' ';
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.projects {
+        background: rgba(0, 150, 136, 0.05) url(/img/projects-large.jpg);
+        &:hover {
+            background-color: rgba(0, 150, 136, 0.2);
+        }
+    }
+
+    &.reading {
+        background: rgba(0, 150, 136, 0.05) url(/img/reading-large.jpg);
+        &:hover {
+            background-color: rgba(0, 150, 136, 0.2);
+        }
+    }
+
+    &.writing {
+        background: rgba(0, 150, 136, 0.05) url(/img/writing-large.jpg);
+        &:hover {
+            background-color: rgba(0, 150, 136, 0.2);
+        }
+    }
+
+    &.about {
+        background: rgba(0, 150, 136, 0.05) url(/img/about-large.jpg);
+        &:hover {
+            background-color: rgba(0, 150, 136, 0.2);
+        }
+    }
+
+}
+
+@media all and (max-width: 640px) {
+    .pane {
+        height: 180px;
+
+        &.projects {
+            background: rgba(0, 150, 136, 0.05) url(/img/projects-small.jpg);
+            &:hover {
+                background-color: rgba(0, 150, 136, 0.2);
+            }
+        }
+
+        &.reading {
+            background: rgba(0, 150, 136, 0.05) url(/img/reading-small.jpg);
+            &:hover {
+                background-color: rgba(0, 150, 136, 0.2);
+            }
+        }
+
+        &.writing {
+            background: rgba(0, 150, 136, 0.05) url(/img/writing-small.jpg);
+            &:hover {
+                background-color: rgba(0, 150, 136, 0.2);
+            }
+        }
+
+        &.about {
+            background: rgba(0, 150, 136, 0.05) url(/img/about-small.jpg);
+            &:hover {
+                background-color: rgba(0, 150, 136, 0.2);
+            }
+        }
+    }
+}

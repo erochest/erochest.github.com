@@ -36,7 +36,7 @@ rules :: IO (Rules ())
 rules =
     return $ do
         create ["index.html"] $ do
-            let context = siteContext Nothing
+            let context = siteContext . Just $ style "css/index.css"
             route idRoute
             compile $   getResourceBody
                     >>= loadAndApplyTemplate "templates/default.html" context

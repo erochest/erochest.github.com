@@ -6,6 +6,7 @@
         <title>Eric Rochester — $title$</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#5D4037">
 
         <link rel="alternate" type="application/atom+xml" href="/atom.xml"
               title="Atom Feed">
@@ -15,7 +16,13 @@
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/syntax.css">
+        <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+
         <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
         $extra-header$
     </head>
     <body>
@@ -23,10 +30,25 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="container">
-          <div>
-            $body$
+        <nav class="brown" role="navigation">
+          <div class="nav-wrapper container">
+            <a class="brand-logo">e·</a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="#">Large Navbar Link 1</a></li>
+              <li><a href="#">Large Navbar Link 2</a></li>
+            </ul>
+            <ul class="side-nav">
+              <li><a href="#">Mobile Navbar Link 1</a></li>
+              <li><a href="#">Mobile Navbar Link 2</a></li>
+            </ul>
+            <a data-activates="nav-mobile" class="button-collapse">
+              <i class="material-icons">menu</i>
+            </a>
           </div>
+        </nav>
+
+        <div id="container" class="container">
+          $body$
         </div>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
