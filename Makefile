@@ -28,6 +28,9 @@ watch-site:
 watch-code:
 	stack build $(FLAGS) --file-watch
 
+tags:
+	hasktags --ctags app src
+
 deploy:
 	$(RUN) errsite deploy
 
@@ -36,6 +39,7 @@ hlint:
 
 clean:
 	stack clean
+	-rm tags
 
 distclean: clean
 
