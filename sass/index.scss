@@ -1,15 +1,24 @@
 
+$pane_normal: rgba(0, 150, 136, 0.2);
+$pane_hover : rgba(0, 150, 136, 0.05);
+
 .panes {
     margin-top: 40px;
 }
 
 .pane {
     height: 360px;
-    border: 3px solid white;
-    padding-top: 5px;
-
     position: relative;
     transition: background-color 1s;
+    font-weight: bold;
+    font-size: x-large;
+
+    span {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+
     &:before {
         position: absolute;
         top: 0;
@@ -20,35 +29,31 @@
         content: ' ';
     }
 
-    &:hover {
-        cursor: pointer;
-    }
-
     &.projects {
-        background: rgba(0, 150, 136, 0.05) url(/img/projects-large.jpg);
+        background: $pane_normal url(/img/projects-large.jpg);
         &:hover {
-            background-color: rgba(0, 150, 136, 0.2);
+            background-color: $pane_hover;
         }
     }
 
     &.reading {
-        background: rgba(0, 150, 136, 0.05) url(/img/reading-large.jpg);
+        background: $pane_normal url(/img/reading-large.jpg);
         &:hover {
-            background-color: rgba(0, 150, 136, 0.2);
+            background-color: $pane_hover;
         }
     }
 
     &.writing {
-        background: rgba(0, 150, 136, 0.05) url(/img/writing-large.jpg);
+        background: $pane_normal url(/img/writing-large.jpg);
         &:hover {
-            background-color: rgba(0, 150, 136, 0.2);
+            background-color: $pane_hover;
         }
     }
 
     &.about {
-        background: rgba(0, 150, 136, 0.05) url(/img/about-large.jpg);
+        background: $pane_normal url(/img/about-large.jpg);
         &:hover {
-            background-color: rgba(0, 150, 136, 0.2);
+            background-color: $pane_hover;
         }
     }
 
@@ -59,30 +64,30 @@
         height: 180px;
 
         &.projects {
-            background: rgba(0, 150, 136, 0.05) url(/img/projects-small.jpg);
+            background: $pane_normal url(/img/projects-small.jpg);
             &:hover {
-                background-color: rgba(0, 150, 136, 0.2);
+                background-color: $pane_hover;
             }
         }
 
         &.reading {
-            background: rgba(0, 150, 136, 0.05) url(/img/reading-small.jpg);
+            background: $pane_normal url(/img/reading-small.jpg);
             &:hover {
-                background-color: rgba(0, 150, 136, 0.2);
+                background-color: $pane_hover;
             }
         }
 
         &.writing {
-            background: rgba(0, 150, 136, 0.05) url(/img/writing-small.jpg);
+            background: $pane_normal url(/img/writing-small.jpg);
             &:hover {
-                background-color: rgba(0, 150, 136, 0.2);
+                background-color: $pane_hover;
             }
         }
 
         &.about {
-            background: rgba(0, 150, 136, 0.05) url(/img/about-small.jpg);
+            background: $pane_normal url(/img/about-small.jpg);
             &:hover {
-                background-color: rgba(0, 150, 136, 0.2);
+                background-color: $pane_hover;
             }
         }
     }
