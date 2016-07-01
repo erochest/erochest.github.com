@@ -21,6 +21,7 @@
 
         <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+        <script src="https://use.fontawesome.com/820ca58396.js"></script>
 
         $extra-header$
     </head>
@@ -29,26 +30,49 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <nav class="brown" role="navigation">
-          <div class="nav-wrapper container">
-            <a class="brand-logo">e·</a>
-            <ul class="right hide-on-med-and-down">
-              <li><a href="#">Large Navbar Link 1</a></li>
-              <li><a href="#">Large Navbar Link 2</a></li>
-            </ul>
-            <ul class="side-nav">
-              <li><a href="#">Mobile Navbar Link 1</a></li>
-              <li><a href="#">Mobile Navbar Link 2</a></li>
-            </ul>
-            <a data-activates="nav-mobile" class="button-collapse">
-              <i class="material-icons">menu</i>
-            </a>
-          </div>
-        </nav>
+        <header>
+          <nav class="brown" role="navigation">
+            <div class="nav-wrapper container">
+              <a class="brand-logo">e·</a>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="#">Large Navbar Link 1</a></li>
+                <li><a href="#">Large Navbar Link 2</a></li>
+              </ul>
+              <ul class="side-nav">
+                <li><a href="#">Mobile Navbar Link 1</a></li>
+                <li><a href="#">Mobile Navbar Link 2</a></li>
+              </ul>
+              <a data-activates="nav-mobile" class="button-collapse">
+                <i class="material-icons">menu</i>
+              </a>
+            </div>
+          </nav>
+        </header>
 
-        <div id="container" class="container">
-          $body$
-        </div>
+        <main>
+          <div id="container" class="container">
+            $body$
+          </div>
+        </main>
+
+        <footer class="page-footer brown lighten-1 brown-text text-lighten-5">
+          <div class="container">
+            <div class="row">
+              <div class="col l4 offset-l8 m6 offset-m6 s12">
+                <ul class="social">
+                  <li><a href="https://twitter.com/erochest">
+                      <i class="fa fa-twitter"></i> twitter</a></li>
+                  <li><a href="https://github.com/erochest">
+                      <i class="fa fa-github"></i> github</a></li>
+                  <li><a href="https://plus.google.com/114676222173328397142">
+                      <i class="fa fa-google-plus"></i> google+</a></li>
+                  <li><a href="http://www.linkedin.com/in/erochester">
+                      <i class="fa fa-linkedin"></i> linkedin</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
