@@ -18,6 +18,8 @@ import           Data.Time.Clock  (UTCTime)
 import           Data.Time.Format (defaultTimeLocale, formatTime, parseTimeM)
 import           Hakyll
 
+import           Sites.Utils
+
 sassCompiler :: Compiler (Item String)
 sassCompiler =
         getResourceString >>=
@@ -33,6 +35,7 @@ compilePage :: Compiler (Item String)
 compilePage =   pandocCompiler
             >>= saveSnapshot "content"
             >>= relativizeUrls
+            >>= cleanIndexUrls
 
 siteContext :: Maybe String -> Context String
 siteContext extraHeader =

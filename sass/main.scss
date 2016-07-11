@@ -1,1 +1,22 @@
 
+a {
+    &:link    { color: #00bfa5; }
+    &:visited { color: #00bfa5; }
+    &:hover   { color: #00bfa5; }
+    &:active  { color: #00bfa5; }
+}
+
+a.brand-logo {
+    &:link    { color: #efebe9; }
+    &:visited { color: #efebe9; }
+    &:hover   { color: #efebe9; }
+    &:active  { color: #efebe9; }
+}
+
+ul {
+    padding-left: 1.5em;
+
+    li {
+        list-style-type: disc;
+    }
+}

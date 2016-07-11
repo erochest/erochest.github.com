@@ -26,7 +26,7 @@ watch-site:
 	$(RUN) errsite hakyll watch
 
 watch-code:
-	stack build $(FLAGS) --file-watch
+	stack build $(FLAGS) --fast --file-watch
 
 tags:
 	hasktags --ctags app src

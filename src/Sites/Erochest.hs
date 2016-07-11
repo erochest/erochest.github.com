@@ -16,6 +16,7 @@ import           Prelude                         hiding (FilePath)
 import           Sites.Base
 import           Sites.Literate
 import           Sites.Types
+import           Sites.Utils
 
 
 erochestSite :: IO SiteInfo
@@ -41,6 +42,7 @@ rules =
             compile $   getResourceBody
                     >>= loadAndApplyTemplate "templates/default.html" context
                     >>= relativizeUrls
+                    >>= cleanIndexUrls
 
         create ["atom.xml"] $ do
             route idRoute
@@ -53,8 +55,14 @@ rules =
                                                 "http://www.ericrochester.com/"
                 in  take 10 <$> loadPageContent >>= renderAtom config context
 
+        match "pages/*.md" $ do
+            let context = siteContext . Just $ style "/css/index.css"
+            route       cleanRoute
+            compile $   compilePage
+                    >>= loadAndApplyTemplate "templates/default.html" context
+
         match "pages/**/*.md" $ do
-            route   $ setExtension "html"
+            route     cleanRoute
             compile   compilePage
 
         match "pages/**/*.md" $ version "raw" $ do
@@ -68,6 +76,7 @@ rules =
                 case clojure $ itemBody rsc of
                      Right body -> saveSnapshot "content" (itemSetBody body rsc)
                                     >>= relativizeUrls
+                                    >>= cleanIndexUrls
                      Left e     -> throwError . pure $ displayException e
 
         match "pages/**/*.clj" $ version "raw" $ do

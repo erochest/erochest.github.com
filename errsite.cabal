@@ -26,6 +26,7 @@ library
                      , Sites.Erochest
                      , Sites.Pager
                      , Sites.Types
+                     , Sites.Utils
   build-depends:       base            == 4.8.*
                      , text
                      , hakyll

@@ -9,6 +9,7 @@ module Sites.CljDataAnalysis
 import           Hakyll
 import           Sites.Base
 import           Sites.Types
+import           Sites.Utils
 
 
 cljDataAnalysisSite :: IO SiteInfo
@@ -18,10 +19,11 @@ cljDataAnalysisSite =
 rules :: Rules ()
 rules = do
     match "clj-data-analysis/index.md" $ do
-        route   $   setExtension "html"
+        route       cleanRoute
         compile $   pandocCompiler
                 >>= loadAndApplyTemplate "templates/default.html" (siteContext Nothing)
                 >>= relativizeUrls
+                >>= cleanIndexUrls
 
     match "clj-data-analysis/data/*" $ do
         route   idRoute
