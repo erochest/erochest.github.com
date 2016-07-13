@@ -25,6 +25,8 @@ run: build
 watch-site:
 	$(RUN) errsite hakyll watch
 
+watch-site-clean: clean build watch-site
+
 watch-code:
 	stack build $(FLAGS) --fast --file-watch
 

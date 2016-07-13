@@ -40,7 +40,7 @@ rules =
             let context = siteContext . Just $ style "css/index.css"
             route idRoute
             compile $   getResourceBody
-                    >>= loadAndApplyTemplate "templates/default.html" context
+                    >>= loadAndApplyDefault context
                     >>= relativizeUrls
                     >>= cleanIndexUrls
 
@@ -59,7 +59,7 @@ rules =
             let context = siteContext . Just $ style "/css/index.css"
             route       cleanRoute
             compile $   compilePage
-                    >>= loadAndApplyTemplate "templates/default.html" context
+                    >>= loadAndApplyDefault context
 
         match "pages/**/*.md" $ do
             route     cleanRoute

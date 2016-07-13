@@ -9,14 +9,16 @@ module Sites.Base
     , parseDateLax
     , formatTime'
     , extraHeaderContext
+    , loadAndApplyDefault
     ) where
 
 import           Control.Monad
-import           Data.Maybe       (fromMaybe)
+import           Data.Maybe         (fromMaybe)
 import           Data.Monoid
-import           Data.Time.Clock  (UTCTime)
-import           Data.Time.Format (defaultTimeLocale, formatTime, parseTimeM)
+import           Data.Time.Clock    (UTCTime)
+import           Data.Time.Format   (defaultTimeLocale, formatTime, parseTimeM)
 import           Hakyll
+import           System.Environment
 
 import           Sites.Utils
 
@@ -63,4 +65,17 @@ parseDateLax dateStamp = msum $ map (`parse` dateStamp) formats
 
 formatTime' :: UTCTime -> String
 formatTime' = formatTime defaultTimeLocale "%e %b %Y"
+
+loadAndApplyDefault :: Context a -> Item a -> Compiler (Item String)
+loadAndApplyDefault c i = do
+    debug <- unsafeCompiler $ lookupEnv "DEBUG"
+    let c' = c <> constField "livereload" (maybe "" (const livereload) debug)
+    loadAndApplyTemplate "templates/default.html" c' i
+    where
+        livereload :: String
+        livereload = "\
+            \<script>\n\
+            \  document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] +\n\
+            \    ':35729/livereload.js?snipver=1\"></' + 'script>')\n\
+            \</script>"
 

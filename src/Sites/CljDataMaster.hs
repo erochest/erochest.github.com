@@ -30,7 +30,7 @@ rules = do
     match "clj-data-master/index.md" $ do
         route   $   setExtension "html"
         compile $   pandocCompiler
-                >>= loadAndApplyTemplate "templates/default.html" (siteContext Nothing)
+                >>= loadAndApplyDefault (siteContext Nothing)
                 >>= relativizeUrls
                 >>= cleanIndexUrls
 

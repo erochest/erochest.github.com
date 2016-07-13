@@ -21,7 +21,7 @@ rules = do
     match "clj-data-analysis/index.md" $ do
         route       cleanRoute
         compile $   pandocCompiler
-                >>= loadAndApplyTemplate "templates/default.html" (siteContext Nothing)
+                >>= loadAndApplyDefault (siteContext Nothing)
                 >>= relativizeUrls
                 >>= cleanIndexUrls
 
