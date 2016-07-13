@@ -61,6 +61,12 @@ rules =
             compile $   compilePage
                     >>= loadAndApplyDefault context
 
+        match "pages/*.html" $ do
+            let context = siteContext . Just $ style "/css/index.css"
+            route       cleanRoute
+            compile $   getResourceBody
+                    >>= loadAndApplyDefault context
+
         match "pages/**/*.md" $ do
             route     cleanRoute
             compile   compilePage
