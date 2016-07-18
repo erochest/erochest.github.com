@@ -1,4 +1,18 @@
 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 a {
     &:link    { color: #00bfa5; }
     &:visited { color: #00bfa5; }
@@ -22,3 +36,26 @@ main {
         }
     }
 }
+
+ul.social {
+    list-style: none;
+    font-size: smaller;
+    li {
+        display: inline;
+        &:after {
+            content: " \00b7";
+        }
+        &:last-child:after {
+            content: none;
+        }
+    }
+    a:link, a:visited, a:active {
+        color: rgb(239, 235, 233);
+    }
+}
+
+.footer-copyright {
+    font-size: x-small;
+}
+
+
