@@ -36,10 +36,14 @@ tags:
 deploy:
 	$(RUN) errsite deploy
 
+check: hlint
+	$(RUN) errsite hakyll check
+
 hlint:
 	hlint *.hs src specs
 
 clean:
+	-$(RUN) errsite hakyll clean
 	stack clean
 	-rm tags
 
