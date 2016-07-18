@@ -12,11 +12,10 @@ import           Control.Monad
 import           Control.Monad.Error.Class
 import           Data.Monoid
 import           Hakyll
-import           Prelude                         hiding (FilePath)
+import           Prelude                   hiding (FilePath)
 import           Sites.Base
 import           Sites.Literate
 import           Sites.Types
-import           Sites.Utils
 
 
 erochestSite :: IO SiteInfo
