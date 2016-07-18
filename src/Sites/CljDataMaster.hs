@@ -11,7 +11,6 @@ import           Hakyll
 
 import           Sites.Base
 import           Sites.Types
-import           Sites.Utils
 
 
 cljDataMasterSite :: IO SiteInfo
@@ -27,12 +26,8 @@ cljDataMasterSite = return $ Site "clj-data-master"
 
 rules :: Rules ()
 rules = do
-    match "clj-data-master/index.md" $ do
-        route   $   setExtension "html"
-        compile $   pandocCompiler
-                >>= loadAndApplyDefault (siteContext Nothing)
-                >>= relativizeUrls
-                >>= cleanIndexUrls
+    match "clj-data-master/index.md"
+        pandocHtml
 
     match "clj-data-master/*.csv" $ do
         route   idRoute
