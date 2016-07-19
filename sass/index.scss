@@ -51,7 +51,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
     &.projects {
         @extend .l6, .m6;
-        background: $pane_normal url(/img/projects-large.jpg);
+        background: $pane_normal url(/img/projects.jpg);
         &:hover {
             background-color: $pane_hover;
         }
@@ -59,7 +59,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
     &.reading {
         @extend .l5, .m5;
-        background: $pane_normal url(/img/reading-large.jpg);
+        background: $pane_normal url(/img/reading.jpg);
         &:hover {
             background-color: $pane_hover;
         }
@@ -67,7 +67,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
     &.writing {
         @extend .l5, .m5;
-        background: $pane_normal url(/img/writing-large.jpg);
+        background: $pane_normal url(/img/writing.jpg);
         &:hover {
             background-color: $pane_hover;
         }
@@ -75,7 +75,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
     &.about {
         @extend .l2, .m2;
-        background: $pane_normal url(/img/about-large.jpg);
+        background: $pane_normal url(/img/about.jpg);
         &:hover {
             background-color: $pane_hover;
         }
@@ -86,33 +86,5 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 @media #{$small-and-down} {
     .pane {
         height: 120px;
-
-        &.projects {
-            background: $pane_normal url(/img/projects-small.jpg);
-            &:hover {
-                background-color: $pane_hover;
-            }
-        }
-
-        &.reading {
-            background: $pane_normal url(/img/reading-small.jpg);
-            &:hover {
-                background-color: $pane_hover;
-            }
-        }
-
-        &.writing {
-            background: $pane_normal url(/img/writing-small.jpg);
-            &:hover {
-                background-color: $pane_hover;
-            }
-        }
-
-        &.about {
-            background: $pane_normal url(/img/about-small.jpg);
-            &:hover {
-                background-color: $pane_hover;
-            }
-        }
     }
 }
