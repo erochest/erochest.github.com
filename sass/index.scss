@@ -1,3 +1,12 @@
+@charset "UTF-8";
+
+@import "components/mixins";
+@import "components/color";
+@import "components/variables";
+@import "components/normalize";
+@import "components/typography";
+@import "components/global";
+@import "components/grid";
 
 $pane_normal: rgba(0, 150, 136, 0.8);
 $pane_hover : rgba(0, 150, 136, 0.2);
@@ -7,6 +16,9 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 }
 
 .pane {
+    @extend .brown-text, .text-lighten-5;
+    @extend .col, .l3, .m6, .s12, .right-align;
+
     height: 360px;
     position: relative;
     transition: background-color 1s;
@@ -59,7 +71,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
 }
 
-@media all and (max-width: 640px) {
+@media #{$small-and-down} {
     .pane {
         height: 180px;
 

@@ -91,3 +91,7 @@ rules =
         match "sass/index.scss" $ do
             route   $ constRoute "css/index.css"
             compile   sassCompiler
+
+        match "sass/materialize.scss" $ do
+            route   $ constRoute "css/materialize.css"
+            compile   sassCompiler
