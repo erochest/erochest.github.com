@@ -17,9 +17,9 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
 .pane {
     @extend .brown-text, .text-lighten-5;
-    @extend .col, .l3, .m6, .s12, .right-align;
+    @extend .col, .s12, .right-align;
 
-    height: 360px;
+    height: 180px;
     position: relative;
     transition: background-color 1s;
     font-weight: bold;
@@ -41,7 +41,16 @@ $pane_hover : rgba(0, 150, 136, 0.2);
         content: ' ';
     }
 
+    &.blog {
+        @extend .l6, .m6;
+        background: $pane_normal url(/img/blog-large.jpg);
+        &:hover {
+            background-color: $pane_hover;
+        }
+    }
+
     &.projects {
+        @extend .l6, .m6;
         background: $pane_normal url(/img/projects-large.jpg);
         &:hover {
             background-color: $pane_hover;
@@ -49,6 +58,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
     }
 
     &.reading {
+        @extend .l5, .m5;
         background: $pane_normal url(/img/reading-large.jpg);
         &:hover {
             background-color: $pane_hover;
@@ -56,6 +66,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
     }
 
     &.writing {
+        @extend .l5, .m5;
         background: $pane_normal url(/img/writing-large.jpg);
         &:hover {
             background-color: $pane_hover;
@@ -63,6 +74,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
     }
 
     &.about {
+        @extend .l2, .m2;
         background: $pane_normal url(/img/about-large.jpg);
         &:hover {
             background-color: $pane_hover;
@@ -73,7 +85,14 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
 @media #{$small-and-down} {
     .pane {
-        height: 180px;
+        height: 120px;
+
+        &.blog {
+            background: $pane_normal url(/img/blog-small.jpg);
+            &:hover {
+                background-color: $pane_hover;
+            }
+        }
 
         &.projects {
             background: $pane_normal url(/img/projects-small.jpg);
