@@ -43,7 +43,7 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
     &.blog {
         @extend .l6, .m6;
-        background: $pane_normal url(/img/blog-large.jpg);
+        background: $pane_normal url(/img/blog.jpg);
         &:hover {
             background-color: $pane_hover;
         }
@@ -86,13 +86,6 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 @media #{$small-and-down} {
     .pane {
         height: 120px;
-
-        &.blog {
-            background: $pane_normal url(/img/blog-small.jpg);
-            &:hover {
-                background-color: $pane_hover;
-            }
-        }
 
         &.projects {
             background: $pane_normal url(/img/projects-small.jpg);
