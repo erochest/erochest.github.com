@@ -55,10 +55,11 @@ rules =
                 in  take 10 <$> loadPageContent >>= renderAtom config context
 
         match "pages/*.md" $ do
-            let context = siteContext . Just $ style "/css/index.css"
             route   $   customRoute createBaseIndexRoute
-            compile $   compilePage
-                    >>= loadAndApplyDefault context
+            compile .   compilePage'
+                    $   siteContext
+                    .   Just
+                    $   style "/css/index.css"
 
         match "pages/*.html" $ do
             let context = siteContext . Just $ style "/css/index.css"
@@ -67,8 +68,8 @@ rules =
                     >>= loadAndApplyDefault context
 
         match "posts/**/*.md" $ do
-            route     cleanRoute
-            compile   compilePage
+            route   $ setExtension "html"
+            compile   compilePost
 
         match "posts/**/*.md" $ version "raw" $ do
             route   idRoute
@@ -79,10 +80,13 @@ rules =
             compile $   do
                 rsc <- getResourceBody
                 case clojure $ itemBody rsc of
-                     Right body -> saveSnapshot "content" (itemSetBody body rsc)
-                                    >>= relativizeUrls
-                                    >>= cleanIndexUrls
-                     Left e     -> throwError . pure $ displayException e
+                     Right body ->  saveSnapshot "content"
+                                        (itemSetBody body rsc)
+                                >>= loadAndApplyTemplate' "templates/post.html"
+                                        (siteContext Nothing)
+                                >>= relativizeUrls
+                                >>= cleanIndexUrls
+                     Left e     ->  throwError . pure $ displayException e
 
         match "posts/**/*.clj" $ version "raw" $ do
             route   idRoute
