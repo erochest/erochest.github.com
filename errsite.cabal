@@ -25,6 +25,7 @@ library
                      , Sites.CljDataMaster
                      , Sites.Erochest
                      , Sites.Pager
+                     , Sites.Reading
                      , Sites.Types
                      , Sites.Utils
   build-depends:       base            == 4.8.*
