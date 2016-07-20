@@ -25,7 +25,7 @@ erochestSite = Site "erochest" "erochest.github.com" "." `fmap` rules
 -- should be in the next few definitions.
 
 postPattern :: Pattern
-postPattern = "pages/**/*.md" .||. "pages/**/index.clj"
+postPattern = "posts/**/*.md" .||. "posts/**/index.clj"
 
 loadPageContent :: Compiler [Item String]
 loadPageContent =
@@ -56,25 +56,25 @@ rules =
 
         match "pages/*.md" $ do
             let context = siteContext . Just $ style "/css/index.css"
-            route       cleanRoute
+            route   $   customRoute createBaseIndexRoute
             compile $   compilePage
                     >>= loadAndApplyDefault context
 
         match "pages/*.html" $ do
             let context = siteContext . Just $ style "/css/index.css"
-            route       cleanRoute
+            route   $   customRoute createBaseIndexRoute
             compile $   getResourceBody
                     >>= loadAndApplyDefault context
 
-        match "pages/**/*.md" $ do
+        match "posts/**/*.md" $ do
             route     cleanRoute
             compile   compilePage
 
-        match "pages/**/*.md" $ version "raw" $ do
+        match "posts/**/*.md" $ version "raw" $ do
             route   idRoute
             compile getResourceBody
 
-        match "pages/**/index.clj" $ do
+        match "posts/**/index.clj" $ do
             route   $   setExtension "html"
             compile $   do
                 rsc <- getResourceBody
@@ -84,7 +84,7 @@ rules =
                                     >>= cleanIndexUrls
                      Left e     -> throwError . pure $ displayException e
 
-        match "pages/**/*.clj" $ version "raw" $ do
+        match "posts/**/*.clj" $ version "raw" $ do
             route   idRoute
             compile getResourceBody
 

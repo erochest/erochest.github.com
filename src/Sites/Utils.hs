@@ -3,6 +3,8 @@
 
 module Sites.Utils
     ( cleanRoute
+    , createIndexRoute
+    , createBaseIndexRoute
     , cleanIndexUrls
     , cleanIndexHtmls
     , cleanIndex
@@ -33,10 +35,14 @@ import           System.FilePath
 
 cleanRoute :: Routes
 cleanRoute = customRoute createIndexRoute
-    where
-        createIndexRoute ident =
-            takeDirectory p </> takeBaseName p </> "index.html"
-            where p = toFilePath ident
+
+createIndexRoute :: Identifier -> FilePath
+createIndexRoute ident =
+    takeDirectory p </> takeBaseName p </> "index.html"
+    where p = toFilePath ident
+
+createBaseIndexRoute :: Identifier -> FilePath
+createBaseIndexRoute ident = takeBaseName (toFilePath ident) </> "index.html"
 
 cleanIndexUrls :: Item String -> Compiler (Item String)
 cleanIndexUrls = return . fmap (withUrls cleanIndex)
