@@ -13,12 +13,16 @@ module Sites.Utils
     , style
     , sassCompiler
     , compilePage
+    , compilePage'
+    , compilePost
+    , compilePost'
     , siteContext
     , reformatDate
     , parseDateLax
     , formatTime'
     , extraHeaderContext
     , loadAndApplyDefault
+    , loadAndApplyTemplate'
     ) where
 
 
@@ -87,10 +91,24 @@ style :: String -> String
 style url =  "<link rel=\"stylesheet\" href=\"" <> url <> "\">"
 
 compilePage :: Compiler (Item String)
-compilePage =   pandocCompiler
-            >>= saveSnapshot "content"
-            >>= relativizeUrls
-            >>= cleanIndexUrls
+compilePage =  compilePage' $ siteContext Nothing
+
+compilePage' :: Context String -> Compiler (Item String)
+compilePage' c =   pandocCompiler
+               >>= saveSnapshot "content"
+               >>= loadAndApplyDefault c
+               >>= relativizeUrls
+               >>= cleanIndexUrls
+
+compilePost :: Compiler (Item String)
+compilePost = compilePost' $ siteContext Nothing
+
+compilePost' :: Context String -> Compiler (Item String)
+compilePost' c =   pandocCompiler
+               >>= saveSnapshot "content"
+               >>= loadAndApplyTemplate' "templates/post.html" c
+               >>= relativizeUrls
+               >>= cleanIndexUrls
 
 siteContext :: Maybe String -> Context String
 siteContext extraHeader =
@@ -120,10 +138,14 @@ formatTime' :: UTCTime -> String
 formatTime' = formatTime defaultTimeLocale "%e %b %Y"
 
 loadAndApplyDefault :: Context a -> Item a -> Compiler (Item String)
-loadAndApplyDefault c i = do
+loadAndApplyDefault = loadAndApplyTemplate' "templates/default.html"
+
+loadAndApplyTemplate' :: Identifier -> Context a -> Item a
+                      -> Compiler (Item String)
+loadAndApplyTemplate' t c i = do
     debug <- unsafeCompiler $ lookupEnv "DEBUG"
     let c' = c <> constField "livereload" (maybe "" (const livereload) debug)
-    loadAndApplyTemplate "templates/default.html" c' i
+    loadAndApplyTemplate t c' i
     where
         livereload :: String
         livereload = "\
