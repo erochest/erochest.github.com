@@ -35,13 +35,8 @@ loadPageContent =
 rules :: IO (Rules ())
 rules =
     return $ do
-        create ["index.html"] $ do
-            let context = siteContext . Just $ style "css/index.css"
-            route idRoute
-            compile $   getResourceBody
-                    >>= loadAndApplyDefault context
-                    >>= relativizeUrls
-                    >>= cleanIndexUrls
+        create ["posts/index.html"] $
+            return ()
 
         create ["atom.xml"] $ do
             route idRoute
@@ -53,6 +48,14 @@ rules =
                                                 "erochest@gmail.com"
                                                 "http://www.ericrochester.com/"
                 in  take 10 <$> loadPageContent >>= renderAtom config context
+
+        match "index.html" $ do
+            let context = siteContext . Just $ style "/css/index.css"
+            route       idRoute
+            compile $   getResourceBody
+                    >>= loadAndApplyDefault context
+                    >>= relativizeUrls
+                    >>= cleanIndexUrls
 
         match "pages/*.md" $ do
             route   $   customRoute createBaseIndexRoute

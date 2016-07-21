@@ -23,6 +23,8 @@ module Sites.Utils
     , extraHeaderContext
     , loadAndApplyDefault
     , loadAndApplyTemplate'
+    , postTemplate
+    , livereload
     ) where
 
 
@@ -106,7 +108,7 @@ compilePost = compilePost' $ siteContext Nothing
 compilePost' :: Context String -> Compiler (Item String)
 compilePost' c =   pandocCompiler
                >>= saveSnapshot "content"
-               >>= loadAndApplyTemplate' "templates/post.html" c
+               >>= postTemplate c
                >>= relativizeUrls
                >>= cleanIndexUrls
 
@@ -143,14 +145,22 @@ loadAndApplyDefault = loadAndApplyTemplate' "templates/default.html"
 loadAndApplyTemplate' :: Identifier -> Context a -> Item a
                       -> Compiler (Item String)
 loadAndApplyTemplate' t c i = do
-    debug <- unsafeCompiler $ lookupEnv "DEBUG"
-    let c' = c <> constField "livereload" (maybe "" (const livereload) debug)
+    c' <- livereload c
     loadAndApplyTemplate t c' i
+
+postTemplate :: Context String -> Item String -> Compiler (Item String)
+postTemplate c =
+    loadAndApplyTemplate "templates/default.html" c
+        <=< loadAndApplyTemplate "templates/post.html" c
+
+livereload :: Context a -> Compiler (Context a)
+livereload c =
+    mappend c . constField "livereload" . maybe "" (const livereload')
+        <$> unsafeCompiler (lookupEnv "DEBUG")
     where
-        livereload :: String
-        livereload = "\
+        livereload' :: String
+        livereload' = "\
             \<script>\n\
             \  document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] +\n\
             \    ':35729/livereload.js?snipver=1\"></' + 'script>')\n\
             \</script>"
-
