@@ -17,9 +17,9 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
 .pane {
     @extend .brown-text, .text-lighten-5;
-    @extend .col, .s12, .right-align;
+    @extend .col, .l3, .m6, .s12, .right-align;
 
-    height: 180px;
+    height: 360px;
     position: relative;
     transition: background-color 1s;
     font-weight: bold;
@@ -42,7 +42,6 @@ $pane_hover : rgba(0, 150, 136, 0.2);
     }
 
     &.blog {
-        @extend .l6, .m6;
         background: $pane_normal url(/img/blog.jpg);
         &:hover {
             background-color: $pane_hover;
@@ -50,7 +49,6 @@ $pane_hover : rgba(0, 150, 136, 0.2);
     }
 
     &.projects {
-        @extend .l6, .m6;
         background: $pane_normal url(/img/projects.jpg);
         &:hover {
             background-color: $pane_hover;
@@ -58,7 +56,6 @@ $pane_hover : rgba(0, 150, 136, 0.2);
     }
 
     &.reading {
-        @extend .l5, .m5;
         background: $pane_normal url(/img/reading.jpg);
         &:hover {
             background-color: $pane_hover;
@@ -66,21 +63,18 @@ $pane_hover : rgba(0, 150, 136, 0.2);
     }
 
     &.writing {
-        @extend .l5, .m5;
         background: $pane_normal url(/img/writing.jpg);
         &:hover {
             background-color: $pane_hover;
         }
     }
 
-    &.about {
-        @extend .l2, .m2;
-        background: $pane_normal url(/img/about.jpg);
-        &:hover {
-            background-color: $pane_hover;
-        }
-    }
+}
 
+@media #{$medium-and-down} {
+    .pane {
+        height: 180px;
+    }
 }
 
 @media #{$small-and-down} {
