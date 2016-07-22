@@ -26,18 +26,44 @@ $for(posts)$
 </div>
 $endfor$
 
-<div class="pager right">
+<ul class="pagination right">
   $if(firstPageNum)$
-  <a href="$firstPageUrl$">«</a>&nbsp;·&nbsp;
+  <li>
+    <a href="$firstPageUrl$"><i class="material-icons">arrow_back</i></a>
+  </li>
+  $else$
+  <li class="disabled">
+    <a href="#"><i class="material-icons">arrow_back</i></a>
+  </li>
   $endif$
   $if(previousPageNum)$
-  <a href="$previousPageUrl$">&lt;</a>&nbsp;·&nbsp;
+  <li class="waves-effect">
+    <a href="$previousPageUrl$"><i class="material-icons">chevron_left</i></a>
+  </li>
+  $else$
+  <li class="disabled">
+    <a href="#"><i class="material-icons">chevron_left</i></a>
+  </li>
   $endif$
-  $currentPageNum$ &nbsp;/&nbsp; $numPages$
+  <li class="active">
+    <a href="$currentPageUrl$">$currentPageNum$ / $numPages$</a>
+  </li>
   $if(nextPageNum)$
-  &nbsp;·&nbsp;<a href="$nextPageUrl">&gt;</a>
+  <li class="waves-effect">
+    <a href="$nextPageUrl$"><i class="material-icons">chevron_right</i></a>
+  </li>
+  $else$
+  <li class="disabled">
+    <a href="#"><i class="material-icons">chevron_right</i></a>
+  </li>
   $endif$
   $if(lastPageNum)$
-  &nbsp;·&nbsp;<a href="$lastPageUrl$">»</a>
+  <li class="waves-effect">
+    <a href="$lastPageUrl$"><i class="material-icons">arrow_forward</i></a>
+  </li>
+  $else$
+  <li class="disabled">
+    <a href="#"><i class="material-icons">arrow_forward</i></a>
+  </li>
   $endif$
-</div>
+</ul>
