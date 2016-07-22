@@ -18,6 +18,8 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; are explicit, we still have to bring the data together
 ; manually. Let's see how to do that with Clojure.
 ;
+; <!--more-->
+;
 ; ### Getting ready
 ;
 ; We'll first need to list the dependencies that we'll

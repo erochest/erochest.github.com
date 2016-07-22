@@ -21,6 +21,7 @@ I tried to present a gentle, mostly non-technical introduction to LOD, with an
 example of it in action. Hopefully, this posting will be a 50,000 foot overview
 also.
 
+<!--more-->
 
 ## The Linked Open Data Universe
 

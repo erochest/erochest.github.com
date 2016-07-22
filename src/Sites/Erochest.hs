@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TupleSections     #-}
 
+
 module Sites.Erochest
     ( erochestSite
     ) where
@@ -11,11 +12,19 @@ import           Control.Exception
 import           Control.Monad
 import           Control.Monad.Error.Class
 import           Data.Monoid
+import           Data.Text.Format
+import qualified Data.Text.Lazy            as TL
 import           Hakyll
-import           Prelude                   hiding (FilePath)
+import           Prelude
+import           System.FilePath
+
 import           Sites.Base
 import           Sites.Literate
 import           Sites.Types
+
+
+indexPageSize :: Int
+indexPageSize = 10
 
 
 erochestSite :: IO SiteInfo
@@ -28,15 +37,39 @@ postPattern :: Pattern
 postPattern = "posts/**/*.md" .||. "posts/**/index.clj"
 
 loadPageContent :: Compiler [Item String]
-loadPageContent =
-        recentFirst =<< loadAllSnapshots (postPattern .&&. hasNoVersion) "content"
+loadPageContent =   recentFirst
+                =<< loadAllSnapshots (postPattern .&&. hasNoVersion) "content"
 
+indexFileName :: FilePath -> PageNumber -> Identifier
+indexFileName root 1 = fromFilePath $ root </> "index.html"
+indexFileName root n = fromFilePath
+                     . (root </>)
+                     . TL.unpack
+                     . format "index-{}.html"
+                     . Only
+                     $ left 3 '0' n
+
+postsByPage :: MonadMetadata m => Int -> [Identifier] -> m [[Identifier]]
+postsByPage n = fmap (paginateEvery n) . sortRecentFirst
 
 rules :: IO (Rules ())
 rules =
     return $ do
-        create ["posts/index.html"] $
-            return ()
+        pag <- buildPaginateWith (postsByPage indexPageSize) postPattern
+                    (indexFileName "posts")
+        paginateRules pag $ \pageNum p -> do
+            route idRoute
+            compile $ do
+                posts     <- recentFirst =<< loadAllSnapshots p "content"
+                let pageC =  paginateContext pag pageNum
+                    postC =  teaserField "teaser" "content"
+                          <> siteContext Nothing
+                    c     =  listField "posts" postC (return posts)
+                          <> pageC
+                          <> siteContext Nothing
+                makeItem ""
+                    >>= indexTemplate c
+                    >>= relativizeUrls
 
         create ["atom.xml"] $ do
             route idRoute
@@ -65,7 +98,7 @@ rules =
                     $   style "/css/index.css"
 
         match "pages/*.html" $ do
-            let context = siteContext . Just $ style "/css/index.css"
+            let context = siteContext Nothing
             route   $   customRoute createBaseIndexRoute
             compile $   getResourceBody
                     >>= loadAndApplyDefault context
@@ -85,8 +118,7 @@ rules =
                 case clojure $ itemBody rsc of
                      Right body ->  saveSnapshot "content"
                                         (itemSetBody body rsc)
-                                >>= loadAndApplyTemplate' "templates/post.html"
-                                        (siteContext Nothing)
+                                >>= postTemplate (siteContext Nothing)
                                 >>= relativizeUrls
                                 >>= cleanIndexUrls
                      Left e     ->  throwError . pure $ displayException e

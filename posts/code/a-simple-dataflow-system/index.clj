@@ -17,6 +17,8 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; be spread across multiple cores or even multiple
 ; machines.
 ;
+; <!--more-->
+;
 ; This style of programming is called [**dataflow
 ; programming**](http://en.wikipedia.org/wiki/Dataflow_programming).
 ; There are a couple of different ways of looking at

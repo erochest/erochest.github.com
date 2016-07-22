@@ -14,6 +14,8 @@ Association</a> Career Panel. It's based on what I hope to say, but I'm
 actually writing this before the event so it (and its links) can be available
 beforehand.</p>
 
+<!--more-->
+
 <h1 id="about-me">About me</h1>
 
 <p>I've been interested in two things for about as long as I can remember:

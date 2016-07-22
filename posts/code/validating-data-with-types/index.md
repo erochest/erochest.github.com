@@ -14,6 +14,8 @@ at how tax law affects political contributions and advocacy, so this was
 an interesting project that may tell us something useful about how the
 US government works [insert your favorite broken-government joke here].
 
+<!--more-->
+
 To do this, he needed to download data from a number of different
 sources in different formats (JSON, YAML, and CSV), pull it all apart,
 and put some of it back together in a couple of new data files. One of

@@ -9,6 +9,8 @@ tags: writing, clojure, data
 After a few delays, I'm pleased to announce the release of [*Mastering Clojure
 Data Analysis*][packt].
 
+<!--more-->
+
 This book is a case study of ten different data analysis topics using Clojure.
 It applies a number of Clojure and Java libraries to an assortment data
 analysis and machine learning techniques.

@@ -29,16 +29,18 @@ library
                      , Sites.Types
                      , Sites.Utils
   build-depends:       base            == 4.8.*
-                     , text
-                     , hakyll
-                     , containers
                      , blaze-html
-                     , mtl
-                     , shelly
+                     , containers
                      , filepath
-                     , time >=1.5
-                     , regex-tdfa
+                     , hakyll
+                     , mtl
                      , pandoc
+                     , regex-tdfa
+                     , shelly
+                     , split
+                     , text
+                     , text-format
+                     , time >=1.5
   hs-source-dirs:      src
 
 executable errsite

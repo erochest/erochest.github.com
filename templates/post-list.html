@@ -1,0 +1,28 @@
+<ul>
+  $for(posts)$
+  <li>
+    <p><b><a href="$url$">$title$</a></b> — $date$<br />
+      $if(teaser)$
+        $teaser$
+      $else$
+        $body$
+      $endif$
+  </li>
+  $endfor$
+</ul>
+
+<div>
+  $if(firstPageNum)$
+  <a href="$firstPageUrl$">«</a>&nbsp;·&nbsp;
+  $endif$
+  $if(previousPageNum)$
+  <a href="$previousPageUrl$">&lt;</a>&nbsp;·&nbsp;
+  $endif$
+  $currentPageNum$ &nbsp;/&nbsp; $numPages$
+  $if(nextPageNum)$
+  &nbsp;·&nbsp;<a href="$nextPageUrl">&gt;</a>
+  $endif$
+  $if(lastPageNum)$
+  &nbsp;·&nbsp;<a href="$lastPageUrl$">»</a>
+  $endif$
+</div>

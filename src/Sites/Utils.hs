@@ -22,8 +22,8 @@ module Sites.Utils
     , formatTime'
     , extraHeaderContext
     , loadAndApplyDefault
-    , loadAndApplyTemplate'
     , postTemplate
+    , indexTemplate
     , livereload
     ) where
 
@@ -117,6 +117,7 @@ siteContext extraHeader =
            dateField "date" "%e %B %Y"
         <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
         <> extraHeaderContext extraHeader
+        <> livereload
         <> defaultContext
 
 extraHeaderContext :: Maybe String -> Context String
@@ -140,23 +141,21 @@ formatTime' :: UTCTime -> String
 formatTime' = formatTime defaultTimeLocale "%e %b %Y"
 
 loadAndApplyDefault :: Context a -> Item a -> Compiler (Item String)
-loadAndApplyDefault = loadAndApplyTemplate' "templates/default.html"
-
-loadAndApplyTemplate' :: Identifier -> Context a -> Item a
-                      -> Compiler (Item String)
-loadAndApplyTemplate' t c i = do
-    c' <- livereload c
-    loadAndApplyTemplate t c' i
+loadAndApplyDefault = loadAndApplyTemplate "templates/default.html"
 
 postTemplate :: Context String -> Item String -> Compiler (Item String)
 postTemplate c =
     loadAndApplyTemplate "templates/default.html" c
         <=< loadAndApplyTemplate "templates/post.html" c
 
-livereload :: Context a -> Compiler (Context a)
-livereload c =
-    mappend c . constField "livereload" . maybe "" (const livereload')
-        <$> unsafeCompiler (lookupEnv "DEBUG")
+indexTemplate :: Context String -> Item String -> Compiler (Item String)
+indexTemplate c =
+    loadAndApplyTemplate "templates/default.html" c
+        <=< loadAndApplyTemplate "templates/post-list.html" c
+
+livereload :: Context a
+livereload = field "livereload" $ \_ ->
+    maybe "" (const livereload') <$> unsafeCompiler (lookupEnv "DEBUG")
     where
         livereload' :: String
         livereload' = "\

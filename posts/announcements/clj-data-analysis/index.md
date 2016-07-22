@@ -10,7 +10,10 @@ I'm pleased to announce the release of the [*Clojure Data Analysis
 Cookbook*][packtclj], written by me, and published by [Packt
 Publishing][packt].
 
-This book has practical recipes for every stage of the data analysis process:
+<!--more-->
+
+This book has practical recipes for every stage of the data analysis
+process:
 
 * acquiring data,
 * cleaning it,

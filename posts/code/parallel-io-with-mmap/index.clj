@@ -17,6 +17,8 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; reason for that: when reading from a disk, all threads
 ; are inherently contending for one resource, the disk.
 ;
+; <!--more-->
+;
 ; There are ways to mitigate this, but ultimately it comes
 ; down to working with the disk and the processing
 ; requirements to get the best performance we can from a

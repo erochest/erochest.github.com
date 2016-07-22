@@ -12,6 +12,8 @@ projects are available freely and openly on [Github][gh], and we're always more
 than happy to accept pull requests. We'd like to be able to empower everyone to
 contribute to our projects as much as they're able to and comfortable with.
 
+<!--more-->
+
 Unfortunately, one of our flagship projects, [Neatline][nl], isn't easy to
 contribute to. There are a number of reasons for this, but one is that the
 development environment is not trivial to get set up. In order to address this
