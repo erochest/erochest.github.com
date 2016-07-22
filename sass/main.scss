@@ -31,10 +31,6 @@ main {
     flex: 1 0 auto;
 }
 
-main {
-    flex: 1 0 auto;
-}
-
 a.brand-logo {
     &:link    { color: color("brown", "lighten-5"); }
     &:visited { color: color("brown", "lighten-5"); }
@@ -86,4 +82,3 @@ ul.social {
         min-height: 35vmin;
     }
 }
-
