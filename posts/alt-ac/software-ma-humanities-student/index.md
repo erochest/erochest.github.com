@@ -2,6 +2,8 @@
 title: Software Development for the MA Humanities Student
 date: 2014-02-27T15:00:00Z
 tags: alt-ac, programming, career, humanities
+cover-image: /img/projects.jpg
+banner-image: /img/projects.jpg
 ---
 
 > This was originally posted on [the Scholars' Lab

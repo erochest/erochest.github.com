@@ -1,3 +1,15 @@
-<h1>$title$</h1>
+<div class="parallax-container">
+  <div class="parallax">$if(bannerImage)$ <img src="$bannerImage$"> $else$ <img src="/img/about.jpg"> $endif$</div>
+</div>
 
-$body$
+<div class="section">
+  <div class="row container">
+    <article class="section">
+      <header> <h1>$title$</h1> </header>
+
+      <section>
+        $body$
+      </section>
+    </article>
+  </div>
+</div>

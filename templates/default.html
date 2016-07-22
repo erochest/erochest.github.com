@@ -55,9 +55,13 @@
         </header>
 
         <main>
+          $if(noContainer)$
+            $body$
+          $else$
           <div id="container" class="container">
 $body$
           </div>
+          $endif$
         </main>
 
         <footer class="page-footer">
@@ -92,6 +96,11 @@ $body$
         <script src="/js/plugins.js"></script>
         <script src="/js/main.js"></script>
 
+$if(extraScript)$
+<script>
+  $extraScript$
+</script>
+$endif$
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;

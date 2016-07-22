@@ -1,7 +1,7 @@
 $for(posts)$
 <div class="card">
   <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="/img/about.jpg">
+    <img class="activator" $if(coverImage)$ src="$coverImage$" $else$ src="/img/about.jpg" $endif$ >
   </div>
   <div class="card-content">
     <span class="card-title activator gray-text text-darken-4">
