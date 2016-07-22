@@ -3,53 +3,28 @@
 -- | A collection of functions about pagination.
 
 module Sites.Pager
-    ( getPageNumber
-    , pager
-    , getPage
+    ( paginate
     ) where
 
 
-import           Control.Monad
-import           Data.Char
-import qualified Data.List                   as L
 import           Data.Monoid
-import           Text.Blaze.Html5            hiding (div, map, span, style)
-import qualified Text.Blaze.Html5            as H5
-import           Text.Blaze.Html5.Attributes hiding (style)
+import           Hakyll
+
+import           Sites.Utils
 
 
-getPageNumber :: FilePath -> Int
-getPageNumber fp
-    | "index.html" `L.isSuffixOf` fp = 0
-    | otherwise =
-        read . takeWhile isDigit $ dropWhile (not . isDigit) fp
+postsByPage :: MonadMetadata m => Int -> [Identifier] -> m [[Identifier]]
+postsByPage n = fmap (paginateEvery n) . sortRecentFirst
 
-pager :: Int -> Int -> (Int -> String) -> Html
-pager 1 _ _ = H5.span $ toHtml ("" :: String)
-pager pageCount page getPageUrl =
-        H5.div ! class_ "page-nav" $ do
-            when (page > 0)         $ pageLink 0    "«"
-            when (prev > 0)         $ pageLink prev "‹"
-            when (page - 2 >= 0)    $ pl (page - 2)
-            when (page - 1 >= 0)    $ pl (page - 1)
-            toHtml (succ page)
-            toHtml (" " :: String)
-            when (page + 1 <= lst)  $ pl (page + 1)
-            when (page + 2 <= lst)  $ pl (page + 2)
-            when (next < lst)       $ pageLink next "›"
-            when (lst > page)       $ pageLink lst "»"
-    where prev = pred page
-          next = succ page
-          lst  = pred pageCount
-
-          pl n = pageLink n . show $ succ n
-
-          pageLink :: Int -> String -> Html
-          pageLink n txt = do
-              H5.span $ a ! href (toValue (getPageUrl n)) $ toHtml txt
-              toHtml (" " :: String)
-
-getPage :: String -> Int -> String
-getPage basename 0 = basename <> ".html"
-getPage basename n = basename <> "-" <> show n <> ".html"
-
+paginate :: Int -> FilePath -> Pattern -> Rules ()
+paginate pageSize root pat = do
+    pag <- buildPaginateWith (postsByPage pageSize) pat $ indexFileName root
+    paginateRules pag $ \pageNum p -> do
+        route idRoute
+        compile $ do
+            posts     <- recentFirst =<< loadAllSnapshots p "content"
+            let c'    =  siteContext Nothing
+                pageC =  paginateContext pag pageNum
+                postC =  teaserField "teaser" "content" <> c'
+                c     =  listField "posts" postC (return posts) <> pageC <> c'
+            makeItem "" >>= indexTemplate c >>= relativizeUrls

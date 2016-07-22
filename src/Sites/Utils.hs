@@ -25,6 +25,7 @@ module Sites.Utils
     , postTemplate
     , indexTemplate
     , livereload
+    , indexFileName
     ) where
 
 
@@ -32,6 +33,8 @@ import           Control.Monad
 import           Data.List          (isSuffixOf)
 import           Data.Maybe         (fromMaybe)
 import           Data.Monoid
+import           Data.Text.Format
+import qualified Data.Text.Lazy     as TL
 import           Data.Time.Clock    (UTCTime)
 import           Data.Time.Format   (defaultTimeLocale, formatTime, parseTimeM)
 import           Hakyll
@@ -163,3 +166,12 @@ livereload = field "livereload" $ \_ ->
             \  document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] +\n\
             \    ':35729/livereload.js?snipver=1\"></' + 'script>')\n\
             \</script>"
+
+indexFileName :: FilePath -> PageNumber -> Identifier
+indexFileName root 1 = fromFilePath $ root </> "index.html"
+indexFileName root n = fromFilePath
+                     . (root </>)
+                     . TL.unpack
+                     . format "index-{}.html"
+                     . Only
+                     $ left 3 '0' n

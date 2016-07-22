@@ -7,19 +7,14 @@ module Sites.Erochest
     ) where
 
 
-import           Control.Applicative
 import           Control.Exception
-import           Control.Monad
 import           Control.Monad.Error.Class
 import           Data.Monoid
-import           Data.Text.Format
-import qualified Data.Text.Lazy            as TL
 import           Hakyll
-import           Prelude
-import           System.FilePath
 
 import           Sites.Base
 import           Sites.Literate
+import           Sites.Pager
 import           Sites.Types
 
 
@@ -40,36 +35,10 @@ loadPageContent :: Compiler [Item String]
 loadPageContent =   recentFirst
                 =<< loadAllSnapshots (postPattern .&&. hasNoVersion) "content"
 
-indexFileName :: FilePath -> PageNumber -> Identifier
-indexFileName root 1 = fromFilePath $ root </> "index.html"
-indexFileName root n = fromFilePath
-                     . (root </>)
-                     . TL.unpack
-                     . format "index-{}.html"
-                     . Only
-                     $ left 3 '0' n
-
-postsByPage :: MonadMetadata m => Int -> [Identifier] -> m [[Identifier]]
-postsByPage n = fmap (paginateEvery n) . sortRecentFirst
-
 rules :: IO (Rules ())
 rules =
     return $ do
-        pag <- buildPaginateWith (postsByPage indexPageSize) postPattern
-                    (indexFileName "posts")
-        paginateRules pag $ \pageNum p -> do
-            route idRoute
-            compile $ do
-                posts     <- recentFirst =<< loadAllSnapshots p "content"
-                let pageC =  paginateContext pag pageNum
-                    postC =  teaserField "teaser" "content"
-                          <> siteContext Nothing
-                    c     =  listField "posts" postC (return posts)
-                          <> pageC
-                          <> siteContext Nothing
-                makeItem ""
-                    >>= indexTemplate c
-                    >>= relativizeUrls
+        paginate indexPageSize "posts" postPattern
 
         create ["atom.xml"] $ do
             route idRoute
