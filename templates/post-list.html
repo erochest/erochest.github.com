@@ -1,17 +1,32 @@
-<ul>
-  $for(posts)$
-  <li>
-    <p><b><a href="$url$">$title$</a></b> — $date$<br />
-      $if(teaser)$
-        $teaser$
-      $else$
-        $body$
-      $endif$
-  </li>
-  $endfor$
-</ul>
+$for(posts)$
+<div class="card">
+  <div class="card-image waves-effect waves-block waves-light">
+    <img class="activator" src="/img/about.jpg">
+  </div>
+  <div class="card-content">
+    <span class="card-title activator gray-text text-darken-4">
+      $title$
+      <i class="material-icons right">more_vert</i>
+    </span>
+    <p><a href="$url$">$date$</a></p>
+  </div>
+  <div class="card-reveal">
+    <span class="card-title activator gray-text text-darken-4">
+      $title$
+      <i class="material-icons right">close</i>
+      <p>
+        $if(teaser)$
+          $teaser$
+        $else$
+          $body$
+        $endif$
+      </p>
+    </span>
+  </div>
+</div>
+$endfor$
 
-<div>
+<div class="pager right">
   $if(firstPageNum)$
   <a href="$firstPageUrl$">«</a>&nbsp;·&nbsp;
   $endif$
