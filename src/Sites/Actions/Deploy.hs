@@ -30,7 +30,8 @@ deploySite scratch bail =
             stack_ "clean" []
             stack_ "build" []
 
-        stack_ "exec" ["--", "errsite", "rebuild"]
+        stack_ "exec" ["--", "errsite", "hakyll", "clean"]
+        stack_ "exec" ["--", "errsite", "hakyll", "build"]
         clearDeploy
         copySite rootDeploy
         forM_ subsites $ \s ->
