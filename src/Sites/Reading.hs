@@ -7,14 +7,20 @@ module Sites.Reading
 
 
 import           Hakyll
+
 import           Sites.Base
+import           Sites.Erochest (indexPageSize)
+import           Sites.Pager
 import           Sites.Types
 
 
+readingPattern :: Pattern
+readingPattern = "reading/**/*.md"
+
 readingSite :: IO SiteInfo
 readingSite = return . Site "reading-journal" "reading" "reading" $ do
-    match "reading/index.md"
-        pandocHtml
+    paginate indexPageSize "reading" readingPattern True
 
-    match "reading/**/*.md"
-        pandocHtml
+    match readingPattern $ do
+        route   cleanRoute
+        compile compilePost

@@ -4,6 +4,7 @@
 
 module Sites.Erochest
     ( erochestSite
+    , indexPageSize
     ) where
 
 
@@ -38,7 +39,7 @@ loadPageContent =   recentFirst
 rules :: IO (Rules ())
 rules =
     return $ do
-        paginate indexPageSize "posts" postPattern
+        paginate indexPageSize "posts" postPattern False
 
         create ["atom.xml"] $ do
             route idRoute
