@@ -16,10 +16,10 @@
 	path = _deploy/clj-data-master
 	url = git@github.com:erochest/clj-data-master.git
 	branch = gh-pages
-[submodule "reading"]
-	path = reading
-	url = git@github.com:erochest/reading-log.git
 [submodule "_deploy/reading"]
 	path = _deploy/reading
 	url = git@github.com:erochest/reading-log.git
 	branch = gh-pages
+[submodule "reading-log"]
+	path = reading-log
+	url = git@github.com:erochest/reading-log.git

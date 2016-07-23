@@ -15,11 +15,11 @@ import           Sites.Types
 
 
 readingPattern :: Pattern
-readingPattern = "reading/**/*.md"
+readingPattern = "reading-log/**/*.md"
 
 readingSite :: IO SiteInfo
-readingSite = return . Site "reading-journal" "reading" "reading" $ do
-    paginate indexPageSize "reading" readingPattern True
+readingSite = return . Site "reading-journal" "reading" "reading-log" $ do
+    paginate indexPageSize "reading-log" readingPattern True
 
     match readingPattern $ do
         route   cleanRoute
