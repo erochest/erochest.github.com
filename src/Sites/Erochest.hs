@@ -1,5 +1,6 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TupleSections     #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TupleSections       #-}
 
 
 module Sites.Erochest
@@ -16,6 +17,7 @@ import           Hakyll
 import           Sites.Base
 import           Sites.Literate
 import           Sites.Pager
+import           Sites.Projects
 import           Sites.Types
 
 
@@ -40,6 +42,7 @@ rules :: IO (Rules ())
 rules =
     return $ do
         paginate indexPageSize "posts" postPattern False
+        compileProjectIndex
 
         create ["atom.xml"] $ do
             route idRoute

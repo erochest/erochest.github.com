@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings   #-}
 
 -- | A collection of functions about pagination.
 
@@ -27,5 +27,5 @@ paginate pageSize root pat cleanUrl = do
                 pageC =  paginateContext pag pageNum
                 postC =  teaserField "teaser" "content" <> c'
                 c     =  listField "posts" postC (return posts) <> pageC <> c'
-                clean = if cleanUrl then cleanIndexUrls else return
+                clean =  if cleanUrl then cleanIndexUrls else return
             makeItem "" >>= indexTemplate c >>= relativizeUrls >>= clean

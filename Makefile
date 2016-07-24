@@ -42,18 +42,27 @@ check: hlint
 hlint:
 	hlint *.hs src specs
 
-clean:
+clean: clean-site clean-code
+
+clean-site:
 	-$(RUN) errsite hakyll clean
+
+clean-code:
 	stack clean
 	-rm tags
 
 distclean: clean
 
-build:
+build: build-code build-site
+
+build-code:
 	stack build $(FLAGS)
 
-rebuild: clean configure build
+build-site:
+	$(RUN) errsite hakyll build
+
+rebuild: clean build
 
 restart: distclean build
 
-.PHONY: all test run clean distclean configure build rebuild hlint watch-site watch-code
+.PHONY: all test run clean distclean build rebuild hlint watch-site watch-code

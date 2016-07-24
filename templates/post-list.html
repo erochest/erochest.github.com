@@ -26,6 +26,8 @@ $for(posts)$
 </div>
 $endfor$
 
+$if(onePage)$
+$else$
 <ul class="pagination right">
   $if(firstPageNum)$
   <li>
@@ -67,3 +69,4 @@ $endfor$
   </li>
   $endif$
 </ul>
+$endif$

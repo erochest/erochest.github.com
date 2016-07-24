@@ -25,6 +25,7 @@ library
                      , Sites.CljDataMaster
                      , Sites.Erochest
                      , Sites.Pager
+                     , Sites.Projects
                      , Sites.Reading
                      , Sites.Types
                      , Sites.Utils
@@ -41,6 +42,7 @@ library
                      , text
                      , text-format
                      , time >=1.5
+                     , unordered-containers
   hs-source-dirs:      src
 
 executable errsite

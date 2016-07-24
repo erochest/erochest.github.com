@@ -2,7 +2,8 @@
 module Sites.Types where
 
 
-import qualified Data.Text                 as T
+import qualified Data.Text as T
+import           Data.Time
 import           Hakyll
 
 
@@ -21,3 +22,11 @@ data RootSite
     , subsites :: [SiteInfo]
     }
 
+data ProjectInfo
+    = Project
+    { projectId         :: !String
+    , projectTitle      :: !String
+    , projectTeaser     :: !String
+    , projectCoverImage :: !FilePath
+    , projectDate       :: !UTCTime
+    } deriving (Show)
