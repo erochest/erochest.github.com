@@ -1,0 +1,24 @@
+{
+    "@context": {
+        "ht": "http://www.w3.org/2006/http#", 
+        "rdfa": "http://www.w3.org/ns/rdfa#", 
+        "xsd": "http://www.w3.org/2001/XMLSchema#", 
+        "dcterms": "http://purl.org/dc/terms/", 
+        "rdfa:context": {
+            "@type": "@id"
+        }, 
+        "ht:responseCode": {
+            "@type": "@id"
+        }
+    }, 
+    "@type": "rdfa:Error", 
+    "dcterms:description": "mismatched tag: line 2, column 54", 
+    "rdfa:context": {
+        "@type": "ht:Response", 
+        "ht:responseCode": "ht:400"
+    }, 
+    "dcterms:date": {
+        "@value": "2016-07-26T15:38:15.842638", 
+        "@type": "xsd:dateTime"
+    }
+}
