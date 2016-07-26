@@ -2,7 +2,8 @@
 
 
 module Sites.Utils
-    ( cleanRoute
+    ( parallaxScript
+    , cleanRoute
     , createIndexRoute
     , createBaseIndexRoute
     , cleanIndexUrls
@@ -28,6 +29,7 @@ module Sites.Utils
     , indexTemplate
     , livereload
     , indexFileName
+    , meta
     ) where
 
 
@@ -44,6 +46,11 @@ import           Hakyll
 import           System.Environment
 import           System.FilePath
 
+
+parallaxScript :: String
+parallaxScript = "$(document).ready(function() {\
+                 \  $('.parallax').parallax();\
+                 \});"
 
 cleanRoute :: Routes
 cleanRoute = customRoute createIndexRoute
@@ -118,12 +125,9 @@ compilePost' c =   pandocCompiler
                >>= relativizeUrls
                >>= cleanIndexUrls
     where
-        c' =  constField "extraScript" script
+        c' =  constField "extraScript" parallaxScript
            <> boolField "noContainer" (const True)
            <> c
-        script = "$(document).ready(function() {\
-                 \  $('.parallax').parallax();\
-                 \});"
 
 siteContext :: Maybe String -> Context String
 siteContext extraHeader =
@@ -194,3 +198,6 @@ indexFileName root n = fromFilePath
                      . format "index-{}.html"
                      . Only
                      $ left 3 '0' n
+
+meta :: String -> Item a -> Compiler String
+meta k = (`getMetadataField'` k) . itemIdentifier

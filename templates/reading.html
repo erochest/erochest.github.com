@@ -1,0 +1,15 @@
+<div class="parallax-container">
+  <div class="parallax">$if(bannerImage)$ <img src="$bannerImage$"> $else$ <img src="/img/about.jpg"> $endif$</div>
+</div>
+
+<div class="section">
+  <div class="row container">
+    <article class="section" prefix="p: http://purdom.org/reading# entities: http://purdom.org/named_entities# ptag: http://purdom.org/tag# e: http://www.ericrochester.com/reading# etag: http://www.ericrochester.com/tag#" vocab="http://bibframe.org/vocab/" typeof="$typeof$" resource="$resource$">
+      <header> <h1 property="rdfs:label">$title$</h1> </header>
+
+      <section>
+        $body$
+      </section>
+    </article>
+  </div>
+</div>

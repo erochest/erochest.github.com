@@ -6,6 +6,7 @@ module Sites.Reading
     ) where
 
 
+import           Data.Monoid
 import           Hakyll
 
 import           Sites.Base
@@ -23,4 +24,22 @@ readingSite = return . Site "reading-journal" "reading" "reading-log" $ do
 
     match readingPattern $ do
         route   cleanRoute
-        compile compilePost
+        compile compileReading
+
+compileReading :: Compiler (Item String)
+compileReading = compileReading' $ siteContext Nothing
+
+compileReading' :: Context String -> Compiler (Item String)
+compileReading' c =   pandocCompiler
+                  >>= loadAndApplyTemplate "templates/reading.html" c'
+                  >>= saveSnapshot "content"
+                  >>= loadAndApplyDefault c'
+                  >>= relativizeUrls
+                  >>= cleanIndexUrls
+    where
+        c' =  constField "extraScript" parallaxScript
+           <> boolField "noContainer" (const True)
+           <> field "typeof"   (meta "typeof"  )
+           <> field "resource" (meta "resource")
+           <> c
+
