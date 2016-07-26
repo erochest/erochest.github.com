@@ -22,6 +22,14 @@ readingSite :: IO SiteInfo
 readingSite = return . Site "reading-journal" "reading" "reading-log" $ do
     paginate indexPageSize "reading-log" readingPattern True
 
+    create ["posts.json"] $ do
+        route idRoute
+        compile $
+            makeItem
+                =<< unixFilter "localRDFa.py" ["-g", "output", "-j"]
+                .   foldMap itemBody
+                =<< loadAllSnapshots readingPattern "content"
+
     match readingPattern $ do
         route   cleanRoute
         compile compileReading
