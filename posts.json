@@ -1,24 +1,84 @@
 {
-    "@context": {
-        "ht": "http://www.w3.org/2006/http#", 
-        "rdfa": "http://www.w3.org/ns/rdfa#", 
-        "xsd": "http://www.w3.org/2001/XMLSchema#", 
-        "dcterms": "http://purl.org/dc/terms/", 
-        "rdfa:context": {
-            "@type": "@id"
-        }, 
-        "ht:responseCode": {
-            "@type": "@id"
+  "@context": {
+    "bibframe": "http://bibframe.org/vocab/",
+    "rdfa": "http://www.w3.org/ns/rdfa#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xhv": "http://www.w3.org/1999/xhtml/vocab#"
+  },
+  "@graph": [
+    {
+      "@id": "_:g70317552077020",
+      "xhv:role": {
+        "@id": "xhv:navigation"
+      }
+    },
+    {
+      "@id": "_:g70317552179340",
+      "xhv:role": {
+        "@id": "xhv:navigation"
+      }
+    },
+    {
+      "@id": "http://dbpedia.org/resource/Victor_LaValle",
+      "@type": "bibframe:Person",
+      "rdfs:label": "Victor LaValle"
+    },
+    {
+      "@id": "http://viaf.org/viaf/120524420/",
+      "@type": "bibframe:Person",
+      "rdfs:label": "Angela S. Choi"
+    },
+    {
+      "@id": "http://www.worldcat.org/oclc/456179132",
+      "@type": "bibframe:Work",
+      "bibframe:creator": {
+        "@id": "http://viaf.org/viaf/120524420/"
+      },
+      "http://purdom.org/reading#theme_of": [
+        {
+          "@id": "http://www.ericrochester.com/tag#womens-experience"
+        },
+        {
+          "@id": "http://www.ericrochester.com/tag#asian-american"
+        },
+        {
+          "@id": "http://www.ericrochester.com/tag#anti-hero"
         }
-    }, 
-    "@type": "rdfa:Error", 
-    "dcterms:description": "mismatched tag: line 2, column 54", 
-    "rdfa:context": {
-        "@type": "ht:Response", 
-        "ht:responseCode": "ht:400"
-    }, 
-    "dcterms:date": {
-        "@value": "2016-07-26T15:38:15.842638", 
-        "@type": "xsd:dateTime"
+      ],
+      "http://www.ericrochester.com/reading#genre": [
+        {
+          "@id": "http://www.ericrochester.com/tag#mystery"
+        },
+        {
+          "@id": "http://www.ericrochester.com/tag#humor"
+        }
+      ],
+      "rdfs:label": "Hello Kitty Must Die"
+    },
+    {
+      "@id": "http://www.worldcat.org/oclc/803529730",
+      "@type": "bibframe:Work",
+      "bibframe:creator": {
+        "@id": "http://dbpedia.org/resource/Victor_LaValle"
+      },
+      "http://purdom.org/reading#will_lead_to": {
+        "@id": "http://www.worldcat.org/oclc/741540136"
+      },
+      "http://www.ericrochester.com/reading#genre": [
+        {
+          "@id": "http://www.ericrochester.com/tag#horror"
+        },
+        {
+          "@id": "http://www.ericrochester.com/tag#fantasy"
+        }
+      ],
+      "rdfs:label": "Lucretia and the Kroons"
+    },
+    {
+      "@id": "uri:reading-journal",
+      "rdfa:usesVocabulary": {
+        "@id": "http://bibframe.org/vocab/"
+      }
     }
+  ]
 }

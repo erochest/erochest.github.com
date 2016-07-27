@@ -1,0 +1,35 @@
+@base <uri:reading-journal> .
+@prefix bibframe: <http://bibframe.org/vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xhv: <http://www.w3.org/1999/xhtml/vocab#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<uri:reading-journal> rdfa:usesVocabulary bibframe: .
+
+<http://www.worldcat.org/oclc/456179132> a bibframe:Work;
+   rdfs:label "Hello Kitty Must Die";
+   bibframe:creator <http://viaf.org/viaf/120524420/>;
+   <http://purdom.org/reading#theme_of> <http://www.ericrochester.com/tag#womens-experience>,
+     <http://www.ericrochester.com/tag#asian-american>,
+     <http://www.ericrochester.com/tag#anti-hero>;
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#humor>,
+     <http://www.ericrochester.com/tag#mystery> .
+
+<http://www.worldcat.org/oclc/803529730> a bibframe:Work;
+   rdfs:label "Lucretia and the Kroons";
+   bibframe:creator <http://dbpedia.org/resource/Victor_LaValle>;
+   <http://purdom.org/reading#will_lead_to> <http://www.worldcat.org/oclc/741540136>;
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#fantasy>,
+     <http://www.ericrochester.com/tag#horror> .
+
+<http://dbpedia.org/resource/Victor_LaValle> a bibframe:Person;
+   rdfs:label "Victor LaValle" .
+
+<http://viaf.org/viaf/120524420/> a bibframe:Person;
+   rdfs:label "Angela S. Choi" .
+
+ [ xhv:role xhv:navigation] .
+
+ [ xhv:role xhv:navigation] .
