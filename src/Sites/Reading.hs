@@ -8,6 +8,7 @@ module Sites.Reading
 
 import           Control.Applicative ((<|>))
 import           Control.Lens        hiding (Context)
+import           Control.Monad
 import           Data.Aeson
 import           Data.Aeson.Lens
 import           Data.Char           (toLower)
@@ -29,13 +30,35 @@ readingSite :: IO SiteInfo
 readingSite = return . Site "reading-journal" "reading" "reading-log" $ do
     paginate indexPageSize "reading-log" readingPattern True
 
+    create ["posts.ttl"] $ do
+        route idRoute
+        compile $ do
+            pages     <-  map itemBody
+                      <$> loadAll readingPattern
+            tmpFiles  <-  replicateM (length pages) (newTmpFile "-page.html")
+            tmpFiles' <-  unsafeCompiler . forM (zip tmpFiles pages)
+                      $   \(TmpFile filename, page) -> do
+                            writeFile filename page
+                            return filename
+            let args = "serialize"
+                     : "--format" : "rdfa"
+                     : "--output-format" : "turtle"
+                     : "--uri" : "uri:reading-journal"
+                     : tmpFiles'
+            makeItem . unlines . drop 1 . lines =<< unixFilter "rdf" args ""
+
     create ["posts.json"] $ do
         route idRoute
-        compile $
-            makeItem
-                =<< unixFilter "localRDFa.py" ["-g", "output", "-j"]
-                .   foldMap itemBody
-                =<< loadAllSnapshots readingPattern "content"
+        compile $ do
+            ttl <- itemBody <$> load "posts.ttl"
+            TmpFile tmpFile <- newTmpFile "-page.ttl"
+            unsafeCompiler $ writeFile tmpFile ttl
+            let args = [ "serialize"
+                       , "--format", "turtle"
+                       , "--output-format", "jsonld"
+                       , tmpFile
+                       ]
+            makeItem . unlines . drop 1 . lines =<< unixFilter "rdf" args ""
 
     match readingPattern $ do
         route   cleanRoute
