@@ -30,6 +30,12 @@ watch-site-clean: clean build watch-site
 watch-code:
 	stack build $(FLAGS) --fast --file-watch
 
+watch-code-site:
+	stack build $(FLAGS) --file-watch --exec "make clean-site build-site"
+
+serve:
+	warp -d _site -p 8000
+
 tags:
 	hasktags --ctags app src
 
