@@ -7,16 +7,27 @@
   },
   "@graph": [
     {
-      "@id": "_:g70317552077020",
+      "@id": "_:g70231017675240",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70317552179340",
+      "@id": "_:g70231017720200",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
+    },
+    {
+      "@id": "_:g70231017756780",
+      "xhv:role": {
+        "@id": "xhv:navigation"
+      }
+    },
+    {
+      "@id": "http://dbpedia.org/resource/David_Almond",
+      "@type": "bibframe:Person",
+      "rdfs:label": "David Almond"
     },
     {
       "@id": "http://dbpedia.org/resource/Victor_LaValle",
@@ -27,6 +38,22 @@
       "@id": "http://viaf.org/viaf/120524420/",
       "@type": "bibframe:Person",
       "rdfs:label": "Angela S. Choi"
+    },
+    {
+      "@id": "http://www.worldcat.org/oclc/39129781",
+      "@type": "bibframe:Work",
+      "bibframe:creator": {
+        "@id": "http://dbpedia.org/resource/David_Almond"
+      },
+      "http://www.ericrochester.com/reading#genre": [
+        {
+          "@id": "http://www.ericrochester.com/tag#magic-realism"
+        },
+        {
+          "@id": "http://www.ericrochester.com/tag#young-adult"
+        }
+      ],
+      "rdfs:label": "Skellig"
     },
     {
       "@id": "http://www.worldcat.org/oclc/456179132",

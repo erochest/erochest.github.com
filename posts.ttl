@@ -8,14 +8,20 @@
 
 <uri:reading-journal> rdfa:usesVocabulary bibframe: .
 
+<http://www.worldcat.org/oclc/39129781> a bibframe:Work;
+   rdfs:label "Skellig";
+   bibframe:creator <http://dbpedia.org/resource/David_Almond>;
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#young-adult>,
+     <http://www.ericrochester.com/tag#magic-realism> .
+
 <http://www.worldcat.org/oclc/456179132> a bibframe:Work;
    rdfs:label "Hello Kitty Must Die";
    bibframe:creator <http://viaf.org/viaf/120524420/>;
-   <http://purdom.org/reading#theme_of> <http://www.ericrochester.com/tag#womens-experience>,
-     <http://www.ericrochester.com/tag#asian-american>,
-     <http://www.ericrochester.com/tag#anti-hero>;
-   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#humor>,
-     <http://www.ericrochester.com/tag#mystery> .
+   <http://purdom.org/reading#theme_of> <http://www.ericrochester.com/tag#asian-american>,
+     <http://www.ericrochester.com/tag#anti-hero>,
+     <http://www.ericrochester.com/tag#womens-experience>;
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#mystery>,
+     <http://www.ericrochester.com/tag#humor> .
 
 <http://www.worldcat.org/oclc/803529730> a bibframe:Work;
    rdfs:label "Lucretia and the Kroons";
@@ -24,11 +30,16 @@
    <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#fantasy>,
      <http://www.ericrochester.com/tag#horror> .
 
+<http://dbpedia.org/resource/David_Almond> a bibframe:Person;
+   rdfs:label "David Almond" .
+
 <http://dbpedia.org/resource/Victor_LaValle> a bibframe:Person;
    rdfs:label "Victor LaValle" .
 
 <http://viaf.org/viaf/120524420/> a bibframe:Person;
    rdfs:label "Angela S. Choi" .
+
+ [ xhv:role xhv:navigation] .
 
  [ xhv:role xhv:navigation] .
 
