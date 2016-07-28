@@ -76,8 +76,9 @@ compileReading' c = do
         <|> loadBody "templates/reading.html"
     let c'' = secondaryMeta typeof <> c'
     pandocCompiler
-        >>= applyTemplate tpl c''
         >>= saveSnapshot "content"
+        >>= applyTemplate tpl c''
+        >>= saveSnapshot "rdfa"
         >>= loadAndApplyDefault c''
         >>= relativizeUrls
         >>= cleanIndexUrls
