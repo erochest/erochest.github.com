@@ -69,12 +69,13 @@ compileReading = compileReading' $ siteContext Nothing
 
 compileReading' :: Context String -> Compiler (Item String)
 compileReading' c = do
+    og <- openGraphContext
     typeof <- meta "typeof" =<< getResourceString
     tpl <-  loadBody ( fromFilePath
                      $ "templates/" ++ map toLower typeof ++ ".html"
                      )
         <|> loadBody "templates/reading.html"
-    let c'' = secondaryMeta typeof <> c'
+    let c'' = og <> secondaryMeta typeof <> c'
     pandocCompiler
         >>= saveSnapshot "content"
         >>= applyTemplate tpl c''

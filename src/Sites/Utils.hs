@@ -1,8 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TupleSections     #-}
 
 
+-- TODO: clean this up, order it, and add headings
 module Sites.Utils
-    ( parallaxScript
+    ( baseUrl
+    , parallaxScript
     , cleanRoute
     , createIndexRoute
     , createBaseIndexRoute
@@ -17,32 +20,45 @@ module Sites.Utils
     , compilePage'
     , compilePost
     , compilePost'
+    , profileContext
     , siteContext
     , foldMetadataField
-    , errMetadataField 
+    , errMetadataField
     , reformatDate
     , parseDateLax
     , formatTime'
     , extraHeaderContext
+    , openGraph
+    , openGraphContext
     , loadAndApplyDefault
     , postTemplate
     , indexTemplate
     , livereload
     , indexFileName
     , meta
+    , guessUrl
+    , iso8601
+    , getCategory
+    , getTags'
     ) where
 
 
+import           Control.Applicative
 import           Control.Monad
+import           Data.Aeson.Types    (Value (..))
 import           Data.Foldable
-import           Data.List          (isSuffixOf)
-import           Data.Maybe         (fromMaybe)
+import qualified Data.HashMap.Strict as M
+import           Data.List           (isSuffixOf)
+import           Data.Maybe          (fromMaybe)
 import           Data.Monoid
+import qualified Data.Text           as T
 import           Data.Text.Format
-import qualified Data.Text.Lazy     as TL
-import           Data.Time.Clock    (UTCTime)
-import           Data.Time.Format   (defaultTimeLocale, formatTime, parseTimeM)
+import qualified Data.Text.Lazy      as TL
+import           Data.Time.Clock     (UTCTime)
+import           Data.Time.Format    (defaultTimeLocale, formatTime, parseTimeM)
 import           Hakyll
+import           Lucid
+import           Lucid.Base          (makeAttribute)
 import           System.Environment
 import           System.FilePath
 
@@ -118,16 +134,107 @@ compilePage' c =   pandocCompiler
 compilePost :: Compiler (Item String)
 compilePost = compilePost' $ siteContext Nothing
 
-compilePost' :: Context String -> Compiler (Item String)
-compilePost' c =   pandocCompiler
-               >>= saveSnapshot "content"
-               >>= postTemplate c'
-               >>= relativizeUrls
-               >>= cleanIndexUrls
+baseUrl :: T.Text
+baseUrl = "http://www.ericrochester.com/"
+
+guessUrl :: Identifier -> Compiler T.Text
+guessUrl = fmap (mappend baseUrl . T.pack . fold) . getRoute
+
+iso8601 :: Identifier -> Compiler T.Text
+iso8601 = fmap (T.pack . formatTime defaultTimeLocale "%FT%TZ")
+        . getItemUTC defaultTimeLocale
+
+getCategory :: Identifier -> T.Text
+getCategory ident
+    | "reading-log/" `T.isPrefixOf` identT = "reading"
+    | otherwise = T.pack . takeFileName . takeDirectory $ takeDirectory identS
     where
-        c' =  constField "extraScript" parallaxScript
-           <> boolField "noContainer" (const True)
+        identS = toFilePath ident
+        identT = T.pack identS
+
+getTags' :: Identifier -> Compiler [T.Text]
+getTags' ident = do
+    m <- getMetadata ident
+    return $ case M.lookup "tags" m <|> M.lookup "categories" m of
+                  Just (Object _) -> mzero
+                  Just (Array  a) -> toList . fold $ mapM string a
+                  Just (String s) -> filter (not . T.null)
+                                  .  map T.strip
+                                  $  T.split splitter s
+                  Just (Number _) -> mzero
+                  Just (Bool   _) -> mzero
+                  Just Null       -> mzero
+                  Nothing         -> mzero
+    where
+        splitter ',' = True
+        splitter ' ' = True
+        splitter _   = False
+
+string :: Value -> Maybe T.Text
+string (Object _) = Nothing
+string (Array  _) = Nothing
+string (String s) = Just s
+string (Number _) = Nothing
+string (Bool   _) = Nothing
+string Null       = Nothing
+
+openGraphContext :: Compiler (Context String)
+openGraphContext = do
+    ident <-  getUnderlying
+    m     <-  getMetadata ident
+    url   <-  guessUrl    ident
+    pub   <-  iso8601     ident
+    tags  <-  getTags'    ident
+    let title = lookupm "<Untitled>" "title" m
+        image = lookupm (baseUrl <> "img/about.jpg") "banner-image" m
+        sect  = getCategory ident
+    return
+        . openGraph
+        $ [ ("og:title",               title)
+          , ("og:type",                "article")
+          , ("og:image",               image)
+          , ("og:url",                 url)
+          , ("og:site_name",           "e.")
+          , ("article:published_time", pub)
+          , ("article:author",         baseUrl <> "about/")
+          , ("article:section",        sect)
+          ] ++ map ("article:tag", ) tags
+    where
+        lookupm :: T.Text -> T.Text -> Metadata -> T.Text
+        lookupm d k m = fromMaybe d
+                      $ case M.lookup k m of
+                             Just v  -> string v
+                             Nothing -> Nothing
+
+compilePost' :: Context String -> Compiler (Item String)
+compilePost' c = do
+    og <- openGraphContext
+    let c' =  constField "extraScript" parallaxScript
+           <> og
+           <> boolField "noContainer"  (const True)
            <> c
+    pandocCompiler
+        >>= saveSnapshot "content"
+        >>= postTemplate c'
+        >>= relativizeUrls
+        >>= cleanIndexUrls
+
+openGraph :: [(T.Text, T.Text)] -> Context String
+openGraph = constField "open-graph"
+          . TL.unpack
+          . renderText
+          . foldMap (\(p, v) -> meta_ [property_ p, content_ v])
+
+profileContext :: Context String
+profileContext = openGraph
+               [ ("profile:first_name", "Eric")
+               , ("profile:last_name",  "Rochester")
+               , ("profile:username",   "erochest")
+               , ("profile:username",   "erochester")
+               ]
+
+property_ :: T.Text -> Attribute
+property_ = makeAttribute "property"
 
 siteContext :: Maybe String -> Context String
 siteContext extraHeader =
@@ -137,6 +244,7 @@ siteContext extraHeader =
                    , field "bannerImage" (errMetadataField "banner-image")
                    ]
         <> extraHeaderContext extraHeader
+        <> constField "open-graph" ""
         <> livereload
         <> defaultContext
 

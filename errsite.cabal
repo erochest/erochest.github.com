@@ -37,6 +37,7 @@ library
                      , hakyll
                      , lens
                      , lens-aeson
+                     , lucid
                      , mtl
                      , pandoc
                      , regex-tdfa
@@ -46,6 +47,7 @@ library
                      , text-format
                      , time >=1.5
                      , unordered-containers
+                     , vector
   hs-source-dirs:      src
 
 executable errsite

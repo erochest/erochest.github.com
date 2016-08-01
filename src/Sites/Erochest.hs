@@ -63,9 +63,10 @@ rules =
                     >>= relativizeUrls
                     >>= cleanIndexUrls
 
-        match "pages/*.md" $ do
+        match "pages/about.md" $ do
             route   $   customRoute createBaseIndexRoute
             compile .   compilePage'
+                    .   mappend profileContext
                     $   siteContext
                     .   Just
                     $   style "/css/index.css"
