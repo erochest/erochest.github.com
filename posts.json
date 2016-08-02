@@ -8,25 +8,31 @@
   },
   "@graph": [
     {
-      "@id": "_:g70196096018940",
+      "@id": "_:g70180137298120",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70196121353220",
+      "@id": "_:g70180137368620",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70196121431600",
+      "@id": "_:g70180137463000",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70196121526480",
+      "@id": "_:g70180137533200",
+      "xhv:role": {
+        "@id": "xhv:navigation"
+      }
+    },
+    {
+      "@id": "_:g70180137627760",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
@@ -40,6 +46,11 @@
       "@id": "http://dbpedia.org/resource/David_Almond",
       "@type": "bibframe:Person",
       "rdfs:label": "David Almond"
+    },
+    {
+      "@id": "http://dbpedia.org/resource/Ian_McDonald_(author)",
+      "@type": "bibframe:Person",
+      "rdfs:label": "Ian McDonald"
     },
     {
       "@id": "http://dbpedia.org/resource/Victor_LaValle",
@@ -59,10 +70,10 @@
       },
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#young-adult"
+          "@id": "http://www.ericrochester.com/tag#magic-realism"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#magic-realism"
+          "@id": "http://www.ericrochester.com/tag#young-adult"
         }
       ],
       "rdfs:label": "Skellig"
@@ -75,10 +86,10 @@
       },
       "http://purdom.org/reading#theme_of": [
         {
-          "@id": "http://www.ericrochester.com/tag#asian-american"
+          "@id": "http://www.ericrochester.com/tag#womens-experience"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#womens-experience"
+          "@id": "http://www.ericrochester.com/tag#asian-american"
         },
         {
           "@id": "http://www.ericrochester.com/tag#anti-hero"
@@ -86,13 +97,21 @@
       ],
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#mystery"
+          "@id": "http://www.ericrochester.com/tag#humor"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#humor"
+          "@id": "http://www.ericrochester.com/tag#mystery"
         }
       ],
       "rdfs:label": "Hello Kitty Must Die"
+    },
+    {
+      "@id": "http://www.worldcat.org/oclc/466343581",
+      "@type": "bibframe:Work",
+      "bibframe:creator": {
+        "@id": "http://dbpedia.org/resource/Ian_McDonald_(author)"
+      },
+      "rdfs:label": "The Dervish House"
     },
     {
       "@id": "http://www.worldcat.org/oclc/707964746",
@@ -105,10 +124,10 @@
           "@id": "http://www.ericrochester.com/tag#humor"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#science-fiction"
+          "@id": "http://www.ericrochester.com/tag#fantasy"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#fantasy"
+          "@id": "http://www.ericrochester.com/tag#science-fiction"
         }
       ],
       "rdfs:label": "Emperor Mollusk versus the Sinister Brain"
@@ -124,10 +143,10 @@
       },
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#horror"
+          "@id": "http://www.ericrochester.com/tag#fantasy"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#fantasy"
+          "@id": "http://www.ericrochester.com/tag#horror"
         }
       ],
       "rdfs:label": "Lucretia and the Kroons"
@@ -136,35 +155,39 @@
       "@id": "uri:reading-journal",
       "article:author": "http://www.ericrochester.com/about/",
       "article:published_time": [
-        "2016-07-27T13:30:53Z",
-        "2016-07-23T00:52:59Z",
         "2016-07-28T15:28:50Z",
+        "2016-07-27T13:30:53Z",
+        "2016-08-02T00:45:43Z",
+        "2016-07-23T00:52:59Z",
         "2016-07-28T13:39:13Z"
       ],
       "article:section": "reading",
       "article:tag": [
-        "asian-american",
-        "mystery",
+        "science-fiction",
         "fantasy",
+        "magic-realism",
+        "postcyberpunk",
         "humor",
         "women",
         "horror",
-        "magic-realism",
-        "young-adult",
-        "science-fiction"
+        "asian-american",
+        "mystery",
+        "young-adult"
       ],
       "og:image": "http://www.ericrochester.com/img/about.jpg",
       "og:site_name": "e.",
       "og:title": [
-        "Hello Kitty Must Die",
-        "Emperor Mollusk versus the Sinister Brain",
+        "The Dervish House",
         "Lucretia and the Kroons",
-        "Skellig"
+        "Emperor Mollusk versus the Sinister Brain",
+        "Skellig",
+        "Hello Kitty Must Die"
       ],
       "og:type": "article",
       "og:url": [
-        "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
+        "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html",
         "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html",
+        "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
         "http://www.ericrochester.com/reading-log/lavalle-victor/lucretia-and-the-kroons/index.html",
         "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html"
       ],

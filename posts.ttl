@@ -8,61 +8,69 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <uri:reading-journal> <article:author> "http://www.ericrochester.com/about/";
-   <article:published_time> "2016-07-28T13:39:13Z",
-     "2016-07-23T00:52:59Z",
+   <article:published_time> "2016-07-23T00:52:59Z",
+     "2016-07-28T13:39:13Z",
+     "2016-07-27T13:30:53Z",
      "2016-07-28T15:28:50Z",
-     "2016-07-27T13:30:53Z";
+     "2016-08-02T00:45:43Z";
    <article:section> "reading";
    <article:tag> "magic-realism",
      "young-adult",
-     "mystery",
-     "asian-american",
-     "humor",
-     "women",
+     "postcyberpunk",
      "fantasy",
+     "asian-american",
+     "science-fiction",
+     "mystery",
+     "humor",
      "horror",
-     "science-fiction";
+     "women";
    og:image "http://www.ericrochester.com/img/about.jpg";
    og:site_name "e.";
-   og:title "Skellig",
-     "Lucretia and the Kroons",
-     "Emperor Mollusk versus the Sinister Brain",
-     "Hello Kitty Must Die";
+   og:title "Lucretia and the Kroons",
+     "Skellig",
+     "The Dervish House",
+     "Hello Kitty Must Die",
+     "Emperor Mollusk versus the Sinister Brain";
    og:type "article";
-   og:url "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
-     "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html",
+   og:url "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html",
      "http://www.ericrochester.com/reading-log/lavalle-victor/lucretia-and-the-kroons/index.html",
-     "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html";
+     "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
+     "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html",
+     "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html";
    rdfa:usesVocabulary bibframe: .
 
 <http://www.worldcat.org/oclc/39129781> a bibframe:Work;
    rdfs:label "Skellig";
    bibframe:creator <http://dbpedia.org/resource/David_Almond>;
-   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#magic-realism>,
-     <http://www.ericrochester.com/tag#young-adult> .
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#young-adult>,
+     <http://www.ericrochester.com/tag#magic-realism> .
 
 <http://www.worldcat.org/oclc/456179132> a bibframe:Work;
    rdfs:label "Hello Kitty Must Die";
    bibframe:creator <http://viaf.org/viaf/120524420/>;
-   <http://purdom.org/reading#theme_of> <http://www.ericrochester.com/tag#asian-american>,
-     <http://www.ericrochester.com/tag#womens-experience>,
-     <http://www.ericrochester.com/tag#anti-hero>;
-   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#humor>,
-     <http://www.ericrochester.com/tag#mystery> .
+   <http://purdom.org/reading#theme_of> <http://www.ericrochester.com/tag#anti-hero>,
+     <http://www.ericrochester.com/tag#asian-american>,
+     <http://www.ericrochester.com/tag#womens-experience>;
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#mystery>,
+     <http://www.ericrochester.com/tag#humor> .
+
+<http://www.worldcat.org/oclc/466343581> a bibframe:Work;
+   rdfs:label "The Dervish House";
+   bibframe:creator <http://dbpedia.org/resource/Ian_McDonald_(author)> .
 
 <http://www.worldcat.org/oclc/707964746> a bibframe:Work;
    rdfs:label "Emperor Mollusk versus the Sinister Brain";
    bibframe:creator <http://dbpedia.org/resource/A._Lee_Martinez>;
-   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#humor>,
-     <http://www.ericrochester.com/tag#fantasy>,
-     <http://www.ericrochester.com/tag#science-fiction> .
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#science-fiction>,
+     <http://www.ericrochester.com/tag#humor>,
+     <http://www.ericrochester.com/tag#fantasy> .
 
 <http://www.worldcat.org/oclc/803529730> a bibframe:Work;
    rdfs:label "Lucretia and the Kroons";
    bibframe:creator <http://dbpedia.org/resource/Victor_LaValle>;
    <http://purdom.org/reading#will_lead_to> <http://www.worldcat.org/oclc/741540136>;
-   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#fantasy>,
-     <http://www.ericrochester.com/tag#horror> .
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#horror>,
+     <http://www.ericrochester.com/tag#fantasy> .
 
 <http://dbpedia.org/resource/A._Lee_Martinez> a bibframe:Person;
    rdfs:label "A. Lee Martinez" .
@@ -70,11 +78,16 @@
 <http://dbpedia.org/resource/David_Almond> a bibframe:Person;
    rdfs:label "David Almond" .
 
+<http://dbpedia.org/resource/Ian_McDonald_(author)> a bibframe:Person;
+   rdfs:label "Ian McDonald" .
+
 <http://dbpedia.org/resource/Victor_LaValle> a bibframe:Person;
    rdfs:label "Victor LaValle" .
 
 <http://viaf.org/viaf/120524420/> a bibframe:Person;
    rdfs:label "Angela S. Choi" .
+
+ [ xhv:role xhv:navigation] .
 
  [ xhv:role xhv:navigation] .
 
