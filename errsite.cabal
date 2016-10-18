@@ -29,7 +29,7 @@ library
                      , Sites.Reading
                      , Sites.Types
                      , Sites.Utils
-  build-depends:       base            == 4.8.*
+  build-depends:       base            >=4.8 && <4.10
                      , aeson
                      , blaze-html
                      , containers
@@ -56,7 +56,7 @@ executable errsite
                      , Opts
                      , Types
   hs-source-dirs:      app
-  build-depends:       base            == 4.8.*
+  build-depends:       base            >=4.8 && <4.10
                      , errsite
                      , optparse-applicative
                      , text
