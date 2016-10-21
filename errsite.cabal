@@ -3,8 +3,8 @@
 
 name:                errsite
 version:             0.1.0.0
--- synopsis:            
--- description:         
+synopsis:            ericrochester.com
+description:         My site
 license:             Apache-2.0
 license-file:        LICENSE
 author:              Eric Rochester
@@ -16,6 +16,7 @@ cabal-version:       >=1.8
 
 library
   exposed-modules:     Sites
+                     , Sites.Actions.Draft
                      , Sites.Actions.Deploy
                      , Sites.Actions.Hakyll
                      , Sites.Actions.Illiterate
@@ -58,8 +59,10 @@ executable errsite
   hs-source-dirs:      app
   build-depends:       base            >=4.8 && <4.10
                      , errsite
+                     , hashable
                      , optparse-applicative
                      , text
+                     , unordered-containers
 
 -- executable illiterate
   -- main-is:             Illiterate.hs

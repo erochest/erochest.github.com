@@ -1,6 +1,8 @@
 module Opts where
 
 
+import           Data.Hashable
+import qualified Data.HashSet        as S
 import qualified Data.Text           as T
 import           Options.Applicative
 
@@ -15,6 +17,22 @@ hakyllOpts =   Hakyll
            <$> many (argument textOpt (  metavar "HAKYLL_OPT"
                                       <> help "An option to pass to Hakyll."
                                       ))
+
+manySet :: (Eq a, Hashable a, Alternative f) => f a -> f (S.HashSet a)
+manySet = fmap S.fromList . many
+
+draftOpts :: Parser Actions
+draftOpts
+    =   Draft
+    <$> strOption (  short 'c' <> long "category" <> metavar "CATEGORY"
+                  <> help "The slug for the category to put the post into.")
+    <*> manySet (option textOpt
+                    (  short 'T' <> long "tag" <> metavar "TAG"
+                    <> help "A tag to include in the template."))
+    <*> option textOpt (  short 't' <> long "title" <> metavar "TITLE"
+                       <> help "The post's title.")
+    <*> optional (strOption (  short 's' <> long "slug" <> metavar "SLUG"
+                            <> help "A slug for the post (used in the URL)."))
 
 deployOpts :: Parser Actions
 deployOpts
@@ -34,8 +52,11 @@ illiterateOpts = pure Illiterate
 
 opts' :: Parser Actions
 opts' = subparser
-    (  command "hakyll"  (info (helper <*> hakyllOpts)
+    (  command "hakyll" (info (helper <*> hakyllOpts)
                           (progDesc "Call Hakyll on the site."))
+    <> command "draft" (info (helper <*> draftOpts)
+                        (progDesc "Stub out a new draft, including creating a\
+                                  \ branch."))
     <> command "deploy" (info (helper <*> deployOpts)
                          (progDesc "Deploy site to github pages."))
     <> command "illiterate" (info (helper <*> illiterateOpts)
