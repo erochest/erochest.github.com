@@ -34,8 +34,8 @@ newDraft cat tagSet title mslug = shelly $ verbosely $ do
     git_ "commit" ["-m", TL.toStrict $ format "Stub for '{}'." $ Only title]
     where
         slug = fromMaybe (T.unpack $ slugify title) mslug
-        cdir = "posts" </> cat
-        path = cdir </> slug <.> "md"
+        cdir = "posts" </> cat </> slug
+        path = cdir </> "index.md"
         tags = T.intercalate " " $ L.sort $ S.toList tagSet
 
 slugify :: T.Text -> T.Text
