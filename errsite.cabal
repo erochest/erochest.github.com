@@ -20,11 +20,13 @@ library
                      , Sites.Actions.Deploy
                      , Sites.Actions.Hakyll
                      , Sites.Actions.Illiterate
+                     , Sites.Actions.Publish
                      , Sites.Literate
   other-modules:       Sites.Base
                      , Sites.CljDataAnalysis
                      , Sites.CljDataMaster
                      , Sites.Erochest
+                     , Sites.Git
                      , Sites.Pager
                      , Sites.Projects
                      , Sites.Reading
@@ -63,6 +65,7 @@ executable errsite
                      , hashable
                      , optparse-applicative
                      , text
+                     , time
                      , unordered-containers
 
 -- executable illiterate

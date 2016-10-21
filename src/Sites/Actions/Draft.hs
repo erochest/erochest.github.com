@@ -18,6 +18,8 @@ import           Shelly            hiding (FilePath, path, (<.>), (</>))
 import           System.Directory
 import           System.FilePath
 
+import           Sites.Git
+
 
 newDraft :: FilePath -> S.HashSet T.Text -> T.Text -> Maybe FilePath -> IO ()
 newDraft cat tagSet title mslug = shelly $ verbosely $ do
@@ -44,6 +46,3 @@ slugify = T.map slugChar . T.toLower
         slugChar x = if isAlphaNum x
                         then x
                         else '-'
-
-git_ :: T.Text -> [T.Text] -> Sh ()
-git_ = command1_ "git" []
