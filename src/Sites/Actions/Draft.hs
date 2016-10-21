@@ -15,6 +15,7 @@ import qualified Data.Text.Lazy    as TL
 import qualified Data.Text.Lazy.IO as TLIO
 import           Data.Time
 import           Shelly            hiding (FilePath, path, (<.>), (</>))
+import           System.Directory
 import           System.FilePath
 
 
@@ -24,6 +25,7 @@ newDraft cat tagSet title mslug = shelly $ verbosely $ do
         $   formatTime defaultTimeLocale (iso8601DateFormat (Just "%H:%M:%SZ"))
         <$> getCurrentTime
     git_ "checkout" ["-b", T.pack slug]
+    liftIO $ createDirectoryIfMissing True cdir
     liftIO
         $ TLIO.writeFile path
         $ format "---\ntitle: {}\ndate: {}\ncategories: {}\n---\n\n<!--more-->\n"
@@ -32,7 +34,8 @@ newDraft cat tagSet title mslug = shelly $ verbosely $ do
     git_ "commit" ["-m", TL.toStrict $ format "Stub for '{}'." $ Only title]
     where
         slug = fromMaybe (T.unpack $ slugify title) mslug
-        path = cat </> slug <.> "md"
+        cdir = "posts" </> cat
+        path = cdir </> slug <.> "md"
         tags = T.intercalate " " $ L.sort $ S.toList tagSet
 
 slugify :: T.Text -> T.Text

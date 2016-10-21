@@ -34,6 +34,7 @@ library
                      , aeson
                      , blaze-html
                      , containers
+                     , directory
                      , filepath
                      , hakyll
                      , lens
