@@ -8,8 +8,31 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2015-05-22T17:00:00Z</updated>
+    <updated>2016-11-08T19:22:18Z</updated>
     <entry>
+    <title>Divisions</title>
+    <link href="http://www.ericrochester.com//posts/thoughts/divisions/index.html" />
+    <id>http://www.ericrochester.com//posts/thoughts/divisions/index.html</id>
+    <published>2016-11-08T19:22:18Z</published>
+    <updated>2016-11-08T19:22:18Z</updated>
+    <summary type="html"><![CDATA[<p>Social media—and Facebook especially—has made all the facets of life painful and obvious. My feed has a range of voices: from openly racist relatives to those who’ve changed their avatars to show their support for #BlackLivesMatter, from those who still insist on gender binaries to those who’ve felt in their own bodies how untrue that polarity is.</p>
+<p>I’ve kept the peace by making myself absent.</p>
+<!--more-->
+<p>Partially this was because some people are A-OK inflicting violence on others, usually those who have already experienced too much violence in their bodies. Partially this was because I am a little too conflict-avoidant, and I’ve had the had the privilege to indulge myself. I didn’t want to dive into those pools of sharks (with fricking laser beams!). And I didn’t think I was up to the challenge of what? Protecting? Mediating? Just being in those spaces?</p>
+<p>But that needs to end.</p>
+<p>As a cishet white male, theoretically my voice isn’t exactly missing from important discussions, but maybe my voice will reach someone no one else has gotten through to. Or better yet, maybe I can amplify someone else’s voice.</p>
+<p>So what are the parts of me that I’ve been keeping apart? Like the people populating my timeline, they run the gamut: computer programming, medieval literature, genre literature, poetry, spirituality, science, digital humanities, environmental justice, feminism, ethical adoption. I could go on. It’s all there.</p>
+<p>This is partially growing out of an article by Parker Palmer, <a href="http://www.couragerenewal.org/parker/writings/divided-no-more/" title="Divided No More">“Divided No More: A Movement Approach to Educational Reform”</a>. He talks about the power of movements to “rewrite the logic of organizations.” The first step in this process is that “Isolated individuals decide to stop leading ‘divided lives.’”</p>
+<p>This starts from a deeply personal decision to bring your inner and outer worlds into better alignment, and to so reduce your inner tension and conflict. But as more and more people begin to make this shift and as they begin to connect with each other, a movement is grows. And this can create structural, organizational, and cultural changes.</p>
+<p>Palmer points out that a vital part of this process is going public.</p>
+<p>Part of this is also the conviction that one prism to look at social justice work through is the prism of creating wholeness and health, particularly in oppressed individuals and communities. But that health has to come at all levels. Sick individuals or unhealthy communities cannot create a whole society. And likewise, an unsafe community or an unjust society will infect the individuals it holds. This is to be a step toward wholeness and, hopefully, health.</p>
+<p>So.</p>
+<p>I’m tired of the divisions. I’m tired of the walls. I’m getting rid of them. And I’m talking about it.</p>
+<p>Except I’m not getting rid of the walls entirely. Rightly used, boundaries are healthy and health-maintaining. I’m not moving this discussion onto Facebook. It’s all happening here, where I have control. I may move the discussion into other places later, but I’m starting here.</p>
+<p>Tonight of all nights, as I suffer. As I watch the women in my life suffer. As I watch the people of color in my life suffer. I have to make to a stand. I have to say who I support and who I fight with.</p>
+<p>Fight on.</p>]]></summary>
+</entry>
+<entry>
     <title>Validating Data with Types</title>
     <link href="http://www.ericrochester.com//posts/code/validating-data-with-types/index.html" />
     <id>http://www.ericrochester.com//posts/code/validating-data-with-types/index.html</id>
@@ -24,7 +47,7 @@
 <p>Given Haskell’s reputation, the previous sentence probably seems to border on insanity. Hopefully this post will prove this at least partially correct and will highlight some of the nicer aspects of working in Haskell. It leverages types to provide some assurances that the data is well-formed and consistent. This means I can perform data validation quickly and easily, and that helps everyone.</p>
 <blockquote>
 <p>This post is actually runnable Haskell. If you have the <a href="https://www.haskell.org/ghc/" title="GHC Haskell Compiler">GHC</a> compiler installed you can copy and paste this post into a file, say <code>Validating.lhs</code>, and run it from the command line:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">runhaskell</span> Validating.lhs contribDB_1982.csv</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">runhaskell</span> Validating.lhs contribDB_1982.csv</code></pre></div>
 <p>However, to follow this post, you don’t need to know Haskell. I’ll try to explain enough of the concepts and syntax that matter as they come up, so that anyone familiar with computer programming should be able to follow along without getting into the weeds of exactly what’s happening on each line.</p>
 <p>So first some pre-amble and boilerplate. This just makes available the libraries that we’ll use.</p>
 </blockquote>
@@ -200,7 +223,7 @@
 <p>Unfortunately, one of our flagship projects, <a href="http://neatline.org/">Neatline</a>, isn’t easy to contribute to. There are a number of reasons for this, but one is that the development environment is not trivial to get set up. In order to address this and make it easier for others to contribute, we’ve developed an <a href="http://www.ansible.com/">Ansible</a> playbook that takes a not-quite-stock Mac and sets up an instance of Omeka with the Neatline plugin available, as well as all the tools necessary for working on Neatline.</p>
 <p><a href="http://www.ansible.com/">Ansible</a> is a system for setting up and configuring systems. It’s often used to set up multiple servers—for instance, a database server and a static web server, both working with a dynamic web applications deployed on several computers. If you’re familiar with <a href="http://www.getchef.com/">Chef</a> or <a href="http://puppetlabs.com/">Puppet</a>, Ansible solves the same problems. In this case, we’ll use it to configure our local development workstation.</p>
 <p>We’ve published these playbooks on <a href="https://github.com/">Github</a> in the <a href="https://github.com/erochest/neatline.dev/tree/mac-ansible"><code>neatline.dev</code> repository, on the <code>mac-ansible</code> branch</a>. You can get this by cloning it to your local machine. (Since this is for getting started developing Neatline, I assume that you’re already comfortable with <a href="http://git-scm.com/">git</a>. If not, <a href="http://rogerdudler.github.io/git-guide/">there</a> <a href="https://try.github.io/">are</a> <a href="http://www.git-tower.com/learn/">lots</a> <a href="http://gitimmersion.com/">of</a> <a href="http://www.vogella.com/tutorials/Git/article.html">great</a> <a href="http://git-scm.com/book">tutorials</a>.)</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">git</span> clone --branch mac-ansible https://github.com/erochest/neatline.dev.git</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">git</span> clone --branch mac-ansible https://github.com/erochest/neatline.dev.git</code></pre></div>
 <h2 id="requirements">Requirements</h2>
 <p>In creating this, I’ve aimed for starting from a stock Mac. And I missed pretty badly. However, the necessary prerequisites are minimal. You’ll just need to have these things installed.</p>
 <ul>
@@ -208,8 +231,8 @@
 <li><a href="http://brew.sh/">Homebrew</a></li>
 </ul>
 <p>Once those two are on your machine, you can install the other two dependencies. These are available through <a href="http://brew.sh/">Homebrew</a>. So open Terminal and type these lines:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">brew</span> install python
-$ <span class="kw">brew</span> install ansible</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">brew</span> install python
+$ <span class="ex">brew</span> install ansible</code></pre></div>
 <p>That’s all. You should be ready to go.</p>
 <h2 id="settings">Settings</h2>
 <p>This project includes a number settings that you can change to customize your installation. Those are found in the file <a href="https://github.com/erochest/neatline.dev/blob/mac-ansible/playbook.yaml"><code>playbook.yaml</code></a>. The relevant section is labelled <code>vars</code>, and it allows you to set information about the Omeka database (<code>omeka_db_user</code>, <code>omeka_db_password</code>, and <code>omeka_db_name</code>), which version of Omeka you wish to use (<code>omeka_version</code>), where you wish to install it (<code>omeka_dir</code>), and where you want to point your browser to (<code>dev_hostname</code>) as you’re working on the site. The defaults are:</p>
@@ -229,8 +252,8 @@ $ <span class="kw">brew</span> install ansible</code></pre></div>
 <p>One option that I’ll call out in particular is <code>neatline_repo</code>. This is the git repository that you’ll be working with. If you’re using github to host your project, you can <a href="https://help.github.com/articles/fork-a-repo">fork</a> the primary Neatline repository (from the URL given above). And when you’ve completed your work, if you’d like to contribute back, you can send us a <a href="https://help.github.com/articles/using-pull-requests">pull request</a> through the Github site.</p>
 <h2 id="setting-up">Setting Up</h2>
 <p>Finally, we’re ready to actually create the system. This is quite easy. In the Terminal, from the <code>neatline.dev</code> directory, run the <code>neatline-dev</code> script.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> neatline.dev
-$ <span class="kw">./neatline-dev</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="bu">cd</span> neatline.dev
+$ <span class="ex">./neatline-dev</span></code></pre></div>
 <p>Now wait.</p>
 <p>After your computer whirs away for a while, you’ll get your prompt back. When that happens, you should be able to point your browser to http://omeka-neatline.dev (in the example above). There you’ll see the Omeka installation form.</p>
 <h2 id="what-just-happened">What Just Happened?</h2>
@@ -481,51 +504,51 @@ In general, this is a great time to go into software development and other techn
 <p>And guess what? Clojure itself allows that kind of expression, especially with the threading macros (<code>-&gt;</code> and <code>-&gt;&gt;</code>). Reducers handle parallelization under the covers. Let’s see how far we can take that.</p>
 <h3 id="getting-ready">Getting ready…</h3>
 <p>To use reducers, we first need to depend on Clojure 1.5. We’ll need this in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file:</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="at">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]]</code></pre></div>
 <p>We also need to import the library, and since it defines several functions with the same name as core functions, we’ll alias it.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[clojure.core.reducers <span class="kw">:as</span> r])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[clojure.core.reducers <span class="at">:as</span> r])</code></pre></div>
 <p>For this example, we’ll work with a list of the Doctor’s companions from the entire run of Doctor Who. I won’t reproduce the whole list, but here is a sample of six:</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> input-data</span>
-  [{<span class="kw">:given-name</span> <span class="st">&quot;Susan&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Forman&quot;</span>,
-    <span class="kw">:doctors</span> [<span class="dv">1</span>]}
-   {<span class="kw">:given-name</span> <span class="st">&quot;Harry&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Sullivan&quot;</span>,
-    <span class="kw">:doctors</span> [<span class="dv">4</span>]}
-   {<span class="kw">:given-name</span> <span class="st">&quot;Nyssa&quot;</span>, <span class="kw">:surname</span> nil,
-    <span class="kw">:doctors</span> [<span class="dv">4</span> <span class="dv">5</span>]}
-   {<span class="kw">:given-name</span> <span class="st">&quot;Melanie&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Bush&quot;</span>,
-    <span class="kw">:doctors</span> [<span class="dv">6</span> <span class="dv">7</span>]}
-   {<span class="kw">:given-name</span> <span class="st">&quot;Jackson&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Lake&quot;</span>,
-    <span class="kw">:doctors</span> [<span class="dv">10</span>]}
-   {<span class="kw">:given-name</span> <span class="st">&quot;Craig&quot;</span>, <span class="kw">:surname</span> <span class="st">&quot;Owens&quot;</span>,
-    <span class="kw">:doctors</span> [<span class="dv">11</span>]}])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> input-data</span>
+  [{<span class="at">:given-name</span> <span class="st">&quot;Susan&quot;</span>, <span class="at">:surname</span> <span class="st">&quot;Forman&quot;</span>,
+    <span class="at">:doctors</span> [<span class="dv">1</span>]}
+   {<span class="at">:given-name</span> <span class="st">&quot;Harry&quot;</span>, <span class="at">:surname</span> <span class="st">&quot;Sullivan&quot;</span>,
+    <span class="at">:doctors</span> [<span class="dv">4</span>]}
+   {<span class="at">:given-name</span> <span class="st">&quot;Nyssa&quot;</span>, <span class="at">:surname</span> nil,
+    <span class="at">:doctors</span> [<span class="dv">4</span> <span class="dv">5</span>]}
+   {<span class="at">:given-name</span> <span class="st">&quot;Melanie&quot;</span>, <span class="at">:surname</span> <span class="st">&quot;Bush&quot;</span>,
+    <span class="at">:doctors</span> [<span class="dv">6</span> <span class="dv">7</span>]}
+   {<span class="at">:given-name</span> <span class="st">&quot;Jackson&quot;</span>, <span class="at">:surname</span> <span class="st">&quot;Lake&quot;</span>,
+    <span class="at">:doctors</span> [<span class="dv">10</span>]}
+   {<span class="at">:given-name</span> <span class="st">&quot;Craig&quot;</span>, <span class="at">:surname</span> <span class="st">&quot;Owens&quot;</span>,
+    <span class="at">:doctors</span> [<span class="dv">11</span>]}])</code></pre></div>
 <p>(If you want to use the entire dataset, you can download it from the book’s <a href="/clj-data-analysis/">data page</a> or directly from <a href="/clj-data-analysis/data/companions.clj">this link</a>.)</p>
 <h3 id="how-to-do-it">How to do it…</h3>
 <p>For our slightly contrived example, we’ll compute the average length of the companions’ surnames, for those who have surnames. First, we’ll need a couple of functions to accumulate the item count and sum for computing the mean. We’ll also need a function to add two accumulators’ data together. And we’ll need a function to calculate the mean from an accumulator’s data. Here are those functions.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> accum-mean</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> accum-mean</span>
   <span class="st">&quot;Accumulate the sum and length of a sequence for</span>
 <span class="st">  calculating the mean.&quot;</span>
-  ([] {<span class="kw">:sum</span> <span class="dv">0</span>, <span class="kw">:n</span> <span class="dv">0</span>})
-  ([{<span class="kw">:keys</span> [sum n]} x]
-   {<span class="kw">:sum</span> (<span class="kw">+</span> sum x)
-    <span class="kw">:n</span> (<span class="kw">inc</span> n)}))
-(<span class="kw">defn</span><span class="fu"> join-accum</span>
+  ([] {<span class="at">:sum</span> <span class="dv">0</span>, <span class="at">:n</span> <span class="dv">0</span>})
+  ([{<span class="at">:keys</span> [sum n]} x]
+   {<span class="at">:sum</span> (<span class="kw">+</span> sum x)
+    <span class="at">:n</span> (<span class="kw">inc</span> n)}))
+(<span class="bu">defn</span><span class="fu"> join-accum</span>
   <span class="st">&quot;Take the output of two calls to accum-mean and join</span>
 <span class="st">  them.&quot;</span>
-  ([] {<span class="kw">:sum</span> <span class="dv">0</span>, <span class="kw">:n</span> <span class="dv">0</span>})
+  ([] {<span class="at">:sum</span> <span class="dv">0</span>, <span class="at">:n</span> <span class="dv">0</span>})
   ([accum1 accum2]
-   {<span class="kw">:sum</span> (<span class="kw">+</span> (<span class="kw">:sum</span> accum1) (<span class="kw">:sum</span> accum2))
-    <span class="kw">:n</span> (<span class="kw">+</span> (<span class="kw">:n</span> accum1) (<span class="kw">:n</span> accum2))}))
-(<span class="kw">defn</span><span class="fu"> calc-mean</span>
+   {<span class="at">:sum</span> (<span class="kw">+</span> (<span class="at">:sum</span> accum1) (<span class="at">:sum</span> accum2))
+    <span class="at">:n</span> (<span class="kw">+</span> (<span class="at">:n</span> accum1) (<span class="at">:n</span> accum2))}))
+(<span class="bu">defn</span><span class="fu"> calc-mean</span>
   <span class="st">&quot;Take the output of accum-mean or join-accum and</span>
 <span class="st">  calculate the mean.&quot;</span>
-  [{<span class="kw">:keys</span> [sum n]}]
+  [{<span class="at">:keys</span> [sum n]}]
   (<span class="kw">double</span> (<span class="kw">/</span> sum n)))</code></pre></div>
 <p>With these in place, we can define a function that creates a reducer that returns the length of the surnames, filtering out those with no surname. Combined with a threading macro, this makes a very clear dataflow.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> process-seq</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> process-seq</span>
   [coll]
   (<span class="kw">-&gt;&gt;</span>
     coll
-    (r/map <span class="kw">:surname</span>)
+    (r/map <span class="at">:surname</span>)
     (r/filter #(<span class="kw">not</span> (<span class="kw">nil?</span> %)))
     (r/map <span class="kw">count</span>)))</code></pre></div>
 <p>First we can run that with the core reduce function to execute it sequentially.</p>
@@ -561,7 +584,7 @@ In general, this is a great time to go into software development and other techn
 <p>For this problem, we’ll look at two ways of handling the file IO. First, we’ll consider using straightforward lazy, sequential access, and then we’ll look at memory mapping the file. We’ll look at the performance of each and consider what situations each might be useful in.</p>
 <h3 id="getting-ready">Getting ready…</h3>
 <p>For this, we’ll need a number of dependencies, so we’ll list these in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="at">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.5.1&quot;</span>]
                [nio <span class="st">&quot;0.0.5&quot;</span>]
                [org.apache.commons/commons-lang3 <span class="st">&quot;3.1&quot;</span>]
                [clj-time <span class="st">&quot;0.5.0&quot;</span>]]</code></pre></div>
@@ -569,32 +592,32 @@ In general, this is a great time to go into software development and other techn
 <div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">import</span> &#39;[java.io File RandomAccessFile]
         &#39;[java.nio.charset Charset]
         &#39;[org.apache.commons.lang3 StringEscapeUtils])
-(<span class="kw">use</span> &#39;[clj-time.core <span class="kw">:exclude</span> (<span class="kw">extend</span>)]
+(<span class="kw">use</span> &#39;[clj-time.core <span class="at">:exclude</span> (<span class="kw">extend</span>)]
      &#39;[clj-time <span class="kw">format</span> coerce])
-(<span class="kw">require</span> &#39;[nio.core <span class="kw">:as</span> nio]
-         &#39;[clojure.java.io <span class="kw">:as</span> io]
-         &#39;[clojure.string <span class="kw">:as</span> string]
-         &#39;[clojure.core.reducers <span class="kw">:as</span> r])</code></pre></div>
+(<span class="kw">require</span> &#39;[nio.core <span class="at">:as</span> nio]
+         &#39;[clojure.java.io <span class="at">:as</span> io]
+         &#39;[clojure.string <span class="at">:as</span> string]
+         &#39;[clojure.core.reducers <span class="at">:as</span> r])</code></pre></div>
 <p>And for the data file, we can just use a sample of the Stack Exchange comments. You can find a (non-random) sample of 100,000 lines from that file in the source code for this chapter or download it from <a href="/clj-data-analysis/data/comments.xml">here</a>.</p>
 <h3 id="how-to-do-it">How to do it…</h3>
 <p>First, let’s tackle the problem domain. We’ll define a record that holds a user’s identifier and the range of comments seen so far. And we’ll write a function that will combine two <code>UserPost</code> records into one with the maximum range from both (assuming they represent the same user). Also, we’ll write a combiner function for a map of UserPost records.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defrecord</span><span class="fu"> UserPost</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defrecord</span><span class="fu"> UserPost</span>
   [user-id earliest-date latest-date])
-(<span class="kw">defn</span><span class="fu"> combine-user-posts</span>
+(<span class="bu">defn</span><span class="fu"> combine-user-posts</span>
   [up1 up2]
   (UserPost.
-    (<span class="kw">:user-id</span> up1)
-    (<span class="kw">:earliest-date</span>
-      (from-long (<span class="kw">min</span> (to-long (<span class="kw">:earliest-date</span> up1))
-                      (to-long (<span class="kw">:earliest-date</span> up2)))))
-    (<span class="kw">:latest-date</span>
-      (from-long (<span class="kw">max</span> (to-long (<span class="kw">:latest-date</span> up1))
-                      (to-long (<span class="kw">:latest-date</span> up2)))))))
-(<span class="kw">def</span><span class="fu"> combiner</span>
+    (<span class="at">:user-id</span> up1)
+    (<span class="at">:earliest-date</span>
+      (from-long (<span class="kw">min</span> (to-long (<span class="at">:earliest-date</span> up1))
+                      (to-long (<span class="at">:earliest-date</span> up2)))))
+    (<span class="at">:latest-date</span>
+      (from-long (<span class="kw">max</span> (to-long (<span class="at">:latest-date</span> up1))
+                      (to-long (<span class="at">:latest-date</span> up2)))))))
+(<span class="bu">def</span><span class="fu"> combiner</span>
   (r/monoid (<span class="kw">partial</span> <span class="kw">merge-with</span> combine-user-posts)
             <span class="kw">hash-map</span>))</code></pre></div>
 <p>Next, we’ll add some general data parsing functions. The first is simply a lazy version of <code>clojure.string/split-lines</code>. The rest are more specifically targeted to the task at hand. They identify lines from the input that contain data, parse those into map, and eventually parse them into a UserPost.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> split-lines</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> split-lines</span>
   ([input] (split-lines input <span class="dv">0</span>))
   ([input start]
    (<span class="kw">let</span> [end (.indexOf input <span class="dv">10</span> start)]
@@ -603,13 +626,13 @@ In general, this is a great time to go into software development and other techn
          (<span class="kw">cons</span> (String.
                  (.trim (.substring input start end)))
                (split-lines input (<span class="kw">inc</span> end))))))))
-(<span class="kw">defn</span><span class="fu"> data-line</span>?
+(<span class="bu">defn</span><span class="fu"> data-line</span>?
   [line]
   (.startsWith (string/trim line) <span class="st">&quot;&lt;row &quot;</span>))
-(<span class="kw">defn</span><span class="fu"> parse-pair</span>
+(<span class="bu">defn</span><span class="fu"> parse-pair</span>
   [[k v]]
   [(<span class="kw">keyword</span> k) (StringEscapeUtils/unescapeXml v)])
-(<span class="kw">defn</span><span class="fu"> parse-line</span>
+(<span class="bu">defn</span><span class="fu"> parse-line</span>
   [line]
   (<span class="kw">-&gt;&gt;</span> line
     (<span class="kw">re-seq</span> <span class="st">#&quot;(\w+)=</span>\&quot;<span class="st">([^</span>\&quot;<span class="st">]*)</span>\&quot;<span class="st">&quot;</span>)
@@ -617,28 +640,28 @@ In general, this is a great time to go into software development and other techn
     (<span class="kw">map</span> parse-pair)
     flatten
     (<span class="kw">apply</span> <span class="kw">hash-map</span>)))
-(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *date-formatter*
-  (formatters <span class="kw">:date-hour-minute-second-ms</span>))
-(<span class="kw">defn</span><span class="fu"> line-&gt;user-post</span>
+(<span class="bu">def</span><span class="fu"> </span>^<span class="at">:dynamic</span> *date-formatter*
+  (formatters <span class="at">:date-hour-minute-second-ms</span>))
+(<span class="bu">defn</span><span class="fu"> line-&gt;user-post</span>
   [line]
-  (<span class="kw">let</span> [user-id (<span class="kw">if-let</span> [uid (<span class="kw">:UserId</span> line)]
+  (<span class="kw">let</span> [user-id (<span class="kw">if-let</span> [uid (<span class="at">:UserId</span> line)]
                   (<span class="kw">read-string</span> uid)
                   nil)
         cdate (parse *date-formatter*
-                     (<span class="kw">:CreationDate</span> line))]
+                     (<span class="at">:CreationDate</span> line))]
     (UserPost. user-id cdate cdate)))</code></pre></div>
 <p>The next two functions process a sequence of lines into a map, which associates the users’ identifiers with the <code>UserPost</code> objects for each user.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> process-user-map</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> process-user-map</span>
   ([] {})
   ([user-post-map line]
    (<span class="kw">let</span> [user-post (line-&gt;user-post line)
-         user-id (<span class="kw">:user-id</span> user-post)]
+         user-id (<span class="at">:user-id</span> user-post)]
      (<span class="kw">assoc</span> user-post-map
             user-id
             (<span class="kw">if-let</span> [current (<span class="kw">get</span> user-post-map user-id)]
               (combine-user-posts current user-post)
               user-post)))))
-(<span class="kw">defn</span><span class="fu"> process-lines</span>
+(<span class="bu">defn</span><span class="fu"> process-lines</span>
   [lines]
   (<span class="kw">-&gt;&gt;</span>
     lines
@@ -647,17 +670,17 @@ In general, this is a great time to go into software development and other techn
     (r/fold combiner process-user-map)))</code></pre></div>
 <h4 id="reading-a-file-serially">Reading a File Serially</h4>
 <p>With that basis, the function to read the file serially is quite simple.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> serial-process</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> serial-process</span>
   [file-name]
   (<span class="kw">with-open</span> [reader (io/reader file-name)]
     (process-lines (<span class="kw">line-seq</span> reader))))</code></pre></div>
 <h4 id="reading-from-a-memory-mapped-file">Reading from a Memory-Mapped File</h4>
 <p>The other option is to read from a memory-mapped file. This allows us to treat a file’s contents as a byte array. For certain kinds of access, this can be very fast, but it takes a lot more set-up to get going.</p>
 <p>First, we’ll have a couple of parameters: the character set for the input and a hint for the size of chunk to break the file into.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *charset* (Charset/forName <span class="st">&quot;UTF-8&quot;</span>))
-(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *chunk-size* (<span class="kw">*</span> <span class="dv">10</span> <span class="dv">1024</span> <span class="dv">1024</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> </span>^<span class="at">:dynamic</span> *charset* (Charset/forName <span class="st">&quot;UTF-8&quot;</span>))
+(<span class="bu">def</span><span class="fu"> </span>^<span class="at">:dynamic</span> *chunk-size* (<span class="kw">*</span> <span class="dv">10</span> <span class="dv">1024</span> <span class="dv">1024</span>))</code></pre></div>
 <p>With those, we’ll break the file into chunks by skipping through it and reading ahead until we get to the end of a line. Later, when we actually read the file, this will make sure that lines aren’t broken across chunks.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-chunk-offsets</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> get-chunk-offsets</span>
   [f pos offsets chunk-size]
   (<span class="kw">let</span> [skip-to (<span class="kw">+</span> pos chunk-size)]
     (<span class="kw">if</span> (<span class="kw">&gt;=</span> skip-to (.length f))
@@ -668,7 +691,7 @@ In general, this is a great time to go into software development and other techn
         (<span class="kw">let</span> [new-pos (.getFilePointer f)]
           (<span class="kw">recur</span> f new-pos (<span class="kw">conj</span> offsets new-pos)
                  chunk-size))))))
-(<span class="kw">defn</span><span class="fu"> get-chunks</span>
+(<span class="bu">defn</span><span class="fu"> get-chunks</span>
   ([file-name] (get-chunks file-name *chunk-size*))
   ([file-name chunk-size]
    (<span class="kw">with-open</span> [f (RandomAccessFile. file-name <span class="st">&quot;r&quot;</span>)]
@@ -676,7 +699,7 @@ In general, this is a great time to go into software development and other techn
        (<span class="kw">partition</span> <span class="dv">2</span> <span class="dv">1</span> (get-chunk-offsets
                         f <span class="dv">0</span> [<span class="dv">0</span>] chunk-size))))))</code></pre></div>
 <p>And with those, we can memory map each chunk and read the lines out of it as a sequence.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> read-chunk</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> read-chunk</span>
   [channel [from to]]
   (<span class="kw">let</span> [chunk-mmap
         (.<span class="kw">map</span>
@@ -689,7 +712,7 @@ In general, this is a great time to go into software development and other techn
       (split-lines
         (<span class="kw">str</span> (.decode decoder chunk-mmap))))))</code></pre></div>
 <p>These let us bring everything together similar to how we did with serial-process.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> mmap-process</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> mmap-process</span>
   [file-name]
   (<span class="kw">let</span> [chan (nio/channel file-name)]
     (<span class="kw">-&gt;&gt;</span>
@@ -742,13 +765,13 @@ In general, this is a great time to go into software development and other techn
 <p>This recipe does that. It chunks a sequence of URLs and downloads a block in parallel. It uses the <a href="http://neotyk.github.com/http.async.client/"><code>http.async.client</code></a> library to perform the download asynchronously, and we’ll simply manage how we trigger those jobs.</p>
 <h3 id="getting-ready">Getting ready…</h3>
 <p>First, we need to make sure that our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file lists the dependencies we’ll need:</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="at">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
                [http.async.client <span class="st">&quot;0.4.5&quot;</span>]]</code></pre></div>
 <p>And we need to use those in our script or REPL.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[http.async.client <span class="kw">:as</span> http])
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[http.async.client <span class="at">:as</span> http])
 (<span class="kw">import</span> [java.net URL])</code></pre></div>
 <p>For this example, we’ll download all of the ZIP files related to the <a href="http://www.who.int/whosis/mort/">World Health Organization’s mortality data</a>. Let’s bind those to the name <code>urls</code>.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> urls </span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> urls </span>
   (<span class="kw">let</span> [who-ftp 
         (<span class="kw">str</span> <span class="st">&quot;http://www.who.int/whosis/database/&quot;</span>
              <span class="st">&quot;mort/download/ftp/&quot;</span>)]
@@ -763,15 +786,15 @@ In general, this is a great time to go into software development and other techn
      (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd10.zip&quot;</span>)]))</code></pre></div>
 <h3 id="how-to-do-it">How to do it…</h3>
 <p>First, let’s set our default block size. We’ll do this using a dynamic variable so we can easily change it with the <code>binding</code> form.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> </span>^<span class="kw">:dynamic</span> *block-size* <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> </span>^<span class="at">:dynamic</span> *block-size* <span class="dv">3</span>)</code></pre></div>
 <p>Now, we want to be able to see what we’re doing, so let’s wrap the <code>http.async.client/GET</code> function in a function that prints the URL when we start and returns the URL and the download.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-verbose</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> get-verbose</span>
   <span class="st">&quot;This uses http.async.client to download a URL.&quot;</span>
   [client url]
   (<span class="kw">println</span> <span class="st">&quot;GET&quot;</span> url)
   [url (http/GET client url)])</code></pre></div>
 <p>Next, let’s take the output of <code>get-verbose</code> and force the response. Since we don’t care about the response itself, we’ll throw most of it away and just return the status information. Because we’re curious, this will also print out information as it’s working.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-response</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> get-response</span>
   <span class="st">&quot;This forces the response to download and prints out</span>
 <span class="st">  what&#39;s happening.&quot;</span>
   [[url resp]]
@@ -780,25 +803,25 @@ In general, this is a great time to go into software development and other techn
   (<span class="kw">println</span> <span class="st">&quot;done&quot;</span> url)
   (http/status resp))</code></pre></div>
 <p>To see how this will work, let’s write a function to download all of the URLs sequentially. This will also serve as a baseline to see how much of a speed-up we will get.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sequential</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> sequential</span>
   <span class="st">&quot;This downloads the resources sequentially.&quot;</span>
   []
   (<span class="kw">with-open</span> [client (http/create-client
-                       <span class="kw">:follow-redirects</span> true)]
+                       <span class="at">:follow-redirects</span> true)]
     (<span class="kw">doall</span>
       (<span class="kw">map</span> get-response
            (<span class="kw">map</span> (<span class="kw">partial</span> get-verbose client)
                 urls)))))</code></pre></div>
 <p>Now to process the blocks, we’ll partition the URLs using <code>partition-all</code> and use a new function, <code>get-block</code>, to force all the downloads in each block to complete before we move on to the next block.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> get-block</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> get-block</span>
   <span class="st">&quot;This forces a block of responses to download.&quot;</span>
   [block]
   (<span class="kw">doall</span> (<span class="kw">map</span> get-response block)))
-(<span class="kw">defn</span><span class="fu"> async</span>
+(<span class="bu">defn</span><span class="fu"> async</span>
   <span class="st">&quot;This downloads the resources asynchronously.&quot;</span>
   []
   (<span class="kw">with-open</span> [client (http/create-client
-                       <span class="kw">:follow-redirects</span> true)]
+                       <span class="at">:follow-redirects</span> true)]
     (<span class="kw">doall</span>
       (<span class="kw">mapcat</span> get-block
               (partition-all
@@ -831,16 +854,16 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <!--more-->
 <h3 id="getting-ready">Getting ready</h3>
 <p>We’ll first need to list the dependencies that we’ll need in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="at">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
                [incanter/incanter <span class="st">&quot;1.4.1&quot;</span>]
                [edu.ucdenver.ccp/kr-sesame-core <span class="st">&quot;1.4.5&quot;</span>]
                [org.clojure/tools.logging <span class="st">&quot;0.2.4&quot;</span>]
                [org.slf4j/slf4j-simple <span class="st">&quot;1.7.2&quot;</span>]]</code></pre></div>
 <p>And we’ll need to include them in our script or REPL.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;(clojure.java [io <span class="kw">:as</span> io]))
-(<span class="kw">require</span> &#39;(clojure [xml <span class="kw">:as</span> xml] 
-                   [pprint <span class="kw">:as</span> pp]
-                   [zip <span class="kw">:as</span> zip]))
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;(clojure.java [io <span class="at">:as</span> io]))
+(<span class="kw">require</span> &#39;(clojure [xml <span class="at">:as</span> xml] 
+                   [pprint <span class="at">:as</span> pp]
+                   [zip <span class="at">:as</span> zip]))
 (<span class="kw">use</span> &#39;incanter.core
      &#39;edu.ucdenver.ccp.kr.kb
      &#39;edu.ucdenver.ccp.kr.rdf
@@ -853,12 +876,12 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <h3 id="how-to-do-it">How to do it…</h3>
 <p>For this, we’ll load data from the <code>currencies.ttl</code> file and from <a href="http://dbpedia.org/About">DBPedia</a> into the triple store. Because the triples in one references the triples in the other, the two datasets are automatically merged. Then we can query the triple store and get data from both of the original sources back out.</p>
 <p>To make this happen, first we need some functions to set up the plumbing for working with RDF. These will create and initialize the triple store that we’ll need to use.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> kb-memstore</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> kb-memstore</span>
   <span class="st">&quot;This creates a Sesame triple store in memory.&quot;</span>
   []
-  (kb <span class="kw">:sesame-mem</span>))
-(<span class="kw">def</span><span class="fu"> tele-ont </span><span class="st">&quot;http://telegraphis.net/ontology/&quot;</span>)
-(<span class="kw">defn</span><span class="fu"> init-kb</span>
+  (kb <span class="at">:sesame-mem</span>))
+(<span class="bu">def</span><span class="fu"> tele-ont </span><span class="st">&quot;http://telegraphis.net/ontology/&quot;</span>)
+(<span class="bu">defn</span><span class="fu"> init-kb</span>
   <span class="st">&quot;This creates an in-memory knowledge base and</span>
 <span class="st">  initializes it with a default set of namespaces.&quot;</span>
   [kb-store]
@@ -879,26 +902,26 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
      [<span class="st">&quot;dbpedia-prop&quot;</span> <span class="st">&quot;http://dbpedia.org/property/&quot;</span>]
      [<span class="st">&quot;err&quot;</span> <span class="st">&quot;http://ericrochester.com/&quot;</span>]]))</code></pre></div>
 <p>And we’ll use the following utilities later on.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> rekey</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> rekey</span>
   <span class="st">&quot;This just flips the arguments for </span>
 <span class="st">  clojure.set/rename-keys to make it more</span>
 <span class="st">  convenient.&quot;</span>
   ([k-map <span class="kw">map</span>]
    (<span class="kw">rename-keys</span> 
      (<span class="kw">select-keys</span> <span class="kw">map</span> (<span class="kw">keys</span> k-map)) k-map)))
-(<span class="kw">defn</span><span class="fu"> binding-str</span>
+(<span class="bu">defn</span><span class="fu"> binding-str</span>
   <span class="st">&quot;This takes a binding, pulls out the first tag&#39;s </span>
 <span class="st">  content, and concatenates it into a string.&quot;</span>
   ([b]
-   (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">:content</span> (<span class="kw">first</span> (<span class="kw">:content</span> b))))))
-(<span class="kw">defn</span><span class="fu"> result-seq</span>
+   (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> (<span class="kw">first</span> (<span class="at">:content</span> b))))))
+(<span class="bu">defn</span><span class="fu"> result-seq</span>
   <span class="st">&quot;This takes the first result and returns a sequence </span>
 <span class="st">  of this node, plus all the nodes to the right of it.&quot;</span>
   ([first-result]
    (<span class="kw">cons</span> (zip/node first-result)
          (zip/rights first-result))))</code></pre></div>
 <p>These build the <a href="http://www.w3.org/TR/sparql11-overview/">SPARQL</a> query and create a URL out of them for querying <a href="http://dbpedia.org/About">DBPedia</a>. The last, <code>query-sparql-results</code> gets the results, parses them, and navigates the XML tree to get to the results.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> make-query</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> make-query</span>
   <span class="st">&quot;This creates a query that returns all the </span>
 <span class="st">  triples related to a subject URI. It does </span>
 <span class="st">  filter out non-English strings.&quot;</span>
@@ -907,17 +930,17 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
              *select-limit* <span class="dv">200</span>]
      (sparql-select-query
        (<span class="kw">list</span> (<span class="kw">list</span> subject &#39;?/p &#39;?/o)
-             &#39;(<span class="kw">:or</span> (<span class="kw">:not</span> (<span class="kw">:isLiteral</span> ?/o))
-                   (!= (<span class="kw">:datatype</span> ?/o) rdf/langString)
-                   (<span class="kw">=</span> (<span class="kw">:lang</span> ?/o) [<span class="st">&quot;en&quot;</span>])))))))
-(<span class="kw">defn</span><span class="fu"> make-query-uri</span>
+             &#39;(<span class="at">:or</span> (<span class="at">:not</span> (<span class="at">:isLiteral</span> ?/o))
+                   (!= (<span class="at">:datatype</span> ?/o) rdf/langString)
+                   (<span class="kw">=</span> (<span class="at">:lang</span> ?/o) [<span class="st">&quot;en&quot;</span>])))))))
+(<span class="bu">defn</span><span class="fu"> make-query-uri</span>
   <span class="st">&quot;This constructs a URI for the query.&quot;</span>
   ([base-uri query]
    (URL. (<span class="kw">str</span> base-uri
               <span class="st">&quot;?format=&quot;</span> 
               (URLEncoder/encode <span class="st">&quot;text/xml&quot;</span>)
               <span class="st">&quot;&amp;query=&quot;</span> (URLEncoder/encode query)))))
-(<span class="kw">defn</span><span class="fu"> query-sparql-results</span>
+(<span class="bu">defn</span><span class="fu"> query-sparql-results</span>
   <span class="st">&quot;This queries a SPARQL endpoint and returns a </span>
 <span class="st">  sequence of result nodes.&quot;</span>
   ([sparql-uri subject kb]
@@ -939,16 +962,16 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
      result-seq)))</code></pre></div>
 <p>We’ll download the data we need from <a href="http://dbpedia.org/About">DBPedia</a> and insert it into the triple store alongside the RDF file’s data.</p>
 <p>As part of this, we will split all URI strings into prefixes and resources. If each prefix has a namespace abbreviation defined for it in <code>init-kb</code> above, the abbreviation needs to be used, and that and the resource are converted into a symbol together. Otherwise, the URI as a whole is converted into a symbol. What does this look like?</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> split-symbol</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> split-symbol</span>
   <span class="st">&quot;This splits a string on an index and returns a symbol</span>
 <span class="st">  created by using the first part as the namespace and the</span>
 <span class="st">  second as the symbol.&quot;</span>
   ([kb string <span class="kw">index</span>]
-     (<span class="kw">if-let</span> [ns-prefix (<span class="kw">get</span> (<span class="kw">:ns-map-to-short</span> kb)
+     (<span class="kw">if-let</span> [ns-prefix (<span class="kw">get</span> (<span class="at">:ns-map-to-short</span> kb)
                              (.substring string <span class="dv">0</span> <span class="kw">index</span>))]
        (<span class="kw">symbol</span> ns-prefix (.substring string <span class="kw">index</span>))
        (<span class="kw">symbol</span> string))))
-(<span class="kw">defn</span><span class="fu"> str-to-ns</span>
+(<span class="bu">defn</span><span class="fu"> str-to-ns</span>
   <span class="st">&quot;This maps a URI string to a ns and symbol, given the</span>
 <span class="st">  namespaces registered in the KB.&quot;</span>
   ([uri-string] (str-to-ns *kb* uri-string))
@@ -963,27 +986,27 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
        (split-symbol kb uri-string (<span class="kw">inc</span> <span class="kw">index</span>))
        (<span class="kw">symbol</span> uri-string)))))</code></pre></div>
 <p>Next, we’ll need to convert a variety of data types as encoded in the result XML into native Clojure types, the way the triple store interface wants to work with them. For that we’ll use a multimethod.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> xmls </span><span class="st">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>)
-(<span class="kw">defmulti</span><span class="fu"> from-xml</span>
-  (<span class="kw">fn</span> [r] [(<span class="kw">:tag</span> r) (<span class="kw">:datatype</span> (<span class="kw">:attrs</span> r))]))
-(<span class="kw">defmethod</span><span class="fu"> from-xml </span>[<span class="kw">:uri</span> nil] [r]
-  (str-to-ns (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">:content</span> r))))
-(<span class="kw">defmethod</span><span class="fu"> from-xml </span>[<span class="kw">:literal</span> nil] [r]
-  (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">:content</span> r)))
-(<span class="kw">defmethod</span><span class="fu"> from-xml </span>[<span class="kw">:literal</span> (<span class="kw">str</span> xmls &#39;int)] [r]
-  (<span class="kw">read-string</span> (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">:content</span> r))))
-(<span class="kw">defmethod</span><span class="fu"> from-xml </span><span class="kw">:default</span> [r]
-  (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">:content</span> r)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> xmls </span><span class="st">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>)
+(<span class="bu">defmulti</span><span class="fu"> from-xml</span>
+  (<span class="kw">fn</span> [r] [(<span class="at">:tag</span> r) (<span class="at">:datatype</span> (<span class="at">:attrs</span> r))]))
+(<span class="bu">defmethod</span><span class="fu"> from-xml </span>[<span class="at">:uri</span> nil] [r]
+  (str-to-ns (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> r))))
+(<span class="bu">defmethod</span><span class="fu"> from-xml </span>[<span class="at">:literal</span> nil] [r]
+  (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> r)))
+(<span class="bu">defmethod</span><span class="fu"> from-xml </span>[<span class="at">:literal</span> (<span class="kw">str</span> xmls &#39;int)] [r]
+  (<span class="kw">read-string</span> (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> r))))
+(<span class="bu">defmethod</span><span class="fu"> from-xml </span><span class="at">:default</span> [r]
+  (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> r)))</code></pre></div>
 <p>Now we need a function to convert each result node into a vector triple. This will be used by a later function that loads the data from DBPedia into the triple store.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> result-to-triple</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> result-to-triple</span>
   <span class="st">&quot;This converts a result node into a triple vector.&quot;</span>
   ([iri r]
-   (<span class="kw">let</span> [{<span class="kw">:keys</span> [tag <span class="kw">attrs</span> <span class="kw">content</span>]} r
+   (<span class="kw">let</span> [{<span class="at">:keys</span> [tag <span class="kw">attrs</span> <span class="kw">content</span>]} r
          [p o] <span class="kw">content</span>]
      [iri
       (str-to-ns (binding-str p))
-      (from-xml (<span class="kw">first</span> (<span class="kw">:content</span> o)))])))
-(<span class="kw">defn</span><span class="fu"> load-dbpedia</span>
+      (from-xml (<span class="kw">first</span> (<span class="at">:content</span> o)))])))
+(<span class="bu">defn</span><span class="fu"> load-dbpedia</span>
   <span class="st">&quot;This loads data from dbpedia for a specific IRI into a</span>
 <span class="st">  KB.&quot;</span>
   ([kb sparql-uri iri]
@@ -994,7 +1017,7 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
        (<span class="kw">map</span> #(result-to-triple iri %))
        (add-statements kb)))))</code></pre></div>
 <p>We’ll define a function to pull the objects of all same-as statements out of an RDF query and load all statements for that URI from DBPedia.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> load-same-as</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> load-same-as</span>
   <span class="st">&quot;This takes the results of a query for owl:sameAs and</span>
 <span class="st">  loads the object URIs into the triple store from</span>
 <span class="st">  DBPedia.&quot;</span>
@@ -1002,7 +1025,7 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
    (load-dbpedia kb <span class="st">&quot;http://dbpedia.org/sparql&quot;</span> same-as)
    kb))</code></pre></div>
 <p>Finally, <code>aggregate-dataset</code> drives the whole thing. It takes the triple store, the datafile, a query to execute on the final results, and a mapping between SPARQL query parameters and keywords for the final result.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> aggregate-dataset</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> aggregate-dataset</span>
   [t-store data-file q col-map]
   (<span class="kw">binding</span> [*kb* t-store]
     <span class="co">;;; Load primary data.</span>
@@ -1015,40 +1038,40 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
     (to-dataset (<span class="kw">map</span> (<span class="kw">partial</span> rekey col-map)
                      (query t-store q)))))</code></pre></div>
 <p>Now let’s use all this to create the dataset. We’ll bind the parameters to names so we can refer to them more easily and then use them to call <code>aggregate-dataset</code>.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> data-file</span>
+<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> data-file</span>
   <span class="st">&quot;../../../clj-data-analysis/data/currencies.ttl&quot;</span>)
-(<span class="kw">def</span><span class="fu"> col-map </span>{&#39;?/name <span class="kw">:fullname</span>
-              &#39;?/iso <span class="kw">:iso</span>
-              &#39;?/shortName <span class="kw">:name</span>
-              &#39;?/symbol <span class="kw">:symbol</span>
-              &#39;?/country <span class="kw">:country</span>
-              &#39;?/minorName <span class="kw">:minor-name</span>
-              &#39;?/minorExponent <span class="kw">:minor-exp</span>
-              &#39;?/peggedWith <span class="kw">:pegged-with</span>
-              &#39;?/usedBanknotes <span class="kw">:used-banknotes</span>
-              &#39;?/usedCoins <span class="kw">:used-coins</span>})
-(<span class="kw">def</span><span class="fu"> q </span>&#39;[[?/c rdf/type money/Currency]
+(<span class="bu">def</span><span class="fu"> col-map </span>{&#39;?/name <span class="at">:fullname</span>
+              &#39;?/iso <span class="at">:iso</span>
+              &#39;?/shortName <span class="at">:name</span>
+              &#39;?/symbol <span class="at">:symbol</span>
+              &#39;?/country <span class="at">:country</span>
+              &#39;?/minorName <span class="at">:minor-name</span>
+              &#39;?/minorExponent <span class="at">:minor-exp</span>
+              &#39;?/peggedWith <span class="at">:pegged-with</span>
+              &#39;?/usedBanknotes <span class="at">:used-banknotes</span>
+              &#39;?/usedCoins <span class="at">:used-coins</span>})
+(<span class="bu">def</span><span class="fu"> q </span>&#39;[[?/c rdf/type money/Currency]
          [?/c owl/sameAs ?/d]
          [?/c money/name ?/name]
          [?/c money/shortName ?/shortName]
          [?/c money/isoAlpha ?/iso]
          [?/c money/minorName ?/minorName]
          [?/c money/minorExponent ?/minorExponent]
-         [<span class="kw">:optional</span>
+         [<span class="at">:optional</span>
           [[?/d dbpedia-prop/symbol ?/symbol]]]
-         [<span class="kw">:optional</span>
+         [<span class="at">:optional</span>
           [[?/d dbpedia-ont/usingCountry ?/country]]]
-         [<span class="kw">:optional</span>
+         [<span class="at">:optional</span>
           [[?/d dbpedia-prop/peggedWith ?/peggedWith]]]
-         [<span class="kw">:optional</span>
+         [<span class="at">:optional</span>
           [[?/d dbpedia-prop/usedBanknotes
             ?/usedBanknotes]]]
-         [<span class="kw">:optional</span>
+         [<span class="at">:optional</span>
           [[?/d dbpedia-prop/usedCoins ?/usedCoins]]]])</code></pre></div>
 <p>Let’s put it all together.</p>
 <div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (aggregate-dataset (init-kb (kb-memstore))
             data-file q col-map)
-[<span class="kw">:used-coins</span> <span class="kw">:symbol</span> <span class="kw">:pegged-with</span> <span class="kw">:country</span> <span class="kw">:name</span> <span class="kw">:minor-exp</span> <span class="kw">:iso</span> <span class="kw">:minor-name</span> <span class="kw">:used-banknotes</span> <span class="kw">:fullname</span>]
+[<span class="at">:used-coins</span> <span class="at">:symbol</span> <span class="at">:pegged-with</span> <span class="at">:country</span> <span class="at">:name</span> <span class="at">:minor-exp</span> <span class="at">:iso</span> <span class="at">:minor-name</span> <span class="at">:used-banknotes</span> <span class="at">:fullname</span>]
 [<span class="dv">2550</span> <span class="st">&quot;د.إ&quot;</span> <span class="st">&quot;U.S. dollar = 3.6725 dirhams&quot;</span> dbpedia/United_Arab_Emirates <span class="st">&quot;dirham&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;AED&quot;</span> <span class="st">&quot;fils&quot;</span> <span class="dv">9223372036854775807</span> <span class="st">&quot;United Arab Emirates dirham&quot;</span>]
 [<span class="dv">1</span> <span class="st">&quot;Af  or Afs&quot;</span> nil dbpedia/United_States_dollar <span class="st">&quot;afghani&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;AFN&quot;</span> <span class="st">&quot;pul&quot;</span> <span class="dv">1</span> <span class="st">&quot;Afghan afghani&quot;</span>]
 [nil dbpedia/Albanian_lek nil dbpedia/Albania <span class="st">&quot;lek&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;ALL&quot;</span> <span class="st">&quot;qindarkë&quot;</span> nil <span class="st">&quot;Albanian lek&quot;</span>]
@@ -1090,108 +1113,6 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <p>I’ve enjoyed writing this. It’s been a fun journey, and the people I’ve been working with on this have been awesome. It will be nice to do something else for a change, though.</p>
 <p>Over the next few weeks, I’ll post a few of the recipes that I started on, but which I had to cut for space or other reasons. They’ll give you a taste of what’s available for you in this book, so look for them in the upcoming weeks!</p>
 <p>In the meantime, I’ve set up <a href="http://www.ericrochester.com/clj-data-analysis/">a page</a> with links to the datasets I use in the book.</p>]]></summary>
-</entry>
-<entry>
-    <title>Linked Open Data at the Rare Book School</title>
-    <link href="http://www.ericrochester.com//posts/semantic-web/linked-open-data-rbs/index.html" />
-    <id>http://www.ericrochester.com//posts/semantic-web/linked-open-data-rbs/index.html</id>
-    <published>2011-07-21T20:39:00Z</published>
-    <updated>2011-07-21T20:39:00Z</updated>
-    <summary type="html"><![CDATA[<p><em>This is cross posted at <a href="http://www.scholarslab.org/digital-libraries/introduction-to-linked-open-data-at-rare-books-school/">The Scholars’ Lab Blog</a>.</em></p>
-<p>Yesterday, I was fortunate to be invited by <a href="http://www.engl.virginia.edu/faculty/stauffer_andrew.shtml">Andrew Stauffer</a> and <a href="http://nowviskie.org/">Bethany Nowviskie</a> to present at their <a href="http://www.rarebookschool.org/">Rare Book School</a> course, <a href="http://rarebookschool.org/courses/libraries/l65/">Digitizing the Historical Record</a>. I talked about <a href="http://en.wikipedia.org/wiki/Linked_Data">Linked Open Data</a> (LOD), and afterward, <a href="http://twitter.com/!/bluesaepe">Dana Wheeles</a> talked about the <a href="http://www.nines.org/">NINES</a> project and how they use RDF and LOD.</p>
-<p>I tried to present a gentle, mostly non-technical introduction to LOD, with an example of it in action. Hopefully, this posting will be a 50,000 foot overview also.</p>
-<!--more-->
-<h2 id="the-linked-open-data-universe">The Linked Open Data Universe</h2>
-<p style="font-size: smaller; width: 300px; margin-left: auto; margin-right: auto; text-align: center;">
-<a href="http://lod-cloud.net/"> <img src="http://richard.cyganiak.de/2007/10/lod/lod-datasets_2010-09-22.png" alt="Linked Open Data cloud" height="195" width="300" /> </a> <em>Linking Open Data cloud diagram, by Richard Cyganiak and Anja Jentzsch. <a href="http://lod-cloud.net/">http://lod-cloud.net/</a></em>
-</p>
-<p>The first thing to know about LOD is that it’s everywhere. Look at the <a href="http://lod-cloud.net/">Linked Open Data cloud diagram</a> above. All of these institutions are publishing data that anyone can use, and their data references others’ data also.</p>
-<!--more-->
-<h2 id="linked-data-vs-open-data-vs-rdf-data">Linked Data vs Open Data vs RDF Data</h2>
-<p>First we need to unpack the term <em>Linked Open Data</em>:</p>
-<p><strong>Linked</strong> is an approach to data. You need to provide context for your data; you need to point to other’s data.</p>
-<p><strong>Open</strong> is a policy. Your data is out there for others to look at and use; you explicitly give others this permission.</p>
-<p><strong>Data</strong> is a technology and a set of standards. Your data is available using an RDF data model (usually) so computers can easily process it.</p>
-<p><em>(See <a href="http://blogs.ecs.soton.ac.uk/webteam/2011/07/17/linked-data-vs-open-data-vs-rdf-data/">Christopher Gutteridge’s post</a> for more about this distinction.)</em></p>
-<h2 id="five-stars">Five Stars</h2>
-<p>Creating LOD can seem overwhelming. Where do you start? What do you have to do? It’s not an all or nothing proposition. You can take what you have, figure out how close you are to LOD, and work gradually toward making your information a full member of the LOD cloud. The LOD community talks about having four-star data or five-star data. Here are what the different stars denote:</p>
-<ol style="list-style-type: decimal">
-<li>You’ve released the data using any format under an <strong>open</strong> license that allows others to view and use your data;</li>
-<li>You’ve released the data in a <strong>structured</strong> format so that some program can deal with it (e.g., Excel);</li>
-<li>You’ve released the data in a <strong>non-proprietary</strong> format, like CVS;</li>
-<li>You’ve used <strong>HTTP URIs</strong> (things you can type into your web browser’s location bar) to identify things in your data and made those URIs available on the web so others can point to your stuff;</li>
-<li>You explicitly <strong>link</strong> your data to others’ data to provide context.</li>
-</ol>
-<p><em>(This is all over the web. <a href="http://lab.linkeddata.deri.ie/2010/star-scheme-by-example/">Michael Hausenblas’ explanation with examples</a> is a good starting point.)</em></p>
-<h2 id="representing-knowledge">Representing Knowledge</h2>
-<p>A large part of this is about representing knowledge so computers can easily process it. Often LOD is encoded using <a href="http://en.wikipedia.org/wiki/Resource_Description_Framework">Resource Description Framework (RDF)</a>. This provides a way to model information using a series of statements. Each statement has three parts: a subject, a predicate, and an object. Subjects and predicates <em>must</em> be URIs. Objects can be URIs (linked data) or data literals.</p>
-<p>The predicates that you can use are grouped into <em>vocabularies</em>. Each vocabulary is used for a specific domain.</p>
-<p>We’re getting abstract, so let’s ground this discussion by looking at a specific vocabulary and set of statements.</p>
-<h3 id="friend-of-a-friend">Friend of a Friend</h3>
-<p>For describing people, there’s a vocabulary standard called <a href="http://www.foaf-project.org/">Friend of a Friend (FOAF)</a>. I’ve used that on my web site to provide information about me. (The file on my website is in <a href="http://en.wikipedia.org/wiki/RDF/XML">RDF/XML</a>, which can be frightening. I’ve converted it to <a href="http://en.wikipedia.org/wiki/Turtle_(syntax%29),%20which%20we%20can%20walk%20through%20more%20easily.">Turtle</a></p>
-<p>I’ll show you parts of it line-by-line.</p>
-<p>(Ahem. Before we start, a disclaimer: I need to update my FOAF file. It doesn’t reflect best practices. The referencing URL isn’t quite the way it should be, and it uses deprecated FOAF predicates. That said, if you can ignore my dirty laundry, it still illustrates the points I want to make about the basic structure of RDF.)</p>
-<p>First,</p>
-<pre><code>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</code></pre>
-<p>This just says that anywhere <code>foaf:</code> appears later, replace it with the URL <code>http://xmlns.com/foaf/0.1/</code>.</p>
-<pre><code>[] a &lt;http://xmlns.com/foaf/0.1/Person&gt;;</code></pre>
-<p>This is a statement. <code>[]</code> just means that it’s talking about the document itself, which in this case is a stand-in for me. The predicate here is <code>a</code>, which is a shortcut that’s used to tell what type of an object something is. In this case, it says that I’m a person, as FOAF defines it.</p>
-<p>And because the line ends in a semicolon, the rest of the statements are also about me. Or more specifically, about <code>[]</code>.</p>
-<pre><code>foaf:firstName &quot;Eric&quot;;
-foaf:surname &quot;Rochester&quot;;
-foaf:name &quot;Eric Rochester&quot;;
-foaf:nick &quot;Eric&quot;;</code></pre>
-<p>This set of statements still have the implied subject of me, and they use a series of predicates from FOAF. The object of each is a literal string, giving a value. Roughly this translates into four statements:</p>
-<ul>
-<li>Eric’s first name is “Eric.”</li>
-<li>Eric’s given name is “Rochester.”</li>
-<li>Eric’s full name is “Eric Rochester.”</li>
-<li>Eric’s nickname is “Eric.”</li>
-</ul>
-<p>The next statement is a little different:</p>
-<pre><code>foaf:workplaceHomepage &lt;http://www.scholarslab.org/&gt; .</code></pre>
-<p>This final statement has a URI as the object. It represents this statement:</p>
-<ul>
-<li>Eric’s workplace’s home page is “<a href="http://www.scholarslab.org/" class="uri">http://www.scholarslab.org/</a>”.</li>
-</ul>
-<p>If this was a little overwhelming, thank you for sticking around this far. Now here’s what you need to know about modeling information using RDF:</p>
-<ol style="list-style-type: decimal">
-<li>Everything is expressed as subject-predicate-object statements; and</li>
-<li>Predicates are grouped into vocabularies.</li>
-</ol>
-<p>The rest is just details.</p>
-<h2 id="linked-open-data-and-the-semantic-web">Linked Open Data and the Semantic Web</h2>
-<p>During my presentation, someone pointed out that this all sounds a lot like the <a href="http://en.wikipedia.org/wiki/Semantic_web">Semantic Web</a>.</p>
-<p>Yes, it does. LOD is the semantic web without the focus on understanding and focusing more on what we can do. Understanding may come later—or not—but in the meantime we can still do some pretty cool things.</p>
-<h2 id="so-what">So What?</h2>
-<p>The benefit of all this is that it provides another layer for the internet. You can use this information to augment your own services (e.g., Google augments their search results with RDF data about product reviews) or build services on top of this information.</p>
-<p>If you’re curious for more or still aren’t convinced, visit the <a href="http://obd.jisc.ac.uk/">Open Bibliographic Data Guide</a>. They make a business case and articulate some use cases for LOD for libraries and other institutions.</p>
-<h2 id="for-example">For Example</h2>
-<p>Discussing LOD can get pretty abstract and pretty meta. To keep things grounded, I spent a few hours and threw together a quick demonstration of what you can do with LOD.</p>
-<p>The Library of Congress’ <a href="http://chroniclingamerica.loc.gov/">Chronicling America</a> project exposes data about the newspapers in its archives using RDF. It’s five-star data, too. For example, to tell the geographic location that the papers covered, it links to both <a href="http://www.geonames.org/">GeoNames</a> and <a href="http://dbpedia.org/About">DBpedia</a>. The LoC doesn’t provide the coordinates of these cities, but because they express the places with a link, I can follow those and read the latitude and longitude from there.</p>
-<p>I wrote a <a href="http://www.python.org/">Python</a> script that uses <a href="http://www.rdflib.net/">RDFlib</a> to read the data from the LoC and GeoNames and writes it out using <a href="http://en.wikipedia.org/wiki/Kml">KML</a>. You can view this file using Google Maps or Google Earth.</p>
-<p>Here’s the results of one run of the script. (I randomly pick 100 newspapers from the LoC, so the results of each run is different.)</p>
-<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626&amp;output=embed">
-</iframe>
-<p><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=https:%2F%2Fgithub.com%2Ferochest%2Floc-chronicling-map%2Fraw%2Fmaster%2Fdata%2Fnewspapers.kml&amp;aq=&amp;sll=38.063606,-78.505873&amp;sspn=0.011741,0.016093&amp;ie=UTF8&amp;t=h&amp;ll=34.64296,-115.5352&amp;spn=26.67204,84.64626" style="color:0000FF;text-align:left">View Larger Map</a></small></p>
-<p>You can find the source for this example on both Github and BitBucket:</p>
-<ul>
-<li><a href="https://github.com/erochest/loc-chronicling-map" class="uri">https://github.com/erochest/loc-chronicling-map</a></li>
-<li><a href="https://bitbucket.org/erochest/loc-chronicling-map/overview" class="uri">https://bitbucket.org/erochest/loc-chronicling-map/overview</a></li>
-</ul>
-<h2 id="resources">Resources</h2>
-<p>Throughout this post, I’ve tried to link to some resources. Here are a few more (not all of these will be appropriate to a novice):</p>
-<ul>
-<li><a href="http://en.wikipedia.org/wiki/Linked_Data">The Wikipedia page on linked data</a>.</li>
-<li><a href="http://obd.jisc.ac.uk/">The Open Bibliographic Data Guide</a>, which provides rationales for LOD.</li>
-<li><a href="http://linkddata.org/">A portal to LOD resources and tools</a>.</li>
-<li><a href="http://www.w3.org/wiki/LinkedData">A portal maintained by the W3C</a>.</li>
-<li><a href="http://lod-cloud.net/">The LOD cloud</a>.</li>
-<li><a href="http://www.w3.org/DesignIssues/LinkedData.html">The four rules of LOD</a>.</li>
-<li><a href="http://lab.linkeddata.deri.ie/2010/star-scheme-by-example/">The five stars</a>.</li>
-<li><a href="http://blogs.ecs.soton.ac.uk/webteam/2011/07/17/linked-data-vs-open-data-vs-rdf-data/">Linked vs Open vs Data</a>.</li>
-<li><a href="http://linkeddatabook.com/book">A book on publishing LOD on the internet</a>.</li>
-</ul>]]></summary>
 </entry>
 
 </feed>
