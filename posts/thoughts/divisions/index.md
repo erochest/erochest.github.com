@@ -10,11 +10,11 @@ I've kept the peace by making myself absent.
 
 <!--more-->
 
-Partially this was because some people are A-OK inflicting violence on others, usually those who have already experienced too much violence in their lives. Partially this was because I am a little too conflict-avoidant, and I've had the had the privilege to indulge myself. I didn't want to dive into those pools of sharks (with fricking laser beams!). And I didn't think I was up to the challenge of what? Protected? Mediating? Just being in those spaces?
+Partially this was because some people are A-OK inflicting violence on others, usually those who have already experienced too much violence in their bodies. Partially this was because I am a little too conflict-avoidant, and I've had the had the privilege to indulge myself. I didn't want to dive into those pools of sharks (with fricking laser beams!). And I didn't think I was up to the challenge of what? Protecting? Mediating? Just being in those spaces?
 
 But that needs to end.
 
-As a cishet white male, theoretically my voice isn't exactly missing from important discussions, but maybe my voice will reach someone nothing else has gotten through to. Or better yet, maybe I can amplify someone else's voice.
+As a cishet white male, theoretically my voice isn't exactly missing from important discussions, but maybe my voice will reach someone no one else has gotten through to. Or better yet, maybe I can amplify someone else's voice.
 
 So what are the parts of me that I've been keeping apart? Like the people populating my timeline, they run the gamut: computer programming, medieval literature, genre literature, poetry, spirituality, science, digital humanities, environmental justice, feminism, ethical adoption. I could go on. It's all there.
 
@@ -31,6 +31,10 @@ So.
 I'm tired of the divisions. I'm tired of the walls. I'm getting rid of them. And I'm talking about it.
 
 Except I'm not getting rid of the walls entirely. Rightly used, boundaries are healthy and health-maintaining. I'm not moving this discussion onto Facebook. It's all happening here, where I have control. I may move the discussion into other places later, but I'm starting here.
+
+Tonight of all nights, as I suffer. As I watch the women in my life suffer. As I watch the people of color in my life suffer. I have to make to a stand. I have to say who I support and who I fight with.
+
+Fight on.
 
 [divided]: http://www.couragerenewal.org/parker/writings/divided-no-more/ "Divided No More"
 [healing-principles]: https://badassvisionaryhealers.wordpress.com/healing-justice-principles/ "Healing Justice Principles"
