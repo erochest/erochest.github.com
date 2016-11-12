@@ -8,8 +8,24 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2016-11-09T14:07:24Z</updated>
+    <updated>2016-11-12T12:33:59Z</updated>
     <entry>
+    <title>Read It!</title>
+    <link href="http://www.ericrochester.com//posts/notes/read-it/index.html" />
+    <id>http://www.ericrochester.com//posts/notes/read-it/index.html</id>
+    <published>2016-11-12T12:33:59Z</published>
+    <updated>2016-11-12T12:33:59Z</updated>
+    <summary type="html"><![CDATA[<p>Read this whole thread:</p>
+<!--more-->
+<blockquote class="twitter-tweet" data-lang="en">
+<p lang="en" dir="ltr">
+I woke up out of my dead sleep an hour ago. I knew Trump won before I went to bed. I just thought I might have a full nights sleep first
+</p>
+— 5'7 Black Male (<span class="citation">@absurdistwords</span>) <a href="https://twitter.com/absurdistwords/status/796301496698671104">November 9, 2016</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>]]></summary>
+</entry>
+<entry>
     <title>Energy Packets/Waves</title>
     <link href="http://www.ericrochester.com//posts/notes/energy-packets/index.html" />
     <id>http://www.ericrochester.com//posts/notes/energy-packets/index.html</id>
@@ -856,251 +872,6 @@ GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
 <h3 id="how-it-works">How it works…</h3>
 <p>First, we partition the URLs into blocks that will be downloaded in parallel. Because this process is IO-bound, we don’t have to worry about matching the number of CPUs on our machines. The function <code>get-block</code> then takes each block and forces <code>get-response</code> to complete the download and return.</p>
 <p>Playing around with the block size shows some impressive speed-ups. Using a block size of five takes almost half the time as the serial version. Experiment with a small subset of your downloads to see what the optimal block size is for your network and the resources you’re interested in.</p>
-<hr />
-<blockquote>
-<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj" class="uri">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
-</blockquote>]]></summary>
-</entry>
-<entry>
-    <title>Aggregating Semantic Web Data</title>
-    <link href="http://www.ericrochester.com//posts/code/aggregating-semantic-web-data/index.html" />
-    <id>http://www.ericrochester.com//posts/code/aggregating-semantic-web-data/index.html</id>
-    <published>2013-04-08T13:04:02Z</published>
-    <updated>2013-04-08T13:04:02Z</updated>
-    <summary type="html"><![CDATA[<blockquote>
-<p><em>This is a recipe that I wrote for the <a href="/pages/announcements/clj-data-analysis/index.html"><em>Clojure Data Analysis Cookbook</em></a>. However, it didn’t make it into the final book, so I’m sharing it with you today. If you like this, check out <a href="http://www.packtpub.com/clojure-data-analysis-cookbook/book">the book</a>.</em></p>
-</blockquote>
-<p>One of the benefits of <a href="http://linkeddata.org/">linked data</a> is that it <em>is</em> linked. Data in one place points to data in another place, and the two integrate easily. However, although the links are explicit, we still have to bring the data together manually. Let’s see how to do that with Clojure.</p>
-<!--more-->
-<h3 id="getting-ready">Getting ready</h3>
-<p>We’ll first need to list the dependencies that we’ll need in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="at">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
-               [incanter/incanter <span class="st">&quot;1.4.1&quot;</span>]
-               [edu.ucdenver.ccp/kr-sesame-core <span class="st">&quot;1.4.5&quot;</span>]
-               [org.clojure/tools.logging <span class="st">&quot;0.2.4&quot;</span>]
-               [org.slf4j/slf4j-simple <span class="st">&quot;1.7.2&quot;</span>]]</code></pre></div>
-<p>And we’ll need to include them in our script or REPL.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;(clojure.java [io <span class="at">:as</span> io]))
-(<span class="kw">require</span> &#39;(clojure [xml <span class="at">:as</span> xml] 
-                   [pprint <span class="at">:as</span> pp]
-                   [zip <span class="at">:as</span> zip]))
-(<span class="kw">use</span> &#39;incanter.core
-     &#39;edu.ucdenver.ccp.kr.kb
-     &#39;edu.ucdenver.ccp.kr.rdf
-     &#39;edu.ucdenver.ccp.kr.sparql
-     &#39;edu.ucdenver.ccp.kr.sesame.kb
-     &#39;clojure.<span class="kw">set</span>)
-(<span class="kw">import</span> [java.io File]
-        [java.net URL URLEncoder])</code></pre></div>
-<p>We’ll also use the <a href="/clj-data-analysis/data/currencies.ttl">currencies.ttl</a> file.</p>
-<h3 id="how-to-do-it">How to do it…</h3>
-<p>For this, we’ll load data from the <code>currencies.ttl</code> file and from <a href="http://dbpedia.org/About">DBPedia</a> into the triple store. Because the triples in one references the triples in the other, the two datasets are automatically merged. Then we can query the triple store and get data from both of the original sources back out.</p>
-<p>To make this happen, first we need some functions to set up the plumbing for working with RDF. These will create and initialize the triple store that we’ll need to use.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> kb-memstore</span>
-  <span class="st">&quot;This creates a Sesame triple store in memory.&quot;</span>
-  []
-  (kb <span class="at">:sesame-mem</span>))
-(<span class="bu">def</span><span class="fu"> tele-ont </span><span class="st">&quot;http://telegraphis.net/ontology/&quot;</span>)
-(<span class="bu">defn</span><span class="fu"> init-kb</span>
-  <span class="st">&quot;This creates an in-memory knowledge base and</span>
-<span class="st">  initializes it with a default set of namespaces.&quot;</span>
-  [kb-store]
-  (register-namespaces
-    kb-store
-    [[<span class="st">&quot;geographis&quot;</span> (<span class="kw">str</span> tele-ont 
-                        <span class="st">&quot;geography/geography#&quot;</span>)]
-     [<span class="st">&quot;code&quot;</span> (<span class="kw">str</span> tele-ont <span class="st">&quot;measurement/code#&quot;</span>)]
-     [<span class="st">&quot;money&quot;</span> (<span class="kw">str</span> tele-ont <span class="st">&quot;money/money#&quot;</span>)]
-     [<span class="st">&quot;owl&quot;</span> <span class="st">&quot;http://www.w3.org/2002/07/owl#&quot;</span>]
-     [<span class="st">&quot;rdf&quot;</span> (<span class="kw">str</span> <span class="st">&quot;http://www.w3.org/&quot;</span>
-                 <span class="st">&quot;1999/02/22-rdf-syntax-ns#&quot;</span>)]
-     [<span class="st">&quot;xsd&quot;</span> <span class="st">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>]
-     [<span class="st">&quot;currency&quot;</span> (<span class="kw">str</span> <span class="st">&quot;http://telegraphis.net/&quot;</span>
-                      <span class="st">&quot;data/currencies/&quot;</span>)]
-     [<span class="st">&quot;dbpedia&quot;</span> <span class="st">&quot;http://dbpedia.org/resource/&quot;</span>]
-     [<span class="st">&quot;dbpedia-ont&quot;</span> <span class="st">&quot;http://dbpedia.org/ontology/&quot;</span>]
-     [<span class="st">&quot;dbpedia-prop&quot;</span> <span class="st">&quot;http://dbpedia.org/property/&quot;</span>]
-     [<span class="st">&quot;err&quot;</span> <span class="st">&quot;http://ericrochester.com/&quot;</span>]]))</code></pre></div>
-<p>And we’ll use the following utilities later on.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> rekey</span>
-  <span class="st">&quot;This just flips the arguments for </span>
-<span class="st">  clojure.set/rename-keys to make it more</span>
-<span class="st">  convenient.&quot;</span>
-  ([k-map <span class="kw">map</span>]
-   (<span class="kw">rename-keys</span> 
-     (<span class="kw">select-keys</span> <span class="kw">map</span> (<span class="kw">keys</span> k-map)) k-map)))
-(<span class="bu">defn</span><span class="fu"> binding-str</span>
-  <span class="st">&quot;This takes a binding, pulls out the first tag&#39;s </span>
-<span class="st">  content, and concatenates it into a string.&quot;</span>
-  ([b]
-   (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> (<span class="kw">first</span> (<span class="at">:content</span> b))))))
-(<span class="bu">defn</span><span class="fu"> result-seq</span>
-  <span class="st">&quot;This takes the first result and returns a sequence </span>
-<span class="st">  of this node, plus all the nodes to the right of it.&quot;</span>
-  ([first-result]
-   (<span class="kw">cons</span> (zip/node first-result)
-         (zip/rights first-result))))</code></pre></div>
-<p>These build the <a href="http://www.w3.org/TR/sparql11-overview/">SPARQL</a> query and create a URL out of them for querying <a href="http://dbpedia.org/About">DBPedia</a>. The last, <code>query-sparql-results</code> gets the results, parses them, and navigates the XML tree to get to the results.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> make-query</span>
-  <span class="st">&quot;This creates a query that returns all the </span>
-<span class="st">  triples related to a subject URI. It does </span>
-<span class="st">  filter out non-English strings.&quot;</span>
-  ([subject kb]
-   (<span class="kw">binding</span> [*kb* kb
-             *select-limit* <span class="dv">200</span>]
-     (sparql-select-query
-       (<span class="kw">list</span> (<span class="kw">list</span> subject &#39;?/p &#39;?/o)
-             &#39;(<span class="at">:or</span> (<span class="at">:not</span> (<span class="at">:isLiteral</span> ?/o))
-                   (!= (<span class="at">:datatype</span> ?/o) rdf/langString)
-                   (<span class="kw">=</span> (<span class="at">:lang</span> ?/o) [<span class="st">&quot;en&quot;</span>])))))))
-(<span class="bu">defn</span><span class="fu"> make-query-uri</span>
-  <span class="st">&quot;This constructs a URI for the query.&quot;</span>
-  ([base-uri query]
-   (URL. (<span class="kw">str</span> base-uri
-              <span class="st">&quot;?format=&quot;</span> 
-              (URLEncoder/encode <span class="st">&quot;text/xml&quot;</span>)
-              <span class="st">&quot;&amp;query=&quot;</span> (URLEncoder/encode query)))))
-(<span class="bu">defn</span><span class="fu"> query-sparql-results</span>
-  <span class="st">&quot;This queries a SPARQL endpoint and returns a </span>
-<span class="st">  sequence of result nodes.&quot;</span>
-  ([sparql-uri subject kb]
-   (<span class="kw">-&gt;&gt;</span>
-     kb
-     <span class="co">;; Build the URI query string.</span>
-     (make-query subject)
-     (make-query-uri sparql-uri)
-     <span class="co">;; Get the results, parse the XML, and</span>
-     <span class="co">;; return the zipper.</span>
-     io/input-stream
-     xml/parse
-     zip/xml-zip
-     <span class="co">;; Find the first child.</span>
-     zip/down
-     zip/right
-     zip/down
-     <span class="co">;; Convert all children into a sequence.</span>
-     result-seq)))</code></pre></div>
-<p>We’ll download the data we need from <a href="http://dbpedia.org/About">DBPedia</a> and insert it into the triple store alongside the RDF file’s data.</p>
-<p>As part of this, we will split all URI strings into prefixes and resources. If each prefix has a namespace abbreviation defined for it in <code>init-kb</code> above, the abbreviation needs to be used, and that and the resource are converted into a symbol together. Otherwise, the URI as a whole is converted into a symbol. What does this look like?</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> split-symbol</span>
-  <span class="st">&quot;This splits a string on an index and returns a symbol</span>
-<span class="st">  created by using the first part as the namespace and the</span>
-<span class="st">  second as the symbol.&quot;</span>
-  ([kb string <span class="kw">index</span>]
-     (<span class="kw">if-let</span> [ns-prefix (<span class="kw">get</span> (<span class="at">:ns-map-to-short</span> kb)
-                             (.substring string <span class="dv">0</span> <span class="kw">index</span>))]
-       (<span class="kw">symbol</span> ns-prefix (.substring string <span class="kw">index</span>))
-       (<span class="kw">symbol</span> string))))
-(<span class="bu">defn</span><span class="fu"> str-to-ns</span>
-  <span class="st">&quot;This maps a URI string to a ns and symbol, given the</span>
-<span class="st">  namespaces registered in the KB.&quot;</span>
-  ([uri-string] (str-to-ns *kb* uri-string))
-  ([kb uri-string]
-   (<span class="kw">let</span> [index-gens
-         (<span class="kw">list</span> #(.lastIndexOf uri-string (<span class="kw">int</span> <span class="ch">\#</span>))
-               #(.lastIndexOf uri-string (<span class="kw">int</span> <span class="ch">\/</span>)))]
-     (<span class="kw">if-let</span> [<span class="kw">index</span>
-              (<span class="kw">first</span> 
-                (<span class="kw">filter</span> #(<span class="kw">&gt;</span> % -<span class="dv">1</span>) 
-                        (<span class="kw">map</span> (<span class="kw">fn</span> [f] (f)) index-gens)))]
-       (split-symbol kb uri-string (<span class="kw">inc</span> <span class="kw">index</span>))
-       (<span class="kw">symbol</span> uri-string)))))</code></pre></div>
-<p>Next, we’ll need to convert a variety of data types as encoded in the result XML into native Clojure types, the way the triple store interface wants to work with them. For that we’ll use a multimethod.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> xmls </span><span class="st">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>)
-(<span class="bu">defmulti</span><span class="fu"> from-xml</span>
-  (<span class="kw">fn</span> [r] [(<span class="at">:tag</span> r) (<span class="at">:datatype</span> (<span class="at">:attrs</span> r))]))
-(<span class="bu">defmethod</span><span class="fu"> from-xml </span>[<span class="at">:uri</span> nil] [r]
-  (str-to-ns (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> r))))
-(<span class="bu">defmethod</span><span class="fu"> from-xml </span>[<span class="at">:literal</span> nil] [r]
-  (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> r)))
-(<span class="bu">defmethod</span><span class="fu"> from-xml </span>[<span class="at">:literal</span> (<span class="kw">str</span> xmls &#39;int)] [r]
-  (<span class="kw">read-string</span> (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> r))))
-(<span class="bu">defmethod</span><span class="fu"> from-xml </span><span class="at">:default</span> [r]
-  (<span class="kw">apply</span> <span class="kw">str</span> (<span class="at">:content</span> r)))</code></pre></div>
-<p>Now we need a function to convert each result node into a vector triple. This will be used by a later function that loads the data from DBPedia into the triple store.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> result-to-triple</span>
-  <span class="st">&quot;This converts a result node into a triple vector.&quot;</span>
-  ([iri r]
-   (<span class="kw">let</span> [{<span class="at">:keys</span> [tag <span class="kw">attrs</span> <span class="kw">content</span>]} r
-         [p o] <span class="kw">content</span>]
-     [iri
-      (str-to-ns (binding-str p))
-      (from-xml (<span class="kw">first</span> (<span class="at">:content</span> o)))])))
-(<span class="bu">defn</span><span class="fu"> load-dbpedia</span>
-  <span class="st">&quot;This loads data from dbpedia for a specific IRI into a</span>
-<span class="st">  KB.&quot;</span>
-  ([kb sparql-uri iri]
-   (<span class="kw">binding</span> [*kb* kb]
-     (<span class="kw">-&gt;&gt;</span>
-       kb
-       (query-sparql-results sparql-uri iri)
-       (<span class="kw">map</span> #(result-to-triple iri %))
-       (add-statements kb)))))</code></pre></div>
-<p>We’ll define a function to pull the objects of all same-as statements out of an RDF query and load all statements for that URI from DBPedia.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> load-same-as</span>
-  <span class="st">&quot;This takes the results of a query for owl:sameAs and</span>
-<span class="st">  loads the object URIs into the triple store from</span>
-<span class="st">  DBPedia.&quot;</span>
-  ([kb [_ _ same-as]]
-   (load-dbpedia kb <span class="st">&quot;http://dbpedia.org/sparql&quot;</span> same-as)
-   kb))</code></pre></div>
-<p>Finally, <code>aggregate-dataset</code> drives the whole thing. It takes the triple store, the datafile, a query to execute on the final results, and a mapping between SPARQL query parameters and keywords for the final result.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> aggregate-dataset</span>
-  [t-store data-file q col-map]
-  (<span class="kw">binding</span> [*kb* t-store]
-    <span class="co">;;; Load primary data.</span>
-    (load-rdf-file t-store (File. data-file))
-    <span class="co">;;; Load associated data.</span>
-    (<span class="kw">reduce</span> load-same-as
-            t-store
-            (query-rdf t-store nil &#39;owl/sameAs nil))
-    <span class="co">;;; Query </span>
-    (to-dataset (<span class="kw">map</span> (<span class="kw">partial</span> rekey col-map)
-                     (query t-store q)))))</code></pre></div>
-<p>Now let’s use all this to create the dataset. We’ll bind the parameters to names so we can refer to them more easily and then use them to call <code>aggregate-dataset</code>.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> data-file</span>
-  <span class="st">&quot;../../../clj-data-analysis/data/currencies.ttl&quot;</span>)
-(<span class="bu">def</span><span class="fu"> col-map </span>{&#39;?/name <span class="at">:fullname</span>
-              &#39;?/iso <span class="at">:iso</span>
-              &#39;?/shortName <span class="at">:name</span>
-              &#39;?/symbol <span class="at">:symbol</span>
-              &#39;?/country <span class="at">:country</span>
-              &#39;?/minorName <span class="at">:minor-name</span>
-              &#39;?/minorExponent <span class="at">:minor-exp</span>
-              &#39;?/peggedWith <span class="at">:pegged-with</span>
-              &#39;?/usedBanknotes <span class="at">:used-banknotes</span>
-              &#39;?/usedCoins <span class="at">:used-coins</span>})
-(<span class="bu">def</span><span class="fu"> q </span>&#39;[[?/c rdf/type money/Currency]
-         [?/c owl/sameAs ?/d]
-         [?/c money/name ?/name]
-         [?/c money/shortName ?/shortName]
-         [?/c money/isoAlpha ?/iso]
-         [?/c money/minorName ?/minorName]
-         [?/c money/minorExponent ?/minorExponent]
-         [<span class="at">:optional</span>
-          [[?/d dbpedia-prop/symbol ?/symbol]]]
-         [<span class="at">:optional</span>
-          [[?/d dbpedia-ont/usingCountry ?/country]]]
-         [<span class="at">:optional</span>
-          [[?/d dbpedia-prop/peggedWith ?/peggedWith]]]
-         [<span class="at">:optional</span>
-          [[?/d dbpedia-prop/usedBanknotes
-            ?/usedBanknotes]]]
-         [<span class="at">:optional</span>
-          [[?/d dbpedia-prop/usedCoins ?/usedCoins]]]])</code></pre></div>
-<p>Let’s put it all together.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (aggregate-dataset (init-kb (kb-memstore))
-            data-file q col-map)
-[<span class="at">:used-coins</span> <span class="at">:symbol</span> <span class="at">:pegged-with</span> <span class="at">:country</span> <span class="at">:name</span> <span class="at">:minor-exp</span> <span class="at">:iso</span> <span class="at">:minor-name</span> <span class="at">:used-banknotes</span> <span class="at">:fullname</span>]
-[<span class="dv">2550</span> <span class="st">&quot;د.إ&quot;</span> <span class="st">&quot;U.S. dollar = 3.6725 dirhams&quot;</span> dbpedia/United_Arab_Emirates <span class="st">&quot;dirham&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;AED&quot;</span> <span class="st">&quot;fils&quot;</span> <span class="dv">9223372036854775807</span> <span class="st">&quot;United Arab Emirates dirham&quot;</span>]
-[<span class="dv">1</span> <span class="st">&quot;Af  or Afs&quot;</span> nil dbpedia/United_States_dollar <span class="st">&quot;afghani&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;AFN&quot;</span> <span class="st">&quot;pul&quot;</span> <span class="dv">1</span> <span class="st">&quot;Afghan afghani&quot;</span>]
-[nil dbpedia/Albanian_lek nil dbpedia/Albania <span class="st">&quot;lek&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;ALL&quot;</span> <span class="st">&quot;qindarkë&quot;</span> nil <span class="st">&quot;Albanian lek&quot;</span>]
-[<span class="dv">102050100200500</span> nil nil dbpedia/Armenia <span class="st">&quot;dram&quot;</span> <span class="st">&quot;0&quot;</span> <span class="st">&quot;AMD&quot;</span> <span class="st">&quot;luma&quot;</span> <span class="dv">9223372036854775807</span> <span class="st">&quot;Armenian dram&quot;</span>]
-…</code></pre></div>
-<h3 id="how-it-works">How it works…</h3>
-<p>Linked data is, well, linked. Basically, we took all the data we’re interested in and dumped it into one big database. We used the links in the data itself to drive this by following <em>same-as</em> relationships already encoded in the data. We just used our query to pull it all together.</p>
-<p>As an aside, notice the multimethod <code>from-xml</code> that dispatches on the result node’s tag name and its datatype attribute. Currently, this handles strings, integers, and URIs. They are sufficient for this dataset. If we need more, though, we can add them easily.</p>
-<p>Also, in the query, all the phrases that are pulled in from DBPedia are marked <code>:optional</code>. We don’t want the overall query to fail because any of them are missing, and we can’t mark them all optional as a group because we don’t want the optional phrases as a whole to fail if any one is missing.</p>
 <hr />
 <blockquote>
 <p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj" class="uri">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
