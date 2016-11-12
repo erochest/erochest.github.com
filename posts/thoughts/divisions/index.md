@@ -32,7 +32,7 @@ I'm tired of the divisions. I'm tired of the walls. I'm getting rid of them. And
 
 Except I'm not getting rid of the walls entirely. Rightly used, boundaries are healthy and health-maintaining. I'm not moving this discussion onto Facebook. It's all happening here, where I have control. I may move the discussion into other places later, but I'm starting here.
 
-Tonight of all nights, as I suffer. As I watch the women in my life suffer. As I watch the people of color in my life suffer. I have to make to a stand. I have to say who I support and who I fight with.
+Tonight of all nights, as I suffer. As I watch the women in my life suffer. As I watch the people of color in my life suffer. As I watch my LGBTQ friends suffer and my Muslim friends suffer and my immigrant friends suffer. As I watch so many afraid. I have to make to a stand. I have to say who I support and who I fight with.
 
 Fight on.
 
