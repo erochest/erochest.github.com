@@ -8,8 +8,27 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2016-11-12T12:33:59Z</updated>
+    <updated>2016-11-14T02:16:56Z</updated>
     <entry>
+    <title>Pace Yourself</title>
+    <link href="http://www.ericrochester.com//posts/notes/pace-yourself/index.html" />
+    <id>http://www.ericrochester.com//posts/notes/pace-yourself/index.html</id>
+    <published>2016-11-14T02:16:56Z</published>
+    <updated>2016-11-14T02:16:56Z</updated>
+    <summary type="html"><![CDATA[<p>Four years is a long time. Eight years is longer.</p>
+<!--more-->
+<p>Both those time spans are easy to wrap our heads around, though. The truth is that most of us will be dead before the world sees the kind of society we want to live in.</p>
+<p>This isn’t a sprint. It’s not even a marathon. It’s a multigenerational migration.</p>
+<p>I’ll be posting links to more humor, trying my hand at more fiction. I’ll be trying to listen to those who’ve worked these fields before me.</p>
+<p>Pace yourself.</p>
+<hr />
+<p>I was going to pull a quote or two from each of these links, but they’re both just so good. At some point this week I’m going to highlight quotes I like from the transcripts of these on <a href="https://hypothes.is/">Hypothesis</a>. Those will probably show up again on this blog in some form.</p>
+<ul>
+<li><a href="http://www.onbeing.org/program/parker-palmer-and-courtney-martin-the-inner-life-of-rebellion/7122">The Inner Life of Rebellion</a> — Parker Palmer and Courtney Martin</li>
+<li><a href="http://www.onbeing.org/program/vincent-harding-is-america-possible/79">Is America Possible?</a> — Vincent Harding</li>
+</ul>]]></summary>
+</entry>
+<entry>
     <title>Read It!</title>
     <link href="http://www.ericrochester.com//posts/notes/read-it/index.html" />
     <id>http://www.ericrochester.com//posts/notes/read-it/index.html</id>
@@ -782,96 +801,6 @@ In general, this is a great time to go into software development and other techn
 <p>So for this, the serial process is better. It’s become a cliché to say that disk is the new tape, but there’s a lot of truth in that. If we can arrange processing so that we access the disk sequentially, as we do whenever we read one line at a time, we’ll get about the best performance we can.</p>
 <p>If we must have random access, for a disk-based index for example, then we’re better off memory mapping the part of the file that we’re going to access.</p>
 <p>The numbers above support these guidelines. As usual, the devil is in the details and exactly how our processing is going to happen.</p>
-<hr />
-<blockquote>
-<p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj" class="uri">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
-</blockquote>]]></summary>
-</entry>
-<entry>
-    <title>Downloading Data in Parallel</title>
-    <link href="http://www.ericrochester.com//posts/code/downloading-data-in-parallel/index.html" />
-    <id>http://www.ericrochester.com//posts/code/downloading-data-in-parallel/index.html</id>
-    <published>2013-04-29T13:04:02Z</published>
-    <updated>2013-04-29T13:04:02Z</updated>
-    <summary type="html"><![CDATA[<blockquote>
-<p><em>This is a recipe that I wrote for the <a href="/pages/announcements/clj-data-analysis/index.html"><em>Clojure Data Analysis Cookbook</em></a>. However, it didn’t make it into the final book, so I’m sharing it with you today. If you like this, check out <a href="http://www.packtpub.com/clojure-data-analysis-cookbook/book">the book</a>.</em></p>
-</blockquote>
-<p>Sometimes when getting resources, we have to download them from many URLs. Doing that sequentially for one or two sources is fine, but if there are too many, we will really want to make better use of our Internet connection by downloading several at once.</p>
-<!--more-->
-<p>This recipe does that. It chunks a sequence of URLs and downloads a block in parallel. It uses the <a href="http://neotyk.github.com/http.async.client/"><code>http.async.client</code></a> library to perform the download asynchronously, and we’ll simply manage how we trigger those jobs.</p>
-<h3 id="getting-ready">Getting ready…</h3>
-<p>First, we need to make sure that our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file lists the dependencies we’ll need:</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="at">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
-               [http.async.client <span class="st">&quot;0.4.5&quot;</span>]]</code></pre></div>
-<p>And we need to use those in our script or REPL.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> &#39;[http.async.client <span class="at">:as</span> http])
-(<span class="kw">import</span> [java.net URL])</code></pre></div>
-<p>For this example, we’ll download all of the ZIP files related to the <a href="http://www.who.int/whosis/mort/">World Health Organization’s mortality data</a>. Let’s bind those to the name <code>urls</code>.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> urls </span>
-  (<span class="kw">let</span> [who-ftp 
-        (<span class="kw">str</span> <span class="st">&quot;http://www.who.int/whosis/database/&quot;</span>
-             <span class="st">&quot;mort/download/ftp/&quot;</span>)]
-    [(<span class="kw">str</span> who-ftp <span class="st">&quot;documentation.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;availability.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;country_codes.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;notes.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;Pop.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd07.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd08.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd09.zip&quot;</span>)
-     (<span class="kw">str</span> who-ftp <span class="st">&quot;morticd10.zip&quot;</span>)]))</code></pre></div>
-<h3 id="how-to-do-it">How to do it…</h3>
-<p>First, let’s set our default block size. We’ll do this using a dynamic variable so we can easily change it with the <code>binding</code> form.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">def</span><span class="fu"> </span>^<span class="at">:dynamic</span> *block-size* <span class="dv">3</span>)</code></pre></div>
-<p>Now, we want to be able to see what we’re doing, so let’s wrap the <code>http.async.client/GET</code> function in a function that prints the URL when we start and returns the URL and the download.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> get-verbose</span>
-  <span class="st">&quot;This uses http.async.client to download a URL.&quot;</span>
-  [client url]
-  (<span class="kw">println</span> <span class="st">&quot;GET&quot;</span> url)
-  [url (http/GET client url)])</code></pre></div>
-<p>Next, let’s take the output of <code>get-verbose</code> and force the response. Since we don’t care about the response itself, we’ll throw most of it away and just return the status information. Because we’re curious, this will also print out information as it’s working.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> get-response</span>
-  <span class="st">&quot;This forces the response to download and prints out</span>
-<span class="st">  what&#39;s happening.&quot;</span>
-  [[url resp]]
-  (<span class="kw">println</span> <span class="st">&quot;awaiting&quot;</span> url)
-  (http/await resp)
-  (<span class="kw">println</span> <span class="st">&quot;done&quot;</span> url)
-  (http/status resp))</code></pre></div>
-<p>To see how this will work, let’s write a function to download all of the URLs sequentially. This will also serve as a baseline to see how much of a speed-up we will get.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> sequential</span>
-  <span class="st">&quot;This downloads the resources sequentially.&quot;</span>
-  []
-  (<span class="kw">with-open</span> [client (http/create-client
-                       <span class="at">:follow-redirects</span> true)]
-    (<span class="kw">doall</span>
-      (<span class="kw">map</span> get-response
-           (<span class="kw">map</span> (<span class="kw">partial</span> get-verbose client)
-                urls)))))</code></pre></div>
-<p>Now to process the blocks, we’ll partition the URLs using <code>partition-all</code> and use a new function, <code>get-block</code>, to force all the downloads in each block to complete before we move on to the next block.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="bu">defn</span><span class="fu"> get-block</span>
-  <span class="st">&quot;This forces a block of responses to download.&quot;</span>
-  [block]
-  (<span class="kw">doall</span> (<span class="kw">map</span> get-response block)))
-(<span class="bu">defn</span><span class="fu"> async</span>
-  <span class="st">&quot;This downloads the resources asynchronously.&quot;</span>
-  []
-  (<span class="kw">with-open</span> [client (http/create-client
-                       <span class="at">:follow-redirects</span> true)]
-    (<span class="kw">doall</span>
-      (<span class="kw">mapcat</span> get-block
-              (partition-all
-                *block-size*
-                (<span class="kw">map</span>
-                  (<span class="kw">partial</span> get-verbose client)
-                  urls))))))</code></pre></div>
-<p>Now we run this by simply calling async.</p>
-<div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (async)
-GET http://www.who.int/whosis/database/mort/download/ftp/documentation.zip
-…</code></pre></div>
-<h3 id="how-it-works">How it works…</h3>
-<p>First, we partition the URLs into blocks that will be downloaded in parallel. Because this process is IO-bound, we don’t have to worry about matching the number of CPUs on our machines. The function <code>get-block</code> then takes each block and forces <code>get-response</code> to complete the download and return.</p>
-<p>Playing around with the block size shows some impressive speed-ups. Using a block size of five takes almost half the time as the serial version. Experiment with a small subset of your downloads to see what the optimal block size is for your network and the resources you’re interested in.</p>
 <hr />
 <blockquote>
 <p><em>This post is a literate programming file. Click on the <a href="index.clj">raw</a> link below—and the <a href="project.clj" class="uri">project.clj</a> file linked to above—to download a version of this post that you can load directly into a Clojure REPL.</em> <!-- vim: set textwidth=58: --></p>
