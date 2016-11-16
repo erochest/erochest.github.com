@@ -53,15 +53,16 @@ ul.social {
     font-size: smaller;
     li {
         display: inline;
-        &:after {
-            content: " \00b7";
-        }
-        &:last-child:after {
-            content: none;
+        margin-right: 0.5em;
+        &:last-child {
+            margin-right: 0em;
         }
     }
     a:link, a:visited, a:active {
         color: color("brown", "lighten-5");
+    }
+    span {
+        display: none;
     }
 }
 
