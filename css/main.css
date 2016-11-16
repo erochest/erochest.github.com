@@ -3193,13 +3193,14 @@ ul.social {
   list-style: none;
   font-size: smaller; }
   ul.social li {
-    display: inline; }
-    ul.social li:after {
-      content: " \00b7"; }
-    ul.social li:last-child:after {
-      content: none; }
+    display: inline;
+    margin-right: 0.5em; }
+    ul.social li:last-child {
+      margin-right: 0em; }
   ul.social a:link, ul.social a:visited, ul.social a:active {
     color: #efebe9; }
+  ul.social span {
+    display: none; }
 
 .footer-copyright {
   font-size: x-small; }
