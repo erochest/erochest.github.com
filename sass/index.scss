@@ -17,7 +17,8 @@ $pane_hover : rgba(0, 150, 136, 0.2);
 
 .pane {
     @extend .brown-text, .text-lighten-5;
-    @extend .col, .l3, .m6, .s12, .right-align;
+    // @extend .col, .l3, .m6, .s12, .right-align;
+    @extend .col, .l4, .m12, .s12, .right-align;
 
     height: 360px;
     position: relative;
