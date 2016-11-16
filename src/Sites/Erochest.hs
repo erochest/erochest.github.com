@@ -41,22 +41,23 @@ loadPageContent =   recentFirst
 rules :: IO (Rules ())
 rules =
     return $ do
-        paginate indexPageSize "posts" postPattern False
+        paginate indexPageSize "posts" postPattern "Blog" False
         compileProjectIndex
 
         create ["atom.xml"] $ do
             route idRoute
             compile $
-                let context = bodyField "description" <> siteContext Nothing
-                    config  = FeedConfiguration "Eric Rochester"
-                                                "Feed for my site."
-                                                "Eric Rochester"
-                                                "erochest@gmail.com"
-                                                "http://www.ericrochester.com/"
+                let context =  bodyField "description"
+                            <> siteContext Nothing Nothing
+                    config  =  FeedConfiguration "Eric Rochester"
+                                                 "Feed for my site."
+                                                 "Eric Rochester"
+                                                 "erochest@gmail.com"
+                                                 "http://www.ericrochester.com/"
                 in  take 10 <$> loadPageContent >>= renderAtom config context
 
         match "index.html" $ do
-            let context = siteContext . Just $ style "/css/index.css"
+            let context = siteContext Nothing . Just $ style "/css/index.css"
             route       idRoute
             compile $   getResourceBody
                     >>= loadAndApplyDefault context
@@ -67,12 +68,12 @@ rules =
             route   $   customRoute createBaseIndexRoute
             compile .   compilePage'
                     .   mappend profileContext
-                    $   siteContext
+                    $   siteContext Nothing
                     .   Just
                     $   style "/css/index.css"
 
         match "pages/*.html" $ do
-            let context = siteContext Nothing
+            let context = siteContext Nothing Nothing
             route   $   customRoute createBaseIndexRoute
             compile $   getResourceBody
                     >>= loadAndApplyDefault context
@@ -92,7 +93,7 @@ rules =
                 case clojure $ itemBody rsc of
                      Right body ->  saveSnapshot "content"
                                         (itemSetBody body rsc)
-                                >>= postTemplate (siteContext Nothing)
+                                >>= postTemplate (siteContext Nothing Nothing)
                                 >>= relativizeUrls
                                 >>= cleanIndexUrls
                      Left e     ->  throwError . pure $ displayException e

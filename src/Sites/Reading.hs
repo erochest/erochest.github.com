@@ -28,7 +28,7 @@ readingPattern = "reading-log/**/*.md"
 
 readingSite :: IO SiteInfo
 readingSite = return . Site "reading-journal" "reading" "reading-log" $ do
-    paginate indexPageSize "reading-log" readingPattern True
+    paginate indexPageSize "reading-log" readingPattern "Reading Log" True
 
     create ["posts.ttl"] $ do
         route idRoute
@@ -65,7 +65,7 @@ readingSite = return . Site "reading-journal" "reading" "reading-log" $ do
         compile compileReading
 
 compileReading :: Compiler (Item String)
-compileReading = compileReading' $ siteContext Nothing
+compileReading = compileReading' $ siteContext Nothing Nothing
 
 compileReading' :: Context String -> Compiler (Item String)
 compileReading' c = do

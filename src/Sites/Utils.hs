@@ -98,7 +98,7 @@ pandocHtml :: Rules ()
 pandocHtml = do
     route   $   setExtension "html"
     compile $   pandocCompiler
-            >>= loadAndApplyDefault (siteContext Nothing)
+            >>= loadAndApplyDefault (siteContext Nothing Nothing)
             >>= relativizeUrls
             >>= cleanIndexUrls
 
@@ -106,7 +106,7 @@ pandocClean :: Rules ()
 pandocClean = do
     route       cleanRoute
     compile $   pandocCompiler
-            >>= loadAndApplyDefault (siteContext Nothing)
+            >>= loadAndApplyDefault (siteContext Nothing Nothing)
             >>= relativizeUrls
             >>= cleanIndexUrls
 
@@ -122,7 +122,7 @@ style :: String -> String
 style url =  "<link rel=\"stylesheet\" href=\"" <> url <> "\">"
 
 compilePage :: Compiler (Item String)
-compilePage =  compilePage' $ siteContext Nothing
+compilePage =  compilePage' $ siteContext Nothing Nothing
 
 compilePage' :: Context String -> Compiler (Item String)
 compilePage' c =   pandocCompiler
@@ -132,7 +132,7 @@ compilePage' c =   pandocCompiler
                >>= cleanIndexUrls
 
 compilePost :: Compiler (Item String)
-compilePost = compilePost' $ siteContext Nothing
+compilePost = compilePost' $ siteContext Nothing Nothing
 
 baseUrl :: T.Text
 baseUrl = "http://www.ericrochester.com/"
@@ -236,14 +236,15 @@ profileContext = openGraph
 property_ :: T.Text -> Attribute
 property_ = makeAttribute "property"
 
-siteContext :: Maybe String -> Context String
-siteContext extraHeader =
+siteContext :: Maybe String -> Maybe String -> Context String
+siteContext title extraHeader =
            dateField "date" "%e %B %Y"
         <> dateField "datetime" "%Y-%m-%dT%H:%M:%SZ"
         <> mconcat [ field "coverImage"  (errMetadataField "cover-image" )
                    , field "bannerImage" (errMetadataField "banner-image")
                    ]
         <> extraHeaderContext extraHeader
+        <> foldMap (constField "title") title
         <> constField "open-graph" ""
         <> livereload
         <> defaultContext

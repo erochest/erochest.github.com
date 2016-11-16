@@ -26,13 +26,13 @@ compileProjectIndex = create ["projects/index.html"] $ do
         debugCompiler $ show projectList
         let c  =  listField "posts" c' items
                <> boolField "onePage" (const True)
-               <> siteContext Nothing
+               <> siteContext (Just "Projects") Nothing
             c' =  field "title"      (pLookup projectTitle)
                <> field "teaser"     (pLookup projectTeaser)
                <> field "coverImage" (pLookup projectCoverImage)
                <> field "url"        (pLookup projectId)
                <> field "date"       (pLookup pDate)
-               <> siteContext Nothing
+               <> siteContext Nothing Nothing
         makeItem "" >>= indexTemplate c
     where
         items :: Compiler [Item String]
