@@ -2926,7 +2926,7 @@ nav ul a span.badge {
         margin-left: auto;
         left: auto;
         right: auto; }
-      .row .col.m6, .row .pane {
+      .row .col.m6, .row .m6.pane {
         width: 50%;
         margin-left: auto;
         left: auto;
@@ -2956,7 +2956,7 @@ nav ul a span.badge {
         margin-left: auto;
         left: auto;
         right: auto; }
-      .row .col.m12, .row .m12.pane {
+      .row .col.m12, .row .pane {
         width: 100%;
         margin-left: auto;
         left: auto;
@@ -3044,12 +3044,12 @@ nav ul a span.badge {
         margin-left: auto;
         left: auto;
         right: auto; }
-      .row .col.l3, .row .pane {
+      .row .col.l3, .row .l3.pane {
         width: 25%;
         margin-left: auto;
         left: auto;
         right: auto; }
-      .row .col.l4, .row .l4.pane {
+      .row .col.l4, .row .pane {
         width: 33.33333%;
         margin-left: auto;
         left: auto;

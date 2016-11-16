@@ -8,37 +8,37 @@
   },
   "@graph": [
     {
-      "@id": "_:g70139355915600",
+      "@id": "_:g70264123284080",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70139356002280",
+      "@id": "_:g70264123378200",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70139356194740",
+      "@id": "_:g70264123465060",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70139366994200",
+      "@id": "_:g70264123625120",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70139367105320",
+      "@id": "_:g70264124184440",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
     },
     {
-      "@id": "_:g70139367208020",
+      "@id": "_:g70264135911120",
       "xhv:role": {
         "@id": "xhv:navigation"
       }
@@ -81,10 +81,10 @@
       },
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#young-adult"
+          "@id": "http://www.ericrochester.com/tag#magic-realism"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#magic-realism"
+          "@id": "http://www.ericrochester.com/tag#young-adult"
         }
       ],
       "rdfs:label": "Skellig"
@@ -97,21 +97,21 @@
       },
       "http://purdom.org/reading#theme_of": [
         {
-          "@id": "http://www.ericrochester.com/tag#womens-experience"
-        },
-        {
           "@id": "http://www.ericrochester.com/tag#asian-american"
         },
         {
           "@id": "http://www.ericrochester.com/tag#anti-hero"
+        },
+        {
+          "@id": "http://www.ericrochester.com/tag#womens-experience"
         }
       ],
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#mystery"
+          "@id": "http://www.ericrochester.com/tag#humor"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#humor"
+          "@id": "http://www.ericrochester.com/tag#mystery"
         }
       ],
       "rdfs:label": "Hello Kitty Must Die"
@@ -132,13 +132,13 @@
       },
       "http://www.ericrochester.com/reading#genre": [
         {
+          "@id": "http://www.ericrochester.com/tag#humor"
+        },
+        {
           "@id": "http://www.ericrochester.com/tag#fantasy"
         },
         {
           "@id": "http://www.ericrochester.com/tag#science-fiction"
-        },
-        {
-          "@id": "http://www.ericrochester.com/tag#humor"
         }
       ],
       "rdfs:label": "Emperor Mollusk versus the Sinister Brain"
@@ -162,10 +162,10 @@
       },
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#fantasy"
+          "@id": "http://www.ericrochester.com/tag#horror"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#horror"
+          "@id": "http://www.ericrochester.com/tag#fantasy"
         }
       ],
       "rdfs:label": "Lucretia and the Kroons"
@@ -174,44 +174,44 @@
       "@id": "uri:reading-journal",
       "article:author": "http://www.ericrochester.com/about/",
       "article:published_time": [
-        "2016-08-03T10:45:08Z",
-        "2016-08-02T00:45:43Z",
         "2016-07-23T00:52:59Z",
+        "2016-08-03T10:45:08Z",
+        "2016-07-28T13:39:13Z",
         "2016-07-28T15:28:50Z",
-        "2016-07-27T13:30:53Z",
-        "2016-07-28T13:39:13Z"
+        "2016-08-02T00:45:43Z",
+        "2016-07-27T13:30:53Z"
       ],
       "article:section": "reading",
       "article:tag": [
         "mystery",
-        "horror",
-        "humor",
-        "fantasy",
-        "young-adult",
         "asian-american",
-        "women",
         "science-fiction",
-        "magic-realism",
-        "postcyberpunk"
+        "humor",
+        "young-adult",
+        "horror",
+        "postcyberpunk",
+        "fantasy",
+        "women",
+        "magic-realism"
       ],
       "og:image": "http://www.ericrochester.com/img/about.jpg",
       "og:site_name": "e.",
       "og:title": [
-        "The Dervish House",
-        "A Tale for the Time Being",
-        "Skellig",
         "Emperor Mollusk versus the Sinister Brain",
+        "Hello Kitty Must Die",
+        "A Tale for the Time Being",
+        "The Dervish House",
         "Lucretia and the Kroons",
-        "Hello Kitty Must Die"
+        "Skellig"
       ],
       "og:type": "article",
       "og:url": [
-        "http://www.ericrochester.com/reading-log/lavalle-victor/lucretia-and-the-kroons/index.html",
         "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html",
-        "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html",
-        "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html",
+        "http://www.ericrochester.com/reading-log/lavalle-victor/lucretia-and-the-kroons/index.html",
+        "http://www.ericrochester.com/reading-log/ozeki-ruth/tale-time-being/index.html",
         "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
-        "http://www.ericrochester.com/reading-log/ozeki-ruth/tale-time-being/index.html"
+        "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html",
+        "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html"
       ],
       "rdfa:usesVocabulary": {
         "@id": "http://bibframe.org/vocab/"
