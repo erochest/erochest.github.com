@@ -37,6 +37,7 @@ library
                      , blaze-html
                      , containers
                      , directory
+                     , errors
                      , filepath
                      , hakyll
                      , lens
@@ -45,6 +46,7 @@ library
                      , mtl
                      , pandoc
                      , regex-tdfa
+                     , safe-exceptions
                      , shelly
                      , split
                      , text

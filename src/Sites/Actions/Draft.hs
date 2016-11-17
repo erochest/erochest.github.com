@@ -26,7 +26,7 @@ newDraft cat tagSet title mslug = shelly $ verbosely $ do
     now <-  liftIO
         $   formatTime defaultTimeLocale (iso8601DateFormat (Just "%H:%M:%SZ"))
         <$> getCurrentTime
-    git_ "checkout" ["-b", T.pack slug]
+    git_ "checkout" ["-b", brch]
     liftIO $ createDirectoryIfMissing True cdir
     liftIO
         $ TLIO.writeFile path
@@ -37,6 +37,7 @@ newDraft cat tagSet title mslug = shelly $ verbosely $ do
     where
         slug = fromMaybe (T.unpack $ slugify title) mslug
         cdir = "posts" </> cat </> slug
+        brch = T.pack $ "draft" </> cat </> slug
         path = cdir </> "index.md"
         tags = T.intercalate " " $ L.sort $ S.toList tagSet
 

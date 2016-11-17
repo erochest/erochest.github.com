@@ -15,7 +15,7 @@ data Actions
               , draftSlug     :: !(Maybe FilePath)
               }
     | Publish { publishMetaFile :: !FilePath
-              , publishBranch   :: !T.Text
+              , publishBranch   :: !(Maybe T.Text)
               , publishTo       :: !T.Text
               , publishOn       :: !(Maybe UTCTime)
               , publishDeploy   :: !Bool
