@@ -9,6 +9,7 @@ import           Data.Char         (isAlphaNum)
 import qualified Data.HashSet      as S
 import qualified Data.List         as L
 import           Data.Maybe        (fromMaybe)
+import           Data.Monoid       ((<>))
 import qualified Data.Text         as T
 import           Data.Text.Format
 import qualified Data.Text.Lazy    as TL
@@ -26,7 +27,7 @@ newDraft cat tagSet title mslug = shelly $ verbosely $ do
     now <-  liftIO
         $   formatTime defaultTimeLocale (iso8601DateFormat (Just "%H:%M:%SZ"))
         <$> getCurrentTime
-    git_ "checkout" ["-b", T.pack slug]
+    git_ "checkout" ["-b", "draft/" <> T.pack slug]
     liftIO $ createDirectoryIfMissing True cdir
     liftIO
         $ TLIO.writeFile path
