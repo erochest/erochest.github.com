@@ -49,9 +49,11 @@ publishOpts
     <$> strOption (  short 'i' <> long "input" <> metavar "METADATA_INPUT"
                   <> help "The metadata input file. Usually this is the post\
                           \ markdown file.")
-    <*> option textOpt (  short 'b' <> long "branch" <> metavar "SOURCE_BRANCH"
-                       <> help "The branch containing the metadata file.\
-                               \ This will be merged into DEST_BRANCH.")
+    <*> optional (option textOpt
+                    (  short 'b' <> long "branch" <> metavar "SOURCE_BRANCH"
+                    <> help "The branch containing the metadata file.\
+                            \ This will be merged into DEST_BRANCH.\
+                            \ Default is the current branch."))
     <*> option textOpt (  short 'B' <> long "merge-branch"
                        <> metavar "DEST_BRANCH" <> value "develop"
                        <> help "The branch to merge SOURCE_BRANCH *into*.\

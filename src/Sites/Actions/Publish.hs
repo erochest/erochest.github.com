@@ -4,28 +4,34 @@
 module Sites.Actions.Publish where
 
 
-import qualified Data.Text            as T
+import           Control.Error
+import           Control.Exception.Base (AssertionFailed (..))
+import qualified Data.Text              as T
 import           Data.Text.Format
-import qualified Data.Text.IO         as TIO
-import qualified Data.Text.Lazy       as TL
+import qualified Data.Text.IO           as TIO
+import qualified Data.Text.Lazy         as TL
 import           Data.Time
 import           Data.Traversable
-import           Shelly               hiding (FilePath, (<.>), (</>))
-import qualified Shelly               as Sh
+import           Shelly                 hiding (FilePath, (<.>), (</>))
+import qualified Shelly                 as Sh
 import           System.FilePath
 
-import           Sites.Actions.Deploy (deploySite)
+import           Sites.Actions.Deploy   (deploySite)
 import           Sites.Git
+import           Sites.Utils
 
 
 data DocLocation = Pre | Meta | Content
 
-publishDraft :: FilePath -> T.Text -> T.Text -> Maybe UTCTime -> Bool -> IO ()
-publishDraft metaFile srcB destB pubDate deploy = shelly $ verbosely $ do
-    now <-  liftIO
-        $   T.pack
-        .   formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
-        <$> maybe getCurrentTime return pubDate
+publishDraft :: FilePath -> Maybe T.Text -> T.Text -> Maybe UTCTime -> Bool
+             -> IO ()
+publishDraft metaFile mSrcB destB pubDate deploy = shelly $ verbosely $ do
+    srcB <-  maybe (   throwMaybe (AssertionFailed "cannot find current branch")
+                   =<< currentBranch) return mSrcB
+    now  <-  liftIO
+         $   T.pack
+         .   formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
+         <$> maybe getCurrentTime return pubDate
 
     git_ "checkout" [srcB]
     withTmpDir $ \dirname -> do
@@ -47,6 +53,14 @@ publishDraft metaFile srcB destB pubDate deploy = shelly $ verbosely $ do
 
     when deploy $
         liftIO $ deploySite False False
+
+-- git branch --list | grep '*' | cut -d ' ' -f 2
+currentBranch :: Sh (Maybe T.Text)
+currentBranch =   headZ
+              .   fmap (T.drop 2)
+              .   filter ("* " `T.isPrefixOf`)
+              .   T.lines
+              <$> git "branch" ["--list"]
 
 fpStr :: Sh.FilePath -> FilePath
 fpStr = T.unpack . toTextIgnore

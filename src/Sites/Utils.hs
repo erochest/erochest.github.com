@@ -40,25 +40,28 @@ module Sites.Utils
     , iso8601
     , getCategory
     , getTags'
+    , throwMaybe
     ) where
 
 
 import           Control.Applicative
+import           Control.Exception.Safe
 import           Control.Monad
-import           Data.Aeson.Types    (Value (..))
+import           Data.Aeson.Types       (Value (..))
 import           Data.Foldable
-import qualified Data.HashMap.Strict as M
-import           Data.List           (isSuffixOf)
-import           Data.Maybe          (fromMaybe)
+import qualified Data.HashMap.Strict    as M
+import           Data.List              (isSuffixOf)
+import           Data.Maybe             (fromMaybe)
 import           Data.Monoid
-import qualified Data.Text           as T
+import qualified Data.Text              as T
 import           Data.Text.Format
-import qualified Data.Text.Lazy      as TL
-import           Data.Time.Clock     (UTCTime)
-import           Data.Time.Format    (defaultTimeLocale, formatTime, parseTimeM)
+import qualified Data.Text.Lazy         as TL
+import           Data.Time.Clock        (UTCTime)
+import           Data.Time.Format       (defaultTimeLocale, formatTime,
+                                         parseTimeM)
 import           Hakyll
 import           Lucid
-import           Lucid.Base          (makeAttribute)
+import           Lucid.Base             (makeAttribute)
 import           System.Environment
 import           System.FilePath
 
@@ -310,3 +313,8 @@ indexFileName root n = fromFilePath
 
 meta :: String -> Item a -> Compiler String
 meta k = (`getMetadataField'` k) . itemIdentifier
+
+throwMaybe :: (MonadThrow m, Exception e) => e -> Maybe a -> m a
+throwMaybe _ (Just a) = return a
+throwMaybe e Nothing  = throwM e
+
