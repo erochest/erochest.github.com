@@ -5,3 +5,5 @@ _site/*
 *.o
 .lein-repl-history
 target
+node_modules/
+.localrc

@@ -1,0 +1,20 @@
+{
+  "name": "errsite",
+  "version": "1.0.0",
+  "description": "Node packages used making my website.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erochest/erochest.github.com.git"
+  },
+  "author": "Eric Rochester <erochest@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/erochest/erochest.github.com/issues"
+  },
+  "homepage": "https://github.com/erochest/erochest.github.com#readme",
+  "devDependencies": {
+    "pulp": "^10.0.0",
+    "purescript": "^0.10.2"
+  }
+}
