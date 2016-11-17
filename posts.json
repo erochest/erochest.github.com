@@ -1,160 +1,157 @@
 {
   "@context": {
-    "bibframe": "http://bibframe.org/vocab/",
-    "og": "http://ogp.me/ns#",
     "rdfa": "http://www.w3.org/ns/rdfa#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "xhv": "http://www.w3.org/1999/xhtml/vocab#"
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
   },
   "@graph": [
     {
-      "@id": "_:g70306993042520",
-      "xhv:role": {
-        "@id": "xhv:navigation"
+      "@id": "_:g70233285483620",
+      "http://www.w3.org/1999/xhtml/vocab#role": {
+        "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70306993529860",
-      "xhv:role": {
-        "@id": "xhv:navigation"
+      "@id": "_:g70233294204020",
+      "http://www.w3.org/1999/xhtml/vocab#role": {
+        "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70306997327840",
-      "xhv:role": {
-        "@id": "xhv:navigation"
+      "@id": "_:g70233294282860",
+      "http://www.w3.org/1999/xhtml/vocab#role": {
+        "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70306997374020",
-      "xhv:role": {
-        "@id": "xhv:navigation"
+      "@id": "_:g70233294318920",
+      "http://www.w3.org/1999/xhtml/vocab#role": {
+        "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70307010209720",
-      "xhv:role": {
-        "@id": "xhv:navigation"
+      "@id": "_:g70233294336400",
+      "http://www.w3.org/1999/xhtml/vocab#role": {
+        "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70307010296560",
-      "xhv:role": {
-        "@id": "xhv:navigation"
+      "@id": "_:g70233310104120",
+      "http://www.w3.org/1999/xhtml/vocab#role": {
+        "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
       "@id": "http://dbpedia.org/resource/A._Lee_Martinez",
-      "@type": "bibframe:Person",
+      "@type": "http://bibframe.org/vocab/Person",
       "rdfs:label": "A. Lee Martinez"
     },
     {
       "@id": "http://dbpedia.org/resource/David_Almond",
-      "@type": "bibframe:Person",
+      "@type": "http://bibframe.org/vocab/Person",
       "rdfs:label": "David Almond"
     },
     {
       "@id": "http://dbpedia.org/resource/Ian_McDonald_(author)",
-      "@type": "bibframe:Person",
+      "@type": "http://bibframe.org/vocab/Person",
       "rdfs:label": "Ian McDonald"
     },
     {
       "@id": "http://dbpedia.org/resource/Ruth_Ozeki",
-      "@type": "bibframe:Person",
+      "@type": "http://bibframe.org/vocab/Person",
       "rdfs:label": "Ruth Ozeki"
     },
     {
       "@id": "http://dbpedia.org/resource/Victor_LaValle",
-      "@type": "bibframe:Person",
+      "@type": "http://bibframe.org/vocab/Person",
       "rdfs:label": "Victor LaValle"
     },
     {
       "@id": "http://viaf.org/viaf/120524420/",
-      "@type": "bibframe:Person",
+      "@type": "http://bibframe.org/vocab/Person",
       "rdfs:label": "Angela S. Choi"
     },
     {
       "@id": "http://www.worldcat.org/oclc/39129781",
-      "@type": "bibframe:Work",
-      "bibframe:creator": {
+      "@type": "http://bibframe.org/vocab/Work",
+      "http://bibframe.org/vocab/creator": {
         "@id": "http://dbpedia.org/resource/David_Almond"
       },
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#young-adult"
+          "@id": "http://www.ericrochester.com/tag#magic-realism"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#magic-realism"
+          "@id": "http://www.ericrochester.com/tag#young-adult"
         }
       ],
       "rdfs:label": "Skellig"
     },
     {
       "@id": "http://www.worldcat.org/oclc/456179132",
-      "@type": "bibframe:Work",
-      "bibframe:creator": {
+      "@type": "http://bibframe.org/vocab/Work",
+      "http://bibframe.org/vocab/creator": {
         "@id": "http://viaf.org/viaf/120524420/"
       },
       "http://purdom.org/reading#theme_of": [
         {
-          "@id": "http://www.ericrochester.com/tag#womens-experience"
+          "@id": "http://www.ericrochester.com/tag#anti-hero"
         },
         {
           "@id": "http://www.ericrochester.com/tag#asian-american"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#anti-hero"
+          "@id": "http://www.ericrochester.com/tag#womens-experience"
         }
       ],
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#humor"
+          "@id": "http://www.ericrochester.com/tag#mystery"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#mystery"
+          "@id": "http://www.ericrochester.com/tag#humor"
         }
       ],
       "rdfs:label": "Hello Kitty Must Die"
     },
     {
       "@id": "http://www.worldcat.org/oclc/466343581",
-      "@type": "bibframe:Work",
-      "bibframe:creator": {
+      "@type": "http://bibframe.org/vocab/Work",
+      "http://bibframe.org/vocab/creator": {
         "@id": "http://dbpedia.org/resource/Ian_McDonald_(author)"
       },
       "rdfs:label": "The Dervish House"
     },
     {
       "@id": "http://www.worldcat.org/oclc/707964746",
-      "@type": "bibframe:Work",
-      "bibframe:creator": {
+      "@type": "http://bibframe.org/vocab/Work",
+      "http://bibframe.org/vocab/creator": {
         "@id": "http://dbpedia.org/resource/A._Lee_Martinez"
       },
       "http://www.ericrochester.com/reading#genre": [
-        {
-          "@id": "http://www.ericrochester.com/tag#humor"
-        },
         {
           "@id": "http://www.ericrochester.com/tag#science-fiction"
         },
         {
           "@id": "http://www.ericrochester.com/tag#fantasy"
+        },
+        {
+          "@id": "http://www.ericrochester.com/tag#humor"
         }
       ],
       "rdfs:label": "Emperor Mollusk versus the Sinister Brain"
     },
     {
       "@id": "http://www.worldcat.org/oclc/796756004",
-      "@type": "bibframe:Work",
-      "bibframe:creator": {
+      "@type": "http://bibframe.org/vocab/Work",
+      "http://bibframe.org/vocab/creator": {
         "@id": "http://dbpedia.org/resource/Ruth_Ozeki"
       },
       "rdfs:label": "A Tale for the Time Being"
     },
     {
       "@id": "http://www.worldcat.org/oclc/803529730",
-      "@type": "bibframe:Work",
-      "bibframe:creator": {
+      "@type": "http://bibframe.org/vocab/Work",
+      "http://bibframe.org/vocab/creator": {
         "@id": "http://dbpedia.org/resource/Victor_LaValle"
       },
       "http://purdom.org/reading#will_lead_to": {
@@ -174,44 +171,44 @@
       "@id": "uri:reading-journal",
       "article:author": "http://www.ericrochester.com/about/",
       "article:published_time": [
+        "2016-07-27T13:30:53Z",
+        "2016-07-28T15:28:50Z",
         "2016-07-23T00:52:59Z",
         "2016-08-02T00:45:43Z",
-        "2016-08-03T10:45:08Z",
-        "2016-07-28T15:28:50Z",
         "2016-07-28T13:39:13Z",
-        "2016-07-27T13:30:53Z"
+        "2016-08-03T10:45:08Z"
       ],
       "article:section": "reading",
       "article:tag": [
-        "humor",
-        "women",
-        "asian-american",
-        "postcyberpunk",
-        "science-fiction",
         "mystery",
-        "magic-realism",
-        "young-adult",
+        "fantasy",
+        "asian-american",
+        "science-fiction",
         "horror",
-        "fantasy"
+        "women",
+        "postcyberpunk",
+        "young-adult",
+        "humor",
+        "magic-realism"
       ],
-      "og:image": "http://www.ericrochester.com/img/about.jpg",
-      "og:site_name": "e.",
-      "og:title": [
-        "Hello Kitty Must Die",
+      "http://ogp.me/ns#image": "http://www.ericrochester.com/img/about.jpg",
+      "http://ogp.me/ns#site_name": "e.",
+      "http://ogp.me/ns#title": [
         "Skellig",
-        "A Tale for the Time Being",
-        "The Dervish House",
         "Lucretia and the Kroons",
+        "Hello Kitty Must Die",
+        "The Dervish House",
+        "A Tale for the Time Being",
         "Emperor Mollusk versus the Sinister Brain"
       ],
-      "og:type": "article",
-      "og:url": [
-        "http://www.ericrochester.com/reading-log/lavalle-victor/lucretia-and-the-kroons/index.html",
+      "http://ogp.me/ns#type": "article",
+      "http://ogp.me/ns#url": [
         "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html",
-        "http://www.ericrochester.com/reading-log/ozeki-ruth/tale-time-being/index.html",
-        "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html",
         "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
-        "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html"
+        "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html",
+        "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html",
+        "http://www.ericrochester.com/reading-log/ozeki-ruth/tale-time-being/index.html",
+        "http://www.ericrochester.com/reading-log/lavalle-victor/lucretia-and-the-kroons/index.html"
       ],
       "rdfa:usesVocabulary": {
         "@id": "http://bibframe.org/vocab/"
