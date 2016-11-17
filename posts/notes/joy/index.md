@@ -16,4 +16,6 @@ It reminded me of these lines from the Wendell Berry poem [Manifesto: The Mad Fa
 > Laughter is immeasurable. Be joyful<br/>
 > though you have considered all the facts.<br/>
 
-Just as I'm trying to be mindful of beauty, I'd like to be attuned to small acts of resistance and acts of resistance that make life better. But I also must constantly challenge myself not to rest there, but to push toward more direct and obvious resistance as well.
+Just as I'm trying to be mindful of beauty, I'd like to be attuned to small acts of resistance and acts of resistance that improve day-to-day life.
+
+But I also must challenge myself not to rest there, but to push toward more direct and obvious resistance as well.
