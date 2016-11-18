@@ -32,7 +32,9 @@ erochestSite = Site "erochest" "erochest.github.com" "." `fmap` rules
 -- should be in the next few definitions.
 
 postPattern :: Pattern
-postPattern = "posts/**/*.md" .||. "posts/**/index.clj"
+postPattern =    "posts/**/*.md"
+            .||. "posts/**/src/main.purs"
+            .||. "posts/**/index.clj"
 
 loadPageContent :: Compiler [Item String]
 loadPageContent =   recentFirst
@@ -99,6 +101,26 @@ rules =
                      Left e     ->  throwError . pure $ displayException e
 
         match "posts/**/*.clj" $ version "raw" $ do
+            route   idRoute
+            compile getResourceBody
+
+        match "posts/**/src/main.purs" $ do
+            route   $ gsubRoute "src/main.purs" (const "index.html")
+            compile $ do
+                rsc <- getResourceBody
+                -- TODO: compile purescript
+                -- TOOD: embed/load JS (purescript) in webpage
+                -- TODO: inject code to run script
+                -- TODO: metadata to create a div?
+                case purescript $ itemBody rsc of
+                     Left e     ->  throwError . pure $ displayException e
+                     Right body ->  saveSnapshot "content"
+                                        (itemSetBody body rsc)
+                                >>= postTemplate (siteContext Nothing Nothing)
+                                >>= relativizeUrls
+                                >>= cleanIndexUrls
+
+        match "posts/**/main.purs" $ version "raw" $ do
             route   idRoute
             compile getResourceBody
 

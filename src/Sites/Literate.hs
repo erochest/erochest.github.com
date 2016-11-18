@@ -8,6 +8,8 @@ module Sites.Literate
     , markdown
     , clojure
     , clojureComments
+    , purescript
+    , purescriptComments
     ) where
 
 
@@ -20,6 +22,9 @@ import           Text.Pandoc.Error (PandocError)
 
 data CommentSpec = CommentLine String
                  | CommentBlock String String String
+                 -- ^ Start
+                 -- ^ End
+                 -- ^ line prefix
                  deriving (Show)
 
 type CommentSpecList = [CommentSpec]
@@ -142,4 +147,12 @@ clojureComments = [ CommentLine "; "
 markdown :: String -> PandocE String
 markdown = fmap (writeHtmlString defaultHakyllWriterOptions)
          . readMarkdown defaultHakyllReaderOptions
+
+purescript :: String -> PandocE String
+purescript = illiterateHtml "purescript" purescriptComments
+
+purescriptComments :: CommentSpecList
+purescriptComments = [ CommentLine "-- "
+                     , CommentBlock "{- " " -}" " - "
+                     ]
 
