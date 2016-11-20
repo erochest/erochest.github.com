@@ -1,0 +1,19 @@
+<div class="parallax-container">
+  <div class="parallax">$if(bannerImage)$ <img src="$bannerImage$"> $else$ <img src="/img/about.jpg"> $endif$</div>
+</div>
+
+<div class="section">
+  <div class="row container">
+    <article id="$slug$" class="section">
+      <header> <h1>$title$</h1> </header>
+
+      <section class="flow-text">
+        $body$
+$if(div_class)$
+        <div class="$div_class$"></div>
+$endif$
+      </section>
+    </article>
+  </div>
+</div>
+<script src="./post.js"></script>

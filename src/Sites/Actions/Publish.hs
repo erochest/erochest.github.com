@@ -13,7 +13,6 @@ import qualified Data.Text.Lazy         as TL
 import           Data.Time
 import           Data.Traversable
 import           Shelly                 hiding (FilePath, (<.>), (</>))
-import qualified Shelly                 as Sh
 import           System.FilePath
 
 import           Sites.Actions.Deploy   (deploySite)
@@ -61,12 +60,6 @@ currentBranch =   headZ
               .   filter ("* " `T.isPrefixOf`)
               .   T.lines
               <$> git "branch" ["--list"]
-
-fpStr :: Sh.FilePath -> FilePath
-fpStr = T.unpack . toTextIgnore
-
-strFp :: FilePath -> Sh.FilePath
-strFp = fromText . T.pack
 
 updateDate :: T.Text -> DocLocation -> T.Text -> (DocLocation, T.Text)
 

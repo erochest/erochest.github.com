@@ -45,6 +45,7 @@ library
                      , lucid
                      , mtl
                      , pandoc
+                     -- , process
                      , regex-tdfa
                      , safe-exceptions
                      , shelly

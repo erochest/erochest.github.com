@@ -32,6 +32,7 @@ module Sites.Utils
     , openGraphContext
     , loadAndApplyDefault
     , postTemplate
+    , pursTemplate
     , indexTemplate
     , livereload
     , indexFileName
@@ -41,6 +42,8 @@ module Sites.Utils
     , getCategory
     , getTags'
     , throwMaybe
+    , fpStr
+    , strFp
     ) where
 
 
@@ -62,6 +65,7 @@ import           Data.Time.Format       (defaultTimeLocale, formatTime,
 import           Hakyll
 import           Lucid
 import           Lucid.Base             (makeAttribute)
+import qualified Shelly                 as Sh
 import           System.Environment
 import           System.FilePath
 
@@ -286,6 +290,11 @@ postTemplate c =
     loadAndApplyTemplate "templates/default.html" c
         <=< loadAndApplyTemplate "templates/post.html" c
 
+pursTemplate :: Context String -> Item String -> Compiler (Item String)
+pursTemplate c =
+    loadAndApplyTemplate "templates/default.html" c
+        <=< loadAndApplyTemplate "templates/purescript.html" c
+
 indexTemplate :: Context String -> Item String -> Compiler (Item String)
 indexTemplate c =
     loadAndApplyTemplate "templates/default.html" c
@@ -318,3 +327,8 @@ throwMaybe :: (MonadThrow m, Exception e) => e -> Maybe a -> m a
 throwMaybe _ (Just a) = return a
 throwMaybe e Nothing  = throwM e
 
+fpStr :: Sh.FilePath -> FilePath
+fpStr = T.unpack . Sh.toTextIgnore
+
+strFp :: FilePath -> Sh.FilePath
+strFp = Sh.fromText . T.pack

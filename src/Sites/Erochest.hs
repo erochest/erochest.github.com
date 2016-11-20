@@ -12,7 +12,10 @@ module Sites.Erochest
 import           Control.Exception
 import           Control.Monad.Error.Class
 import           Data.Monoid
+import qualified Data.Text                 as T
 import           Hakyll
+import           Shelly                    hiding ((</>))
+import           System.FilePath
 
 import           Sites.Base
 import           Sites.Literate
@@ -33,7 +36,7 @@ erochestSite = Site "erochest" "erochest.github.com" "." `fmap` rules
 
 postPattern :: Pattern
 postPattern =    "posts/**/*.md"
-            .||. "posts/**/src/main.purs"
+            .||. "posts/**/index.purs"
             .||. "posts/**/index.clj"
 
 loadPageContent :: Compiler [Item String]
@@ -104,23 +107,37 @@ rules =
             route   idRoute
             compile getResourceBody
 
-        match "posts/**/src/main.purs" $ do
-            route   $ gsubRoute "src/main.purs" (const "index.html")
+        match "posts/**/index.purs" $ do
+            route   $ setExtension "html"
             compile $ do
                 rsc <- getResourceBody
-                -- TODO: compile purescript
-                -- TOOD: embed/load JS (purescript) in webpage
-                -- TODO: inject code to run script
-                -- TODO: metadata to create a div?
                 case purescript $ itemBody rsc of
                      Left e     ->  throwError . pure $ displayException e
-                     Right body ->  saveSnapshot "content"
-                                        (itemSetBody body rsc)
-                                >>= postTemplate (siteContext Nothing Nothing)
+                     Right body ->  saveSnapshot "content" (itemSetBody body rsc)
+                                >>= pursTemplate c
                                 >>= relativizeUrls
                                 >>= cleanIndexUrls
+                                where
+                                    c =  field "slug" (const (return slug))
+                                      <> siteContext Nothing Nothing
+                                    slug = takeFileName
+                                         . takeDirectory
+                                         . toFilePath
+                                         $ itemIdentifier rsc
 
-        match "posts/**/main.purs" $ version "raw" $ do
+        match "posts/**/index.purs" $ version "purescript" $ do
+            route   $ gsubRoute "/index.purs" (const "/post.js")
+            compile $ do
+                item@(Item iid ibody) <- getResourceBody
+                let postDir  = takeDirectory $ toFilePath iid
+                    filename = postDir </> "src" </> "main.purs"
+                unsafeCompiler $ shelly $ silently $ do
+                    liftIO $ writeFile filename ibody
+                    chdir (strFp postDir) $
+                        (`itemSetBody` item) . T.unpack
+                            <$> run "pulp" ["browserify"]
+
+        match "posts/**/index.purs" $ version "raw" $ do
             route   idRoute
             compile getResourceBody
 
