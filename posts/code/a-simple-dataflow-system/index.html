@@ -126,11 +126,11 @@
     (r/map <span class="kw">count</span>)))</code></pre></div>
 <p>First we can run that with the core reduce function to execute it sequentially.</p>
 <div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (calc-mean (<span class="kw">reduce</span> accum-mean (accum-mean) 
-                          (process-seq input-data)))
+(process-seq input-data)))
 <span class="fl">5.4</span></code></pre></div>
 <p>But by changing from reduce to <a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core.reducers/fold"><code>clojure.core.reducers/fold</code></a>, it will automatically partition our data and spread the processing across multiple cores, even given the same input process.</p>
 <div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (calc-mean (r/fold join-accum accum-mean 
-                          (process-seq input-data)))
+(process-seq input-data)))
 <span class="fl">5.4</span></code></pre></div>
 <h3 id="how-it-works">How it works…</h3>
 <p>Because it has a more complicated execution model, the <code>r/fold</code> function takes a little more information.</p>

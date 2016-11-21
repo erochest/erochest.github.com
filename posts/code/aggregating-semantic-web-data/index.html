@@ -75,10 +75,10 @@
 <h3 id="getting-ready">Getting ready</h3>
 <p>We’ll first need to list the dependencies that we’ll need in our <a href="http://leiningen.org/">Leiningen</a> <a href="project.clj"><code>project.clj</code></a> file.</p>
 <div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="at">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
-               [incanter/incanter <span class="st">&quot;1.4.1&quot;</span>]
-               [edu.ucdenver.ccp/kr-sesame-core <span class="st">&quot;1.4.5&quot;</span>]
-               [org.clojure/tools.logging <span class="st">&quot;0.2.4&quot;</span>]
-               [org.slf4j/slf4j-simple <span class="st">&quot;1.7.2&quot;</span>]]</code></pre></div>
+[incanter/incanter <span class="st">&quot;1.4.1&quot;</span>]
+[edu.ucdenver.ccp/kr-sesame-core <span class="st">&quot;1.4.5&quot;</span>]
+[org.clojure/tools.logging <span class="st">&quot;0.2.4&quot;</span>]
+[org.slf4j/slf4j-simple <span class="st">&quot;1.7.2&quot;</span>]]</code></pre></div>
 <p>And we’ll need to include them in our script or REPL.</p>
 <div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">require</span> '(clojure.java [io <span class="at">:as</span> io]))
 (<span class="kw">require</span> '(clojure [xml <span class="at">:as</span> xml] 
@@ -290,7 +290,7 @@
           [[?/d dbpedia-prop/usedCoins ?/usedCoins]]]])</code></pre></div>
 <p>Let’s put it all together.</p>
 <div class="sourceCode"><pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (aggregate-dataset (init-kb (kb-memstore))
-            data-file q col-map)
+data-file q col-map)
 [<span class="at">:used-coins</span> <span class="at">:symbol</span> <span class="at">:pegged-with</span> <span class="at">:country</span> <span class="at">:name</span> <span class="at">:minor-exp</span> <span class="at">:iso</span> <span class="at">:minor-name</span> <span class="at">:used-banknotes</span> <span class="at">:fullname</span>]
 [<span class="dv">2550</span> <span class="st">&quot;د.إ&quot;</span> <span class="st">&quot;U.S. dollar = 3.6725 dirhams&quot;</span> dbpedia/United_Arab_Emirates <span class="st">&quot;dirham&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;AED&quot;</span> <span class="st">&quot;fils&quot;</span> <span class="dv">9223372036854775807</span> <span class="st">&quot;United Arab Emirates dirham&quot;</span>]
 [<span class="dv">1</span> <span class="st">&quot;Af  or Afs&quot;</span> nil dbpedia/United_States_dollar <span class="st">&quot;afghani&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;AFN&quot;</span> <span class="st">&quot;pul&quot;</span> <span class="dv">1</span> <span class="st">&quot;Afghan afghani&quot;</span>]

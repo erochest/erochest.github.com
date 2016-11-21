@@ -5,37 +5,37 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <uri:reading-journal> <article:author> "http://www.ericrochester.com/about/";
-   <article:published_time> "2016-07-28T15:28:50Z",
-     "2016-08-02T00:45:43Z",
-     "2016-07-27T13:30:53Z",
+   <article:published_time> "2016-08-03T10:45:08Z",
+     "2016-07-23T00:52:59Z",
+     "2016-07-28T15:28:50Z",
      "2016-07-28T13:39:13Z",
-     "2016-08-03T10:45:08Z",
-     "2016-07-23T00:52:59Z";
+     "2016-08-02T00:45:43Z",
+     "2016-07-27T13:30:53Z";
    <article:section> "reading";
-   <article:tag> "women",
-     "horror",
-     "mystery",
-     "asian-american",
+   <article:tag> "mystery",
+     "magic-realism",
      "young-adult",
      "fantasy",
-     "humor",
      "postcyberpunk",
-     "magic-realism",
-     "science-fiction";
+     "science-fiction",
+     "humor",
+     "women",
+     "horror",
+     "asian-american";
    <http://ogp.me/ns#image> "http://www.ericrochester.com/img/about.jpg";
    <http://ogp.me/ns#site_name> "e.";
    <http://ogp.me/ns#title> "Emperor Mollusk versus the Sinister Brain",
+     "Skellig",
+     "The Dervish House",
      "Hello Kitty Must Die",
      "A Tale for the Time Being",
-     "Skellig",
-     "Lucretia and the Kroons",
-     "The Dervish House";
+     "Lucretia and the Kroons";
    <http://ogp.me/ns#type> "article";
-   <http://ogp.me/ns#url> "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
-     "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html",
-     "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html",
-     "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html",
+   <http://ogp.me/ns#url> "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html",
      "http://www.ericrochester.com/reading-log/ozeki-ruth/tale-time-being/index.html",
+     "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html",
+     "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html",
+     "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
      "http://www.ericrochester.com/reading-log/lavalle-victor/lucretia-and-the-kroons/index.html";
    rdfa:usesVocabulary <http://bibframe.org/vocab/> .
 
@@ -48,11 +48,11 @@
 <http://www.worldcat.org/oclc/456179132> a <http://bibframe.org/vocab/Work>;
    rdfs:label "Hello Kitty Must Die";
    <http://bibframe.org/vocab/creator> <http://viaf.org/viaf/120524420/>;
-   <http://purdom.org/reading#theme_of> <http://www.ericrochester.com/tag#asian-american>,
-     <http://www.ericrochester.com/tag#womens-experience>,
-     <http://www.ericrochester.com/tag#anti-hero>;
-   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#humor>,
-     <http://www.ericrochester.com/tag#mystery> .
+   <http://purdom.org/reading#theme_of> <http://www.ericrochester.com/tag#anti-hero>,
+     <http://www.ericrochester.com/tag#asian-american>,
+     <http://www.ericrochester.com/tag#womens-experience>;
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#mystery>,
+     <http://www.ericrochester.com/tag#humor> .
 
 <http://www.worldcat.org/oclc/466343581> a <http://bibframe.org/vocab/Work>;
    rdfs:label "The Dervish House";
@@ -61,9 +61,9 @@
 <http://www.worldcat.org/oclc/707964746> a <http://bibframe.org/vocab/Work>;
    rdfs:label "Emperor Mollusk versus the Sinister Brain";
    <http://bibframe.org/vocab/creator> <http://dbpedia.org/resource/A._Lee_Martinez>;
-   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#humor>,
-     <http://www.ericrochester.com/tag#science-fiction>,
-     <http://www.ericrochester.com/tag#fantasy> .
+   <http://www.ericrochester.com/reading#genre> <http://www.ericrochester.com/tag#fantasy>,
+     <http://www.ericrochester.com/tag#humor>,
+     <http://www.ericrochester.com/tag#science-fiction> .
 
 <http://www.worldcat.org/oclc/796756004> a <http://bibframe.org/vocab/Work>;
    rdfs:label "A Tale for the Time Being";

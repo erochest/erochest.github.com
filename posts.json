@@ -5,37 +5,37 @@
   },
   "@graph": [
     {
-      "@id": "_:g70233285483620",
+      "@id": "_:g70175702018720",
       "http://www.w3.org/1999/xhtml/vocab#role": {
         "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70233294204020",
+      "@id": "_:g70175727564280",
       "http://www.w3.org/1999/xhtml/vocab#role": {
         "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70233294282860",
+      "@id": "_:g70175727608740",
       "http://www.w3.org/1999/xhtml/vocab#role": {
         "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70233294318920",
+      "@id": "_:g70175727645620",
       "http://www.w3.org/1999/xhtml/vocab#role": {
         "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70233294336400",
+      "@id": "_:g70175727693160",
       "http://www.w3.org/1999/xhtml/vocab#role": {
         "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
     },
     {
-      "@id": "_:g70233310104120",
+      "@id": "_:g70175727756820",
       "http://www.w3.org/1999/xhtml/vocab#role": {
         "@id": "http://www.w3.org/1999/xhtml/vocab#navigation"
       }
@@ -78,10 +78,10 @@
       },
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#magic-realism"
+          "@id": "http://www.ericrochester.com/tag#young-adult"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#young-adult"
+          "@id": "http://www.ericrochester.com/tag#magic-realism"
         }
       ],
       "rdfs:label": "Skellig"
@@ -129,10 +129,10 @@
       },
       "http://www.ericrochester.com/reading#genre": [
         {
-          "@id": "http://www.ericrochester.com/tag#science-fiction"
+          "@id": "http://www.ericrochester.com/tag#fantasy"
         },
         {
-          "@id": "http://www.ericrochester.com/tag#fantasy"
+          "@id": "http://www.ericrochester.com/tag#science-fiction"
         },
         {
           "@id": "http://www.ericrochester.com/tag#humor"
@@ -171,43 +171,43 @@
       "@id": "uri:reading-journal",
       "article:author": "http://www.ericrochester.com/about/",
       "article:published_time": [
-        "2016-07-27T13:30:53Z",
-        "2016-07-28T15:28:50Z",
+        "2016-07-28T13:39:13Z",
         "2016-07-23T00:52:59Z",
         "2016-08-02T00:45:43Z",
-        "2016-07-28T13:39:13Z",
-        "2016-08-03T10:45:08Z"
+        "2016-08-03T10:45:08Z",
+        "2016-07-28T15:28:50Z",
+        "2016-07-27T13:30:53Z"
       ],
       "article:section": "reading",
       "article:tag": [
+        "young-adult",
+        "postcyberpunk",
         "mystery",
-        "fantasy",
         "asian-american",
+        "fantasy",
+        "magic-realism",
+        "women",
         "science-fiction",
         "horror",
-        "women",
-        "postcyberpunk",
-        "young-adult",
-        "humor",
-        "magic-realism"
+        "humor"
       ],
       "http://ogp.me/ns#image": "http://www.ericrochester.com/img/about.jpg",
       "http://ogp.me/ns#site_name": "e.",
       "http://ogp.me/ns#title": [
+        "Hello Kitty Must Die",
         "Skellig",
         "Lucretia and the Kroons",
-        "Hello Kitty Must Die",
+        "Emperor Mollusk versus the Sinister Brain",
         "The Dervish House",
-        "A Tale for the Time Being",
-        "Emperor Mollusk versus the Sinister Brain"
+        "A Tale for the Time Being"
       ],
       "http://ogp.me/ns#type": "article",
       "http://ogp.me/ns#url": [
-        "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html",
-        "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
-        "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html",
         "http://www.ericrochester.com/reading-log/almond-david/skellig/index.html",
+        "http://www.ericrochester.com/reading-log/martinez-a-lee/emperor-mollusk-versus-the-sinister-brain/index.html",
         "http://www.ericrochester.com/reading-log/ozeki-ruth/tale-time-being/index.html",
+        "http://www.ericrochester.com/reading-log/mcdonald-ian/dervish-house/index.html",
+        "http://www.ericrochester.com/reading-log/choi-angela-s/hello-kitty-must-die/index.html",
         "http://www.ericrochester.com/reading-log/lavalle-victor/lucretia-and-the-kroons/index.html"
       ],
       "rdfa:usesVocabulary": {

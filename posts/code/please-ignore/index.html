@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="no-js" lang>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Please Ignore — Eric Rochester</title>
+        <meta name="description" content>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#795548">
+        
+
+        <link rel="alternate" type="application/atom+xml" href="../../../atom.xml" title="Atom Feed">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="../../../css/normalize.css">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/materialize.css">
+        <link rel="stylesheet" href="../../../css/syntax.css">
+        <link rel="stylesheet" href="../../../css/main.css">
+
+        <script src="../../../js/vendor/modernizr-2.8.3.min.js"></script>
+
+        
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header>
+          <nav role="navigation">
+            <div class="nav-wrapper container">
+              <a class="brand-logo" href="../../../">e·</a>
+              <ul class="menu-list">
+                <li><a href="../../../posts/">blog</a></li>
+                <!-- <li><a href="/projects/">projects</a></li> -->
+                <li><a href="../../../reading-log/">reading</a></li>
+                <li><a href="../../../writing/">writing</a></li>
+                <li><a href="../../../about/">about</a></li>
+              </ul>
+              <ul id="slide-out" class="side-nav">
+                <li><a href="../../../">home</a></li>
+                <li><a href="../../../posts/">blog</a></li>
+                <!-- <li><a href="/projects/">projects</a></li> -->
+                <li><a href="../../../reading-log/">reading</a></li>
+                <li><a href="../../../writing/">writing</a></li>
+                <li><a href="../../../about/">about</a></li>
+              </ul>
+              <a href="#" data-activates="slide-out" class="button-collapse">
+                <i class="material-icons">menu</i>
+              </a>
+            </div>
+          </nav>
+        </header>
+
+        <main>
+          
+          <div id="container" class="container">
+<div class="parallax-container">
+  <div class="parallax"> <img src="../../../img/about.jpg"> </div>
+</div>
+
+<div class="section">
+  <div class="row container">
+    <article id="please-ignore" class="section">
+      <header> <h1>Please Ignore</h1> </header>
+
+      <section class="flow-text">
+        <p>For those who can’t read titles:</p>
+<p>I’ve been interested in <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> for a while. I’m interested in the relationship between artificial languages and in how we can program more transparently. Literate programming sites at the margins of that.</p>
+<p>I’ve also been playing around with <a href="http://www.purescript.org/">PureScript</a> some. It’s <a href="https://haskell-lang.org/">Haskell</a>, redesigned to remove some warts, that <a href="https://en.wikipedia.org/wiki/Source-to-source_compiler">transpiles</a> to JavaScript. So far I haven’t used it very much, but I’d like to work with it more.</p>
+<p>So creating the ability to create literate PureScript posts on this blog has been on my todo list for a while. Now that I’ve actually started posting again, I thought I’d get this going. For those who are interested and maybe morbidly curious, the changes are in <a href="https://github.com/erochest/erochest.github.com/compare/212d284670ae3355d5d40b45b11ebdb8c8a8feba...27bd636dbed225b0b803ac58cfc2e041b67943b5">this diff</a>. There are a few moving parts, but mostly I just hand things over to <a href="https://github.com/bodil/pulp">pulp</a> as much as I can.</p>
+<p>Since this is a literate post, there are some formailities to get started:</p>
+<pre class="purescript"><code>module Main where
+import Prelude
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Console (CONSOLE, log)
+import Data.Nullable (toMaybe)
+import Data.Traversable (traverse)
+import DOM (DOM)
+import DOM.HTML (window)
+import DOM.HTML.Types (htmlDocumentToDocument, htmlDocumentToParentNode)
+import DOM.HTML.Window (document)
+import DOM.Node.Document (createTextNode)
+import DOM.Node.Node (appendChild)
+import DOM.Node.NodeList (item)
+import DOM.Node.ParentNode (querySelectorAll)
+import DOM.Node.Types (textToNode)</code></pre>
+<p>(If this all seems a little verbose, I’m using a <em>very</em> low-level interface here. For anything more complicated, you’d want to use a higher-level library.)</p>
+<p>There are still some things to do on this:</p>
+<ul>
+<li>Syntax color highlighting;</li>
+<li>The code doesn’t work well with the margins;</li>
+<li>The code doesn’t work well with the scalable font sizing.</li>
+</ul>
+<pre class="purescript"><code>main :: forall e. Eff (console :: CONSOLE, dom :: DOM | e) Unit
+main = do
+    doc      &lt;-  window &gt;&gt;= document
+    greeting &lt;-  textToNode
+             &lt;$&gt; createTextNode &quot;Hello sailor!&quot;
+             (   htmlDocumentToDocument doc)
+    querySelectorAll &quot;#please-ignore .please-ignore&quot;
+        (   htmlDocumentToParentNode doc)
+        &gt;&gt;= item 0
+        &gt;&gt;= toMaybe
+        &gt;&gt;&gt; traverse (appendChild greeting)
+    log &quot;Hello sailor!&quot;</code></pre>
+<p>As an added bonus, the scaffolded project created by <a href="https://github.com/bodil/pulp">pulp</a> has a gratuitous <a href="https://en.wikipedia.org/wiki/Zork">Zork</a> reference. How could I resist?</p>
+
+        <div class="please-ignore"></div>
+
+      </section>
+    </article>
+  </div>
+</div>
+<script src="./post.js"></script>
+
+          </div>
+          
+        </main>
+
+        <footer class="page-footer">
+          <div class="container">
+            <div class="center-align">
+              <div class="quote center-align">
+                <em>Ask the questions that have no answers.</em>
+              </div>
+              <div class="center-align">
+                <ul class="social">
+                  <li>eric rochester</li>
+                  <li><a href="https://twitter.com/erochest">
+                      <i class="fa fa-twitter" area-hidden="true"></i> <span>twitter</span></a></li>
+                  <li><a href="https://github.com/erochest">
+                      <i class="fa fa-github" area-hidden="true"></i> <span>github</span></a></li>
+                  <li><a href="https://plus.google.com/114676222173328397142">
+                      <i class="fa fa-google-plus" area-hidden="true"></i> <span>google+</span></a></li>
+                  <li><a href="http://www.linkedin.com/in/erochester">
+                      <i class="fa fa-linkedin" area-hidden="true"></i> <span>linkedin</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!--
+             - <div class="footer-copyright">
+             -   <div class="container right-align">
+             -     © 2016
+             -   </div>
+             - </div>
+             -->
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="../../../js/vendor/materialize.min.js"></script>
+        <script src="https://use.fontawesome.com/820ca58396.js"></script>
+        <script src="../../../js/plugins.js"></script>
+        <script src="../../../js/main.js"></script>
+
+
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-1756003-2','auto');ga('send','pageview');
+        </script>
+        
+    </body>
+</html>
