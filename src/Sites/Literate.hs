@@ -13,6 +13,7 @@ module Sites.Literate
     ) where
 
 
+import           Data.Char         (isSpace)
 import qualified Data.List         as L
 import           Data.Maybe
 import           Hakyll
@@ -95,9 +96,9 @@ data CommentState = Start
                   | CommentText String String
                   | ActiveText
 
-stripStart :: Eq a => [a] -> [a] -> [a]
+stripStart :: String -> String -> String
 stripStart [] xs = xs
-stripStart p xs  = fromMaybe xs $ L.stripPrefix p xs
+stripStart p xs  = L.dropWhile isSpace $ fromMaybe xs $ L.stripPrefix p xs
 
 stripEnd :: Eq a => [a] -> [a] -> [a]
 stripEnd [] ys                    = ys
@@ -152,7 +153,7 @@ purescript :: String -> PandocE String
 purescript = illiterateHtml "purescript" purescriptComments
 
 purescriptComments :: CommentSpecList
-purescriptComments = [ CommentLine "-- "
-                     , CommentBlock "{- " " -}" " - "
+purescriptComments = [ CommentLine "--"
+                     , CommentBlock "{-" " -}" " -"
                      ]
 
