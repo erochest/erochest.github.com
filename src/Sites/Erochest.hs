@@ -102,6 +102,40 @@ rules =
             route   idRoute
             compile getResourceBody
 
+        match "posts/**/index.purs" $ do
+            route   $ setExtension "html"
+            compile $ do
+                rsc <- getResourceBody
+                case purescript $ itemBody rsc of
+                     Left e     ->  throwError . pure $ displayException e
+                     Right body ->  saveSnapshot "content" (itemSetBody body rsc)
+                                >>= pursTemplate c
+                                >>= relativizeUrls
+                                >>= cleanIndexUrls
+                                where
+                                    c =  field "slug" (const (return slug))
+                                      <> siteContext Nothing Nothing
+                                    slug = takeFileName
+                                         . takeDirectory
+                                         . toFilePath
+                                         $ itemIdentifier rsc
+
+        match "posts/**/index.purs" $ version "purescript" $ do
+            route   $ gsubRoute "/index.purs" (const "/post.js")
+            compile $ do
+                item@(Item iid ibody) <- getResourceBody
+                let postDir  = takeDirectory $ toFilePath iid
+                    filename = postDir </> "src" </> "Main.purs"
+                unsafeCompiler $ shelly $ silently $ do
+                    liftIO $ writeFile filename ibody
+                    chdir (strFp postDir) $
+                        (`itemSetBody` item) . T.unpack
+                            <$> run "pulp" ["browserify"]
+
+        match "posts/**/index.purs" $ version "raw" $ do
+            route   idRoute
+            compile getResourceBody
+
         match "sass/index.scss" $ do
             route   $ constRoute "css/index.css"
             compile   sassCompiler

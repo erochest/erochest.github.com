@@ -16,6 +16,7 @@ import           Sites.Actions.Publish
 action :: Actions -> IO ()
 action (Hakyll args) = callHakyll args
 action Draft{..}     = newDraft draftCategory draftTags draftTitle draftSlug
+                                draftType
 action Deploy{..}    = deploySite scratch bail
 action Publish{..}   = publishDraft publishMetaFile publishBranch publishTo
                                     publishOn publishDeploy
