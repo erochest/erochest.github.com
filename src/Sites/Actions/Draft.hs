@@ -46,13 +46,15 @@ newPage :: PageType -> T.Text -> S.HashSet T.Text -> String -> Sh [FilePath]
 newPage PureScriptPage title tags timestamp = do
     run_ "pulp" ["init"]
     writefile (strFp index)
-        .   (<> TL.toStrict (yamlHeader title tags timestamp))
-        =<< readfile main
+        .   (TL.toStrict (yamlHeader title tags timestamp) <>)
+        =<< readfile (strFp main)
     touchfile $ strFp keep
     return [ index
+           , main
            , keep
            , "bower.json"
            , "test/Main.purs"
+           , ".gitignore"
            ]
     where
         main  = "src/Main.purs"
