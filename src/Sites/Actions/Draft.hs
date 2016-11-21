@@ -70,7 +70,7 @@ newPage _ title tags timestamp = do
 
 yamlHeader :: T.Text -> S.HashSet T.Text -> String -> TL.Text
 yamlHeader title tags timestamp =
-    format "---\ntitle: {}\ndate: {}\ncategories: {}\n---\\n\n"
+    format "---\ntitle: {}\ndate: {}\ncategories: {}\n---\n\n"
            (title, timestamp, setList tags)
 
 setList :: S.HashSet T.Text -> T.Text
