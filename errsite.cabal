@@ -22,6 +22,7 @@ library
                      , Sites.Actions.Illiterate
                      , Sites.Actions.Publish
                      , Sites.Literate
+                     , Sites.Types
   other-modules:       Sites.Base
                      , Sites.CljDataAnalysis
                      , Sites.CljDataMaster
@@ -30,7 +31,6 @@ library
                      , Sites.Pager
                      , Sites.Projects
                      , Sites.Reading
-                     , Sites.Types
                      , Sites.Utils
   build-depends:       base            >=4.8 && <4.10
                      , aeson

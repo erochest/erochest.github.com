@@ -4,11 +4,14 @@
 module Opts where
 
 
+import           Data.Char           (toLower)
 import           Data.Hashable
 import qualified Data.HashSet        as S
 import qualified Data.Text           as T
 import           Data.Time
 import           Options.Applicative
+
+import           Sites.Types
 
 import           Types
 
@@ -20,6 +23,15 @@ dateR :: ReadM UTCTime
 dateR = parseTimeM True defaultTimeLocale format =<< str
     where
         format = iso8601DateFormat $ Just "%z"
+
+pageTypeOpt :: ReadM PageType
+pageTypeOpt = parse . map toLower =<< str
+    where
+        parse :: String -> ReadM PageType
+        parse ('m':_) = return MarkdownPage
+        parse ('c':_) = return ClojurePage
+        parse ('p':_) = return PureScriptPage
+        parse v       = fail $ "Invalid value: " ++ v
 
 hakyllOpts :: Parser Actions
 hakyllOpts =   Hakyll
@@ -42,6 +54,11 @@ draftOpts
                        <> help "The post's title.")
     <*> optional (strOption (  short 's' <> long "slug" <> metavar "SLUG"
                             <> help "A slug for the post (used in the URL)."))
+    <*> option pageTypeOpt (  short 'p' <> long "page-type" <> metavar "PAGE_TYPE"
+                           <> value MarkdownPage
+                           <> help "The type of page to generate. Values are\
+                                   \ (m)arkdown (default), (c)lojure, or\
+                                   \ (p)urescript.")
 
 publishOpts :: Parser Actions
 publishOpts

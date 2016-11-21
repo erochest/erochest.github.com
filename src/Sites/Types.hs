@@ -30,3 +30,9 @@ data ProjectInfo
     , projectCoverImage :: !FilePath
     , projectDate       :: !UTCTime
     } deriving (Show)
+
+data PageType
+    = MarkdownPage
+    | ClojurePage
+    | PureScriptPage
+    deriving (Show, Eq)

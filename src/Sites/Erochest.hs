@@ -130,7 +130,7 @@ rules =
             compile $ do
                 item@(Item iid ibody) <- getResourceBody
                 let postDir  = takeDirectory $ toFilePath iid
-                    filename = postDir </> "src" </> "main.purs"
+                    filename = postDir </> "src" </> "Main.purs"
                 unsafeCompiler $ shelly $ silently $ do
                     liftIO $ writeFile filename ibody
                     chdir (strFp postDir) $

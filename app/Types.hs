@@ -5,6 +5,8 @@ import qualified Data.HashSet as S
 import qualified Data.Text    as T
 import           Data.Time
 
+import           Sites.Types
+
 
 data Actions
     = Hakyll  { hakyllArgs    :: ![T.Text]
@@ -13,6 +15,7 @@ data Actions
               , draftTags     :: !(S.HashSet T.Text)
               , draftTitle    :: !T.Text
               , draftSlug     :: !(Maybe FilePath)
+              , draftType     :: !PageType
               }
     | Publish { publishMetaFile :: !FilePath
               , publishBranch   :: !(Maybe T.Text)
