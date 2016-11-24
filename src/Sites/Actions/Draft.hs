@@ -13,7 +13,6 @@ import           Data.Monoid       ((<>))
 import qualified Data.Text         as T
 import           Data.Text.Format
 import qualified Data.Text.Lazy    as TL
-import qualified Data.Text.Lazy.IO as TLIO
 import           Data.Time
 import           Shelly            hiding (FilePath, path, (<.>), (</>))
 import           System.Directory
@@ -62,9 +61,9 @@ newPage PureScriptPage title tags timestamp = do
         keep  = "src/.keep"
 
 newPage _ title tags timestamp = do
-    liftIO $ TLIO.writeFile index
-           $ yamlHeader title tags timestamp <> "<!--more-->\n"
-    return [index]
+    writefile index $
+        TL.toStrict (yamlHeader title tags timestamp) <> "<!--more-->\n"
+    return [fpStr index]
     where
         index = "index.md"
 
