@@ -1,27 +1,13 @@
 $for(posts)$
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" $if(coverImage)$ src="$coverImage$" $else$ src="/img/about.jpg" $endif$ >
+  <div class="card-image">
+    <img $if(coverImage)$ src="$coverImage$" $else$ src="/img/about.jpg" $endif$ >
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      $title$
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="$url$">$title$</a>
     </span>
-    <p><a href="$url$">$date$</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      $title$
-      <i class="material-icons right">close</i>
-      <p>
-        $if(teaser)$
-          $teaser$
-        $else$
-          $body$
-        $endif$
-      </p>
-    </span>
+    <p>$date$</p>
   </div>
 </div>
 $endfor$
