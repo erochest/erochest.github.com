@@ -10,7 +10,9 @@ So threaded around turkey and football, I attempt to hold our past in reverent m
 
 And I pray that both the memory of the past and gratitude of the present will guide us into a better future.
 
-Some poems to be grateful for today:
+(Of course, memory of the past and the present collide in the [Standing Rock protests](https://www.bustle.com/articles/196566-support-the-dakota-pipeline-protests-this-thanksgiving-in-5-ways). Not sure where hope for the future is in this, though.)
+
+Some poems for today:
 
 * [Three Gratitudes](http://www.onbeing.org/blog/carrie-newcomer-three-gratitudes/8902) by Carrie Newcomer.
 * [Catalog of Unabashed Gratitude](http://www.caapp.pitt.edu/content/ross-gay-reads-title-poem-catalog-unabashed-gratitude) by Ross Gay.
