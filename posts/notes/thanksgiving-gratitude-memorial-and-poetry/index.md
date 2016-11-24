@@ -8,7 +8,7 @@ I'm a bit conflicted by this holiday.
 
 <!--more-->
 
-On the one hand, the original day of "Thanksgiving" was a celebration of a [massacre](http://www.huffingtonpost.com/richard-greener/the-true-story-of-thanksg_b_788436.html), and the original pilgrims aren't all they were [cracked up to be](https://www.manataka.org/page269.html). We cannot forget this.
+On the one hand, the original day of "Thanksgiving" was a celebration of a [massacre](http://www.huffingtonpost.com/richard-greener/the-true-story-of-thanksg_b_788436.html), and the original pilgrims aren't all they are sometimes [cracked up to be](https://www.manataka.org/page269.html). We cannot forget this.
 
 But I'm all for gratitude.
 
