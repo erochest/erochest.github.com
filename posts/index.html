@@ -59,294 +59,122 @@
           <div id="container" class="container">
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Please Ignore
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/code/please-ignore/index.html">Please Ignore</a>
     </span>
-    <p><a href="../posts/code/please-ignore/index.html">21 November 2016</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Please Ignore
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p>For those who can’t read titles:</p>
-<p>I’ve been interested in <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> for a while. I’m interested in the relationship between artificial languages and in how we can program more transparently. Literate programming sites at the margins of that.</p>
-<p>I’ve also been playing around with <a href="http://www.purescript.org/">PureScript</a> some. It’s <a href="https://haskell-lang.org/">Haskell</a>, redesigned to remove some warts, that <a href="https://en.wikipedia.org/wiki/Source-to-source_compiler">transpiles</a> to JavaScript. So far I haven’t used it very much, but I’d like to work with it more.</p>
-<p>So creating the ability to create literate PureScript posts on this blog has been on my todo list for a while. Now that I’ve actually started posting again, I thought I’d get this going. For those who are interested and maybe morbidly curious, the changes are in <a href="https://github.com/erochest/erochest.github.com/compare/212d284670ae3355d5d40b45b11ebdb8c8a8feba...27bd636dbed225b0b803ac58cfc2e041b67943b5">this diff</a>. There are a few moving parts, but mostly I just hand things over to <a href="https://github.com/bodil/pulp">pulp</a> as much as I can.</p>
-<p>Since this is a literate post, there are some formailities to get started:</p>
-<pre class="purescript"><code>module Main where
-import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
-import Data.Nullable (toMaybe)
-import Data.Traversable (traverse)
-import DOM (DOM)
-import DOM.HTML (window)
-import DOM.HTML.Types (htmlDocumentToDocument, htmlDocumentToParentNode)
-import DOM.HTML.Window (document)
-import DOM.Node.Document (createTextNode)
-import DOM.Node.Node (appendChild)
-import DOM.Node.NodeList (item)
-import DOM.Node.ParentNode (querySelectorAll)
-import DOM.Node.Types (textToNode)</code></pre>
-<p>(If this all seems a little verbose, I’m using a <em>very</em> low-level interface here. For anything more complicated, you’d want to use a higher-level library.)</p>
-<p>There are still some things to do on this:</p>
-<ul>
-<li>Syntax color highlighting;</li>
-<li>The code doesn’t work well with the margins;</li>
-<li>The code doesn’t work well with the scalable font sizing.</li>
-</ul>
-<pre class="purescript"><code>main :: forall e. Eff (console :: CONSOLE, dom :: DOM | e) Unit
-main = do
-    doc      &lt;-  window &gt;&gt;= document
-    greeting &lt;-  textToNode
-             &lt;$&gt; createTextNode &quot;Hello sailor!&quot;
-             (   htmlDocumentToDocument doc)
-    querySelectorAll &quot;#please-ignore .please-ignore&quot;
-        (   htmlDocumentToParentNode doc)
-        &gt;&gt;= item 0
-        &gt;&gt;= toMaybe
-        &gt;&gt;&gt; traverse (appendChild greeting)
-    log &quot;Hello sailor!&quot;</code></pre>
-<p>As an added bonus, the scaffolded project created by <a href="https://github.com/bodil/pulp">pulp</a> has a gratuitous <a href="https://en.wikipedia.org/wiki/Zork">Zork</a> reference. How could I resist?</p>
-        
-      </p>
-    </span>
+    <p>21 November 2016</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Joy
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/notes/joy/index.html">Joy</a>
     </span>
-    <p><a href="../posts/notes/joy/index.html">17 November 2016</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Joy
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p>This tweet from the NBA Awards clicked:</p>
-
-        
-      </p>
-    </span>
+    <p>17 November 2016</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Finding Beauty
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/notes/finding-beauty/index.html">Finding Beauty</a>
     </span>
-    <p><a href="../posts/notes/finding-beauty/index.html">15 November 2016</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Finding Beauty
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p>For the past few months, I’ve cultivated an intentional practice to look for beauty.</p>
-
-        
-      </p>
-    </span>
+    <p>15 November 2016</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Pace Yourself
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/notes/pace-yourself/index.html">Pace Yourself</a>
     </span>
-    <p><a href="../posts/notes/pace-yourself/index.html">14 November 2016</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Pace Yourself
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p>Four years is a long time. Eight years is longer.</p>
-
-        
-      </p>
-    </span>
+    <p>14 November 2016</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Read It!
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/notes/read-it/index.html">Read It!</a>
     </span>
-    <p><a href="../posts/notes/read-it/index.html">12 November 2016</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Read It!
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p>Read this whole thread:</p>
-
-        
-      </p>
-    </span>
+    <p>12 November 2016</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Energy Packets/Waves
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/notes/energy-packets/index.html">Energy Packets/Waves</a>
     </span>
-    <p><a href="../posts/notes/energy-packets/index.html"> 9 November 2016</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Energy Packets/Waves
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p>Some random thoughts, not about the news, but of course that’s the context.</p>
-
-        
-      </p>
-    </span>
+    <p> 9 November 2016</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Divisions
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/thoughts/divisions/index.html">Divisions</a>
     </span>
-    <p><a href="../posts/thoughts/divisions/index.html"> 8 November 2016</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Divisions
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p>Social media—and Facebook especially—has made all the facets of life painful and obvious. My feed has a range of voices: from openly racist relatives to those who’ve changed their avatars to show their support for #BlackLivesMatter, from those who still insist on gender binaries to those who’ve felt in their own bodies how untrue that polarity is.</p>
-<p>I’ve kept the peace by making myself absent.</p>
-
-        
-      </p>
-    </span>
+    <p> 8 November 2016</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Validating Data with Types
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/code/validating-data-with-types/index.html">Validating Data with Types</a>
     </span>
-    <p><a href="../posts/code/validating-data-with-types/index.html">22 May 2015</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Validating Data with Types
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p><em>This is cross posted at the <a href="http://scholarslab.org/uncategorized/validating-data-with-types/">Scholars’ Lab Blog</a>.</em></p>
-<p>Recently, I had to opportunity to help <a href="http://politics.virginia.edu/node/181" title="J. Warren York">J. Warren York</a>, a graduate student in the Department of Politics here at UVa. He’s looking at how tax law affects political contributions and advocacy, so this was an interesting project that may tell us something useful about how the US government works [insert your favorite broken-government joke here].</p>
-
-        
-      </p>
-    </span>
+    <p>22 May 2015</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Omeka, Neatline, Mac, development, oh my!
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/code/omeka-neatline-ansible/index.html">Omeka, Neatline, Mac, development, oh my!</a>
     </span>
-    <p><a href="../posts/code/omeka-neatline-ansible/index.html">29 August 2014</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Omeka, Neatline, Mac, development, oh my!
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p><em>This is cross posted at <a href="http://www.scholarslab.org/uncategorized/omeka-neatline-mac-development-oh-my/">The Scholars’ Lab Blog</a>.</em></p>
-<p>At the Scholars’ Lab, we’re big big advocates of Open Source. All of our projects are available freely and openly on <a href="https://github.com/">Github</a>, and we’re always more than happy to accept pull requests. We’d like to be able to empower everyone to contribute to our projects as much as they’re able to and comfortable with.</p>
-
-        
-      </p>
-    </span>
+    <p>29 August 2014</p>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="../img/about.jpg">
+  <div class="card-image">
+    <img src="../img/about.jpg">
   </div>
-  <div class="card-content">
-    <span class="card-title activator gray-text text-darken-4">
-      Mastering Clojure Data Analysis
-      <i class="material-icons right">more_vert</i>
+  <div class="card-action">
+    <span class="card-title gray-text text-darken-4">
+      <a href="../posts/announcements/clj-data-master/index.html">Mastering Clojure Data Analysis</a>
     </span>
-    <p><a href="../posts/announcements/clj-data-master/index.html"> 4 June 2014</a></p>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title activator gray-text text-darken-4">
-      Mastering Clojure Data Analysis
-      <i class="material-icons right">close</i>
-      <p>
-        
-          <p><img class="bookframe" src="http://dgdsbygo8mp3h.cloudfront.net/sites/default/files/imagecache/productview/4139OS.jpg" /></p>
-<p>After a few delays, I’m pleased to announce the release of <a href="http://j.mp/McDla"><em>Mastering Clojure Data Analysis</em></a>.</p>
-
-        
-      </p>
-    </span>
+    <p> 4 June 2014</p>
   </div>
 </div>
 
@@ -420,6 +248,11 @@ main = do
         <script src="../js/plugins.js"></script>
         <script src="../js/main.js"></script>
 
+        <script>
+          $(document).ready(function() {
+            $('.parallax').parallax();
+          });
+        </script>
 
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
