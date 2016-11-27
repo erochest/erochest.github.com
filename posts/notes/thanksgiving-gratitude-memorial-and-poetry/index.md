@@ -1,6 +1,6 @@
 ---
 title: 'Thanksgiving: Gratitude, Memorial, and Poetry'
-date: 2016-11-24T18:34:37
+date: 2016-11-27T16:52:33
 categories: 
 ---
 
