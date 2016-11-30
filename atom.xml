@@ -8,8 +8,42 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2016-11-27T16:52:33Z</updated>
+    <updated>2016-11-30T10:23:04Z</updated>
     <entry>
+    <title>#FlipTheScript</title>
+    <link href="http://www.ericrochester.com//posts/thoughts/flip-the-script/index.html" />
+    <id>http://www.ericrochester.com//posts/thoughts/flip-the-script/index.html</id>
+    <published>2016-11-30T10:23:04Z</published>
+    <updated>2016-11-30T10:23:04Z</updated>
+    <summary type="html"><![CDATA[<p>I’ve almost let National Adoption Month go by without comment.</p>
+<p>But I can’t.</p>
+<!--more-->
+<p>When we were waiting to adopt our first oldest, a lot of the other people we met who were also waiting were reading adoptive mommy blogs. Think mommy blogs with a pretty saccharine adoption narrative. Those didn’t feel real to me, so instead I read adoptee blogs. The adoptive parent blogs usually referred to these as “angry adoptees.”</p>
+<p>Their perspectives felt better grounded in reality.</p>
+<p>It was one of the best ways I could have prepared for being an adoptive parent.</p>
+<p>Maybe they are angry. But only in the best way, of being angry at the injustices of the current system and speaking out about it.</p>
+<p>Looking around to gather links for this post, I have realized that I don’t listen to these voices as much as I would like to. (I think part of it is that now I primarily listen haphazardly on Twitter.)</p>
+<p>I have also realized that a lot of voices that were important in my journey on this have now gone silent. I wish them well and hope that they are leading beautiful lives.</p>
+<p>Anyway, here are some adoptee voices that have been personally influential. They’re not all always talking about adoption, but most do sometimes. (Since I’m mainly listening to these voices on Twitter lately, I’ve decided to list Twitter accounts, where available, not blogs.)</p>
+<ul>
+<li><a href="https://twitter.com/AmandaTDA">Amanda</a> is a social worker, consultant, and therapist. She also founded Lost Daughters, listed below.</li>
+<li><a href="https://twitter.com/theadoptedlife">Angela</a> has a YouTube channel and a documentary on Netflix about adoption, <a href="http://www.theadoptedlife.com/">The Adopted Life</a>.</li>
+<li><a href="https://twitter.com/iamadopted">Jessenia Arias</a> created and hosts <a href="http://iamadopted.net/">I am Adopted</a>.</li>
+<li><a href="https://twitter.com/nicole_soojung">Nicole Chung</a> might be best known right now for co-foundering and editing the still-awesome <a href="http://the-toast.net/">The Toast</a>. She used the platform she had there to also raise issues of adoption, transracial adoption, and racial justice.</li>
+<li><a href="https://twitter.com/DANakaDAN">Dan</a> is executive producer at the fun and entertaining <a href="https://www.youtube.com/isatv">ISAtv</a>, a YouTube channel about Asian Pacific American culture.</li>
+<li><a href="https://landofgazillionadoptees.com/">Land of Gazillion Adoptees</a> is an ezine by and for adult adoptees.</li>
+<li><a href="http://www.thelostdaughters.com/">Lost Daughters</a> is a group blog that provides a platform for adult women who were adopted as children.</li>
+<li><a href="https://twitter.com/mckeekee">Kimberly McKee</a> is a researcher in Adoption Studies.</li>
+<li><a href="https://twitter.com/mothermade">Mother Made</a> blogs and tweets about being a transracial adoptee and is especially eloquent about the tensions inherit in her complex identity.</li>
+<li><a href="https://twitter.com/MichelleWPD">Michelle</a> uses social media to talk about both adoption and faith.</li>
+<li><a href="https://twitter.com/yoonsblur">Mila</a> blogs at Lost Daughters. My family had the opportunity of hearing Mila in person a couple of times, and she’s just as powerful of a voice in real life.</li>
+<li><a href="https://twitter.com/Karen_Pickell">Karen Pickell</a> is a writer, editor, and advocate. She founded <a href="http://adopteereading.com/">Adoptee Reading</a>.</li>
+<li><a href="https://johnraible.wordpress.com/">John W. Raible</a> comes at this experience from all sides. He is an adoptive parent, and he researches adoption-related issues. He has been a active and tireless voice for adoptee rights, for the issues raised by transracial adoptees, and for other causes.</li>
+</ul>
+<p>These people all have amazing voices. Go listen to them.</p>
+<p>I’ve certainly left out lots of poeple here. These are just some (not all!) that have been personally significant to me. If you know of someone I should be listening to, please let me know.</p>]]></summary>
+</entry>
+<entry>
     <title>Thanksgiving: Gratitude, Memorial, and Poetry</title>
     <link href="http://www.ericrochester.com//posts/notes/thanksgiving-gratitude-memorial-and-poetry/index.html" />
     <id>http://www.ericrochester.com//posts/notes/thanksgiving-gratitude-memorial-and-poetry/index.html</id>
@@ -370,73 +404,6 @@ I woke up out of my dead sleep an hour ago. I knew Trump won before I went to be
 <span class="fu">&gt;</span>                                             <span class="fu">++</span> <span class="st">&quot; read.&quot;</span>)
 <span class="fu">&gt;</span>
 <span class="fu">&gt;</span>         _ <span class="ot">-&gt;</span> putStrLn <span class="st">&quot;usage: runhaskell Validate.lhs data-file.csv&quot;</span></code></pre></div>]]></summary>
-</entry>
-<entry>
-    <title>Omeka, Neatline, Mac, development, oh my!</title>
-    <link href="http://www.ericrochester.com//posts/code/omeka-neatline-ansible/index.html" />
-    <id>http://www.ericrochester.com//posts/code/omeka-neatline-ansible/index.html</id>
-    <published>2014-08-29T20:30:00Z</published>
-    <updated>2014-08-29T20:30:00Z</updated>
-    <summary type="html"><![CDATA[<p><em>This is cross posted at <a href="http://www.scholarslab.org/uncategorized/omeka-neatline-mac-development-oh-my/">The Scholars’ Lab Blog</a>.</em></p>
-<p>At the Scholars’ Lab, we’re big big advocates of Open Source. All of our projects are available freely and openly on <a href="https://github.com/">Github</a>, and we’re always more than happy to accept pull requests. We’d like to be able to empower everyone to contribute to our projects as much as they’re able to and comfortable with.</p>
-<!--more-->
-<p>Unfortunately, one of our flagship projects, <a href="http://neatline.org/">Neatline</a>, isn’t easy to contribute to. There are a number of reasons for this, but one is that the development environment is not trivial to get set up. In order to address this and make it easier for others to contribute, we’ve developed an <a href="http://www.ansible.com/">Ansible</a> playbook that takes a not-quite-stock Mac and sets up an instance of Omeka with the Neatline plugin available, as well as all the tools necessary for working on Neatline.</p>
-<p><a href="http://www.ansible.com/">Ansible</a> is a system for setting up and configuring systems. It’s often used to set up multiple servers—for instance, a database server and a static web server, both working with a dynamic web applications deployed on several computers. If you’re familiar with <a href="http://www.getchef.com/">Chef</a> or <a href="http://puppetlabs.com/">Puppet</a>, Ansible solves the same problems. In this case, we’ll use it to configure our local development workstation.</p>
-<p>We’ve published these playbooks on <a href="https://github.com/">Github</a> in the <a href="https://github.com/erochest/neatline.dev/tree/mac-ansible"><code>neatline.dev</code> repository, on the <code>mac-ansible</code> branch</a>. You can get this by cloning it to your local machine. (Since this is for getting started developing Neatline, I assume that you’re already comfortable with <a href="http://git-scm.com/">git</a>. If not, <a href="http://rogerdudler.github.io/git-guide/">there</a> <a href="https://try.github.io/">are</a> <a href="http://www.git-tower.com/learn/">lots</a> <a href="http://gitimmersion.com/">of</a> <a href="http://www.vogella.com/tutorials/Git/article.html">great</a> <a href="http://git-scm.com/book">tutorials</a>.)</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">git</span> clone --branch mac-ansible https://github.com/erochest/neatline.dev.git</code></pre></div>
-<h2 id="requirements">Requirements</h2>
-<p>In creating this, I’ve aimed for starting from a stock Mac. And I missed pretty badly. However, the necessary prerequisites are minimal. You’ll just need to have these things installed.</p>
-<ul>
-<li><a href="https://itunes.apple.com/us/app/xcode/id497799835">XCode</a></li>
-<li><a href="http://brew.sh/">Homebrew</a></li>
-</ul>
-<p>Once those two are on your machine, you can install the other two dependencies. These are available through <a href="http://brew.sh/">Homebrew</a>. So open Terminal and type these lines:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">brew</span> install python
-$ <span class="ex">brew</span> install ansible</code></pre></div>
-<p>That’s all. You should be ready to go.</p>
-<h2 id="settings">Settings</h2>
-<p>This project includes a number settings that you can change to customize your installation. Those are found in the file <a href="https://github.com/erochest/neatline.dev/blob/mac-ansible/playbook.yaml"><code>playbook.yaml</code></a>. The relevant section is labelled <code>vars</code>, and it allows you to set information about the Omeka database (<code>omeka_db_user</code>, <code>omeka_db_password</code>, and <code>omeka_db_name</code>), which version of Omeka you wish to use (<code>omeka_version</code>), where you wish to install it (<code>omeka_dir</code>), and where you want to point your browser to (<code>dev_hostname</code>) as you’re working on the site. The defaults are:</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">vars:</span>
-  <span class="fu">db_user:</span> root
-  <span class="fu">db_password:</span>
-  <span class="fu">omeka_db_user:</span> omeka
-  <span class="fu">omeka_db_password:</span> omeka
-  <span class="fu">omeka_db_name:</span> omeka
-  <span class="fu">dev_hostname:</span> omeka-neatline.dev
-  <span class="fu">omeka_dir:</span> <span class="st">&quot;{{ ansible_env.HOME }}/omeka/neatlinedev&quot;</span>
-  <span class="fu">omeka_version:</span> stable-2.1
-  <span class="fu">debug:</span> true
-  <span class="fu">neatline_repo:</span> git@github.com:scholarslab/Neatline.git
-  <span class="fu">php_version:</span> 55</code></pre></div>
-<p>Change these to reflect what you’d like your personal Omeka/Neatline installation to look like.</p>
-<p>One option that I’ll call out in particular is <code>neatline_repo</code>. This is the git repository that you’ll be working with. If you’re using github to host your project, you can <a href="https://help.github.com/articles/fork-a-repo">fork</a> the primary Neatline repository (from the URL given above). And when you’ve completed your work, if you’d like to contribute back, you can send us a <a href="https://help.github.com/articles/using-pull-requests">pull request</a> through the Github site.</p>
-<h2 id="setting-up">Setting Up</h2>
-<p>Finally, we’re ready to actually create the system. This is quite easy. In the Terminal, from the <code>neatline.dev</code> directory, run the <code>neatline-dev</code> script.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="bu">cd</span> neatline.dev
-$ <span class="ex">./neatline-dev</span></code></pre></div>
-<p>Now wait.</p>
-<p>After your computer whirs away for a while, you’ll get your prompt back. When that happens, you should be able to point your browser to http://omeka-neatline.dev (in the example above). There you’ll see the Omeka installation form.</p>
-<h2 id="what-just-happened">What Just Happened?</h2>
-<p>The Ansible playbook does a number of tasks.</p>
-<ol style="list-style-type: decimal">
-<li>It installs all the dependencies that you’ll need, including <a href="http://php.net/">PHP</a>, <a href="http://nodejs.org/">NodeJS</a>, and <a href="http://www.mysql.com/">MySQL</a>.</li>
-<li>It sets MySQL to start automatically when you log in, and it creates the Omeka MySQL user and database.</li>
-<li>It configures <a href="http://httpd.apache.org/">Apache</a> to work with PHP and to find your Omeka directory.</li>
-<li>It downloads and configures <a href="http://omeka.org/">Omeka</a> and turns on debugging.</li>
-<li>It clones <a href="http://neatline.org/">Neatline</a> into Omeka’s <code>plugin</code> directory.</li>
-<li>It initializes <a href="https://github.com/nvie/gitflow">git flow</a> for working in Neatline and leaves you on the <code>develop</code> branch.</li>
-<li>And it installs the necessary JavaScript and PHP tools, including <a href="http://gruntjs.com/">Grunt</a>, <a href="http://bower.io/">Bower</a>, <a href="https://getcomposer.org/">Composer</a>, and <a href="http://phpunit.de/">PHPUnit</a>.</li>
-</ol>
-<p>After all that, it really needs a break.</p>
-<p>You probably do too.</p>
-<h2 id="future">Future</h2>
-<p>Unfortunately, that’s only the first step that we need to take to make the Neatline code-base approachable. Some more things that we have planned include:</p>
-<ul>
-<li>Documentation on all the moving parts.</li>
-<li>Documentation on the overall architecture of Neatline.</li>
-<li>Documentation on the code. What’s where? If you wish to change something, where would you find it?</li>
-</ul>
-<p>As we get those parts in place, we’ll keep you posted.</p>]]></summary>
 </entry>
 
 </feed>
