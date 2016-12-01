@@ -13,6 +13,7 @@ import qualified Data.Text.Lazy         as TL
 import           Data.Time
 import           Data.Traversable
 import           Shelly                 hiding (FilePath, (<.>), (</>))
+import           System.Environment     (unsetEnv)
 import           System.FilePath
 
 import           Sites.Actions.Deploy   (deploySite)
@@ -50,8 +51,9 @@ publishDraft metaFile mSrcB destB pubDate deploy = shelly $ verbosely $ do
     git_ "merge"    [srcB]
     git_ "branch"   ["-d", srcB]
 
-    when deploy $
-        liftIO $ deploySite False False
+    when deploy $ liftIO $ do
+        unsetEnv "DEVELOPMENT"
+        deploySite True False
 
 -- git branch --list | grep '*' | cut -d ' ' -f 2
 currentBranch :: Sh (Maybe T.Text)

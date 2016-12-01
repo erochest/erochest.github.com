@@ -40,7 +40,7 @@ tags:
 	hasktags --ctags app src
 
 deploy:
-	$(RUN) errsite deploy
+	DEVELOPMENT= $(RUN) errsite deploy --scratch
 
 check: hlint
 	$(RUN) errsite hakyll check
