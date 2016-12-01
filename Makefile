@@ -33,6 +33,9 @@ watch-code:
 watch-code-site:
 	stack build $(FLAGS) --file-watch --exec "make clean-site build-site"
 
+watch-test:
+	stack build $(FLAGS) --fast --file-watch --test
+
 serve:
 	warp -d _site -p 8000
 

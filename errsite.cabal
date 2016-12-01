@@ -35,6 +35,7 @@ library
   build-depends:       base            >=4.8 && <4.10
                      , aeson
                      , blaze-html
+                     , bytestring
                      , containers
                      , directory
                      , errors
@@ -55,6 +56,7 @@ library
                      , time >=1.5
                      , unordered-containers
                      , vector
+                     , yaml
   hs-source-dirs:      src
 
 executable errsite
@@ -88,3 +90,16 @@ executable errsite
                      -- , pandoc
                      -- , mtl
                      -- , filepath
+
+test-suite errsite-specs
+  type:                   exitcode-stdio-1.0
+  ghc-options:            -threaded -rtsopts
+  hs-source-dirs:         specs
+  main-is:                Specs.hs
+  other-modules:          Sites.Actions.DraftSpec
+  build-depends:          base
+                        , errsite
+                        , QuickCheck
+                        , smallcheck
+                        , hspec
+  default-language:     Haskell2010
