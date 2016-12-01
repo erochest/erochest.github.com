@@ -82,9 +82,6 @@ yamlHeader title tags timestamp =
                  , "categories"  .= S.toList tags
                  ]
 
-    {- format "---\ntitle: {}\ndate: {}\ncategories: {}\n---\n\n" -}
-           {- (title, timestamp, setList tags) -}
-
 setList :: S.HashSet T.Text -> T.Text
 setList = T.intercalate " " . L.sort . S.toList
 
