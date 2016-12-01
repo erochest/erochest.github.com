@@ -5,16 +5,19 @@
 module Sites.Actions.Draft where
 
 
-import           Data.Char         (isAlphaNum)
-import qualified Data.HashSet      as S
-import qualified Data.List         as L
-import           Data.Maybe        (fromMaybe)
-import           Data.Monoid       ((<>))
-import qualified Data.Text         as T
+import qualified Data.ByteString.Lazy    as BL
+import           Data.Char               (isAlphaNum)
+import qualified Data.HashSet            as S
+import qualified Data.List               as L
+import           Data.Maybe              (fromMaybe)
+import           Data.Monoid             ((<>))
+import qualified Data.Text               as T
 import           Data.Text.Format
-import qualified Data.Text.Lazy    as TL
+import qualified Data.Text.Lazy          as TL
+import           Data.Text.Lazy.Encoding (decodeUtf8)
 import           Data.Time
-import           Shelly            hiding (FilePath, path, (<.>), (</>))
+import           Data.Yaml
+import           Shelly                  hiding (FilePath, path, (<.>), (</>))
 import           System.Directory
 import           System.FilePath
 
@@ -69,8 +72,18 @@ newPage _ title tags timestamp = do
 
 yamlHeader :: T.Text -> S.HashSet T.Text -> String -> TL.Text
 yamlHeader title tags timestamp =
-    format "---\ntitle: {}\ndate: {}\ncategories: {}\n---\n\n"
-           (title, timestamp, setList tags)
+    format "---\n{}---\n"
+        $ Only
+        $ decodeUtf8
+        $ BL.fromStrict
+        $ encode
+        $ object [ "title"       .= title
+                 , "date"        .= timestamp
+                 , "categories"  .= S.toList tags
+                 ]
+
+    {- format "---\ntitle: {}\ndate: {}\ncategories: {}\n---\n\n" -}
+           {- (title, timestamp, setList tags) -}
 
 setList :: S.HashSet T.Text -> T.Text
 setList = T.intercalate " " . L.sort . S.toList
