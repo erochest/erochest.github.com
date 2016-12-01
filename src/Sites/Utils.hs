@@ -1,3 +1,4 @@
+{-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TupleSections     #-}
 
@@ -35,6 +36,8 @@ module Sites.Utils
     , pursTemplate
     , indexTemplate
     , livereload
+    , analytics
+    , developmentField
     , indexFileName
     , meta
     , guessUrl
@@ -44,6 +47,8 @@ module Sites.Utils
     , throwMaybe
     , fpStr
     , strFp
+    , mnot
+    , lookupDefined
     ) where
 
 
@@ -254,6 +259,7 @@ siteContext title extraHeader =
         <> foldMap (constField "title") title
         <> constField "open-graph" ""
         <> livereload
+        <> analytics
         <> defaultContext
 
 foldMetadataField :: String -> Item a -> Compiler String
@@ -301,8 +307,7 @@ indexTemplate c =
         <=< loadAndApplyTemplate "templates/post-list.html" c
 
 livereload :: Context a
-livereload = field "livereload" $ \_ ->
-    maybe "" (const livereload') <$> unsafeCompiler (lookupEnv "DEBUG")
+livereload = developmentField "livereload" livereload' ""
     where
         livereload' :: String
         livereload' = "\
@@ -310,6 +315,29 @@ livereload = field "livereload" $ \_ ->
             \  document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] +\n\
             \    ':35729/livereload.js?snipver=1\"></' + 'script>')\n\
             \</script>"
+
+analytics :: Context a
+analytics = field "analytics" $ \_ -> do
+    code <-  unsafeCompiler
+         $   (*>)
+         <$> fmap mnot (lookupEnv "DEVELOPMENT")
+         <*> lookupEnv "ANALYTICS_CODE"
+    return $ foldMap google code
+    where
+        google c = "\
+        \<script>\n\
+        \    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=\n\
+        \    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;\n\
+        \    e=o.createElement(i);r=o.getElementsByTagName(i)[0];\n\
+        \    e.src='https://www.google-analytics.com/analytics.js';\n\
+        \    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));\n\
+        \    ga('create','" ++ c ++ "','auto');ga('send','pageview');\n\
+        \</script>\n\
+        \ "
+
+developmentField :: String -> String -> String -> Context a
+developmentField name dev prod = field name $ \_ ->
+    maybe prod (const dev) <$> unsafeCompiler (lookupDefined "DEVELOPMENT")
 
 indexFileName :: FilePath -> PageNumber -> Identifier
 indexFileName root 1 = fromFilePath $ root </> "index.html"
@@ -332,3 +360,15 @@ fpStr = T.unpack . Sh.toTextIgnore
 
 strFp :: FilePath -> Sh.FilePath
 strFp = Sh.fromText . T.pack
+
+lookupDefined :: String -> IO (Maybe String)
+lookupDefined key = do
+    value <- lookupEnv key
+    return $ case value of
+                Just "" -> Nothing
+                _       -> value
+
+mnot :: (Eq m, Monoid m) => Maybe m -> Maybe m
+mnot = maybe (Just mempty) $ \case
+                                m | m == mempty -> Just mempty
+                                  | otherwise   -> Nothing
