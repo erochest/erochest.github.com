@@ -18,42 +18,52 @@ import           System.FilePath
 
 import           Sites.Actions.Deploy   (deploySite)
 import           Sites.Git
+import           Sites.Types
 import           Sites.Utils
 
 
 data DocLocation = Pre | Meta | Content
 
-publishDraft :: FilePath -> Maybe T.Text -> T.Text -> Maybe UTCTime -> Bool
-             -> IO ()
-publishDraft metaFile mSrcB destB pubDate deploy = shelly $ verbosely $ do
-    srcB <-  maybe (   throwMaybe (AssertionFailed "cannot find current branch")
-                   =<< currentBranch) return mSrcB
-    now  <-  liftIO
-         $   T.pack
-         .   formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
-         <$> maybe getCurrentTime return pubDate
+publishDraft :: FilePath -> Maybe BranchMove -> Maybe UTCTime -> Bool -> IO ()
+publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
+    current <-  throwMaybe (AssertionFailed "cannot find current branch")
+            =<< currentBranch
+    now <-  liftIO
+        $   T.pack
+        .   formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
+        <$> maybe getCurrentTime return pubDate
 
-    git_ "checkout" [srcB]
-    withTmpDir $ \dirname -> do
-        let tmpFile = replaceDirectory metaFile $ fpStr dirname
-        mv (strFp metaFile) $ strFp tmpFile
-        liftIO
-            $   TIO.writeFile metaFile
-            .   T.unlines
-            .   snd
-            .   mapAccumL (updateDate now) Pre
-            .   T.lines
-            =<< TIO.readFile tmpFile
+    traverse (git_ "checkout" . pure . branchTo) branch
+
+    overLines metaFile (snd . mapAccumL (updateDate now) Pre)
 
     git_ "add"      [T.pack metaFile]
     git_ "commit"   ["-m", "Updated date of post."]
-    git_ "checkout" [destB]
-    git_ "merge"    [srcB]
-    git_ "branch"   ["-d", srcB]
+
+    traverse (merge current) branch
 
     when deploy $ liftIO $ do
         unsetEnv "DEVELOPMENT"
         deploySite True False
+
+overLines :: FilePath -> ([T.Text] -> [T.Text]) -> Sh ()
+overLines filename f = withTmpDir $ \dirname -> do
+    let tmpFile = replaceDirectory filename $ fpStr dirname
+    mv (strFp filename) $ strFp tmpFile
+    liftIO
+        $   TIO.writeFile filename
+        .   T.unlines
+        .   f
+        .   T.lines
+        =<< TIO.readFile tmpFile
+
+merge :: T.Text -> BranchMove -> Sh ()
+merge current (BranchMove mSrcB destB) = do
+    git_ "checkout" [destB]
+    git_ "merge"    [srcB]
+    git_ "branch"   ["-d", srcB]
+    where
+        srcB = fromMaybe current mSrcB
 
 -- git branch --list | grep '*' | cut -d ' ' -f 2
 currentBranch :: Sh (Maybe T.Text)

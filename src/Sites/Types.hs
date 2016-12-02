@@ -1,9 +1,14 @@
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric      #-}
+
 
 module Sites.Types where
 
 
-import qualified Data.Text as T
+import           Data.Data
+import qualified Data.Text    as T
 import           Data.Time
+import           GHC.Generics
 import           Hakyll
 
 
@@ -14,13 +19,13 @@ data SiteInfo
     , siteRoot   :: FilePath   -- ^ The root of the site under `_site`.
     , siteRules  :: Rules ()   -- ^ These are the Hakyll rules for building
                                -- this site.
-    }
+    } deriving (Generic, Typeable)
 
 data RootSite
     = Root
     { rootSite :: SiteInfo
     , subsites :: [SiteInfo]
-    }
+    } deriving (Generic, Typeable)
 
 data ProjectInfo
     = Project
@@ -29,10 +34,16 @@ data ProjectInfo
     , projectTeaser     :: !String
     , projectCoverImage :: !FilePath
     , projectDate       :: !UTCTime
-    } deriving (Show)
+    } deriving (Eq, Show, Generic, Data, Typeable)
 
 data PageType
     = MarkdownPage
     | ClojurePage
     | PureScriptPage
-    deriving (Show, Eq)
+    deriving (Show, Eq, Generic, Data, Typeable)
+
+data BranchMove
+    = BranchMove
+    { branchFrom :: !(Maybe T.Text)
+    , branchTo   :: !T.Text
+    } deriving (Show, Eq, Generic, Data, Typeable)

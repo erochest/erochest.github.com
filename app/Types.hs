@@ -18,8 +18,7 @@ data Actions
               , draftType     :: !PageType
               }
     | Publish { publishMetaFile :: !FilePath
-              , publishBranch   :: !(Maybe T.Text)
-              , publishTo       :: !T.Text
+              , publishBranch   :: !(Maybe BranchMove)
               , publishOn       :: !(Maybe UTCTime)
               , publishDeploy   :: !Bool
               }

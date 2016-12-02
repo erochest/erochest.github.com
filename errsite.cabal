@@ -67,6 +67,7 @@ executable errsite
   hs-source-dirs:      app
   build-depends:       base            >=4.8 && <4.10
                      , errsite
+                     , errors
                      , hashable
                      , optparse-applicative
                      , text

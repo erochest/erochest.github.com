@@ -18,6 +18,6 @@ action (Hakyll args) = callHakyll args
 action Draft{..}     = newDraft draftCategory draftTags draftTitle draftSlug
                                 draftType
 action Deploy{..}    = deploySite scratch bail
-action Publish{..}   = publishDraft publishMetaFile publishBranch publishTo
-                                    publishOn publishDeploy
+action Publish{..}   = publishDraft publishMetaFile publishBranch publishOn
+                                    publishDeploy
 action Illiterate    = illiterateClojure

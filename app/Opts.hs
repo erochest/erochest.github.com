@@ -4,6 +4,7 @@
 module Opts where
 
 
+import           Control.Error       (hush)
 import           Data.Char           (toLower)
 import           Data.Hashable
 import qualified Data.HashSet        as S
@@ -60,13 +61,10 @@ draftOpts
                                    \ (m)arkdown (default), (c)lojure, or\
                                    \ (p)urescript.")
 
-publishOpts :: Parser Actions
-publishOpts
-    =   Publish
-    <$> strOption (  short 'i' <> long "input" <> metavar "METADATA_INPUT"
-                  <> help "The metadata input file. Usually this is the post\
-                          \ markdown file.")
-    <*> optional (option textOpt
+branchMoveOpts :: Parser BranchMove
+branchMoveOpts
+    =   BranchMove
+    <$> optional (option textOpt
                     (  short 'b' <> long "branch" <> metavar "SOURCE_BRANCH"
                     <> help "The branch containing the metadata file.\
                             \ This will be merged into DEST_BRANCH.\
@@ -75,6 +73,17 @@ publishOpts
                        <> metavar "DEST_BRANCH" <> value "develop"
                        <> help "The branch to merge SOURCE_BRANCH *into*.\
                                \ This defaults to 'develop'.")
+
+publishOpts :: Parser Actions
+publishOpts
+    =   Publish
+    <$> strOption (  short 'i' <> long "input" <> metavar "METADATA_INPUT"
+                  <> help "The metadata input file. Usually this is the post\
+                          \ markdown file.")
+    <*> fmap hush (    flag' () (  short 'r' <> long "republish"
+                                <> help "Just update the date on the post.")
+                  <||> branchMoveOpts
+                  )
     <*> optional (option dateR (  short 'd' <> long "date"
                                <> metavar "PUBLISH_DATE"
                                <> help "The timestamp to update the post\
@@ -125,3 +134,6 @@ opts = info (helper <*> opts')
 
 parseOpts :: IO Actions
 parseOpts = execParser opts
+
+(<||>) :: (Functor f, Alternative f) => f a -> f b -> f (Either a b)
+left <||> right = fmap Left left <|> fmap Right right
