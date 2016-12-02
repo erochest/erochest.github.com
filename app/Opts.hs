@@ -135,5 +135,5 @@ opts = info (helper <*> opts')
 parseOpts :: IO Actions
 parseOpts = execParser opts
 
-(<||>) :: (Functor f, Alternative f) => f a -> f b -> f (Either a b)
+(<||>) :: Alternative f => f a -> f b -> f (Either a b)
 left <||> right = fmap Left left <|> fmap Right right
