@@ -40,6 +40,8 @@ library
                      , directory
                      , errors
                      , filepath
+                     , gitlib
+                     , gitlib-libgit2
                      , hakyll
                      , lens
                      , lens-aeson
