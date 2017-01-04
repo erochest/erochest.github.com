@@ -34,5 +34,5 @@ Anyway, here are some adoptee voices that have been personally influential. They
 
 These people all have amazing voices. Go listen to them.
 
-I've certainly left out lots of poeple here. These are just some (not all!) that have been personally significant to me. If you know of someone I should be listening to, please let me know.
+I've certainly left out lots of people here. These are just some (not all!) that have been personally significant to me. If you know of someone I should be listening to, please let me know.
 
