@@ -21,6 +21,8 @@ library
                      , Sites.Actions.Hakyll
                      , Sites.Actions.Illiterate
                      , Sites.Actions.Publish
+                     , Sites.Actions.WorkDraft
+                     , Sites.Actions.WorkPublish
                      , Sites.Literate
                      , Sites.Types
   other-modules:       Sites.Base
@@ -41,10 +43,12 @@ library
                      , errors
                      , filepath
                      , hakyll
+                     , html-conduit
                      , lens
                      , lens-aeson
                      , lucid
                      , mtl
+                     , network-uri
                      , pandoc
                      -- , process
                      , regex-tdfa
@@ -56,6 +60,9 @@ library
                      , time >=1.5
                      , unordered-containers
                      , vector
+                     , wreq
+                     , xml-conduit
+                     , xml-lens
                      , yaml
   hs-source-dirs:      src
 

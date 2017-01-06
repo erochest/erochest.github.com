@@ -34,23 +34,26 @@ pageTypeOpt = parse . map toLower =<< str
         parse ('p':_) = return PureScriptPage
         parse v       = fail $ "Invalid value: " ++ v
 
+manySet :: (Eq a, Hashable a, Alternative f) => f a -> f (S.HashSet a)
+manySet = fmap S.fromList . many
+
+tagSetOption :: Parser (S.HashSet T.Text)
+tagSetOption = manySet (option textOpt
+                            (  short 'T' <> long "tag" <> metavar "TAG"
+                            <> help "A tag to include in the template."))
+
 hakyllOpts :: Parser Actions
 hakyllOpts =   Hakyll
            <$> many (argument textOpt (  metavar "HAKYLL_OPT"
                                       <> help "An option to pass to Hakyll."
                                       ))
 
-manySet :: (Eq a, Hashable a, Alternative f) => f a -> f (S.HashSet a)
-manySet = fmap S.fromList . many
-
 draftOpts :: Parser Actions
 draftOpts
     =   Draft
     <$> strOption (  short 'c' <> long "category" <> metavar "CATEGORY"
                   <> help "The slug for the category to put the post into.")
-    <*> manySet (option textOpt
-                    (  short 'T' <> long "tag" <> metavar "TAG"
-                    <> help "A tag to include in the template."))
+    <*> tagSetOption
     <*> option textOpt (  short 't' <> long "title" <> metavar "TITLE"
                        <> help "The post's title.")
     <*> optional (strOption (  short 's' <> long "slug" <> metavar "SLUG"
@@ -109,6 +112,33 @@ deployOpts
 illiterateOpts :: Parser Actions
 illiterateOpts = pure Illiterate
 
+workStartOpts :: Parser Actions
+workStartOpts
+    =   WorkStart
+    <$> option textOpt (  short 'a' <> long "author" <> metavar "AUTHOR"
+                       <> help "The work's author.")
+    <*> option textOpt (  short 't' <> long "title" <> metavar "TITLE"
+                       <> help "The work's title.")
+    <*> tagSetOption
+    <*> switch (  short 'u' <> long "use-range"
+               <> help "Use a date range. Default is False. If set,\
+                       \ fills in only the starting date.")
+
+workDoneOpts :: Parser Actions
+workDoneOpts
+    =   WorkDone
+    <$> strOption (  short 'i' <> long "input" <> metavar "INPUT_FILE"
+                  <> help "The input file containing the post.")
+    <*> optional branchMoveOpts
+    <*> optional (option dateR (  short 'd' <> long "date"
+                               <> metavar "PUBLISH_DATE"
+                               <> help "The timestamp to update the post\
+                                       \ with. This defaults to the current\
+                                       \ time."))
+    <*> switch (  short 'D' <> long "deploy"
+               <> help "If given, this will call 'errsite deploy' on this\
+                       \ site.")
+
 opts' :: Parser Actions
 opts' = subparser
     (  command "hakyll" (info (helper <*> hakyllOpts)
@@ -118,6 +148,10 @@ opts' = subparser
                                   \ branch."))
     <> command "deploy" (info (helper <*> deployOpts)
                          (progDesc "Deploy site to github pages."))
+    <> command "reading-draft" (info (helper <*> workStartOpts)
+                                (progDesc "Stub out a new draft of a book."))
+    <> command "reading-publish" (info (helper <*> workDoneOpts)
+                                    (progDesc "Publish a draft of a reading log."))
     <> command "publish" (info (helper <*> publishOpts)
                            (progDesc "Publish a draft by updating the date\
                                      \ field and merging the branch."))
@@ -135,5 +169,5 @@ opts = info (helper <*> opts')
 parseOpts :: IO Actions
 parseOpts = execParser opts
 
-(<||>) :: (Functor f, Alternative f) => f a -> f b -> f (Either a b)
+(<||>) :: Alternative f => f a -> f b -> f (Either a b)
 left <||> right = fmap Left left <|> fmap Right right

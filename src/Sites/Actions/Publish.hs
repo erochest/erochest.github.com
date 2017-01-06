@@ -6,6 +6,7 @@ module Sites.Actions.Publish where
 
 import           Control.Error
 import           Control.Exception.Base (AssertionFailed (..))
+import           Control.Monad          (void)
 import qualified Data.Text              as T
 import           Data.Text.Format
 import qualified Data.Text.IO           as TIO
@@ -33,14 +34,14 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
         .   formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
         <$> maybe getCurrentTime return pubDate
 
-    traverse (git_ "checkout" . pure . branchTo) branch
+    void $ traverse (git_ "checkout" . pure . branchTo) branch
 
     overLines metaFile (snd . mapAccumL (updateDate now) Pre)
 
     git_ "add"      [T.pack metaFile]
     git_ "commit"   ["-m", "Updated date of post."]
 
-    traverse (merge current) branch
+    void $ traverse (merge current) branch
 
     when deploy $ liftIO $ do
         unsetEnv "DEVELOPMENT"

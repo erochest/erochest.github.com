@@ -49,6 +49,7 @@ module Sites.Utils
     , strFp
     , mnot
     , lookupDefined
+    , slugify
     ) where
 
 
@@ -56,6 +57,7 @@ import           Control.Applicative
 import           Control.Exception.Safe
 import           Control.Monad
 import           Data.Aeson.Types       (Value (..))
+import           Data.Char              (isAlphaNum)
 import           Data.Foldable
 import qualified Data.HashMap.Strict    as M
 import           Data.List              (isSuffixOf)
@@ -372,3 +374,10 @@ mnot :: (Eq m, Monoid m) => Maybe m -> Maybe m
 mnot = maybe (Just mempty) $ \case
                                 m | m == mempty -> Just mempty
                                   | otherwise   -> Nothing
+
+slugify :: T.Text -> T.Text
+slugify = T.map slugChar . T.toLower
+    where
+        slugChar x = if isAlphaNum x
+                        then x
+                        else '-'

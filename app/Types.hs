@@ -22,6 +22,18 @@ data Actions
               , publishOn       :: !(Maybe UTCTime)
               , publishDeploy   :: !Bool
               }
+    | WorkStart
+              { workStartAuthor :: !T.Text
+              , workStartTitle  :: !T.Text
+              , workStartTag    :: !(S.HashSet T.Text)
+              , workStartRange  :: !Bool
+              }
+    | WorkDone
+              { workDoneFile   :: !FilePath
+              , workDoneBranch :: !(Maybe BranchMove)
+              , workDoneOn     :: !(Maybe UTCTime)
+              , workDoneDeploy :: !Bool
+              }
     | Deploy  { scratch :: !Bool
               , bail    :: !Bool
               }

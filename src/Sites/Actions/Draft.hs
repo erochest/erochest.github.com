@@ -6,7 +6,6 @@ module Sites.Actions.Draft where
 
 
 import qualified Data.ByteString.Lazy    as BL
-import           Data.Char               (isAlphaNum)
 import qualified Data.HashSet            as S
 import qualified Data.List               as L
 import           Data.Maybe              (fromMaybe)
@@ -84,10 +83,3 @@ yamlHeader title tags timestamp =
 
 setList :: S.HashSet T.Text -> T.Text
 setList = T.intercalate " " . L.sort . S.toList
-
-slugify :: T.Text -> T.Text
-slugify = T.map slugChar . T.toLower
-    where
-        slugChar x = if isAlphaNum x
-                        then x
-                        else '-'
