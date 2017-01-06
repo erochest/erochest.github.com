@@ -22,21 +22,21 @@ import           Sites.Utils
 
 workPublish :: FilePath -> Maybe BranchMove -> Maybe UTCTime -> Bool -> IO ()
 workPublish metaFile branch pubDate deploy = shelly $ verbosely $ do
-    current <-  throwMaybe (AssertionFailed "cannot find current branch")
-            =<< currentBranch
     now <-  liftIO
         $   T.pack
         .   formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
         <$> maybe getCurrentTime return pubDate
 
-    chdir "reading-log" $
-        void $ traverse (git_ "checkout" . pure . branchTo) branch
+    current <- chdir "reading-log" $ 
+        throwMaybe (AssertionFailed "cannot find current branch")
+            =<< currentBranch
 
     overLines metaFile (snd . mapAccumL (updateDate now) Pre)
 
     chdir "reading-log" $ do
         git_ "add"    ["."]
         git_ "commit" ["-m", "Updated date of post."]
+        void $ traverse (git_ "checkout" . pure . branchTo) branch
         void $ traverse (merge current) branch
 
     when deploy $ liftIO $ do
