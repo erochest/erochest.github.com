@@ -4,7 +4,6 @@
 module Sites.Actions.Publish where
 
 
-import           Control.Error
 import           Control.Exception.Base (AssertionFailed (..))
 import           Control.Monad          (void)
 import qualified Data.Text              as T
@@ -57,22 +56,6 @@ overLines filename f = withTmpDir $ \dirname -> do
         .   f
         .   T.lines
         =<< TIO.readFile tmpFile
-
-merge :: T.Text -> BranchMove -> Sh ()
-merge current (BranchMove mSrcB destB) = do
-    git_ "checkout" [destB]
-    git_ "merge"    [srcB]
-    git_ "branch"   ["-d", srcB]
-    where
-        srcB = fromMaybe current mSrcB
-
--- git branch --list | grep '*' | cut -d ' ' -f 2
-currentBranch :: Sh (Maybe T.Text)
-currentBranch =   headZ
-              .   fmap (T.drop 2)
-              .   filter ("* " `T.isPrefixOf`)
-              .   T.lines
-              <$> git "branch" ["--list"]
 
 updateDate :: T.Text -> DocLocation -> T.Text -> (DocLocation, T.Text)
 
