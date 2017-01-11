@@ -1,7 +1,7 @@
 ---
 categories:
 - meta
-date: 2017-01-06T19:35:44Z
+date: 2017-01-11T11:52:49
 title: About the Format
 ---
 
