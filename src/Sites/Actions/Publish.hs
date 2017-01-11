@@ -34,13 +34,12 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
         <$> maybe getCurrentTime return pubDate
 
     void $ traverse (git_ "checkout" . pure . branchTo) branch
+    void $ traverse (merge current) branch
 
     overLines metaFile (snd . mapAccumL (updateDate now) Pre)
 
     git_ "add"      [T.pack metaFile]
     git_ "commit"   ["-m", "Updated date of post."]
-
-    void $ traverse (merge current) branch
 
     when deploy $ liftIO $ do
         unsetEnv "DEVELOPMENT"
