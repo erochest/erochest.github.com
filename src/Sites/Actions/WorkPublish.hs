@@ -30,14 +30,15 @@ workPublish metaFile branch pubDate deploy = shelly $ verbosely $ do
     current <- chdir "reading-log" $ 
         throwMaybe (AssertionFailed "cannot find current branch")
             =<< currentBranch
+    chdir "reading-log" $ do
+        void $ traverse (git_ "checkout" . pure . branchTo) branch
+        void $ traverse (merge current) branch
 
     overLines metaFile (snd . mapAccumL (updateDate now) Pre)
 
     chdir "reading-log" $ do
         git_ "add"    ["."]
         git_ "commit" ["-m", "Updated date of post."]
-        void $ traverse (git_ "checkout" . pure . branchTo) branch
-        void $ traverse (merge current) branch
 
     when deploy $ liftIO $ do
         unsetEnv "DEVELOPMENT"
