@@ -26,24 +26,30 @@ data DocLocation = Pre | Meta | Content
 
 publishDraft :: FilePath -> Maybe BranchMove -> Maybe UTCTime -> Bool -> IO ()
 publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
-    current <-  throwMaybe (AssertionFailed "cannot find current branch")
+    current <- chdir dir $
+        throwMaybe (AssertionFailed "cannot find current branch")
             =<< currentBranch
     now <-  liftIO
         $   T.pack
         .   formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
         <$> maybe getCurrentTime return pubDate
 
-    void $ traverse (git_ "checkout" . pure . branchTo) branch
-    void $ traverse (merge current) branch
+    chdir dir $ do
+        void $ traverse (git_ "checkout" . pure . branchTo) branch
+        void $ traverse (merge current) branch
 
     overLines metaFile (snd . mapAccumL (updateDate now) Pre)
 
-    git_ "add"      [T.pack metaFile]
-    git_ "commit"   ["-m", "Updated date of post."]
+    chdir dir $ do
+        git_ "add"      [T.pack metaFile]
+        git_ "commit"   ["-m", "Updated date of post."]
 
     when deploy $ liftIO $ do
         unsetEnv "DEVELOPMENT"
         deploySite True False
+
+    where
+        dir = strFp $ dropFileName metaFile
 
 overLines :: FilePath -> ([T.Text] -> [T.Text]) -> Sh ()
 overLines filename f = withTmpDir $ \dirname -> do

@@ -11,7 +11,6 @@ import           Sites.Actions.Draft
 import           Sites.Actions.Hakyll
 import           Sites.Actions.Illiterate
 import           Sites.Actions.Publish
-import           Sites.Actions.WorkPublish
 
 
 action :: Actions -> IO ()
@@ -22,5 +21,3 @@ action Deploy{..}    = deploySite scratch bail
 action Publish{..}   = publishDraft publishMetaFile publishBranch publishOn
                                     publishDeploy
 action Illiterate    = illiterateClojure
-action WorkDone{..}  = workPublish workDoneFile workDoneBranch workDoneOn
-                                   workDoneDeploy

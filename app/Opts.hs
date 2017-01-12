@@ -119,21 +119,6 @@ deployOpts
 illiterateOpts :: Parser Actions
 illiterateOpts = pure Illiterate
 
-workDoneOpts :: Parser Actions
-workDoneOpts
-    =   WorkDone
-    <$> strOption (  short 'i' <> long "input" <> metavar "INPUT_FILE"
-                  <> help "The input file containing the post.")
-    <*> optional branchMoveOpts
-    <*> optional (option dateR (  short 'd' <> long "date"
-                               <> metavar "PUBLISH_DATE"
-                               <> help "The timestamp to update the post\
-                                       \ with. This defaults to the current\
-                                       \ time."))
-    <*> switch (  short 'D' <> long "deploy"
-               <> help "If given, this will call 'errsite deploy' on this\
-                       \ site.")
-
 opts' :: Parser Actions
 opts' = subparser
     (  command "hakyll" (info (helper <*> hakyllOpts)
@@ -143,8 +128,6 @@ opts' = subparser
                                   \ branch."))
     <> command "deploy" (info (helper <*> deployOpts)
                          (progDesc "Deploy site to github pages."))
-    <> command "reading-publish" (info (helper <*> workDoneOpts)
-                                    (progDesc "Publish a draft of a reading log."))
     <> command "publish" (info (helper <*> publishOpts)
                            (progDesc "Publish a draft by updating the date\
                                      \ field and merging the branch."))

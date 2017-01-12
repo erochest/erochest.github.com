@@ -21,7 +21,6 @@ library
                      , Sites.Actions.Hakyll
                      , Sites.Actions.Illiterate
                      , Sites.Actions.Publish
-                     , Sites.Actions.WorkPublish
                      , Sites.Literate
                      , Sites.Types
   other-modules:       Sites.Base
