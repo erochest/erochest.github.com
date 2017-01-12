@@ -8,8 +8,10 @@ module Sites.Types where
 import           Data.Data
 import qualified Data.Text    as T
 import           Data.Time
+import           Data.Yaml    (Value)
 import           GHC.Generics
 import           Hakyll
+import           Shelly       (Sh)
 
 
 data SiteInfo
@@ -40,6 +42,7 @@ data PageType
     = MarkdownPage
     | ClojurePage
     | PureScriptPage
+    | ReadingLogPage
     deriving (Show, Eq, Generic, Data, Typeable)
 
 data BranchMove
@@ -47,3 +50,14 @@ data BranchMove
     { branchFrom :: !(Maybe T.Text)
     , branchTo   :: !T.Text
     } deriving (Show, Eq, Generic, Data, Typeable)
+
+data DraftInfo
+    = DraftInfo
+    { draftTitle     :: !T.Text
+    , draftRepo      :: !FilePath
+    , draftBranch    :: !T.Text
+    , draftDirectory :: !FilePath
+    , draftHeader    :: !Value
+    , draftBuilder   :: !(DraftInfo -> Sh [FilePath])
+    } deriving (Generic, Typeable)
+

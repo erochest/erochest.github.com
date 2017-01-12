@@ -32,6 +32,7 @@ pageTypeOpt = parse . map toLower =<< str
         parse ('m':_) = return MarkdownPage
         parse ('c':_) = return ClojurePage
         parse ('p':_) = return PureScriptPage
+        parse ('r':_) = return ReadingLogPage
         parse v       = fail $ "Invalid value: " ++ v
 
 manySet :: (Eq a, Hashable a, Alternative f) => f a -> f (S.HashSet a)
@@ -56,13 +57,19 @@ draftOpts
     <*> tagSetOption
     <*> option textOpt (  short 't' <> long "title" <> metavar "TITLE"
                        <> help "The post's title.")
+    <*> optional (option textOpt (  short 'a' <> long "author"
+                                 <> metavar "AUTHOR"
+                                 <> help "The work's author."))
     <*> optional (strOption (  short 's' <> long "slug" <> metavar "SLUG"
                             <> help "A slug for the post (used in the URL)."))
     <*> option pageTypeOpt (  short 'p' <> long "page-type" <> metavar "PAGE_TYPE"
                            <> value MarkdownPage
                            <> help "The type of page to generate. Values are\
                                    \ (m)arkdown (default), (c)lojure, or\
-                                   \ (p)urescript.")
+                                   \ (p)urescript, (r)eading log.")
+    <*> switch (  short 'u' <> long "use-range"
+               <> help "Use a date range. Default is False. If set,\
+                       \ fills in only the starting date.")
 
 branchMoveOpts :: Parser BranchMove
 branchMoveOpts
@@ -112,18 +119,6 @@ deployOpts
 illiterateOpts :: Parser Actions
 illiterateOpts = pure Illiterate
 
-workStartOpts :: Parser Actions
-workStartOpts
-    =   WorkStart
-    <$> option textOpt (  short 'a' <> long "author" <> metavar "AUTHOR"
-                       <> help "The work's author.")
-    <*> option textOpt (  short 't' <> long "title" <> metavar "TITLE"
-                       <> help "The work's title.")
-    <*> tagSetOption
-    <*> switch (  short 'u' <> long "use-range"
-               <> help "Use a date range. Default is False. If set,\
-                       \ fills in only the starting date.")
-
 workDoneOpts :: Parser Actions
 workDoneOpts
     =   WorkDone
@@ -148,8 +143,6 @@ opts' = subparser
                                   \ branch."))
     <> command "deploy" (info (helper <*> deployOpts)
                          (progDesc "Deploy site to github pages."))
-    <> command "reading-draft" (info (helper <*> workStartOpts)
-                                (progDesc "Stub out a new draft of a book."))
     <> command "reading-publish" (info (helper <*> workDoneOpts)
                                     (progDesc "Publish a draft of a reading log."))
     <> command "publish" (info (helper <*> publishOpts)

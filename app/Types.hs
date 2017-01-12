@@ -14,19 +14,15 @@ data Actions
     | Draft   { draftCategory :: !FilePath
               , draftTags     :: !(S.HashSet T.Text)
               , draftTitle    :: !T.Text
+              , draftAuthor   :: !(Maybe T.Text)
               , draftSlug     :: !(Maybe FilePath)
               , draftType     :: !PageType
+              , draftUseRange :: !Bool
               }
     | Publish { publishMetaFile :: !FilePath
               , publishBranch   :: !(Maybe BranchMove)
               , publishOn       :: !(Maybe UTCTime)
               , publishDeploy   :: !Bool
-              }
-    | WorkStart
-              { workStartAuthor :: !T.Text
-              , workStartTitle  :: !T.Text
-              , workStartTag    :: !(S.HashSet T.Text)
-              , workStartRange  :: !Bool
               }
     | WorkDone
               { workDoneFile   :: !FilePath
