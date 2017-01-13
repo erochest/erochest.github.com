@@ -5,7 +5,8 @@ module Sites.Actions.Publish where
 
 
 import           Control.Exception.Base (AssertionFailed (..))
-import           Control.Monad          (void)
+import           Control.Monad          (void, when)
+import           Data.Maybe
 import qualified Data.Text              as T
 import           Data.Text.Format
 import qualified Data.Text.IO           as TIO
@@ -26,16 +27,14 @@ data DocLocation = Pre | Meta | Content
 
 publishDraft :: FilePath -> Maybe BranchMove -> Maybe UTCTime -> Bool -> IO ()
 publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
-    current <- chdir dir $
-        throwMaybe (AssertionFailed "cannot find current branch")
-            =<< currentBranch
     now <-  liftIO
         $   T.pack
         .   formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
         <$> maybe getCurrentTime return pubDate
 
     chdir dir $ do
-        void $ traverse (git_ "checkout" . pure . branchTo) branch
+        current <-  throwMaybe (AssertionFailed "cannot find current branch")
+                =<< currentBranch
         void $ traverse (merge current) branch
 
     overLines metaFile (snd . mapAccumL (updateDate now) Pre)
@@ -43,13 +42,22 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
     chdir dir $ do
         git_ "add"      [T.pack metaFile]
         git_ "commit"   ["-m", "Updated date of post."]
+    when (toTextIgnore dir /= ".") $ do
+        git_ "add" [toTextIgnore dir]
+        git_ "commit" [ "-m"
+                      , TL.toStrict $ format "Published {}." (Only metaFile)
+                      ]
 
     when deploy $ liftIO $ do
         unsetEnv "DEVELOPMENT"
         deploySite True False
+    git_ "push" []
 
     where
-        dir = strFp $ dropFileName metaFile
+        dir = maybe "." strFp
+            $ listToMaybe
+            $ dropWhile (== "/")
+            $ splitPath metaFile
 
 overLines :: FilePath -> ([T.Text] -> [T.Text]) -> Sh ()
 overLines filename f = withTmpDir $ \dirname -> do
