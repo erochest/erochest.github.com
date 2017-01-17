@@ -12,9 +12,10 @@ maintainer:          erochest@gmail.com
 -- copyright:           
 category:            Web
 build-type:          Simple
-cabal-version:       >=1.8
+cabal-version:       >=1.10
 
 library
+  default-language:    Haskell2010
   exposed-modules:     Sites
                      , Sites.Actions.Draft
                      , Sites.Actions.Deploy
@@ -65,6 +66,7 @@ library
   hs-source-dirs:      src
 
 executable errsite
+  default-language:    Haskell2010
   main-is:             Main.hs
   other-modules:       Actions
                      , Opts
@@ -78,24 +80,6 @@ executable errsite
                      , text
                      , time
                      , unordered-containers
-
--- executable illiterate
-  -- main-is:             Illiterate.hs
-  -- hs-source-dirs:      app
-  -- build-depends:       base            == 4.8.*
-                     -- , errsite
-                     -- , shelly
-                     -- , text
-                     -- , time >=1.5
-                     -- , classy-prelude
-                     -- , containers
-                     -- , hakyll
-                     -- , blaze-html
-                     -- , filepath
-                     -- , regex-tdfa
-                     -- , pandoc
-                     -- , mtl
-                     -- , filepath
 
 test-suite errsite-specs
   type:                   exitcode-stdio-1.0
