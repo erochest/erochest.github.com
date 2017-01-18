@@ -43,10 +43,13 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
         git_ "add"      [T.pack childPath]
         git_ "commit"   ["-m", "Updated date of post."]
     when (toTextIgnore dir /= ".") $ do
-        git_ "add" [toTextIgnore dir]
-        git_ "commit" [ "-m"
-                      , TL.toStrict $ format "Published {}." (Only metaFile)
-                      ]
+        errExit False $
+            git_ "add" [toTextIgnore dir]
+        errCode <- lastExitCode
+        when (errCode == 0) $
+            git_ "commit" [ "-m"
+                          , TL.toStrict $ format "Published {}." (Only metaFile)
+                          ]
 
     when deploy $ liftIO $ do
         unsetEnv "DEVELOPMENT"
