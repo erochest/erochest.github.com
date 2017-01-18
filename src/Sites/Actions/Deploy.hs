@@ -50,7 +50,7 @@ deploySite scratch bail =
             git_ "add" ["_deploy"]
             errExit False $
                 gitCommit msg
-            git_ "push" ["--recurse-submodules", "on-demand"]
+            git_ "push" ["--recurse-submodules=on-demand"]
 
 stack_ :: Text -> [Text] -> Sh ()
 stack_ = command1_ "stack" []
