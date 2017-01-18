@@ -6,6 +6,7 @@ module Sites.Actions.Publish where
 
 import           Control.Exception.Base (AssertionFailed (..))
 import           Control.Monad          (void, when)
+import           Data.Bifunctor
 import           Data.Maybe
 import qualified Data.Text              as T
 import           Data.Text.Format
@@ -40,7 +41,7 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
     overLines metaFile (snd . mapAccumL (updateDate now) Pre)
 
     chdir dir $ do
-        git_ "add"      [T.pack metaFile]
+        git_ "add"      [T.pack childPath]
         git_ "commit"   ["-m", "Updated date of post."]
     when (toTextIgnore dir /= ".") $ do
         git_ "add" [toTextIgnore dir]
@@ -54,10 +55,16 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
     git_ "push" []
 
     where
-        dir = maybe "." strFp
-            $ listToMaybe
-            $ dropWhile (== "/")
-            $ splitPath metaFile
+        (dir, childPath) = first strFp $ upDir metaFile
+
+-- | Break a file path into a parent directory and child directory. If given a
+-- bare filename, assumes the parent directory.
+upDir :: FilePath -> (FilePath, FilePath)
+upDir filepath =
+    case splitPath filepath of
+         []     -> (".", "")
+         [fn]   -> (".", fn)
+         (p:cs) -> (p, joinPath cs)
 
 overLines :: FilePath -> ([T.Text] -> [T.Text]) -> Sh ()
 overLines filename f = withTmpDir $ \dirname -> do
