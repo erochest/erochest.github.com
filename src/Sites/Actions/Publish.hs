@@ -7,7 +7,6 @@ module Sites.Actions.Publish where
 import           Control.Exception.Base (AssertionFailed (..))
 import           Control.Monad          (void, when)
 import           Data.Bifunctor
-import           Data.Maybe
 import qualified Data.Text              as T
 import           Data.Text.Format
 import qualified Data.Text.IO           as TIO
