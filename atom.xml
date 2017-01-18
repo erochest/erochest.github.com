@@ -8,28 +8,13 @@
         <name>Eric Rochester</name>
         <email>erochest@gmail.com</email>
     </author>
-    <updated>2017-01-11T11:52:49Z</updated>
+    <updated>2017-01-18T19:53:36Z</updated>
     <entry>
-    <title>About the Format</title>
-    <link href="http://www.ericrochester.com//posts/notes/about-the-format/index.html" />
-    <id>http://www.ericrochester.com//posts/notes/about-the-format/index.html</id>
-    <published>2017-01-11T11:52:49Z</published>
-    <updated>2017-01-11T11:52:49Z</updated>
-    <summary type="html"><![CDATA[<p>I’ve disappeared from here for a bit for the holidays. Family emergencies and celebrations have gotten in the way. Still I’ve been thinking about what I’m trying to do here and how best to accomplish that. Part of what I’m asking myself is <em>what are these things I’m posting here</em>.</p>
-<!--more-->
-<p>Obviously, this seems to be a blog. There’s an <a href="/atom.xml">Atom feed</a>. There’s a <a href="/posts/">reverse-chronological index page</a>. Entries are dated. Hell, it even <em>says</em> “Blog” on the home page and the navigation bar. (Or it does today, anyway.)</p>
-<p>But I am thinking about these things a little differently. If I have more to say on a topic, I think I’m just as likely to go edit a page instead of posting a new one.</p>
-<p>So maybe it’s really a wiki?</p>
-<p>Borrowing from Martin Fowler, I’m leaning toward thinking about this as a cross between a blog and a wiki. He’s called them a <a href="https://www.martinfowler.com/bliki/WhatIsaBliki.html">bliki</a>.</p>
-<p>There’s still a lot to fill in, though. I need to think about how to allow readers to navigate through previous versions of posts. I need to think about how to be transparent about changes in a way that doesn’t intrude on the reading experience. I need to think about better ways to navigate through time and across time.</p>
-<p>But be warned. Posts are unstable. Words will change.</p>]]></summary>
-</entry>
-<entry>
     <title>#FlipTheScript</title>
     <link href="http://www.ericrochester.com//posts/thoughts/flip-the-script/index.html" />
     <id>http://www.ericrochester.com//posts/thoughts/flip-the-script/index.html</id>
-    <published>2016-11-30T10:23:04Z</published>
-    <updated>2016-11-30T10:23:04Z</updated>
+    <published>2017-01-18T19:53:36Z</published>
+    <updated>2017-01-18T19:53:36Z</updated>
     <summary type="html"><![CDATA[<p>I’ve almost let National Adoption Month go by without comment.</p>
 <p>But I can’t.</p>
 <!--more-->
@@ -43,6 +28,7 @@
 <ul>
 <li><a href="https://twitter.com/AmandaTDA">Amanda</a> is a social worker, consultant, and therapist. She also founded Lost Daughters, listed below.</li>
 <li><a href="https://twitter.com/theadoptedlife">Angela</a> has a YouTube channel and a documentary on Netflix about adoption, <a href="http://www.theadoptedlife.com/">The Adopted Life</a>.</li>
+<li><a href="https://twitter.com/AngelaMBarra">Angela Barra</a> has recently crossed my path, and I’m looking forward to following her blog, <a href="http://www.huffingtonpost.com/author/angela-barra">Adoptee Reflections</a>.</li>
 <li><a href="https://twitter.com/iamadopted">Jessenia Arias</a> created and hosts <a href="http://iamadopted.net/">I am Adopted</a>.</li>
 <li><a href="https://twitter.com/nicole_soojung">Nicole Chung</a> might be best known right now for co-foundering and editing the still-awesome <a href="http://the-toast.net/">The Toast</a>. She used the platform she had there to also raise issues of adoption, transracial adoption, and racial justice.</li>
 <li><a href="https://twitter.com/DANakaDAN">Dan</a> is executive producer at the fun and entertaining <a href="https://www.youtube.com/isatv">ISAtv</a>, a YouTube channel about Asian Pacific American culture.</li>
@@ -56,7 +42,28 @@
 <li><a href="https://johnraible.wordpress.com/">John W. Raible</a> comes at this experience from all sides. He is an adoptive parent, and he researches adoption-related issues. He has been a active and tireless voice for adoptee rights, for the issues raised by transracial adoptees, and for other causes.</li>
 </ul>
 <p>These people all have amazing voices. Go listen to them.</p>
-<p>I’ve certainly left out lots of people here. These are just some (not all!) that have been personally significant to me. If you know of someone I should be listening to, please let me know.</p>]]></summary>
+<p>I’ve certainly left out lots of people here. These are just some (not all!) that have been personally significant to me. If you know of someone I should be listening to, please let me know.</p>
+<hr />
+<h1 id="history">History</h1>
+<ul>
+<li>Originally published 30 November 2016.</li>
+<li>Updated 18 January 2017.</li>
+</ul>]]></summary>
+</entry>
+<entry>
+    <title>About the Format</title>
+    <link href="http://www.ericrochester.com//posts/notes/about-the-format/index.html" />
+    <id>http://www.ericrochester.com//posts/notes/about-the-format/index.html</id>
+    <published>2017-01-11T11:52:49Z</published>
+    <updated>2017-01-11T11:52:49Z</updated>
+    <summary type="html"><![CDATA[<p>I’ve disappeared from here for a bit for the holidays. Family emergencies and celebrations have gotten in the way. Still I’ve been thinking about what I’m trying to do here and how best to accomplish that. Part of what I’m asking myself is <em>what are these things I’m posting here</em>.</p>
+<!--more-->
+<p>Obviously, this seems to be a blog. There’s an <a href="/atom.xml">Atom feed</a>. There’s a <a href="/posts/">reverse-chronological index page</a>. Entries are dated. Hell, it even <em>says</em> “Blog” on the home page and the navigation bar. (Or it does today, anyway.)</p>
+<p>But I am thinking about these things a little differently. If I have more to say on a topic, I think I’m just as likely to go edit a page instead of posting a new one.</p>
+<p>So maybe it’s really a wiki?</p>
+<p>Borrowing from Martin Fowler, I’m leaning toward thinking about this as a cross between a blog and a wiki. He’s called them a <a href="https://www.martinfowler.com/bliki/WhatIsaBliki.html">bliki</a>.</p>
+<p>There’s still a lot to fill in, though. I need to think about how to allow readers to navigate through previous versions of posts. I need to think about how to be transparent about changes in a way that doesn’t intrude on the reading experience. I need to think about better ways to navigate through time and across time.</p>
+<p>But be warned. Posts are unstable. Words will change.</p>]]></summary>
 </entry>
 <entry>
     <title>Thanksgiving: Gratitude, Memorial, and Poetry</title>

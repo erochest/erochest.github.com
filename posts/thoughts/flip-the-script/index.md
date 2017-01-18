@@ -20,6 +20,7 @@ Anyway, here are some adoptee voices that have been personally influential. They
 
 * [Amanda](https://twitter.com/AmandaTDA) is a social worker, consultant, and therapist. She also founded Lost Daughters, listed below.
 * [Angela](https://twitter.com/theadoptedlife) has a YouTube channel and a documentary on Netflix about adoption, [The Adopted Life](http://www.theadoptedlife.com/).
+* [Angela Barra](https://twitter.com/AngelaMBarra) has recently crossed my path, and I'm looking forward to following her blog, [Adoptee Reflections](http://www.huffingtonpost.com/author/angela-barra).
 * [Jessenia Arias](https://twitter.com/iamadopted) created and hosts [I am Adopted](http://iamadopted.net/).
 * [Nicole Chung](https://twitter.com/nicole_soojung) might be best known right now for co-foundering and editing the still-awesome [The Toast](http://the-toast.net/). She used the platform she had there to also raise issues of adoption, transracial adoption, and racial justice.
 * [Dan](https://twitter.com/DANakaDAN) is executive producer at the fun and entertaining [ISAtv](https://www.youtube.com/isatv), a YouTube channel about Asian Pacific American culture.
@@ -35,4 +36,11 @@ Anyway, here are some adoptee voices that have been personally influential. They
 These people all have amazing voices. Go listen to them.
 
 I've certainly left out lots of people here. These are just some (not all!) that have been personally significant to me. If you know of someone I should be listening to, please let me know.
+
+---
+
+# History
+
+* Originally published 30 November 2016.
+* Updated 18 January 2017.
 
