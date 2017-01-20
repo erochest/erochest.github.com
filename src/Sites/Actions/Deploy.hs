@@ -19,38 +19,38 @@ import           Sites           (RootSite (..), SiteInfo (..), site)
 
 
 deploySite :: Bool -> Bool -> IO ()
-deploySite scratch bail =
-    shelly $ verbosely $ do
-        now  <-  T.pack . formatTime defaultTimeLocale rfc822DateFormat
-             <$> liftIO getCurrentTime
-        Root{..} <- liftIO site
-        let rootDeploy = ("_deploy" </>) $ siteTarget rootSite
+deploySite scratch bail = shelly $ verbosely $ do
+    now  <-  T.pack . formatTime defaultTimeLocale rfc822DateFormat
+         <$> liftIO getCurrentTime
+    Root{..} <- liftIO site
+    let rootDeploy = ("_deploy" </>) $ siteTarget rootSite
 
-        when scratch $ do
-            stack_ "clean" []
-            stack_ "build" []
+    when scratch $ do
+        stack_ "clean" []
+        stack_ "build" []
 
-        stack_ "exec" ["--", "errsite", "hakyll", "clean"]
-        stack_ "exec" ["--", "errsite", "hakyll", "build"]
-        clearDeploy
-        copySite rootDeploy
-        forM_ subsites $ \s ->
-            let src  = filePathString $ "_deploy" </> siteTarget rootSite </> siteRoot s
-                dest = filePathString $ "_deploy" </> siteTarget s
-            in  ls src >>=
-                mapM_ (`mv` dest) >>
-                rm_rf src
+    stack_ "exec" ["--", "errsite", "hakyll", "clean"]
+    stack_ "exec" ["--", "errsite", "hakyll", "build"]
+    clearDeploy
+    copySite rootDeploy
+    forM_ subsites $ \s ->
+        let src  = filePathString $ "_deploy" </> siteTarget rootSite </> siteRoot s
+            dest = filePathString $ "_deploy" </> siteTarget s
+        in  ls src >>=
+            mapM_ (`mv` dest) >>
+            rm_rf src
 
-        unless bail $ do
-            let msg = "Deployed on " <> now <> "."
-            deploySite' "master" msg rootDeploy
-            forM_ subsites ( deploySite' "gh-pages" msg
-                           . ("_deploy" </>)
-                           . siteTarget)
-            git_ "add" ["_deploy"]
-            errExit False $
-                gitCommit msg
-            git_ "push" ["--recurse-submodules=on-demand"]
+    unless bail $ do
+        let msg = "Deployed on " <> now <> "."
+        deploySite' "master" msg rootDeploy
+        forM_ subsites ( deploySite' "gh-pages" msg
+                       . ("_deploy" </>)
+                       . siteTarget)
+        git_ "add" ["_deploy"]
+        errExit False $
+            gitCommit msg
+        -- TODO: This fails if no submodules need updating.
+        git_ "push" ["--recurse-submodules=on-demand"]
 
 stack_ :: Text -> [Text] -> Sh ()
 stack_ = command1_ "stack" []
