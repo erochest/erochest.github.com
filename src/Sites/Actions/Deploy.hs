@@ -50,6 +50,7 @@ deploySite scratch bail =
             git_ "add" ["_deploy"]
             errExit False $
                 gitCommit msg
+            -- TODO: This fails if the branches have nothing to push
             git_ "push" ["--recurse-submodules=on-demand"]
 
 stack_ :: Text -> [Text] -> Sh ()

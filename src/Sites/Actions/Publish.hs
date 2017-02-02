@@ -42,6 +42,7 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
     chdir dir $ do
         git_ "add"      [T.pack childPath]
         git_ "commit"   ["-m", "Updated date of post."]
+    -- TODO: This test doesn't seem to work.
     when (toTextIgnore dir /= ".") $ do
         errExit False $
             git_ "add" [toTextIgnore dir]
