@@ -32,7 +32,7 @@ callHakyll args = do
         match "*.png" $ do
             route   idRoute
             compile copyFileCompiler
-        match "**/*.jpg" $ do
+        match ("posts/**/*.jpg" .||. "reading-log/**/*.jpg") $ do
             route   idRoute
             compile copyFileCompiler
         match "*.ico" $ do
