@@ -230,4 +230,5 @@ worldcat author title =
         searchOpts = defaults & param "q"      .~ [q]
                               & param "qt"     .~ ["advanced"]
                               & param "dblist" .~ ["638"]
+                              & param "fq"     .~ ["x0:book"]
         q = TL.toStrict $ format "ti:{} au:{}" (title, author)
