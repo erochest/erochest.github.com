@@ -8,6 +8,7 @@ import           Control.Error       (hush)
 import           Data.Char           (toLower)
 import           Data.Hashable
 import qualified Data.HashSet        as S
+import           Data.Monoid         ((<>))
 import qualified Data.Text           as T
 import           Data.Time
 import           Options.Applicative
