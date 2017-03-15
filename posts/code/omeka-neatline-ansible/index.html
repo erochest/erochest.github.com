@@ -86,17 +86,17 @@ $ <span class="ex">brew</span> install ansible</code></pre></div>
 <h2 id="settings">Settings</h2>
 <p>This project includes a number settings that you can change to customize your installation. Those are found in the file <a href="https://github.com/erochest/neatline.dev/blob/mac-ansible/playbook.yaml"><code>playbook.yaml</code></a>. The relevant section is labelled <code>vars</code>, and it allows you to set information about the Omeka database (<code>omeka_db_user</code>, <code>omeka_db_password</code>, and <code>omeka_db_name</code>), which version of Omeka you wish to use (<code>omeka_version</code>), where you wish to install it (<code>omeka_dir</code>), and where you want to point your browser to (<code>dev_hostname</code>) as you’re working on the site. The defaults are:</p>
 <div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">vars:</span>
-  <span class="fu">db_user:</span> root
+  <span class="fu">db_user:</span><span class="at"> root</span>
   <span class="fu">db_password:</span>
-  <span class="fu">omeka_db_user:</span> omeka
-  <span class="fu">omeka_db_password:</span> omeka
-  <span class="fu">omeka_db_name:</span> omeka
-  <span class="fu">dev_hostname:</span> omeka-neatline.dev
-  <span class="fu">omeka_dir:</span> <span class="st">&quot;{{ ansible_env.HOME }}/omeka/neatlinedev&quot;</span>
-  <span class="fu">omeka_version:</span> stable-2.1
-  <span class="fu">debug:</span> true
-  <span class="fu">neatline_repo:</span> git@github.com:scholarslab/Neatline.git
-  <span class="fu">php_version:</span> 55</code></pre></div>
+  <span class="fu">omeka_db_user:</span><span class="at"> omeka</span>
+  <span class="fu">omeka_db_password:</span><span class="at"> omeka</span>
+  <span class="fu">omeka_db_name:</span><span class="at"> omeka</span>
+  <span class="fu">dev_hostname:</span><span class="at"> omeka-neatline.dev</span>
+  <span class="fu">omeka_dir:</span><span class="at"> </span><span class="st">&quot;{{ ansible_env.HOME }}/omeka/neatlinedev&quot;</span>
+  <span class="fu">omeka_version:</span><span class="at"> stable-2.1</span>
+  <span class="fu">debug:</span><span class="at"> true</span>
+  <span class="fu">neatline_repo:</span><span class="at"> git@github.com:scholarslab/Neatline.git</span>
+  <span class="fu">php_version:</span><span class="at"> 55</span></code></pre></div>
 <p>Change these to reflect what you’d like your personal Omeka/Neatline installation to look like.</p>
 <p>One option that I’ll call out in particular is <code>neatline_repo</code>. This is the git repository that you’ll be working with. If you’re using github to host your project, you can <a href="https://help.github.com/articles/fork-a-repo">fork</a> the primary Neatline repository (from the URL given above). And when you’ve completed your work, if you’d like to contribute back, you can send us a <a href="https://help.github.com/articles/using-pull-requests">pull request</a> through the Github site.</p>
 <h2 id="setting-up">Setting Up</h2>
@@ -182,9 +182,6 @@ $ <span class="ex">./neatline-dev</span></code></pre></div>
 </script>
 
         
-        <script>
-  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
-    ':35729/livereload.js?snipver=1"></' + 'script>')
-</script>
+        
     </body>
 </html>
