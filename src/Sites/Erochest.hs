@@ -133,8 +133,9 @@ rules =
                     filename = postDir </> "src" </> "Main.purs"
                 unsafeCompiler $ shelly $ silently $ do
                     liftIO $ writeFile filename ibody
-                    chdir (strFp postDir) $
-                        (`itemSetBody` item) . T.unpack
+                    chdir (strFp postDir) $ do
+                      run_ "bower" ["install"]
+                      (`itemSetBody` item) . T.unpack
                             <$> run "pulp" ["browserify"]
 
         match "posts/**/index.purs" $ version "raw" $ do
