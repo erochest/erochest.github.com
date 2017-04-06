@@ -24,6 +24,7 @@ library
                      , Sites.Actions.Publish
                      , Sites.Literate
                      , Sites.Types
+                     , Sites.Utils
   other-modules:       Sites.Base
                      , Sites.CljDataAnalysis
                      , Sites.CljDataMaster
@@ -32,7 +33,6 @@ library
                      , Sites.Pager
                      , Sites.Projects
                      , Sites.Reading
-                     , Sites.Utils
   build-depends:       base            >=4.8 && <4.10
                      , aeson
                      , blaze-html
@@ -87,6 +87,7 @@ test-suite errsite-specs
   hs-source-dirs:         specs
   main-is:                Specs.hs
   other-modules:          Sites.Actions.DraftSpec
+                        , Sites.UtilsSpec
   build-depends:          base
                         , errsite
                         , QuickCheck

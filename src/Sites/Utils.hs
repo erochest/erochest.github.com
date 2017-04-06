@@ -376,7 +376,7 @@ mnot = maybe (Just mempty) $ \case
                                   | otherwise   -> Nothing
 
 slugify :: T.Text -> T.Text
-slugify = T.map slugChar . T.toLower
+slugify = T.map slugChar . T.toLower . fst . T.break (==':')
     where
         slugChar x = if isAlphaNum x
                         then x
