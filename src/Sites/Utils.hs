@@ -56,23 +56,24 @@ module Sites.Utils
 import           Control.Applicative
 import           Control.Exception.Safe
 import           Control.Monad
-import           Data.Aeson.Types       (Value (..))
-import           Data.Char              (isAlphaNum)
+import           Data.Aeson.Types        (Value (..))
+import           Data.Char               (isAlphaNum, isMark)
 import           Data.Foldable
-import qualified Data.HashMap.Strict    as M
-import           Data.List              (isSuffixOf)
-import           Data.Maybe             (fromMaybe)
+import qualified Data.HashMap.Strict     as M
+import           Data.List               (isSuffixOf)
+import           Data.Maybe              (fromMaybe)
 import           Data.Monoid
-import qualified Data.Text              as T
+import qualified Data.Text               as T
 import           Data.Text.Format
-import qualified Data.Text.Lazy         as TL
-import           Data.Time.Clock        (UTCTime)
-import           Data.Time.Format       (defaultTimeLocale, formatTime,
-                                         parseTimeM)
+import           Data.Text.ICU.Normalize
+import qualified Data.Text.Lazy          as TL
+import           Data.Time.Clock         (UTCTime)
+import           Data.Time.Format        (defaultTimeLocale, formatTime,
+                                          parseTimeM)
 import           Hakyll
 import           Lucid
-import           Lucid.Base             (makeAttribute)
-import qualified Shelly                 as Sh
+import           Lucid.Base              (makeAttribute)
+import qualified Shelly                  as Sh
 import           System.Environment
 import           System.FilePath
 
@@ -376,8 +377,11 @@ mnot = maybe (Just mempty) $ \case
                                   | otherwise   -> Nothing
 
 slugify :: T.Text -> T.Text
-slugify = T.map slugChar . T.toLower . fst . T.break (==':')
-    where
-        slugChar x = if isAlphaNum x
-                        then x
-                        else '-'
+slugify =
+  T.concatMap slugChar . norm . T.toLower . fst . T.break (==':')
+  where
+    slugChar x | isMark x     = ""
+               | isAlphaNum x = T.singleton x
+               | otherwise    = "-"
+
+    norm = normalize NFD

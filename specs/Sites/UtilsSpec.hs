@@ -15,3 +15,6 @@ spec = do
     it "should remove subtitles." $ do
       slugify "This is a title: This is a subtitle" `shouldBe`
         "this-is-a-title"
+
+    it "should normalize accents." $ do
+      slugify "China Miéville" `shouldBe` "china-mieville"

@@ -56,6 +56,7 @@ library
                      , split
                      , text
                      , text-format
+                     , text-icu
                      , time >=1.5
                      , unordered-containers
                      , vector
