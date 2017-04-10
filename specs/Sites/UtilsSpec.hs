@@ -18,3 +18,7 @@ spec = do
 
     it "should normalize accents." $ do
       slugify "China Miéville" `shouldBe` "china-mieville"
+
+    it "should fold together runs of dashes." $ do
+      slugify "\"This is a quote!\" she said" `shouldBe`
+        "this-is-a-quote-she-said"

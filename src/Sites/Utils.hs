@@ -67,6 +67,7 @@ import qualified Data.Text               as T
 import           Data.Text.Format
 import           Data.Text.ICU.Normalize
 import qualified Data.Text.Lazy          as TL
+import qualified Data.Text.Lazy.Builder  as B
 import           Data.Time.Clock         (UTCTime)
 import           Data.Time.Format        (defaultTimeLocale, formatTime,
                                           parseTimeM)
@@ -377,11 +378,21 @@ mnot = maybe (Just mempty) $ \case
                                   | otherwise   -> Nothing
 
 slugify :: T.Text -> T.Text
-slugify =
-  T.concatMap slugChar . norm . T.toLower . fst . T.break (==':')
+slugify = TL.toStrict
+          . TL.dropWhile (=='-')
+          . B.toLazyText
+          . snd
+          . TL.foldr accum (True, mempty)
+          . TL.toLower
+          . TL.takeWhile (/=':')
+          . TL.fromStrict
+          . norm
   where
-    slugChar x | isMark x     = ""
-               | isAlphaNum x = T.singleton x
-               | otherwise    = "-"
+    accum x (True, b)  | isMark x     = (True , b)
+                       | isAlphaNum x = (False, B.singleton x <> b)
+                       | otherwise    = (True , b)
+    accum x (False, b) | isMark x     = (True , b)
+                       | isAlphaNum x = (False, B.singleton x <> b)
+                       | otherwise    = (True , "-" <> b)
 
     norm = normalize NFD
