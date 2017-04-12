@@ -1,8 +1,15 @@
 # About Me
 
-Dissertated on lexicography. Now I program in Haskell and write when I’m
-not building cool stuff for the Scholars’ Lab. Also, partner and parent.
-Do you notice that *sleep* isn’t on that list? *Coffee* is.
+Partner and parent.
+
+Trying to find my voice for speaking up for social- and
+environmental-justice issues.
+
+Curious about too many things to list.
+
+Write essays and fiction here.
+
+Senior developer at [WillowTree](https://willowtreeapps.com/).
 
 Making stuff up as I go along.
 
@@ -12,11 +19,17 @@ Thrown together haphazardly using these technologies:
 
 * [GIMP](https://www.gimp.org/)
 * [HTML5 Boilerplate](https://html5boilerplate.com/)
-* [Hakyll](https://jaspervdj.be/hakyll/)
+* [Hakyll](https://jaspervdj.be/hakyll/) and
+  [many other](https://github.com/erochest/erochest.github.com/blob/develop/errsite.cabal#L36)
+  Haskell libraries
 * [jQuery](http://jquery.com/)
 * [Materialize](http://materializecss.com/)
 * [Modernizr](https://modernizr.com/)
+* [PureScript](http://www.purescript.org/)
 * [Sass](http://sass-lang.com/)
+
+You can see all the messy pieces on this site's
+[Github repo](https://github.com/erochest/erochest.github.com).
 
 ## Thanks
 
