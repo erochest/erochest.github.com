@@ -8,16 +8,16 @@ title: Hope
 
 I ran across this quote the other day listening to an
 [On Being interview with Joanna Macy](https://onbeing.org/programs/joanna-macy-a-wild-love-for-the-world/
-), and it reminded me about several separate discussions I've had over
-the last year with several people about *hope*. The discussions were
-overlapping, but isolated, and each nuanced very differently,
-depending on who I was talking with.
+), and it reminded me of several separate discussions I've had over
+the last year about *hope*. The discussions were overlapping, but
+isolated, and each flavored and nuanced very differently, depending on
+whom I was talking with.
 
 <!--more-->
 
-For some reason this quote seemed to wrap up these conversations and
-particularly to resonate for the place where we are as a country, as
-well as where I am as an individual.
+For some reason this quote seemed an appropriate epilogue to these
+conversations, and it particularly resonates with me now, where I am
+as an individual and living in this country.
 
 > **MS. MACY**: ... I’m not insisting that we be brimming with
 > hope. It’s OK not to be optimistic. Buddhist teachings say feeling
