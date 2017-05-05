@@ -8,3 +8,4 @@ target
 node_modules/
 .localrc
 .stack-work/
+.env.*
