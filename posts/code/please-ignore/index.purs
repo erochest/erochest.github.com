@@ -21,7 +21,6 @@ module Main where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
-import Data.Nullable (toMaybe)
 import Data.Traversable (traverse)
 import DOM (DOM)
 import DOM.HTML (window)
@@ -30,8 +29,9 @@ import DOM.HTML.Window (document)
 import DOM.Node.Document (createTextNode)
 import DOM.Node.Node (appendChild)
 import DOM.Node.NodeList (item)
-import DOM.Node.ParentNode (querySelectorAll)
+import DOM.Node.ParentNode (querySelectorAll, QuerySelector)
 import DOM.Node.Types (textToNode)
+import Data.Newtype (wrap)
 
 -- (If this all seems a little verbose, I'm using a *very* low-level interface here. For anything more complicated, you'd want to use a higher-level library.)
 --
@@ -47,11 +47,10 @@ main = do
     greeting <-  textToNode
              <$> createTextNode "Hello sailor!"
              (   htmlDocumentToDocument doc)
-    querySelectorAll "#please-ignore .please-ignore"
+    _ <- querySelectorAll (wrap "#please-ignore .please-ignore")
         (   htmlDocumentToParentNode doc)
         >>= item 0
-        >>= toMaybe
-        >>> traverse (appendChild greeting)
+        >>= traverse (appendChild greeting)
     log "Hello sailor!"
 
 -- As an added bonus, the scaffolded project created by [pulp](https://github.com/bodil/pulp) has a gratuitous [Zork](https://en.wikipedia.org/wiki/Zork) reference. How could I resist?
