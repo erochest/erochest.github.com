@@ -76,7 +76,6 @@
 import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
-import Data.Nullable (toMaybe)
 import Data.Traversable (traverse)
 import DOM (DOM)
 import DOM.HTML (window)
@@ -85,8 +84,9 @@ import DOM.HTML.Window (document)
 import DOM.Node.Document (createTextNode)
 import DOM.Node.Node (appendChild)
 import DOM.Node.NodeList (item)
-import DOM.Node.ParentNode (querySelectorAll)
-import DOM.Node.Types (textToNode)</code></pre>
+import DOM.Node.ParentNode (querySelectorAll, QuerySelector)
+import DOM.Node.Types (textToNode)
+import Data.Newtype (wrap)</code></pre>
 <p>(If this all seems a little verbose, I’m using a <em>very</em> low-level interface here. For anything more complicated, you’d want to use a higher-level library.)</p>
 <p>There are still some things to do on this:</p>
 <ul>
@@ -100,11 +100,10 @@ main = do
     greeting &lt;-  textToNode
              &lt;$&gt; createTextNode &quot;Hello sailor!&quot;
              (   htmlDocumentToDocument doc)
-    querySelectorAll &quot;#please-ignore .please-ignore&quot;
+    _ &lt;- querySelectorAll (wrap &quot;#please-ignore .please-ignore&quot;)
         (   htmlDocumentToParentNode doc)
         &gt;&gt;= item 0
-        &gt;&gt;= toMaybe
-        &gt;&gt;&gt; traverse (appendChild greeting)
+        &gt;&gt;= traverse (appendChild greeting)
     log &quot;Hello sailor!&quot;</code></pre>
 <p>As an added bonus, the scaffolded project created by <a href="https://github.com/bodil/pulp">pulp</a> has a gratuitous <a href="https://en.wikipedia.org/wiki/Zork">Zork</a> reference. How could I resist?</p>
 
@@ -163,7 +162,15 @@ main = do
           });
         </script>
 
-        
+        <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='https://www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-1756003-2','auto');ga('send','pageview');
+</script>
+ 
         
     </body>
 </html>
