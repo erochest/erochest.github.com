@@ -89,6 +89,7 @@ test-suite errsite-specs
   hs-source-dirs:         specs
   main-is:                Specs.hs
   other-modules:          Sites.Actions.DraftSpec
+                        , Sites.Actions.PublishSpec
                         , Sites.UtilsSpec
   build-depends:          base
                         , errsite

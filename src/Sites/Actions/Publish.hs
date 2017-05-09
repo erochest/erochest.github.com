@@ -42,8 +42,7 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
     chdir dir $ do
         git_ "add"      [T.pack childPath]
         git_ "commit"   ["-m", "Updated date of post."]
-    -- TODO: This test doesn't seem to work.
-    when (toTextIgnore dir /= ".") $ do
+    when (toTextIgnore dir /= "./") $ do
         errExit False $
             git_ "add" [toTextIgnore dir]
         errCode <- lastExitCode
@@ -65,8 +64,8 @@ publishDraft metaFile branch pubDate deploy = shelly $ verbosely $ do
 upDir :: FilePath -> (FilePath, FilePath)
 upDir filepath =
     case splitPath filepath of
-         []     -> (".", "")
-         [fn]   -> (".", fn)
+         []     -> ("./", "")
+         [fn]   -> ("./", fn)
          (p:cs) -> (p, joinPath cs)
 
 overLines :: FilePath -> ([T.Text] -> [T.Text]) -> Sh ()
