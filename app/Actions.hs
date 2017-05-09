@@ -7,6 +7,7 @@ module Actions where
 import           Types
 
 import           Sites.Actions.Deploy
+import           Sites.Actions.DotEnv
 import           Sites.Actions.Draft
 import           Sites.Actions.Hakyll
 import           Sites.Actions.Illiterate
@@ -21,3 +22,4 @@ action Deploy{..}    = deploySite scratch bail
 action Publish{..}   = publishDraft publishMetaFile publishBranch publishOn
                                     publishDeploy
 action Illiterate    = illiterateClojure
+action DotEnv{..}    = makeDotEnv dotenvType

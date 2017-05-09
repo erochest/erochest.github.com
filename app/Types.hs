@@ -28,4 +28,6 @@ data Actions
               , bail    :: !Bool
               }
     | Illiterate
+    | DotEnv { dotenvType :: !ShellType
+             }
     deriving (Show, Eq)

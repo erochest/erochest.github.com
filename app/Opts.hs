@@ -36,6 +36,14 @@ pageTypeOpt = parse . map toLower =<< str
         parse ('r':_) = return ReadingLogPage
         parse v       = fail $ "Invalid value: " ++ v
 
+readShell :: ReadM ShellType
+readShell = parse . map toLower =<< str
+  where
+    parse :: String -> ReadM ShellType
+    parse ('b':_) = return Bash
+    parse ('f':_) = return Fish
+    parse v       = fail $ "Invalid value: " ++ v
+
 manySet :: (Eq a, Hashable a, Alternative f) => f a -> f (S.HashSet a)
 manySet = fmap S.fromList . many
 
@@ -120,6 +128,15 @@ deployOpts
 illiterateOpts :: Parser Actions
 illiterateOpts = pure Illiterate
 
+dotenvOpts :: Parser Actions
+dotenvOpts = DotEnv
+           <$> argument readShell (  metavar "SHELL"
+                                  <> value Bash
+                                  <> help "The shell syntax to use when\
+                                          \ generating the .env file. Options\
+                                          \ are Bash and Fish, and it defalts\
+                                          \ to Fish.")
+
 opts' :: Parser Actions
 opts' = subparser
     (  command "hakyll" (info (helper <*> hakyllOpts)
@@ -134,6 +151,8 @@ opts' = subparser
                                      \ field and merging the branch."))
     <> command "illiterate" (info (helper <*> illiterateOpts)
                              (progDesc "Generate a literate Clojure file."))
+    <> command "dot-env" (info (helper <*> dotenvOpts)
+      (progDesc "Generate a skel .env file."))
     )
 
 opts :: ParserInfo Actions

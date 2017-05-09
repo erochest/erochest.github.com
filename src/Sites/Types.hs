@@ -61,3 +61,7 @@ data DraftInfo
     , draftBuilder   :: !(DraftInfo -> Sh [FilePath])
     } deriving (Generic, Typeable)
 
+data ShellType
+  = Bash
+  | Fish
+  deriving (Show, Read, Eq, Generic, Data, Typeable)
