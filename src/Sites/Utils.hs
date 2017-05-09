@@ -3,53 +3,62 @@
 {-# LANGUAGE TupleSections     #-}
 
 
--- TODO: clean this up, order it, and add headings
 module Sites.Utils
-    ( baseUrl
-    , parallaxScript
+    ( -- * Scripts
+      parallaxScript
+    , style
+    , livereload
+    , analytics
+      -- * Routing and URLs
+    , baseUrl
     , cleanRoute
     , createIndexRoute
     , createBaseIndexRoute
+    , cleanIndex
+    , getCategory
+    , indexFileName
+    , slugify
     , cleanIndexUrls
     , cleanIndexHtmls
-    , cleanIndex
+    , guessUrl
+      -- * Compilers
+      -- ** Rules
     , pandocHtml
     , pandocClean
-    , style
     , sassCompiler
+      -- ** Pages and Posts
     , compilePage
     , compilePage'
     , compilePost
     , compilePost'
-    , profileContext
-    , siteContext
+      -- ** Metadata
+    , getTags'
+    , openGraphContext
     , foldMetadataField
     , errMetadataField
-    , reformatDate
-    , parseDateLax
-    , formatTime'
-    , extraHeaderContext
-    , openGraph
-    , openGraphContext
+    , meta
+      -- ** Templates
     , loadAndApplyDefault
     , postTemplate
     , pursTemplate
     , indexTemplate
-    , livereload
-    , analytics
+    -- * Contexts
+    , openGraph
+    , profileContext
+    , siteContext
+    , extraHeaderContext
     , developmentField
-    , indexFileName
-    , meta
-    , guessUrl
+    -- * Date Functions
     , iso8601
-    , getCategory
-    , getTags'
+    , reformatDate
+    , parseDateLax
+    , formatTime'
+    -- * Miscellaneous
     , throwMaybe
     , fpStr
     , strFp
-    , mnot
     , lookupDefined
-    , slugify
+    , mnot
     ) where
 
 
