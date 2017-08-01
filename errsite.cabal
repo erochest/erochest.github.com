@@ -1,0 +1,112 @@
+-- This file has been generated from package.yaml by hpack version 0.17.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           errsite
+version:        0.1.0.0
+synopsis:       ericrochester.com
+description:    My site
+category:       Web
+author:         Eric Rochester
+maintainer:     erochest@gmail.com
+license:        Apache-2.0
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+library
+  hs-source-dirs:
+      src
+  build-depends:
+      text
+    , base >=4.8 && <4.10
+    , aeson
+    , blaze-html
+    , bytestring
+    , containers
+    , directory
+    , errors
+    , filepath
+    , hakyll
+    , html-conduit
+    , lens
+    , lens-aeson
+    , lucid
+    , mtl
+    , network-uri
+    , pandoc
+    , regex-tdfa
+    , safe-exceptions
+    , shelly
+    , split
+    , text-format
+    , text-icu
+    , time >=1.5
+    , unordered-containers
+    , vector
+    , wreq
+    , xml-conduit
+    , xml-lens
+    , yaml
+  exposed-modules:
+      Sites
+      Sites.Actions.DotEnv
+      Sites.Actions.Draft
+      Sites.Actions.Deploy
+      Sites.Actions.Hakyll
+      Sites.Actions.Illiterate
+      Sites.Actions.Publish
+      Sites.Literate
+      Sites.Types
+      Sites.Utils
+  other-modules:
+      Sites.Base
+      Sites.CljDataAnalysis
+      Sites.CljDataMaster
+      Sites.Erochest
+      Sites.Git
+      Sites.Pager
+      Sites.Projects
+      Sites.Reading
+      Paths_errsite
+  default-language: Haskell2010
+
+executable errsite
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  build-depends:
+      text
+    , base >=4.8 && <4.10
+    , errsite
+    , errors
+    , hashable
+    , optparse-applicative
+    , time
+    , unordered-containers
+  other-modules:
+      Actions
+      Opts
+      Types
+  default-language: Haskell2010
+
+test-suite errsite-specs
+  type: exitcode-stdio-1.0
+  main-is: Specs.hs
+  hs-source-dirs:
+      specs
+  ghc-options: -threaded -rtsopts
+  build-depends:
+      text
+    , base
+    , errsite
+    , QuickCheck
+    , smallcheck
+    , hspec
+    , shelly
+    , time
+  other-modules:
+      Sites.Actions.DraftSpec
+      Sites.Actions.PublishSpec
+      Sites.UtilsSpec
+  default-language: Haskell2010

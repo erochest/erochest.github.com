@@ -1,0 +1,80 @@
+name: errsite
+version: '0.1.0.0'
+synopsis: ericrochester.com
+description: My site
+category: Web
+author: Eric Rochester
+maintainer: erochest@gmail.com
+license: Apache-2.0
+dependencies:
+- text
+library:
+  source-dirs: src
+  exposed-modules:
+  - Sites
+  - Sites.Actions.DotEnv
+  - Sites.Actions.Draft
+  - Sites.Actions.Deploy
+  - Sites.Actions.Hakyll
+  - Sites.Actions.Illiterate
+  - Sites.Actions.Publish
+  - Sites.Literate
+  - Sites.Types
+  - Sites.Utils
+  dependencies:
+  - base >=4.8 && <4.10
+  - aeson
+  - blaze-html
+  - bytestring
+  - containers
+  - directory
+  - errors
+  - filepath
+  - hakyll
+  - html-conduit
+  - lens
+  - lens-aeson
+  - lucid
+  - mtl
+  - network-uri
+  - pandoc
+  - regex-tdfa
+  - safe-exceptions
+  - shelly
+  - split
+  - text-format
+  - text-icu
+  - time >=1.5
+  - unordered-containers
+  - vector
+  - wreq
+  - xml-conduit
+  - xml-lens
+  - yaml
+executables:
+  errsite:
+    main: Main.hs
+    source-dirs: app
+    dependencies:
+    - base >=4.8 && <4.10
+    - errsite
+    - errors
+    - hashable
+    - optparse-applicative
+    - time
+    - unordered-containers
+tests:
+  errsite-specs:
+    main: Specs.hs
+    source-dirs: specs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    dependencies:
+    - base
+    - errsite
+    - QuickCheck
+    - smallcheck
+    - hspec
+    - shelly
+    - time
