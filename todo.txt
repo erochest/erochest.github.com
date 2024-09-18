@@ -3,7 +3,7 @@ x 2024-09-15 2024-09-15 previous pages
 x 2024-09-15 2024-09-15 remove existing pages
 x 2024-09-15 2024-09-15 https://www.ericrochester.com/posts/semantic-web/linked-open-data-rbs/index.html +posts
 x 2024-09-18 2024-09-15 https://www.ericrochester.com/posts/announcements/clj-data-analysis/index.html +posts
-2024-09-15 https://www.ericrochester.com/posts/code/aggregating-semantic-web-data/index.html +posts
+x 2024-09-18 2024-09-15 https://www.ericrochester.com/posts/code/aggregating-semantic-web-data/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/code/downloading-data-in-parallel/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/code/parallel-io-with-mmap/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/code/a-simple-dataflow-system/index.html +posts
@@ -42,3 +42,4 @@ x 2024-09-18 2024-09-15 https://www.ericrochester.com/posts/announcements/clj-da
 2024-09-15 https://www.ericrochester.com/clj-data-analysis/ +books-written
 2024-09-15 https://www.ericrochester.com/clj-data-master/ +books-written
 2024-09-15 digital garden
+2024-09-18 tags
