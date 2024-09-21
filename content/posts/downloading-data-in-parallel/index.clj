@@ -17,7 +17,7 @@ tags: clojure, data analysis, Clojure Data Analysis Cookbook, code
 ; really want to make better use of our Internet
 ; connection by downloading several at once.
 ;
-; <!--more-->
+; <!-- more -->
 ;
 ; This recipe does that. It chunks a sequence of URLs and
 ; downloads a block in parallel. It uses the

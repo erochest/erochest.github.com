@@ -9,7 +9,7 @@ I'm pleased to announce the release of the [*Clojure Data Analysis
 Cookbook*][packtclj], written by me, and published by [Packt
 Publishing][packt].
 
-<!--more-->
+<!-- more -->
 
 This book has practical recipes for every stage of the data analysis
 process:

@@ -25,7 +25,7 @@ I tried to present a gentle, mostly non-technical introduction to LOD, with an
 example of it in action. Hopefully, this posting will be a 50,000 foot overview
 also.
 
-<!--more-->
+<!-- more -->
 
 ## The Linked Open Data Universe
 
@@ -42,7 +42,7 @@ The first thing to know about LOD is that it’s everywhere. Look at the
 institutions are publishing data that anyone can use, and their data references
 others' data also.
 
-<!--more-->
+<!-- more -->
 
 ## Linked Data vs Open Data vs RDF Data
 
