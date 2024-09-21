@@ -7,7 +7,7 @@ x 2024-09-18 2024-09-15 https://www.ericrochester.com/posts/code/aggregating-sem
 x 2024-09-21 2024-09-15 https://www.ericrochester.com/posts/code/downloading-data-in-parallel/index.html +posts
 x 2024-09-21 2024-09-15 https://www.ericrochester.com/posts/code/parallel-io-with-mmap/index.html +posts
 x 2024-09-21 2024-09-15 https://www.ericrochester.com/posts/code/a-simple-dataflow-system/index.html +posts
-2024-09-15 https://www.ericrochester.com/posts/alt-ac/software-ma-humanities-student/index.html +posts
+x 2024-09-21 2024-09-15 https://www.ericrochester.com/posts/alt-ac/software-ma-humanities-student/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/announcements/clj-data-master/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/code/omeka-neatline-ansible/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/code/validating-data-with-types/index.html +posts
