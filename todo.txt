@@ -15,11 +15,11 @@ x 2024-09-24 2024-09-15 https://www.ericrochester.com/posts/thoughts/divisions/i
 x 2024-09-24 2024-09-15 https://www.ericrochester.com/posts/notes/energy-packets/index.html +posts
 x 2024-09-24 2024-09-15 https://www.ericrochester.com/posts/notes/read-it/index.html +posts
 x 2024-09-26 2024-09-15 https://www.ericrochester.com/posts/notes/pace-yourself/index.html +posts
-2024-09-15 https://www.ericrochester.com/posts/notes/finding-beauty/index.html +posts
-2024-09-15 https://www.ericrochester.com/posts/notes/joy/index.html +posts
+x 2024-09-26 2024-09-15 https://www.ericrochester.com/posts/notes/finding-beauty/index.html +posts
+x 2024-09-26 2024-09-15 https://www.ericrochester.com/posts/notes/joy/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/code/please-ignore/index.html +posts
-2024-09-15 https://www.ericrochester.com/posts/notes/thanksgiving-gratitude-memorial-and-poetry/index.html +posts
-2024-09-15 https://www.ericrochester.com/posts/notes/about-the-format/index.html +posts
+x 2024-09-26 2024-09-15 https://www.ericrochester.com/posts/notes/thanksgiving-gratitude-memorial-and-poetry/index.html +posts
+x 2024-09-26 2024-09-15 https://www.ericrochester.com/posts/notes/about-the-format/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/thoughts/flip-the-script/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/activism/the-long-haul/index.html +posts
 2024-09-15 https://www.ericrochester.com/posts/thoughts/hope/index.html +posts
