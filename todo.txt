@@ -41,5 +41,8 @@ x 2024-09-26 2024-09-15 https://www.ericrochester.com/posts/notes/pace-yourself/
 2024-09-15 https://www.ericrochester.com/reading-log/mieville-china/embassytown/ +reading-log
 2024-09-15 https://www.ericrochester.com/clj-data-analysis/ +books-written
 2024-09-15 https://www.ericrochester.com/clj-data-master/ +books-written
+2024-09-26 move things into subfolders (sections?) and remove "path" metadata
+2024-09-26 start files with date written
 2024-09-15 digital garden
 2024-09-18 tags
+2024-09-26 why are there categories and tags?
