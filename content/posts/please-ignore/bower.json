@@ -1,0 +1,19 @@
+{
+  "name": "please-ignore",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^3.0.0",
+    "purescript-console": "^3.0.0",
+    "purescript-dom": "^4.3.1",
+    "purescript-nullable": "^3.0.0",
+    "purescript-maybe": "^3.0.0"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^3.0.0"
+  }
+}
