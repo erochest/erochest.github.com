@@ -2,10 +2,10 @@
 title = "Reflections on the Way to the Gallows"
 resource = "http://www.worldcat.org/oclc/764532715"
 typeof = "Work"
-author = "Kanno Sugako"
+author.name = "Kanno Sugako"
 author.resource = "http://viaf.org/viaf/22978076"
 author.typeof = "Person"
-date = "2017-03-17T12:57:15"
+date = 2017-03-17T12:57:15
 categories = ["resist", "anarchism", "memoir", "everything-is-personal"]
 path = "/reading-log/sugako-kanno/reflections-on-the-way-to-the-gallows"
 +++

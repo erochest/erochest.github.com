@@ -1,9 +1,9 @@
 +++
 title = "Emperor Mollusk versus the Sinister Brain"
-author = "A. Lee Martinez"
-typeof = "Person"
-resource = "http://dbpedia.org/resource/A._Lee_Martinez"
-date = "2016-07-28T11:28:50-0400"
+author.name = "A. Lee Martinez"
+author.typeof = "Person"
+author.resource = "http://dbpedia.org/resource/A._Lee_Martinez"
+date = 2016-07-28T11:28:50-04:00
 typeof = "Work"
 resource = "http://www.worldcat.org/oclc/707964746"
 categories = ["science-fiction", "fantasy", "humor"]

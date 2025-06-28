@@ -1,6 +1,6 @@
 +++
 title = "Clojure Data Analysis Cookbook"
-date = "2013-03-27T05:00:00Z"
+date = 2013-03-27T05:00:00Z
 tags = ["writing", "clojure", "data"]
 path = "posts/announcements/clj-data-analysis"
 +++

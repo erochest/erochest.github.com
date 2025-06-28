@@ -1,6 +1,6 @@
 +++
 title = "Linked Open Data at the Rare Book School"
-date = "2011-07-21T20:39:00Z"
+date = 2011-07-21T20:39:00Z
 tags = ["LOD", "LODLAM", "tutorial", "Python", "code", "RDF", "LoC"]
 path = "posts/semantic-web/linked-open-data-rbs"
 +++

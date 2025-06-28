@@ -1,9 +1,9 @@
 +++
 title = "Skellig"
-author = "David Almond"
+author.name = "David Almond"
 author.typeof = "Person"
 author.resource = "http://dbpedia.org/resource/David_Almond"
-date = "2016-07-28T09:39:13-0400"
+date = 2016-07-28T09:39:13-04:00
 categories = ["young-adult", "fantasy", "magic-realism"]
 resource = "http://www.worldcat.org/oclc/39129781"
 typeof = "Work"

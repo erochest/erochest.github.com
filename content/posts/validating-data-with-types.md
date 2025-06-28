@@ -1,6 +1,6 @@
 +++
 title = "Validating Data with Types"
-date = "2015-05-22T17:00:00Z"
+date = 2015-05-22T17:00:00Z
 categories = [ "scholars-lab", "data", "haskell" ]
 +++
 

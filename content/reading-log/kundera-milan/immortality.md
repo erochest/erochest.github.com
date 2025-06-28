@@ -2,10 +2,10 @@
 title = "Immortality"
 resource = "http://www.worldcat.org/oclc/961230619"
 typeof = "Work"
-author = "Milan Kundera"
+author.name = "Milan Kundera"
 author.resource = "http://viaf.org/viaf/51691735"
 author.typeof = "Person"
-date = "2017-03-16T10:46:16"
+date = 2017-03-16T10:46:16
 categories = ["fame"]
 path = "/reading-log/kundera-milan/immortality"
 +++

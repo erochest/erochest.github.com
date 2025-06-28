@@ -2,10 +2,10 @@
 title = "Embassytown"
 resource = "http://www.worldcat.org/oclc/870498057"
 typeof = "Work"
-author = "China Miéville"
+author.name = "China Miéville"
 author.resource = "http://viaf.org/viaf/100992516"
 author.typeof = "Person"
-date = "2017-04-11T10:25:22"
+date = 2017-04-11T10:25:22
 categories = ["language", "sff"]
 path = "/reading-log/mieville-china/embassytown"
 +++

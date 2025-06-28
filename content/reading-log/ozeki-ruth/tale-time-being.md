@@ -1,11 +1,11 @@
 +++
 title = "A Tale for the Time Being"
-author = "Ruth Ozeki"
+author.name = "Ruth Ozeki"
 author.typeof = "Person"
 author.resource = "http://dbpedia.org/resource/Ruth_Ozeki"
 typeof = "Work"
 resource = "http://www.worldcat.org/oclc/796756004"
-date = "2016-08-03T06:45:08-0400"
+date = 2016-08-03T06:45:08-04:00
 path = "/reading-log/ozeki-ruth/tale-time-being"
 +++
 
@@ -33,5 +33,3 @@ of which, picked at pseudo-random:
 And probably most importantly, I set it down and immediately started
 planning when I would re-read it. I'd like to read more of the works that
 I've listed above, but once I do, I plan to revisit this world again.
-
-[gallows]: /reading-log/sugako-kanno/reflections-way-to-gallows/

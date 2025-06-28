@@ -2,10 +2,10 @@
 title = "Real Happiness: The Power of Meditation"
 resource = "http://www.worldcat.org/oclc/778612466"
 typeof = "Work"
-author = "Sharon Salzberg"
+author.name = "Sharon Salzberg"
 author.resource = "http://viaf.org/viaf/17290654"
 author.typeof = "Person"
-date = "2017-03-15T10:32:14"
+date = 2017-03-15T10:32:14
 categories = ["meditation", "contemplation", "how-to"]
 path = "/reading-log/salzberg-sharon/real-happiness--the-power-of-meditation"
 +++

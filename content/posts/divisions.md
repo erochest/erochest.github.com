@@ -1,6 +1,6 @@
 +++
 title = "Divisions"
-date = "2016-11-08T19:22:18"
+date = 2016-11-08T19:22:18
 path = "posts/thoughts/divisions"
 +++
 

@@ -1,6 +1,6 @@
 +++
 title = "Downloading Data in Parallel"
-date = "2013-04-29T13:04:02Z"
+date = 2013-04-29T13:04:02Z
 tags = ["clojure", "data analysis", "Clojure Data Analysis Cookbook", "code"]
 path = "posts/code/downloading-data-in-parallel"
 +++

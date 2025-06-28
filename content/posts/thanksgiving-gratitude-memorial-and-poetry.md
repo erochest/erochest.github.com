@@ -1,6 +1,6 @@
 +++
 title = "'Thanksgiving: Gratitude, Memorial, and Poetry'"
-date = "2016-11-27T16:52:33"
+date = 2016-11-27T16:52:33
 path = "posts/notes/thanksgiving-gratitude-memorial-and-poetry"
 +++
 

@@ -1,6 +1,6 @@
 +++
 title = "Please Ignore"
-date = "2016-11-21T15:20:04"
+date = 2016-11-21T15:20:04
 categories = []
 div_class = "please-ignore"
 path = "/posts/code/please-ignore"

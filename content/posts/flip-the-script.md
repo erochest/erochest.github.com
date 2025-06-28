@@ -1,6 +1,6 @@
 +++
 title = "#FlipTheScript"
-date = "2017-01-18T19:53:36"
+date = 2017-01-18T19:53:36
 categories = []
 path = "/posts/thoughts/flip-the-script"
 +++

@@ -1,6 +1,6 @@
 +++
 categories = [ "care", "activism" ]
-date = "2017-02-02T02:38:32"
+date = 2017-02-02T02:38:32
 title = "The Long Haul"
 path = "/posts/activism/the-long-haul"
 +++
@@ -26,7 +26,6 @@ And it mentions using one of the daily action lists that are going around as a w
 It seems like looking away and daily action can work together. I'm more likely to give myself permission to look away if I am intentionally doing something small every day. It also mentioned that these lists can help make doing something fun.
 
 Speaking of fun, I'll leave you with this list of ["Concrete Actions Progressives Can Take During Trump's Presidency."][actions] Ouch.
-
 
 [actions]: https://www.mcsweeneys.net/articles/concrete-actions-progressives-can-take-during-trumps-presidency
 [dailyaction]: https://dailyaction.org/

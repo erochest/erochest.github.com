@@ -1,6 +1,6 @@
 +++
 title = "Omeka, Neatline, Mac, development, oh my!"
-date = "2014-08-29T20:30:00Z"
+date = 2014-08-29T20:30:00Z
 categories = [ "omeka", "scholars-lab", "neatline", "ansible", "devops" ]
 path = "posts/code/omeka-neatline-ansible"
 +++

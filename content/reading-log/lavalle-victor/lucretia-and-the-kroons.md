@@ -1,9 +1,9 @@
 +++
 title = "Lucretia and the Kroons"
-author = "Victor LaValle"
+author.name = "Victor LaValle"
 author.resource = "http://dbpedia.org/resource/Victor_LaValle"
 author.typeof = "Person"
-date = "2016-07-27T09:30:53-0400"
+date = 2016-07-27T09:30:53-04:00
 categories = ["fantasy", "horror", "young-adult"]
 resource = "http://www.worldcat.org/oclc/803529730"
 typeof = "Work"

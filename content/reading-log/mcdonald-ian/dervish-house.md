@@ -1,11 +1,11 @@
 +++
 title = "The Dervish House"
-author = "Ian McDonald"
-typeof = "Person"
-resource = "http://dbpedia.org/resource/Ian_McDonald_(author)"
+author.name = "Ian McDonald"
+author.typeof = "Person"
+author.resource = "http://dbpedia.org/resource/Ian_McDonald_(author)"
 typeof = "Work"
 resource = "http://www.worldcat.org/oclc/466343581"
-date = "2016-08-01T20:45:43-0400"
+date = 2016-08-01T20:45:43-04:00
 categories = ["science-fiction", "postcyberpunk"]
 path = "/reading-log/mcdonald-ian/dervish-house"
 +++

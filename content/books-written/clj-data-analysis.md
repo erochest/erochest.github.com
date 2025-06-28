@@ -1,6 +1,6 @@
 +++
 title = "Clojure Data Analysis Cookbook"
-date = "2013-03-27"
+date = 2013-03-27
 path = "/clj-data-analysis"
 +++
 
@@ -258,7 +258,6 @@ This is a compressed copy of data on US domestic flights from 1990–2009.
 
 <div class='bottom'></div>
 
-[packt]: http://www.packtpub.com/
 [packtclj]: http://www.packtpub.com/clojure-data-analysis-cookbook/book
 [amazon]: http://www.amazon.com/gp/product/B00BECVV9C/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00BECVV9C&linkCode=as2&tag=httpwwwericro-20
 
@@ -287,14 +286,11 @@ This is a compressed copy of data on US domestic flights from 1990–2009.
 [wikip]: http://en.wikipedia.org/wiki/Doctor_Who_companions
 [drwho]: http://www.bbc.co.uk/programmes/b006q2x0
 
-[fasta]: http://blast.ncbi.nlm.nih.gov/blastcgihelp.shtml
 
 [gfinance]: https://www.google.com/finance
 
 [gutenberg]: http://www.gutenberg.org/
-[holmes]: http://www.gutenberg.org/ebooks/1661
 
 [norvig]: http://norvig.com/spell-correct.html
 
 [worldbank]: http://data.worldbank.org/
-

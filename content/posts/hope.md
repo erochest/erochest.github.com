@@ -1,6 +1,6 @@
 +++
 categories = [ "mindfulness",  "hope" ]
-date = "2017-04-12T10:29:24"
+date = 2017-04-12T10:29:24
 title = "Hope"
 path = "/posts/thoughts/hope"
 +++

@@ -1,9 +1,9 @@
 +++
 title = "The Year of the Flood"
-author = "Margaret E. Atwood"
+author.name = "Margaret E. Atwood"
 author.resource = "http://viaf.org/viaf/109322990"
 author.typeof = "Person"
-date = "2017-01-18T15:17:48"
+date = 2017-01-18T15:17:48
 categories = ["sff", "postapocalyptic", "dystopian", "extinction", "ecology"]
 path = "/reading-log/atwood-margaret-e-/the-year-of-the-flood"
 resource = "http://www.worldcat.org/oclc/899253021"

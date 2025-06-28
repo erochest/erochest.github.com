@@ -2,10 +2,10 @@
 title = "Kraken"
 resource = "http://www.worldcat.org/oclc/696023351"
 typeof = "Work"
-author = "China Miéville"
+author.name = "China Miéville"
 author.resource = "http://viaf.org/viaf/100992516"
 author.typeof = "Person"
-date = "2017-03-20T10:27:09"
+date = 2017-03-20T10:27:09
 categories = ["sff", "fantasy", "belief"]
 path = "/reading-log/mieville-china/kraken"
 +++

@@ -1,6 +1,6 @@
 +++
 title = "Mastering Clojure Data Analysis"
-date = "2014-06-04"
+date = 2014-06-04
 path = "/clj-data-master"
 +++
 

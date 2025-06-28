@@ -1,6 +1,6 @@
 +++
 title = "A Simple Dataflow System"
-date = "2013-06-05T14:16:02Z"
+date = 2013-06-05T14:16:02Z
 tags = [ "clojure", "data analysis", "Clojure Data Analysis Cookbook", "code" ]
 +++
 

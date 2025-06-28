@@ -1,9 +1,9 @@
 +++
 title = "New Seeds of Contemplation"
-author = "Thomas Merton"
+author.name = "Thomas Merton"
 author.resource = "http://viaf.org/viaf/54151446"
 author.typeof = "Person"
-date = "2017-01-06T19:26:53"
+date = 2017-01-06T19:26:53
 categories = ["meditation", "contemplation"]
 path = "/reading-log/merton-thomas/new-seeds-of-contemplation"
 resource = "http://www.worldcat.org/oclc/2778739"

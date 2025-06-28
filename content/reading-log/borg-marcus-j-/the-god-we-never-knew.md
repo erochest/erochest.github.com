@@ -2,10 +2,10 @@
 title = "The God We Never Knew: Beyond Dogmatic Religion to a More Authentic Contemporary Faith"
 resource = "http://www.worldcat.org/oclc/318910903"
 typeof = "Work"
-author = "Marcus J. Borg"
+author.name = "Marcus J. Borg"
 author.resource = "http://viaf.org/viaf/54260255"
 author.typeof = "Person"
-date = "2017-04-06T10:40:58"
+date = 2017-04-06T10:40:58
 categories = ["progressive-christianity", "panentheism", "spirituality"]
 path = "/reading-log/borg-marcus-j-/the-god-we-never-knew"
 +++

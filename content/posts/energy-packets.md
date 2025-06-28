@@ -1,6 +1,6 @@
 +++
 title = "Energy Packets/Waves"
-date = "2016-11-09T14:07:24"
+date = 2016-11-09T14:07:24
 path = "posts/notes/energy-packets"
 +++
 

@@ -1,9 +1,9 @@
 +++
 title = "Hello Kitty Must Die"
-author = "Angela S. Choi"
+author.name = "Angela S. Choi"
 author.resource = "http://viaf.org/viaf/120524420/"
 author.typeof = "Person"
-date = "2016-07-22T20:52:59-0400"
+date = 2016-07-22T20:52:59-04:00
 categories = ["mystery", "asian-american", "women", "humor"]
 resource = "http://www.worldcat.org/oclc/456179132"
 typeof = "Work"

@@ -1,9 +1,9 @@
 +++
 title = "When the Sea Turned to Silver"
-author = "Grace Lin"
+author.name = "Grace Lin"
 author.resource = "http://viaf.org/viaf/171250254"
 author.typeof = "Person"
-date = "2017-02-07T11:50:25"
+date = 2017-02-07T11:50:25
 categories = ["asian-american", "folklore", "china", "young-adult", "bildungsroman", "sff", "women"]
 resource = "http://www.worldcat.org/oclc/935196577"
 typeof = "Work"

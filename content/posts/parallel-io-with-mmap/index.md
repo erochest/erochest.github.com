@@ -1,6 +1,6 @@
 +++
 title = "Parallel IO with mmap"
-date = "2013-05-22T13:33:00Z"
+date = 2013-05-22T13:33:00Z
 tags = [ "clojure", "data analysis", "Clojure Data Analysis Cookbook", "code" ]
 path = "posts/code/parallel-io-with-mmap"
 +++

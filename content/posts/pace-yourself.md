@@ -1,6 +1,6 @@
 +++
 title = "Pace Yourself"
-date = "2016-11-14T02:16:56"
+date = 2016-11-14T02:16:56
 path = "posts/notes/pace-yourself"
 +++
 

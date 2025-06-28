@@ -1,6 +1,6 @@
 +++
 title = "Read It!"
-date = "2016-11-12T12:33:59"
+date = 2016-11-12T12:33:59
 path = "posts/notes/read-it"
 +++
 

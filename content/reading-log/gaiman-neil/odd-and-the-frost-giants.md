@@ -1,9 +1,9 @@
 +++
 title = "Odd and the Frost Giants"
-author = "Neil Gaiman"
+author.name = "Neil Gaiman"
 author.resource = "http://viaf.org/viaf/103859257"
 author.typeof = "Person"
-date = "2017-01-13T12:01:15"
+date = 2017-01-13T12:01:15
 categories = ["young-adult", "sff", "bildungsroman"]
 path = "/reading-log/gaiman-neil/odd-and-the-frost-giants"
 resource = "http://www.worldcat.org/oclc/191931608"

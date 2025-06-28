@@ -1,6 +1,6 @@
 +++
 title = "Mastering Clojure Data Analysis"
-date = "2014-06-04T07:36:58Z"
+date = 2014-06-04T07:36:58Z
 tags = [ "writing", "clojure", "data" ]
 path = "posts/announcement/clojure-data-master"
 +++

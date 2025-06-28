@@ -1,5 +1,5 @@
 +++
-date = "2017-01-11T11:52:49"
+date = 2017-01-11T11:52:49
 title = "About the Format"
 categories = ["meta"]
 +++
