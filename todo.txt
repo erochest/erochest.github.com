@@ -46,3 +46,4 @@ x 2025-06-19 2024-09-15 https://www.ericrochester.com/clj-data-master/ +books-wr
 2024-09-15 digital garden
 2024-09-18 tags
 2024-09-26 why are there categories and tags?
+2025-06-28 link on home page for writing and reading sections
