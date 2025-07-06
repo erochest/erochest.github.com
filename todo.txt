@@ -1,7 +1,7 @@
-2024-09-15 about page
+x 2025-07-06 2024-09-15 about page
 2024-09-26 move things into subfolders (sections?) and remove "path" metadata
 2024-09-26 start files with date written
 2024-09-15 digital garden
 2024-09-18 tags
 2024-09-26 why are there categories and tags?
-2025-06-28 link on home page for writing and reading sections
+x 2025-07-06 2025-06-28 link on home page for writing and reading sections
