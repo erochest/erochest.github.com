@@ -6,8 +6,6 @@ path = "/clj-data-analysis"
 
 ## Clojure Data Analysis Cookbook
 
-<img class='bookframe' src='http://dgdsbygo8mp3h.cloudfront.net/sites/default/files/imagecache/productview_larger/2643OS_0.jpg'/>
-
 Looking to use Clojure for data analysis?
 
 This book covers [Incanter][incanter], [Weka][weka], and even goes into

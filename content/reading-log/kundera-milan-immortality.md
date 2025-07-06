@@ -10,7 +10,7 @@ categories = ["fame"]
 path = "/reading-log/kundera-milan/immortality"
 +++
 
-<img src="../IMG_20160503_215024.jpg" width="40%" style="float: right;">
+<img src="IMG_20160503_215024.jpg" width="40%" style="float: right;">
 
 Kundera has been one of those writers I've wanted to read more of. A friend (who loves Kundera's work) suggested this one, and I bit.
 
